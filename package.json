@@ -1,0 +1,16 @@
+{
+  "name": "Capstone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+   "scripts": {
+    "build:css": "tailwind build src/style.css -o dist/style.css"
+  },
+  "dependencies": {
+    "tailwindcss": "^1.1.2"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
