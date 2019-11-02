@@ -1,0 +1,10 @@
+Flask
+flask-compress
+Flask-Session
+whoosh
+bs4
+lxml
+requests
+psycopg2-binary
+SQLAlchemy
+Flask-WTF
