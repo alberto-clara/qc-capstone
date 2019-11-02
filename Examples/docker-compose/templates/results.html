@@ -1,0 +1,65 @@
+{% extends "searchbar.html" %}
+{% block title %}Fishy Results{% endblock%}
+{% block head %}
+{{super()}}
+<style type="text/css">
+body {
+	background-image: url("{{ url_for('static',filename='find.jpg') }}");
+}
+</style>
+{% endblock %}
+{% block content %}
+{{super()}}
+<div class="ui main container">
+<div class="ui segments">
+	<div class="ui segment">
+		<h2 class="ui center aligned header">You searched for: {{session['query']}}</h2>
+	</div>
+	<div class="ui segment">
+		<div class="ui inverted items">
+			{% for i, t, d in results %}
+			<div class="item">
+				<div class="content">
+					<a href="{{ url_for('details',id=i) }}" class="header">{{t}}</a>
+					<div class="description">
+						<p>{{d}}</p>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+<div role="navigation" class="ui pagination menu">
+	{% if pagination.has_prev %}
+	<a aria-current='false' tabindex='0' 
+		href="{{ url_for_other_page(pagination.page -1)}}"
+		value='1' aria-label='Previous Item' 
+		type='prevItem' class='item'>⟨</a>
+	{% endif %}
+	{%- for page in pagination.iter_pages() %}
+		{% if page %}
+			<a
+			{% if page != pagination.page %}
+				aria-current = 'false' class = "item"
+			{% else %}
+				aria-current = 'true' class="active item" 
+			{% endif %}
+			value="{{ page }}" class="item" href="{{ url_for_other_page(page) }}">{{ page }}</a>
+		{% else %}
+		<a aria-current='false' tabindex='-1' value='7' type='ellipsisItem' class='disabled item'>...</a>
+		{% endif %}
+	{%- endfor %}
+	{% if pagination.has_next %}
+	<a aria-current='false' tabindex='0'
+	href="{{ url_for_other_page(pagination.page +1)}}"
+    value='6' aria-label='Next item'
+    type='nextItem' class='item'>⟩</a>
+	{% endif %}	
+</div>
+</div>
+{% endblock %}
+{% block footer %}
+<span>Retreived {{session.get('result_count','0')}} Entries in {{session.get('result_time','0')}} milliseconds</span>
+{{ super() }}
+{% endblock %}

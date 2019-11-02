@@ -1,0 +1,21 @@
+{% extends "searchbar.html" %}
+{% block title %}Fishy Results{% endblock%}
+{% block head %}
+{{super()}}
+<style type="text/css">
+body {
+	background-image: url("{{ url_for('static',filename='notFound.jpg') }}");
+}
+</style>
+{% endblock %}
+{% block content %}
+{{super()}}
+<div class="ui main container">
+		<div class="ui notfound segments">
+			<div class="ui inverted items">
+			<p style="text-align: center; font-size: 24px" >The fish you wish to buy was eaten by the big fish bellow :( </p>
+			<p style="text-align: center; font-size: 24px" >Nemo's family is next!</p>
+			</div>
+		</div>
+</div>
+{% endblock %}
