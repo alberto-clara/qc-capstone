@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\back-end",
+    "\\back-end\\Api",
+    "\\back-end\\Api\\ApiGateway",
+    "\\back-end\\Api\\ApiGateway\\bin\\Debug",
+    "\\back-end\\Api\\ApiGateway\\bin\\Release",
+    "\\back-end\\Api\\ApiGateway\\Controllers",
+    "\\back-end\\Api\\ApiGateway\\obj",
+    "\\back-end\\Api\\ApiGateway\\obj\\Release",
+    "\\back-end\\Api\\CatalogApi"
+  ],
+  "SelectedNode": "\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
+  "PreviewInSolutionExplorer": false
+}
