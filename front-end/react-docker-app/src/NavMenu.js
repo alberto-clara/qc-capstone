@@ -11,8 +11,8 @@ export default props => (
             <Navbar.Toggle />
     
             <Nav>
-                <Link to={'/'} exact>
-                    <NavItem> Home</NavItem>      
+                <Link to={'/signuppage'}>
+                    <NavItem> Sign Up Page</NavItem>      
                 </Link>
             </Nav>
 
