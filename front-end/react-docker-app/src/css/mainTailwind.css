@@ -11408,6 +11408,10 @@ video {
   width: 100%;
 }
 
+.typingArea:focus {
+  background-color: #edf2f7;
+}
+
 .signInButton {
   border-radius: 0.5rem;
   width: 100%;
@@ -11445,6 +11449,10 @@ video {
           justify-content: flex-end;
   font-weight: 700;
   text-decoration: underline;
+}
+
+.forgetText:hover{
+  color: #dd6b20
 }
 
 .fullPage{

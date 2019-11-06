@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import '../css/mainTailwind.css';
@@ -11,8 +12,8 @@ export class SignUpPage extends Component {
                 <h1 className=" titlePage lg:text-3xl"> Create Account</h1>
                 <Form className="relative justify-center flex mb-4 content-center ">  
                     <div className="fullPage lg:w-1/3"/>
-                    <FormGroup className="fullPage lg:w-1/3 " action="#" onSubmit={this.authorize}>                  
-                        <p className="largeBold lg:text-lg">Email:</p>
+                    <FormGroup className="fullPage lg:w-1/3 " action="#" onSubmit={this.authorize}>
+                        <p className="largeBold lg:text-lg">Email: </p>
                         <FormControl className="typingArea lg:h-10" type="email" placeholder="Enter Email"/>
                         <br /> <br />            
                         <p className="text-lg font-bold">Password:</p>
@@ -37,8 +38,8 @@ export class SignUpPage extends Component {
                         <br />  <br /> 
                         <p className="flex justify-center text-sm lg:text-xl"> By clicking 'Create Account' you are agreeing to the Terms & Conditions and Privacy & Security Statement below</p>
                         <br /> 
-                        <p className="boldBlueTerm">My Account Terms & Conditions </p>
-                        <p className="boldBlueTerm">Privacy & Security Statement</p>
+                        <p className="boldBlueTerm lg:text-lg">My Account Terms & Conditions </p>
+                        <p className="boldBlueTerm lg:text-lg">Privacy & Security Statement</p>
                         <br/>
                     </FormGroup>
                     <div className="fullPage lg:w-1/3"/>

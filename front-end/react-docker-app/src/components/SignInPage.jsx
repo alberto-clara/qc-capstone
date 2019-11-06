@@ -27,12 +27,12 @@ export class SignInPage extends Component {
                     <FormGroup className="fullPage lg:w-1/3 " action="#">                  
                         <p className="largeBold lg:text-lg">Email:</p>
                         <FormControl id= 'emailForm' className="typingArea lg:h-10" type="email" placeholder="Enter Email" />
-                        <Link to={'/forgotemail'}> <p className="forgetText">Forgot email?</p></Link>
+                        <p className="forgetText"><Link to={'/forgotemail'}> Forgot email?</Link></p>
                         <p className="text-lg font-bold">Password:</p>
-                        <FormControl id='passForm' className="typingArea lg:h-10"  type="password" placeholder="Enter Password" />
-                        <Link to={'/forgotpassword'}><p className="forgetText">Forgot password?</p></Link>
+                        <FormControl id='passForm' className="typingArea lg:h-10" type="password" placeholder="Enter Password" />
+                        <p className="forgetText"><Link to={'/forgotpassword'}>Forgot password?</Link></p>
                         <br/>
-                        <button className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" type="submit" onClick={this.triggerFunction}  >Sign In</button>
+                        <button className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" type="submit" onClick={this.triggerFunction}>Sign In</button>
                         <br />
                         <p className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view  <p className="pl-1 underline">more details</p> </p>
                         <br />
@@ -40,8 +40,8 @@ export class SignInPage extends Component {
                         <p className="flex justify-center text-sm lg:text-xl"> Take a few moments and sign up today!</p>
                         <br/>
                         <Link to={'/signuppage'}><button className=" signInCreateButton hover:bg-gray-200 lg:h-12 lg:text-xl " type="submit">Create Account </button></Link>
-                        <p className="boldBlueTerm">My Account Terms & Conditions </p>
-                        <p className="boldBlueTerm">Privacy & Security Statement</p>
+                        <p className="boldBlueTerm lg:text-lg">My Account Terms & Conditions </p>
+                        <p className="boldBlueTerm lg:text-lg">Privacy & Security Statement</p>
                         <br/>
                     </FormGroup>
                     <div className="fullPage lg:w-1/3"/>
