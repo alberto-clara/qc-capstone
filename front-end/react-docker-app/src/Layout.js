@@ -1,13 +1,12 @@
-import { Col, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
+import { Route } from 'react-router';
 import React from 'react';
-import NavMenu from './NavMenu'
+import NavTitle from './NavTitle';
+import NavMenu from './NavMenu';
 export default props => (
     <Row>
+        <NavTitle />
         <NavMenu />
-        <Col sm={1} />
-
-        <Col sm={10}>
             {props.children}
-        </Col>
     </Row>
 );

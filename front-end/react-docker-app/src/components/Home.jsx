@@ -1,10 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import '../tailerUse.css'
 export const Home = props => (
     <div>
-        <h1>Hello, world Home!</h1>
-        <Link to="/signinpage">
-            SigninPlease</Link>
-        
+        <h1 className="text text-red-500 text-center font-black" >Hello, HomeDepot!</h1>
     </div>
 );
