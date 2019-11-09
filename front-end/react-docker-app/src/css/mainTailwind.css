@@ -11452,26 +11452,12 @@ video {
 }
 
 .forgetText:hover{
-  color: #dd6b20;
+  color: #dd6b20
 }
 
 .fullPage{
   margin-left: 1rem;
   margin-right: 1rem;
-}
-
-#loader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-          align-items: center;
 }
 
 @media (min-width: 640px) {

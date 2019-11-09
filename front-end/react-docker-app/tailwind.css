@@ -28,11 +28,8 @@
    @apply flex justify-end font-bold underline;
 }
 .forgetText:hover{
-    @apply text-orange-600;
+    @apply text-orange-600
 }
 .fullPage{
    @apply mx-4;
-}
-#loader {
-    @apply fixed top-0 left-0 w-full h-full flex justify-center items-center;
 }

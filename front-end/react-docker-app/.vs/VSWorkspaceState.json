@@ -3,8 +3,9 @@
     "",
     "\\src",
     "\\src\\components",
-    "\\src\\css"
+    "\\src\\css",
+    "\\src\\scriptnode"
   ],
-  "SelectedNode": "\\src\\App.js",
+  "SelectedNode": "\\src\\NavMenu.js",
   "PreviewInSolutionExplorer": false
 }
