@@ -11393,14 +11393,12 @@ video {
   text-align: center;
 }
 
-.largeBold
-{
+.largeBold {
   font-size: 1rem;
   font-weight: 700;
 }
 
-.typingArea
-{
+.typingArea {
   border-radius: 0.5rem;
   border-color: #dd6b20;
   border-width: 2px;
@@ -11452,7 +11450,7 @@ video {
 }
 
 .forgetText:hover{
-  color: #dd6b20
+  color: #dd6b20;
 }
 
 .fullPage{
