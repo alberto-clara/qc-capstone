@@ -4,24 +4,22 @@ import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import React,{ useState } from 'react';
 import '../css/mainTailwind.css';
 import FireBaseSetup from '../FireBaseSetup';
+import { Home } from './Home';
 
-export function SignInPage() {
+export function SignInPage(props) {
     const [emailLogin, setEmail] = useState('');
     const [passwordLogin, setPassword] = useState('');
-    const [authorized, setAuthorized] = useState(false);
-    async function handelchange() {
+     function handelchange() {
         console.log(emailLogin); console.log(passwordLogin);
         try {
-            if (FireBaseSetup.login(emailLogin, passwordLogin)) {
-                setAuthorized(true);
-            };
-           
+            FireBaseSetup.login(emailLogin, passwordLogin);
+            return     props.history.push('/');
             
         } catch (error) {
-            alert(error.message);
+            console.log(error.message);
         }
     }
-    
+ 
     const login = (
         <div>
             <div className=" titlePage lg:text-3xl"> My Account</div>
@@ -35,7 +33,7 @@ export function SignInPage() {
                     <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="current-password typingArea lg:h-10" type="password" placeholder="Enter Password" />
                     <div className="forgetText"><Link to={'/forgotpassword'}>Forgot password?</Link></div>
                     <br />
-                    <button className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={handelchange} type="submit">Sign In</button>
+                    <button  className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={handelchange} type="submit">Sign In</button>
                     <br />
                     <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view  <div className="pl-1 underline">more details</div> </div>
                     <br />
@@ -53,7 +51,7 @@ export function SignInPage() {
         </div>);
     return (
         <div>
-            {authorized? <Redirect to='/' /> : login} 
+            {login} 
         </div>
         )
 }
