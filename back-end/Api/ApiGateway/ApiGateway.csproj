@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FirebaseAdmin" Version="1.9.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="ocelot" Version="11.0.2"/>
+    <PackageReference Include="ocelot" Version="11.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 

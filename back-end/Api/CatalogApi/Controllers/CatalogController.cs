@@ -22,10 +22,27 @@ namespace CatalogApi.Controllers
             _catalogContext = context;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return Ok(_catalogContext.products.ToArray());
         }
+
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(Products), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<Products>> ItemByIdAsync(string id)
+        {
+            if (id == null) return BadRequest();
+
+            var item = await _catalogContext.products.SingleOrDefaultAsync(a => a.Id == id);
+
+            if (item != null) return Ok(item);
+
+            return NotFound();
+        } 
 /*        public CatalogController(CatalogContext context)
         {
             _catalogContext = context ?? throw new ArgumentNullException(nameof(context));

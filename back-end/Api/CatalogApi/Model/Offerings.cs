@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace CatalogApi.Model {
-    public class CatalogOfferings {
+    public class Offerings {
 
         public string Id { get; set; }
         public int Created_date { get; set; }
@@ -13,6 +13,6 @@ namespace CatalogApi.Model {
         public string Product_key { get; set; }
         public string Supplier_key { get; set; }
 
-        public CatalogOfferings() { }
+        public Offerings() { }
     }
 }
