@@ -16,7 +16,7 @@ export default props => (
                 <a href="#responsive-header" className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
                     Special & Offers
                 </a>
-                <Link to={'/'}>
+                <Link to={'signinpage'}>
                     <a className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
                         My Account
                     </a>
