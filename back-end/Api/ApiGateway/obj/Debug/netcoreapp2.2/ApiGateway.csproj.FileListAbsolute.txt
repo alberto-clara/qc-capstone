@@ -1,0 +1,14 @@
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.deps.json
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.runtimeconfig.json
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.runtimeconfig.dev.json
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.dll
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.csprojAssemblyReference.cache
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.csproj.CoreCompileInputs.cache
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorAssemblyInfo.cache
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorAssemblyInfo.cs
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.AssemblyInfoInputs.cache
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.AssemblyInfo.cs
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorTargetAssemblyInfo.cache
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.pdb
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.dll
+C:\Users\Tormentt\Documents\GitHub\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.pdb

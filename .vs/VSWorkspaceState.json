@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "\\back-end",
+    "\\back-end\\Api",
+    "\\back-end\\Api\\ApiGateway",
+    "\\back-end\\Api\\ApiGateway\\Controllers",
+    "\\back-end\\Api\\ApiGateway\\obj",
+    "\\back-end\\Api\\ApiGateway\\obj\\Release",
+    "\\back-end\\Api\\CatalogApi",
+    "\\back-end\\Api\\CatalogApi\\Model",
+    "\\back-end\\Api\\test"
+  ],
+  "PreviewInSolutionExplorer": false
+}
