@@ -42,31 +42,26 @@ namespace CatalogApi.Controllers
             if (item != null) return Ok(item);
 
             return NotFound();
-        } 
-/*        public CatalogController(CatalogContext context)
-        {
-            _catalogContext = context ?? throw new ArgumentNullException(nameof(context));
-        } */
+        }
 
-        // GET api/currencies
-//        [HttpGet, Route("")]
-//        [ProducesResponseType(typeof(PaginatedItemsViewModel<CatalogProducts>), (int)HttpStatusCode.OK)]
-/*        public async Task<IActionResult> Items([FromQuery]int pageSize = 10,
+        // GET api/products/page[?pageSize=3&pageIndex=10]
+        [HttpGet, Route("page")]
+        [ProducesResponseType(typeof(PaginatedItemsViewModel<Products>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Items([FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
-            var totalItems = await _catalogContext.CatalogProducts.LongCountAsync();
-            var itemsOnPage = await _catalogContext.CatalogProducts
+            var totalItems = await _catalogContext.products.LongCountAsync();
+            var itemsOnPage = await _catalogContext.products
                 .OrderBy(c => c.Product_name)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
                 .ToListAsync();
 
- //           itemsOnPage = ChangeUriPlaceholder(itemsOnPage);
 
-            var model = new PaginatedItemsViewModel<CatalogProducts>(
+            var model = new PaginatedItemsViewModel<Products>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
 
             return Ok(model);
-            } */
+            }
     }
 }

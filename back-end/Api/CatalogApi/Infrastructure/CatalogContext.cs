@@ -10,6 +10,7 @@
         public CatalogContext(DbContextOptions<CatalogContext> options) : base(options)
         {
         }
+
         public DbSet<Offerings> offerings { get; set; }
         public DbSet<Products> products { get; set; }
         public DbSet<Suppliers> suppliers { get; set; }
