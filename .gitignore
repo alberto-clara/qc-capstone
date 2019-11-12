@@ -1,6 +1,10 @@
-back-end/Api/.vs
+back-end/Api/.vs/
+back-end/Api/ApiGateway/.vs/
+back-end/Api/ApiGateway/.vs/
+front-end/.vs/
 .vs/
-back-end/Api/ApiGateway/obj
-back-end/Api/ApiGateway/bin
-back-end/Api/CatalogApi/bin
-back-end/Api/CatalogApi/obj
+.vscode/
+back-end/Api/ApiGateway/obj/
+back-end/Api/ApiGateway/bin/
+back-end/Api/CatalogApi/bin/
+back-end/Api/CatalogApi/obj/
