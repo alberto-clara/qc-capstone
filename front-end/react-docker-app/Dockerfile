@@ -1,8 +1,9 @@
-FROM node:8.10 as build-deps
+FROM node:8.13 as build-deps
 WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 RUN yarn
 COPY . ./
+RUN yarn add firebase/app
 RUN yarn build
 
 FROM nginx:1.12-alpine

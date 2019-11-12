@@ -35,7 +35,7 @@ export function SignInPage(props) {
                     <br />
                     <button  className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={handelchange} type="submit">Sign In</button>
                     <br />
-                    <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view  <div className="pl-1 underline">more details</div> </div>
+                    <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view <div className="pl-1 underline">more details</div> </div>
                     <br />
                     <div className="flex justify-center font-bold text-lg lg:text-2xl " >Don't have an account?</div>
                     <div className="flex justify-center text-sm lg:text-xl"> Take a few moments and sign up today!</div>
