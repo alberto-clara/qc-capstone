@@ -3,7 +3,6 @@ import 'firebase/firebase-firestore';
 import 'firebase/auth';
 import { Link, Redirect } from 'react-router-dom';
 
-//require('firebase/auth');
 const firebaseConfig = {
     apiKey: "AIzaSyCZZvTvNeWnROBw0qwRDjSTDu7eT3HPn5w",
     authDomain: "homedepotweb.firebaseapp.com",
@@ -28,8 +27,8 @@ class FireBaseSetup {
     }
 
     async register(email, password) {
-        this.auth.createUserWithEmailAndPassword(email, password);
-        return this.auth.currentUser.updateProfile({displayName:email})
+        return this.auth.createUserWithEmailAndPassword(email, password);
+        // return this.auth.currentUser.updateProfile({displayName:email})
     }
 
     displayEmail() {
