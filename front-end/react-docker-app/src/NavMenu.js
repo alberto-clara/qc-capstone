@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default props => ( 
     <nav className="flex flex-wrap bg-orange-500 lg:px-20 pr-5 pl-5">
-        <div id="main-nav" className="lg:flex">
+        <div id="main-nav" className="lg:flex flex-1">
             <div className="text-sm lg:flex-grow">
                 <Link to={'/'}>
                     <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
@@ -25,6 +25,11 @@ export default props => (
                     Contact Us
                 </div>
             </div>
+        </div>
+        <div className="sm:hidden lg:flex">
+            <a className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold">
+                quote.center@qc.com
+            </a>
         </div>
     </nav>
 );
