@@ -1,0 +1,30 @@
+.titlePage{
+    @apply font-bold text-xl text-center;
+}
+.largeBold {
+    @apply text-base font-bold;
+}
+.typingArea {
+    @apply rounded-lg border-orange-600 border-2 p-2 w-full;
+}
+.typingArea:focus {
+    @apply bg-gray-200;
+}
+.signInButton {
+    @apply rounded-lg w-full h-8 bg-orange-600 text-white font-bold text-base text-center;
+}
+.signInCreateButton {
+    @apply rounded-lg w-full h-8 bg-white border-orange-600 border-2 text-orange-600 font-bold text-base;
+}
+.boldBlueTerm{
+    @apply font-bold text-blue-600 text-sm text-center;
+}
+.forgetText {
+   @apply flex justify-end font-bold underline;
+}
+.forgetText:hover{
+    @apply text-orange-600;
+}
+.fullPage{
+   @apply mx-4;
+}
