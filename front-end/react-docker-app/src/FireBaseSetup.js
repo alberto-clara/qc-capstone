@@ -4,14 +4,13 @@ import 'firebase/auth';
 import { Link, Redirect } from 'react-router-dom';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCZZvTvNeWnROBw0qwRDjSTDu7eT3HPn5w",
-    authDomain: "homedepotweb.firebaseapp.com",
-    databaseURL: "https://homedepotweb.firebaseio.com",
-    projectId: "homedepotweb",
-    storageBucket: "homedepotweb.appspot.com",
-    messagingSenderId: "356352630003",
-    appId: "1:356352630003:web:fa3427779ae8ab6eb16b86",
-    measurementId: "G-NZLWZL94D1"
+    apiKey: "AIzaSyBbBp0x8XfdXJLKu3yGK6T--a977qGoZ5A",
+    authDomain: "homedepotcs420.firebaseapp.com",
+    databaseURL: "https://homedepotcs420.firebaseio.com",
+    projectId: "homedepotcs420",
+    storageBucket: "homedepotcs420.appspot.com",
+    messagingSenderId: "817785633491",
+    appId: "1:817785633491:web:79e3b37f2745a5d549f226"
 };
 
 class FireBaseSetup {
@@ -19,17 +18,21 @@ class FireBaseSetup {
         app.initializeApp(firebaseConfig);
         this.auth = app.auth();
     }
-     login(email, password) {
-        return   this.auth.signInWithEmailAndPassword(email,password)
+    async login(email, password) {
+        const userLogin = await this.auth.signInWithEmailAndPassword(email, password).catch(err => { console.log(err.code);return err.message })
+        
+        return userLogin;
     }
-    logout() {
-        this.auth.signOut();
+    async logout() {
+        return await this.auth.signOut();
     }
 
     async register(email, password) {
-        return this.auth.createUserWithEmailAndPassword(email, password);
-        // return this.auth.currentUser.updateProfile({displayName:email})
+        const userRegister = await this.auth.createUserWithEmailAndPassword(email, password).catch(err => { return err.message })
+        return userRegister;
     }
+
+   
 
     displayEmail() {
         if (!this.auth.currentUser) {
@@ -37,9 +40,7 @@ class FireBaseSetup {
         }
         return this.auth.currentUser.email;
     }   
-    getUserEmail() {
-        return this.auth.currentUser && this.auth.currentUser.displayName;
-    }
+    
     isInitialized() {
         return new Promise(resolve => {
             this.auth.onAuthStateChanged(resolve)
