@@ -19,20 +19,9 @@ export function Home(props) {
     </div>);
     const homediv = (<div>
         <div className="text text-red-500 text-center font-black" >Hello, HomeDepot!</div>
-        <div className="titlePage" id="userEmail" >{FireBaseSetup.displayEmail()}  </div>
-        <button className="signInButton" onClick={() => { reload() }} >Redirect</button> <br/> <br/>
-        <button className="signInButton" onClick={() => { logoutClick() }} >Log out</button>
     </div>);
    
-    function reload() {
-       setName(FireBaseSetup.displayEmail());
-        console.log(name);
-      //  window.location.reload(true);
-    }   
-    async function logoutClick() {
-        await FireBaseSetup.logout();
-        props.history.push('/signinpage');
-    }
+    
     return (
         <div  >
             {searchbar}
