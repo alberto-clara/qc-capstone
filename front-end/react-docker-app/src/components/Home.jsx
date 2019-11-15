@@ -11,13 +11,22 @@ export function Home(props) {
     const [name, setName] = useState('');
     const [redirect, setRedirect] = useState(false);
 
-    function fetching(response) {
+/*    function fetching(response) {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
             .then(function () {
                 console.log(response);
             })
     }
+*/
 
+function fetching(response) {
+    fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
+    .then(res => res.json())
+    .then((data) => {
+      console.log(data)
+    })
+    .catch(console.log)
+}
 
 /*    function fetching() {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
