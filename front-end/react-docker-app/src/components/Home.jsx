@@ -6,9 +6,27 @@ import { SignUpPage } from './SignUpPage';
 // import { CircularProgress } from '@material-ui/core';
 
 export function Home(props) {
-   
+
+    const [apiRes, setAPI] = useState("");
     const [name, setName] = useState('');
     const [redirect, setRedirect] = useState(false);
+
+    function fetching(response) {
+        fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
+            .then(function () {
+                console.log(response);
+            })
+    }
+
+
+/*    function fetching() {
+        fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
+            .then(res => res.text()
+            .then(res => setAPI(res)))
+            .catch(err => err);
+    }
+*/
+
     const searchbar = (<div>
         <div class="mt-4 justify-center flex text-gray-600 lg:px-20 pl-5 pr-5">
             <input class="w-full border-2 border-gray-300 bg-white h-10 px-5 pr-8 text-sm" type="search" name="search" placeholder="Search"></input>
@@ -19,6 +37,7 @@ export function Home(props) {
     </div>);
     const homediv = (<div>
         <div className="text text-red-500 text-center font-black" >Hello, HomeDepot!</div>
+        <button onClick={fetching}> Fetching Data</button>
     </div>);
    
     
