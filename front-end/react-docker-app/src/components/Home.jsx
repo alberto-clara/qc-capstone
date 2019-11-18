@@ -27,7 +27,7 @@ export function Home(props) {
        
      
     </div>);
-  const recommend = (<div className=" w-full h-40 lg:justify-center lg:px-15">
+  const recommend = (<div className=" w-full h-40 lg:justify-center lg:px-20 pr-5 pl-5">
         <div className="  font-bold">Label</div>
         <div className="px-4 bg-gray-200">
             <div className="flex border-2 h-32">
