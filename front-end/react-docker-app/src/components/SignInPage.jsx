@@ -3,7 +3,7 @@ import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import React, { useState, useContext } from 'react';
 import '../css/mainTailwind.css';
 import FireBaseSetup from '../FireBaseSetup';
-import { Home } from './Home';
+
 import { Auth } from '../authContext';
 
 export function SignInPage(props) {
@@ -14,17 +14,19 @@ export function SignInPage(props) {
     const { state, dispatch } = useContext(Auth);
     const loginHandle = async (e) => {
         e.preventDefault();
-        let response = await FireBaseSetup.login(emailLogin, passwordLogin);  
+        let response = await FireBaseSetup.login(emailLogin, passwordLogin);
         if (response.user == null) {
             alert(response);
         }
         else {
+          
             dispatch({
                 type: "LOGIN",
                 payload: response.user
-            })
+            });
+
             props.history.push("/");
-        }  
+        }
     }
     if (routeRedirect)
         return <Redirect to="/" />
@@ -59,7 +61,7 @@ export function SignInPage(props) {
         </div>);
     return (
         <div>
-            {login} 
+            {login}
         </div>
         )
 }

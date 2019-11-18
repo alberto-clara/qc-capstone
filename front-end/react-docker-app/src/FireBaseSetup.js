@@ -1,7 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/firebase-firestore';
 import 'firebase/auth';
-import { Link, Redirect } from 'react-router-dom';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBbBp0x8XfdXJLKu3yGK6T--a977qGoZ5A",

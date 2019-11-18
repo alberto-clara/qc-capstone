@@ -11458,6 +11458,42 @@ video {
   margin-right: 1rem;
 }
 
+.adSlide{
+  overflow-x: hidden;
+  border-width: 1px;
+  height: 12rem;
+  position: relative;
+}
+
+.wrapper{
+  flex-wrap: wrap;
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  background-color: #edf2f7;
+}
+
+.AdGetLeft{
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+
+.AdGetLefRight {
+  right: 0;
+  position: relative;
+  top: 0;
+}
+
+@media (min-width: 1024px) {
+  .adSlide {
+    height: 400px;
+    border-width: 1px;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
+  }
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

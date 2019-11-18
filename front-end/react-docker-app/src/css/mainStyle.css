@@ -28,3 +28,22 @@
 .fullPage{
    @apply mx-4;
 }
+.adSlide{
+    
+    @apply overflow-x-hidden border h-48 relative;
+}
+.wrapper{
+    @apply flex-wrap w-full flex bg-gray-200 ;
+}
+.AdGetLeft{
+    @apply left-0 absolute top-0; 
+}
+.AdGetLefRight {
+    @apply right-0 relative top-0;
+}
+@screen lg {
+    .adSlide {
+        height: 400px;
+        @apply border  mx-5;
+    }
+}

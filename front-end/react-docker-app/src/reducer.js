@@ -6,7 +6,7 @@ export const firebaseAuth = (state, action) => {
             return { ...state, user: action.payload }
         case "LOGOUT":
             return { ...state, user: action.payload }
-        defaut:
+        default:
             return state;
     }
 }

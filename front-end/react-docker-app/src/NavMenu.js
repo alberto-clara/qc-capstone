@@ -16,7 +16,7 @@ import FireBaseSetup from './FireBaseSetup';
             }
         });
     });
-    
+
     const logout = () => {
         FireBaseSetup.logout();
         setStateNave(null);
@@ -26,12 +26,12 @@ import FireBaseSetup from './FireBaseSetup';
                 type: "LOGOUT",
                 payload: {}
             });
-      
+
     }
     if (stateNav != null || state.user.hasOwnProperty("user")) {
         buttons = (<Fragment>
             <div>{userEmail} <div className="inline"> | </div><button className="hover:text-white hover:font-bold" onClick={logout}>Log Out</button></div>
-            
+
         </Fragment>)}
     else {
         buttons = (<Fragment>
@@ -63,6 +63,12 @@ import FireBaseSetup from './FireBaseSetup';
                 <div className="lg:text-lg lg:block lg:my-0 lg:inline-block lg:text-orange-100">
                     {buttons}
                 </div>
+                </div>
+            </div>
+            <div className="sm:hidden lg:flex">
+                <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100">
+                    {buttons}
+            </div>
             </div>
         </nav>
     );
