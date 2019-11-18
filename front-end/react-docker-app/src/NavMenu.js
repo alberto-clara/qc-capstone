@@ -30,8 +30,8 @@ import FireBaseSetup from './FireBaseSetup';
     }
     if (stateNav != null || state.user.hasOwnProperty("user")) {
         buttons = (<Fragment>
-            <div>{userEmail} </div>
-            <button  onClick={logout}>LogOut</button>
+            <div>{userEmail} <div className="inline"> | </div><button className="hover:text-white hover:font-bold" onClick={logout}>Log Out</button></div>
+            
         </Fragment>)}
     else {
         buttons = (<Fragment>
@@ -44,30 +44,25 @@ import FireBaseSetup from './FireBaseSetup';
             <div id="main-nav" className="lg:flex flex-1">
                 <div className="text-sm lg:flex-grow">
                     <Link to={'/'}>
-                        <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
-                            Home
+                    <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
+                        Home
                     </div>
                     </Link>
                     <div href="#responsive-header" className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
-                        Departments
-                </div>
+                        Browse
+                    </div>
                     <div href="#responsive-header" className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
                         Special & Offers
-                </div>
-                    <Link to={'signinpage'}>
-                        <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
-                            My Account
                     </div>
-                    </Link>
                     <div href="#responsive-header" className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold mr-6">
                         Contact Us
-                </div>
+                    </div>
                 </div>
             </div>
-            <div className="sm:hidden lg:flex">
-                <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100 hover:text-white hover:font-bold">
+            <div className="hidden lg:flex">
+                <div className="lg:text-lg lg:block lg:my-0 lg:inline-block lg:text-orange-100">
                     {buttons}
-            </div>
+                </div>
             </div>
         </nav>
     );
