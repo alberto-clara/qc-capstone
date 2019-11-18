@@ -76,23 +76,33 @@ namespace CatalogApi.Controllers
             return Ok(model);
             }
 
-        [HttpGet, Route("offerings")]
-        public async Task<ActionResult<PageView>> OfferingsByIdAsync(string Id)
+        [HttpGet, Route("offerings/{offeringId}")]
+        public async Task<IActionResult> OfferingsByIdAsync(string offeringId)
         {
             var newTable = (from pt in _catalogContext.products
                             join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
                             join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
                             into temp
                             from rt2 in temp.DefaultIfEmpty()
-                            select new PageView
+                            where pt.Id == offeringId
+                            select new
                             {
-                                Id = pt.Id,
-                                Long_description = pt.Long_description
+                                pt.Id,
+                                pt.Long_description,
+                                pt.Product_name,
+                                Offering_key = ot.Id,
+                                Unit_retail = Math.Round(ot.Unit_retail, 2),
+                                Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                ot.Uom,
+                                ot.Supplier_key,
+                                rt2.supplier_name
                             });
 
-            var items = await newTable.ToListAsync();
+            var items = await newTable
+                            //.GroupBy(p => p.Id == offeringId)
+                            .ToListAsync();
 
-            return Ok(null);
+            return Ok(items);
         }
     }
 }
