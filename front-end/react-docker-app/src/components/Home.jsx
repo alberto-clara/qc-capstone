@@ -8,9 +8,11 @@ export function Home(props) {
 
     function fetching(response) {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
-            .then(function () {
-                console.log(response);
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data)
             })
+            .catch(console.log)
     }
 
 
@@ -31,7 +33,7 @@ export function Home(props) {
 
 
 
-    </div>);
+   
   const recommend = (<div className=" w-full h-40 lg:justify-center lg:px-20 pr-5 pl-5">
         <div className="  font-bold">Label</div>
         <div className="px-4 bg-gray-200">
