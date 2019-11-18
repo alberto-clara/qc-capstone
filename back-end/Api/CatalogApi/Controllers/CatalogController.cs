@@ -46,22 +46,53 @@ namespace CatalogApi.Controllers
 
         // GET api/products/page[?pageSize=3&pageIndex=10]
         [HttpGet, Route("page")]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<Products>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items([FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
             var totalItems = await _catalogContext.products.LongCountAsync();
-            var itemsOnPage = await _catalogContext.products
-                .OrderBy(c => c.Product_name)
-                .Skip(pageSize * pageIndex)
-                .Take(pageSize)
-                .ToListAsync();
+            var newT = (from pt in _catalogContext.products
+                        join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
+                        into newTable
+                        from rt in newTable.DefaultIfEmpty()
+                        orderby pt.Product_name
+                        select new PageView
+                        {
+                            Id = pt.Id,
+                            Product_name = pt.Product_name,
+                            Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
+                        });
 
+            var itemsOnPage = await newT
+                               .GroupBy(p => p.Product_name)
+                               .Select(g => g.First())
+                               .Skip(pageSize * pageIndex)
+                               .Take(pageSize)
+                               .ToListAsync();
 
-            var model = new PaginatedItemsViewModel<Products>(
+            var model = new PaginatedItemsViewModel<PageView>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
 
             return Ok(model);
             }
+
+        [HttpGet, Route("offerings")]
+        public async Task<ActionResult<PageView>> OfferingsByIdAsync(string Id)
+        {
+            var newTable = (from pt in _catalogContext.products
+                            join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
+                            join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
+                            into temp
+                            from rt2 in temp.DefaultIfEmpty()
+                            select new PageView
+                            {
+                                Id = pt.Id,
+                                Long_description = pt.Long_description
+                            });
+
+            var items = await newTable.ToListAsync();
+
+            return Ok(null);
+        }
     }
 }

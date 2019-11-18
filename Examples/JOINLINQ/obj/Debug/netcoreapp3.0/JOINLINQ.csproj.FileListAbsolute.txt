@@ -1,0 +1,11 @@
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ.deps.json
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ.runtimeconfig.json
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ.runtimeconfig.dev.json
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ.dll
+/Users/muhannadqaisi/Desktop/JOINLINQ/bin/Debug/netcoreapp3.0/JOINLINQ.pdb
+/Users/muhannadqaisi/Desktop/JOINLINQ/obj/Debug/netcoreapp3.0/JOINLINQ.csprojAssemblyReference.cache
+/Users/muhannadqaisi/Desktop/JOINLINQ/obj/Debug/netcoreapp3.0/JOINLINQ.AssemblyInfoInputs.cache
+/Users/muhannadqaisi/Desktop/JOINLINQ/obj/Debug/netcoreapp3.0/JOINLINQ.AssemblyInfo.cs
+/Users/muhannadqaisi/Desktop/JOINLINQ/obj/Debug/netcoreapp3.0/JOINLINQ.dll
+/Users/muhannadqaisi/Desktop/JOINLINQ/obj/Debug/netcoreapp3.0/JOINLINQ.pdb
