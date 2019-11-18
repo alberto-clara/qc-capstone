@@ -1,5 +1,6 @@
 
 import { Link, Redirect } from 'react-router-dom';
+<<<<<<< Updated upstream
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import React,{ useState } from 'react';
 import '../css/mainTailwind.css';
@@ -18,6 +19,36 @@ export function SignInPage(props) {
         } catch (error) {
             console.log(error.message);
         }
+=======
+import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import '../css/mainTailwind.css';
+import FireBaseSetup from '../FireBaseSetup';
+
+import { Auth } from '../authContext';
+
+export function SignInPage(props) {
+    const [emailLogin, setEmail] = useState('');
+    const [passwordLogin, setPassword] = useState('');
+    const [routeRedirect, setRouteRedirect] = useState(false);
+
+    const { state, dispatch } = useContext(Auth);
+    const loginHandle = async (e) => {
+        e.preventDefault();
+        let response = await FireBaseSetup.login(emailLogin, passwordLogin);  
+        if (response.user == null) {
+            alert(response);
+        }
+        else {
+            alert(response);
+            dispatch({
+                type: "LOGIN",
+                payload: response.user
+            });
+           
+            props.history.push("/");
+        }  
+>>>>>>> Stashed changes
     }
  
     const login = (

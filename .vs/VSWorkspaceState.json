@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\back-end",
+    "\\back-end\\Api",
+    "\\back-end\\Api\\ApiGateway",
+    "\\back-end\\Api\\CatalogApi",
+    "\\back-end\\Api\\CatalogApi\\Controllers",
+    "\\back-end\\Api\\OrdersApi",
+    "\\back-end\\Database"
+  ],
+  "SelectedNode": "\\back-end\\Database",
+  "PreviewInSolutionExplorer": false
+}

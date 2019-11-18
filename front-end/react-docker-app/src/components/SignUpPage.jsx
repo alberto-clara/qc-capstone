@@ -11,12 +11,33 @@ export function SignUpPage() {
     const [zipcodeSignUp, setZipcodeSignUp] = useState('');
     const [phoneSignUp, setPhoneSignUp] = useState('');
     const [loading, setLoading] = useState(false);
+<<<<<<< Updated upstream
     async function onRegister() {
         try {
             if (await FireBaseSetup.register(emailSignUp, passwordSignUp)) { console.log("Hey");setLoading(true); }
             
         } catch(error){
             alert(error.message);
+=======
+
+    const { state, dispatch } = useContext(Auth);
+    const onRegister = async (e) => {
+        e.preventDefault();
+        //console.log(state);
+        
+        let response = await FireBaseSetup.register(emailSignUp, passwordSignUp);
+        if (response.user == null) {
+            alert(response);
+        }
+        else {
+            dispatch({
+                type: "SIGNUP",
+                payload: response
+            })
+            console.log(response);
+         
+            props.history.push('/');
+>>>>>>> Stashed changes
         }
     }
            const signup = (
