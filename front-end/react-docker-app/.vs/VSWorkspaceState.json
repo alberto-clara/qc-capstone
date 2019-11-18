@@ -2,10 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\components",
-    "\\src\\css",
-    "\\src\\scriptnode"
+    "\\src\\components"
   ],
-  "SelectedNode": "\\src\\NavMenu.js",
+  "SelectedNode": "\\src\\authContext.js",
   "PreviewInSolutionExplorer": false
 }

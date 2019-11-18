@@ -1,24 +1,16 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import { Auth } from '../authContext';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import '../css/mainTailwind.css';
 import FireBaseSetup from "../FireBaseSetup";
 
-export function SignUpPage() {
+export function SignUpPage(props) {
     const [emailSignUp, setEmailSignUp] = useState('');
     const [passwordSignUp, setPasswordSignUp] = useState('');
     const [zipcodeSignUp, setZipcodeSignUp] = useState('');
     const [phoneSignUp, setPhoneSignUp] = useState('');
     const [loading, setLoading] = useState(false);
-<<<<<<< Updated upstream
-    async function onRegister() {
-        try {
-            if (await FireBaseSetup.register(emailSignUp, passwordSignUp)) { console.log("Hey");setLoading(true); }
-            
-        } catch(error){
-            alert(error.message);
-=======
 
     const { state, dispatch } = useContext(Auth);
     const onRegister = async (e) => {
@@ -37,8 +29,8 @@ export function SignUpPage() {
             console.log(response);
          
             props.history.push('/');
->>>>>>> Stashed changes
         }
+        
     }
            const signup = (
             <div>

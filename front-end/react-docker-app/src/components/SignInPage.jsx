@@ -1,25 +1,4 @@
-
 import { Link, Redirect } from 'react-router-dom';
-<<<<<<< Updated upstream
-import { Form, FormGroup, FormControl } from 'react-bootstrap';
-import React,{ useState } from 'react';
-import '../css/mainTailwind.css';
-import FireBaseSetup from '../FireBaseSetup';
-import { Home } from './Home';
-
-export function SignInPage(props) {
-    const [emailLogin, setEmail] = useState('');
-    const [passwordLogin, setPassword] = useState('');
-     function handelchange() {
-        console.log(emailLogin); console.log(passwordLogin);
-        try {
-            FireBaseSetup.login(emailLogin, passwordLogin);
-            return     props.history.push('/');
-            
-        } catch (error) {
-            console.log(error.message);
-        }
-=======
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import React, { useState, useContext } from 'react';
 import '../css/mainTailwind.css';
@@ -48,9 +27,9 @@ export function SignInPage(props) {
            
             props.history.push("/");
         }  
->>>>>>> Stashed changes
     }
- 
+    if (routeRedirect)
+        return <Redirect to="/" />
     const login = (
         <div>
             <div className=" titlePage lg:text-3xl"> My Account</div>
@@ -64,9 +43,9 @@ export function SignInPage(props) {
                     <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="current-password typingArea lg:h-10" type="password" placeholder="Enter Password" />
                     <div className="forgetText"><Link to={'/forgotpassword'}>Forgot password?</Link></div>
                     <br />
-                    <button  className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={handelchange} type="submit">Sign In</button>
+                    <button  className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={loginHandle} type="submit">Sign In</button>
                     <br />
-                    <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view  <div className="pl-1 underline">more details</div> </div>
+                    <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view <div className="pl-1 underline">more details</div> </div>
                     <br />
                     <div className="flex justify-center font-bold text-lg lg:text-2xl " >Don't have an account?</div>
                     <div className="flex justify-center text-sm lg:text-xl"> Take a few moments and sign up today!</div>

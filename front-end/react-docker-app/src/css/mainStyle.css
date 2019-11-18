@@ -11,7 +11,7 @@
     @apply bg-gray-200;
 }
 .signInButton {
-    @apply rounded-lg w-full h-8 bg-orange-600 text-white font-bold text-base text-center;
+    @apply rounded-lg w-full h-8 bg-orange-500 text-white font-bold text-base text-center;
 }
 .signInCreateButton {
     @apply rounded-lg w-full h-8 bg-white border-orange-600 border-2 text-orange-600 font-bold text-base;
