@@ -8,9 +8,11 @@ export function Home(props) {
 
     function fetching(response) {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
-            .then(function () {
-                console.log(response);
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data)
             })
+            .catch(console.log)
     }
 
 
