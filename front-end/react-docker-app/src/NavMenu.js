@@ -35,8 +35,7 @@ import FireBaseSetup from './FireBaseSetup';
         </Fragment>)}
     else {
         buttons = (<Fragment>
-            <Link to="/signinpage"> Sign In </Link>
-            <Link to="/signuppage"> Sign Up</Link>
+      
         </Fragment>)
     }
     return (
@@ -65,11 +64,7 @@ import FireBaseSetup from './FireBaseSetup';
                 </div>
                
             </div>
-            <div className="sm:hidden lg:flex">
-                <div className="lg:text-lg block lg:my-0 sm:my-2 lg:inline-block text-orange-100">
-                    {buttons}
-            </div>
-            </div>
+            
         </nav>
     );
 }
