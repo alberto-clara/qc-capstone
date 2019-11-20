@@ -39,7 +39,7 @@ import FireBaseSetup from './FireBaseSetup';
         </Fragment>)
     }
     return (
-        <nav className="flex flex-wrap bg-orange-500 lg:px-20 pr-5 pl-5">
+        <nav className="flex flex-wrap bg-orange-600 lg:px-20 pr-5 pl-5">
             <div id="main-nav" className="lg:flex flex-1">
                 <div className="text-sm lg:flex-grow">
                     <Link to={'/'}>

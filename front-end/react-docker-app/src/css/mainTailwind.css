@@ -11389,6 +11389,7 @@ video {
 
 .titlePage{
   font-weight: 700;
+  color: #4a5568;
   font-size: 1.25rem;
   text-align: center;
 }
@@ -11396,6 +11397,7 @@ video {
 .largeBold {
   font-size: 1rem;
   font-weight: 700;
+  color: #4a5568;
 }
 
 .typingArea {
@@ -11445,7 +11447,8 @@ video {
   display: flex;
   -webkit-box-pack: end;
           justify-content: flex-end;
-  font-weight: 700;
+  color: #3182ce;
+  font-size: 0.875rem;
   text-decoration: underline;
 }
 

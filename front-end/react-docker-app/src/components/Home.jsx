@@ -24,7 +24,7 @@ export function Home(props) {
             </button>
         </div>
     </div>);
-    const homediv = (<div>
+    const homediv = (<div className="py-4 flex justify-center">
        
         <button className="bg-blue-200" onClick={fetching}> Fetching Data</button>
     </div>);
@@ -60,7 +60,7 @@ export function Home(props) {
         <div  >
             {searchbar}
             {homediv}
-            <Slider />
+            {/* <Slider /> */}
 
             {recommend}
             {recommend}

@@ -1,8 +1,8 @@
 .titlePage{
-    @apply font-bold text-xl text-center;
+    @apply font-bold text-gray-700 text-xl text-center;
 }
 .largeBold {
-    @apply text-base font-bold;
+    @apply text-base font-bold text-gray-700;
 }
 .typingArea {
     @apply rounded-lg border-orange-600 border-2 p-2 w-full;
@@ -20,7 +20,7 @@
     @apply font-bold text-blue-600 text-sm text-center;
 }
 .forgetText {
-   @apply flex justify-end font-bold underline;
+   @apply flex justify-end text-blue-600 text-sm underline;
 }
 .forgetText:hover{
     @apply text-orange-600;
