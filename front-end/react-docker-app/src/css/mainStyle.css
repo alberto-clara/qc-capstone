@@ -1,49 +1,138 @@
 .titlePage{
     @apply font-bold text-gray-700 text-xl text-center;
 }
+
 .largeBold {
     @apply text-base font-bold text-gray-700;
 }
+
 .typingArea {
-    @apply rounded-lg border-orange-600 border-2 p-2 w-full;
+    @apply rounded-lg border-orange-600 border-2 p-2 w-full cursor-pointer;
 }
+
 .typingArea:focus {
     @apply bg-gray-200;
 }
+
 .signInButton {
     @apply rounded-lg w-full h-8 bg-orange-500 text-white font-bold text-base text-center;
+}
+.signInButton:hover{
+    @apply bg-orange-800;
 }
 .signInCreateButton {
     @apply rounded-lg w-full h-8 bg-white border-orange-600 border-2 text-orange-600 font-bold text-base;
 }
+.signInCreateButton:hover {
+    @apply bg-gray-200;
+}
 .boldBlueTerm{
     @apply font-bold text-blue-600 text-sm text-center;
 }
+
 .forgetText {
    @apply flex justify-end text-blue-600 text-sm underline;
 }
+
 .forgetText:hover{
     @apply text-orange-600;
 }
-.fullPage{
-   @apply mx-4;
+
+.passwordHint {
+   @apply pl-6 text-gray-700 text-sm;
 }
-.adSlide{
-    
+
+.adSlide{    
     @apply overflow-x-hidden border h-48 relative;
 }
+
 .wrapper{
     @apply flex-wrap w-full flex bg-gray-200 ;
 }
+
 .AdGetLeft{
     @apply left-0 absolute top-0; 
 }
+
 .AdGetLefRight {
     @apply right-0 relative top-0;
 }
+
+.NavTitle_Background {
+    @apply flex flex-wrap bg-orange-500 py-2 px-5;
+}
+.NavTitle_Icons {
+    @apply p-2 border rounded border-orange-500;
+}
+
+.NavTitle_Icons:hover {
+    @apply text-white border-white;
+}
+
+.NavTitle_Icons_Boxed {
+    @apply p-2 border border-white rounded
+}
+
+.NavMenu_Container {
+    @apply flex flex-wrap bg-orange-600 px-5;
+}
+
+.NavMenu_Text {
+    @apply text-sm text-orange-100 my-2 mr-6;
+}
+
+.NavMenu_Text:hover {
+    @apply text-white;
+}
+
 @screen lg {
     .adSlide {
         height: 400px;
-        @apply border  mx-5;
+        @apply border mx-5;
+    }
+
+    .NavTitle_Background {
+        @apply px-20;
+    }
+
+    .NavMenu_Container {
+        @apply px-20;
+    }
+
+    .NavMenu_Text {
+        @apply text-lg inline-block my-0;
+    }
+
+    .NavMenu_Sign_Text {
+        @apply text-lg block my-0 inline-block text-orange-100
+    }
+
+    .NavMenu_Text:hover {
+        @apply font-bold;
+    }
+
+    .largeBold {
+        @apply text-xl;
+    }
+
+    .typingArea {
+        @apply h-12;
+    }
+
+    .signInButton {
+        @apply text-2xl h-16;
+    }
+
+    .signInCreateButton {
+        @apply text-2xl h-16;
+    }
+
+    .boldBlueTerm {
+        @apply text-xl;
+    }
+
+    .passwordHint {
+        @apply pl-6 text-gray-700 text-lg;
     }
 }
+

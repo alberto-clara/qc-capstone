@@ -36,23 +36,28 @@ export function SignInPage(props) {
             <Form className="relative justify-center flex mb-4 content-center ">
                 <div  className="fullPage lg:w-1/3" />
                 <FormGroup className="fullPage lg:w-1/3 " action="#">
-                    <div className="largeBold lg:text-lg">Email:</div>
-                    <FormControl id='emailLogin' autoComplete="none" onChange={e => setEmail(e.target.value)} className="typingArea lg:h-10" type="email" placeholder="Enter Email" />
+                    <div className="largeBold">Email:</div>
+                    <FormControl id='emailLogin' autoComplete="none" onChange={e => setEmail(e.target.value)} className="typingArea" type="email" placeholder="Enter Email" />
                     <div className="forgetText"><Link to={'/forgotemail'}> Forgot email?</Link></div>
+<<<<<<< Updated upstream
                     <div className="largeBold text-lg font-bold">Password:</div>
                     <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="current-password typingArea lg:h-10" type="password" placeholder="Enter Password" />
+=======
+                    <div className="largeBold">Password:</div>
+                    <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="typingArea " type="password" placeholder="Enter Password" />
+>>>>>>> Stashed changes
                     <div className="forgetText"><Link to={'/forgotpassword'}>Forgot password?</Link></div>
                     <br />
-                    <button  className="signInButton hover:bg-orange-800 lg:text-xl lg:h-12" onClick={loginHandle} type="submit">Sign In</button>
+                    <button  className="signInButton" onClick={loginHandle} type="submit">Sign In</button>
                     <br />
                     {/* <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view <div className="pl-1 underline">more details</div> </div> */}
                     <br />
                     <div className="largeBold flex justify-center font-bold text-lg lg:text-2xl " >Don't have an account?</div>
                     <div className="flex justify-center text-sm lg:text-xl"> Take a few moments and sign up today!</div>
                     <br />
-                    <Link to={'/signuppage'}><button className=" signInCreateButton hover:bg-gray-200 lg:h-12 lg:text-xl " >Create Account </button></Link>
-                    <div className="boldBlueTerm lg:text-lg">My Account Terms & Conditions </div>
-                    <div className="boldBlueTerm lg:text-lg">Privacy & Security Statement</div>
+                    <Link to={'/signuppage'}><button className=" signInCreateButton " >Create Account </button></Link>
+                    <div className="boldBlueTerm">My Account Terms & Conditions </div>
+                    <div className="boldBlueTerm">Privacy & Security Statement</div>
                     <br />
                 </FormGroup>
                 <div className="fullPage lg:w-1/3" />

@@ -17,7 +17,7 @@
     "removetw": "node src/scriptnode/removeTW.js src/css/mainTailwind.css tailwind.css",
     "appendfiles": "node src/scriptnode/readfile.js src/css/mainStyle.css tailwind.css ",
     "build:css": "tailwind build tailwind.css -o src/css/mainTailwind.css ",
-    "resetbutton": "npm run removetw && npm run startall",
+    "reset": "npm run removetw && npm run startall",
     "startall": "npm run appendfiles && npm run build:css && npm run start",
     "start": "react-scripts start",
     "build": "react-scripts build ",

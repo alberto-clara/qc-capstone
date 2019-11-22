@@ -21,15 +21,23 @@ import FireBaseSetup from './FireBaseSetup';
         FireBaseSetup.logout();
         setStateNave(null);
         props.history.replace("/");
+<<<<<<< Updated upstream
         return dispatch(
             {
                 type: "LOGOUT",
                 payload: {}
             });
+=======
+        return dispatch({
+            type: "LOGOUT",
+            payload: {}
+        });
+>>>>>>> Stashed changes
 
     }
     if (stateNav != null || state.user.hasOwnProperty("user")) {
         buttons = (<Fragment>
+<<<<<<< Updated upstream
             <div>{userEmail} <div className="inline"> | </div><button className="hover:text-white hover:font-bold" onClick={logout}>Log Out</button></div>
 
         </Fragment>)}
@@ -65,6 +73,47 @@ import FireBaseSetup from './FireBaseSetup';
                
             </div>
             
+=======
+            {userEmail}
+            <div className="inline"> | </div>
+            <button onClick={logout}>
+                Log Out
+            </button>
+
+        </Fragment>)}
+    else {
+        buttons = (<Fragment></Fragment>)
+    }
+    return (
+        <nav className="NavMenu_Container">
+            <div id="main-nav" className="lg:flex lg:flex-grow flex-1">
+                <Link to={'/'}>
+                    <div className="NavMenu_Text">
+                        Home
+                    </div>
+                </Link>
+                <Link to={'/'}>
+                    <div className="NavMenu_Text">
+                        Browse
+                    </div>
+                </Link>
+                <Link to={'/'}>
+                    <div className="NavMenu_Text">
+                        Special & Offers
+                    </div>
+                </Link>
+                <Link to={'/'}>
+                    <div className="NavMenu_Text">
+                        Contact Us
+                    </div>
+                </Link>
+            </div>
+            <div className="hidden lg:flex">
+                <div className="NavMenu_Sign_Text">
+                    {buttons}
+                </div>
+            </div>
+>>>>>>> Stashed changes
         </nav>
     );
 }
