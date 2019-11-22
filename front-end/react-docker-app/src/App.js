@@ -6,6 +6,7 @@ import { Home } from './components/Home'
 import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
+import { Product } from './components/Product';
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
@@ -13,5 +14,6 @@ export default () => (
         <Route path='/signuppage' component={SignUpPage} />
         <Route path='/forgotemail' component={ForgotEmail} />
         <Route path='/forgotpassword' component={ForgotPassword} />
+        <Route path='/product' component={Product} />
     </Layout>
     );
