@@ -30,27 +30,6 @@ export function Home(props) {
     </div>);
 
 
-<<<<<<< Updated upstream
-
-
-   
-  const recommend = (<div className=" w-full h-40 lg:justify-center lg:px-20 pr-5 pl-5">
-        <div className="  font-bold">Label</div>
-        <div className="px-4 bg-gray-200">
-            <div className="flex border-2 h-32">
-                <div className="bg-blue-400 h-32 w-1/3 sm:1/4 md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-300 h-32 w-1/3 sm:1/4 md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-200 h-32 w-1/3 sm 1/4 md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-700 h-32 hidden md:flex md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-300 h-32 hidden md:flex md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-200 h-32 hidden md:flex md:w-1/6 lg:w-1/12"></div>
-                <div className="bg-blue-300 h-32 hidden md:flex lg:w-1/12"></div>
-                <div className="bg-blue-200 h-32 hidden md:flex lg:w-1/12"></div>
-                <div className="bg-blue-300 h-32 hidden md:flex lg:w-1/12"></div>
-                <div className="bg-blue-200 h-32 hidden md:flex lg:w-1/12"></div>
-                <div className="bg-blue-300 h-32 hidden md:flex lg:w-1/12"></div>
-                <div className="bg-blue-200 h-32 hidden md:flex lg:w-1/12"></div>
-=======
     const recommend = (<div className=" w-full h-64 ti:h-72 md:h-76 lg:justify-center  lg:px-20 pr-5 pl-5">
         <div className="font-bold">Label</div>
         <div className="px-4 bg-gray-200 ti:mx-4  md:mx-12 lg:mx-40 xl:px-32 ti:h-70 md:h-72 xl:h-78">
@@ -71,29 +50,18 @@ export function Home(props) {
                     <div className="bg-red-100 h-32 xl:h-48"> </div>
                 </div>
 
->>>>>>> Stashed changes
             </div>
 
         </div>
         <div className="forgetText mr-1">See more</div>
     </div>);
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
     return (
         <div  >
             {searchbar}
             {homediv}
-<<<<<<< Updated upstream
-            {/* <Slider /> */}
-
-            {recommend}
-=======
             <Slider /> 
 
->>>>>>> Stashed changes
             {recommend}
             {recommend}
         

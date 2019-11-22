@@ -39,13 +39,8 @@ export function SignInPage(props) {
                     <div className="largeBold">Email:</div>
                     <FormControl id='emailLogin' autoComplete="none" onChange={e => setEmail(e.target.value)} className="typingArea" type="email" placeholder="Enter Email" />
                     <div className="forgetText"><Link to={'/forgotemail'}> Forgot email?</Link></div>
-<<<<<<< Updated upstream
-                    <div className="largeBold text-lg font-bold">Password:</div>
-                    <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="current-password typingArea lg:h-10" type="password" placeholder="Enter Password" />
-=======
                     <div className="largeBold">Password:</div>
                     <FormControl id='passLogin' autoComplete="none" onChange={e => setPassword(e.target.value)} className="typingArea " type="password" placeholder="Enter Password" />
->>>>>>> Stashed changes
                     <div className="forgetText"><Link to={'/forgotpassword'}>Forgot password?</Link></div>
                     <br />
                     <button  className="signInButton" onClick={loginHandle} type="submit">Sign In</button>
