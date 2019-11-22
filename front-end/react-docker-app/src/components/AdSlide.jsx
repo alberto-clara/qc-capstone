@@ -13,11 +13,19 @@ export const Slider = () => {
     const NavAd = (<div className="text-center h-8 flex">
         <div className="w-1/5">{state.currentIndex > 0 ? (<button className="bg-orange-500 hover:bg-orange-600 h-6 lg:h-12 w-20 rounded-full" onClick={() => dispatch({ type: "PREV" })} > Prev</button>) : ("")} </div>
         <div className="w-1/5" />
+<<<<<<< Updated upstream
         {/*   {state.items.map((i, index) => {
             return (
                 <div className="bg-orange-600 flex cursor-pointer justify-center w-1/5 border-2 hover:bg-orange-800  h-6 lg:h-10 rounded-full" active={index === state.currentIndex} onClick={() => dispatch({ type: "GOTO", index })}> {index+1}
                </div>);
       })} */}
+=======
+           {state.items.map((i, index) => {
+            return (
+                <div className="bg-orange-600 flex cursor-pointer justify-center w-1/5 border-2 hover:bg-orange-800  h-6 lg:h-10 rounded-full" onClick={() => dispatch({ type: "GOTO", index })}> {index+1}
+               </div>);
+      })} 
+>>>>>>> Stashed changes
         <div className="w-1/5" />
         <div className="w-1/5"> {state.currentIndex < state.items.length - 1 ? (<button className="bg-orange-500 hover:bg-orange-600 rounded-full lg:h-12 w-20 " onClick={() => dispatch({ type: "NEXT" })}> Next </button>) : ("")}</div>
     </div>);
@@ -85,7 +93,7 @@ const useWindowWidth = () => {
 const Slide = ({ item, width }) => {
     return (
         <>
-            <div className=" flex bg-red-200 lg:h-full" style={{ width: width + "PX" || "100%" }}>
+            <div className=" flex bg-red-200 lg:h-full" style={{ width: width + "px" || "100%" }}>
                 <img src={item.pic}/>
             </div>
         </>)
