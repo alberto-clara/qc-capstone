@@ -22,19 +22,21 @@ namespace CatalogApi.Controllers
             _catalogContext = context;
         }
 
+        // GET api/products
         [HttpGet]
-        public IActionResult Index()
-        {
+        public IActionResult Index() {
+
             return Ok(_catalogContext.products.ToArray());
         }
 
+        // GET api/products/{id}
         [HttpGet]
         [Route("{id}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(Products), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Products>> ItemByIdAsync(string id)
-        {
+        public async Task<ActionResult<Products>> ItemByIdAsync(string id) {
+
             if (id == null) return BadRequest();
 
             var item = await _catalogContext.products.SingleOrDefaultAsync(a => a.Id == id);
@@ -46,10 +48,13 @@ namespace CatalogApi.Controllers
 
         // GET api/products/page[?pageSize=3&pageIndex=10]
         [HttpGet, Route("page")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Items([FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
+            if (pageSize == 0) return BadRequest();
+
             var totalItems = await _catalogContext.products.LongCountAsync();
             var newT = (from pt in _catalogContext.products
                         join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
@@ -76,23 +81,38 @@ namespace CatalogApi.Controllers
             return Ok(model);
             }
 
-        [HttpGet, Route("offerings")]
-        public async Task<ActionResult<PageView>> OfferingsByIdAsync(string Id)
-        {
+        // GET api/products/offerings/{offeringId}
+        [HttpGet, Route("offerings/{offeringId}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> OfferingsByIdAsync(string offeringId) {
+
+            if (offeringId == null) return BadRequest();
+
             var newTable = (from pt in _catalogContext.products
                             join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
                             join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
                             into temp
                             from rt2 in temp.DefaultIfEmpty()
-                            select new PageView
+                            where pt.Id == offeringId
+                            select new
                             {
-                                Id = pt.Id,
-                                Long_description = pt.Long_description
+                                pt.Id,
+                                pt.Long_description,
+                                pt.Product_name,
+                                Offering_key = ot.Id,
+                                Unit_retail = Math.Round(ot.Unit_retail, 2),
+                                Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                ot.Uom,
+                                ot.Supplier_key,
+                                rt2.supplier_name
                             });
 
             var items = await newTable.ToListAsync();
 
-            return Ok(null);
+            if (items.Count != 0) return Ok(items);
+
+            return NotFound();
         }
     }
 }
