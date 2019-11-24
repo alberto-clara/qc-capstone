@@ -6,12 +6,14 @@ import { Home } from './components/Home'
 import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
+import { SignIn_SignUp } from './components/SignIn_SignUp';
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/signinpage' component={SignInPage} />
+        <Route path='/signin' component={SignInPage} />
         <Route path='/signuppage' component={SignUpPage} />
         <Route path='/forgotemail' component={ForgotEmail} />
         <Route path='/forgotpassword' component={ForgotPassword} />
+        <Route path='/signinpage' component={SignIn_SignUp} />
     </Layout>
     );

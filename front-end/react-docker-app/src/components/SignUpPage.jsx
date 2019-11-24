@@ -142,10 +142,10 @@ export function SignUpPage(props) {
     }
            const signup = (
             <div>
-                <h1 className=" titlePage py-2 lg:text-3xl"> Create Account</h1>
-                <Form className="relative justify-center flex content-center ">
-                    <div className="mx-4 lg:w-1/3"/>
-                    <FormGroup className="mx-4 lg:w-1/3 " action="#" >
+                <h1 className=" titlePage py-2 lg:text-3xl"> Sign Up</h1>
+                   <Form className="relative justify-center flex lg:block lg:mx-20 content-center ">
+              
+                    <FormGroup className="mx-4  " action="#" >
                         <p className="largeBold lg:text-lg">Email: </p>
                            <FormControl className="typingArea" onChange={e => { CheckEmail(e.target.value) }} type="email" placeholder="Example@gmail.com"/>
                         <br /><div className="text-red-500 pl-4"id="noticeEmail"></div> <br />
@@ -170,19 +170,22 @@ export function SignUpPage(props) {
                            <br /><div className="text-red-500 pl-4" id="noticePhone"></div> <br />
                            <button className="signInButton " onClick={onRegister} type="submit"  >Create Account</button>
                            <br /> <div className="text-red-500 pl-4" id="noticeAll"></div><br/>
-                        <hr className=" bg-orange-600 h-1 " />
-                        <br />
-                        <p className="titlePage flex justify-center lg:text-3xl " >Already have an account?</p>
-                        <br />
-                        <Link to={'/signinpage'}><button className=" signInCreateButton" >Sign In </button></Link>
-                        <br /><br />
-                        <p className="flex justify-center text-sm lg:text-xl"> By clicking 'Create Account' you are agreeing to the Terms & Conditions and Privacy & Security Statement below</p>
-                        <br />
+                       
+                        <div className="lg:hidden">
+                                   <hr className=" bg-orange-600 h-1 " />
+                                   <br />
+                            <p className="titlePage flex justify-center lg:text-3xl " >Already have an account?</p>
+                            <br />
+                            <Link to={'/signinpage'}><button className=" signInCreateButton" >Sign In </button></Link>
+                            <br /><br />
+                            <p className="flex justify-center text-sm lg:text-xl"> By clicking 'Create Account' you are agreeing to the Terms & Conditions and Privacy & Security Statement below</p>
+                                   <br />
+                        </div>
                         <p className="boldBlueTerm">My Account Terms & Conditions </p>
                         <p className="boldBlueTerm">Privacy & Security Statement</p>
                         <br/>
                     </FormGroup>
-                    <div className="mx-4 lg:w-1/3"/>
+                 
                 </Form>
 
             </div>
