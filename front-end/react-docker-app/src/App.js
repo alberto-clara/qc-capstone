@@ -7,6 +7,7 @@ import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
 import { SignIn_SignUp } from './components/SignIn_SignUp';
+import { BrowsingList } from './components/BrowsingList';
 export default () => (
     <Layout>
         <Route exact path='/' component={Home} />
@@ -14,6 +15,7 @@ export default () => (
         <Route path='/signuppage' component={SignUpPage} />
         <Route path='/forgotemail' component={ForgotEmail} />
         <Route path='/forgotpassword' component={ForgotPassword} />
+        <Route path='/browsing' component={BrowsingList} />
         <Route path='/signinpage' component={SignIn_SignUp} />
     </Layout>
     );

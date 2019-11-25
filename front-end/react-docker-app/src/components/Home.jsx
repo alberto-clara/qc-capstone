@@ -1,12 +1,9 @@
 import React from 'react';
 import '../css/mainTailwind.css';
 
-import {Slider} from './AdSlide'
-
-export function Home(props) {
-
-
-    function fetching(response) {
+import { Slider } from './AdSlide';
+export const Home =(props)=> {
+    const fetching=(response) => {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
             .then(res => res.json())
             .then((data) => {
@@ -60,8 +57,8 @@ export function Home(props) {
         <div  >
             {searchbar}
             {homediv}
-            <Slider /> 
-
+            {/*<Slider /> */} 
+           
             {recommend}
             {recommend}
         

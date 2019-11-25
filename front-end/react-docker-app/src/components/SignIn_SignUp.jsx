@@ -1,11 +1,14 @@
-
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/mainTailwind.css';
 
 import { SignUpPage } from './SignUpPage';
 import { SignInPage } from './SignInPage';
-export function SignIn_SignUp(props) {
-  
+
+export const SignIn_SignUp=(props) => {
+
+    useEffect(() => {
+        document.title = `Home Depot - Account`;
+    });
     return (
         <div>
             <div className="lg:hidden">
