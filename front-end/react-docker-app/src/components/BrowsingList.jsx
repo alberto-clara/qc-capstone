@@ -9,7 +9,7 @@ export const BrowsingList =(props) => {
         document.title = `Home Depot - Browsing`;
         fetching();
     }, []);
-    
+
     const fetching = async () => {
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=10&pageIndex=1").then((res) => {
             for (var i = 0; i < 10; i++) {
@@ -17,24 +17,35 @@ export const BrowsingList =(props) => {
             }
             setItems(initValue)
             setLoad(true);
-        });}
+        });
+    }
+    const loopfetching = ()=> {
+        console.log("hell");
+
+        var htmlElements = "";
+        for (var i = 0; i < 10; i++) {
+            htmlElements += '<div className="product_id">' + items[i].id + '</div>';
+            htmlElements += '<div className="product_name">' + items[i].product_name + '</div>';
+            htmlElements += '<div className="unit_retail">' + items[i].unit_retail + '</div>';
+        }
+        var container = document.getElementById("container");
+        container.innerHTML = htmlElements;
+        }
 
 
 
-
-    return (<> 
-            Unit 1:
-            <div className="pl-8">
-                <div>  {load ? items[0].id : console.log("")} </div>
-                <div> {load ? items[0].product_name : console.log("")} </div>
-                <div> {load ? items[0].unit_retail : console.log("")} </div>
+    return (<>
+        Unit1
+        <div className="pl-8">
+            <div>{load ? loopfetching() : null}  </div>
+            <div id="container"> </div>
             </div>
 
             Unit 2:
                 <div className="pl-8">
-                <div>  {load ? items[1].id : console.log("")} </div>
-                <div> {load ? items[1].product_name : console.log("")} </div>
-                <div> {load ? items[1].unit_retail : console.log("")} </div>
+                <div>  {load ? items[1].id : null} </div>
+                <div> {load ? items[1].product_name : null} </div>
+                <div> {load ? items[1].unit_retail : null} </div>
             </div>
         </>);
 }
