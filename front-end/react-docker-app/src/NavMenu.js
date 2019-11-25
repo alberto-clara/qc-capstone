@@ -48,7 +48,7 @@ import FireBaseSetup from './FireBaseSetup';
                         Home
                     </div>
                 </Link>
-                <Link to={'/'}>
+                <Link to={'/browsing'}>
                     <div className="NavMenu_Text">
                         Browse
                     </div>
