@@ -21,12 +21,20 @@ export const BrowsingList =(props) => {
     }
     const loopfetching = ()=> {
         console.log("hell");
-
-        var htmlElements = "";
+        var htmlElements = '';
         for (var i = 0; i < 10; i++) {
-            htmlElements += '<div className="product_id">' + items[i].id + '</div>';
-            htmlElements += '<div className="product_name">' + items[i].product_name + '</div>';
-            htmlElements += '<div className="unit_retail">' + items[i].unit_retail + '</div>';
+            htmlElements += `
+                <div class="flex border bg-green-100 mb-10">` +
+                    `<div class="flex-1 justify-start>` +
+                        `<a href="https://en.wikipedia.org/wiki/Boracay" target="_blank"><img src="//www.html.am/images/html-codes/links/boracay-white-beach-sunset-300x225.jpg" width="300" height="225" alt="Photo of White Beach in Boracay, Philippines" /></a>` +
+                    `</div>` +
+                    `<div class="lg:px-8 justify-end">` +
+                        `<div class="text-xl product_name">` + items[i].product_name + `</div>` +
+                        `<div class="text-lg product_id">` + items[i].id + `</div>`+
+                        `<div class="unit_retail">` + items[i].unit_retail + `</div>` +
+                    `</div>` +
+                `</div>`
+            ;
         }
         var container = document.getElementById("container");
         container.innerHTML = htmlElements;
@@ -36,16 +44,16 @@ export const BrowsingList =(props) => {
 
     return (<>
         Unit1
-        <div className="pl-8">
-            <div>{load ? loopfetching() : null}  </div>
-            <div id="container"> </div>
+        <div className="flex max-w-full sm:px-8 lg:px-20">
+            <div className="hidden lg:block flex-1 w-1/5 border bg-yellow-200 justify-start">
+                <div className="flex text-xl justify-center">
+                    Settings
+                </div>
             </div>
-
-            Unit 2:
-                <div className="pl-8">
-                <div>  {load ? items[1].id : null} </div>
-                <div> {load ? items[1].product_name : null} </div>
-                <div> {load ? items[1].unit_retail : null} </div>
+            <div className="w-full lg:w-4/5 justify-end">
+                <div>{load ? loopfetching() : null}  </div>
+                <div id="container" className="bg-orange-100"> </div>
+                </div>
             </div>
         </>);
 }

@@ -88,7 +88,15 @@
     @apply text-white;
 }
 
+.product_id {
+    @apply bg-green-500
+}
+
 @screen lg {
+    .product_id {
+        @apply bg-green-500
+    }
+    
     .adSlide {
         height: 400px;
         @apply border mx-5;
