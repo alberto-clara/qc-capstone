@@ -12,9 +12,14 @@ export function Product(props) {
                 </button>
             </div>);
     
+    const side_pic = (
+        <div className=" titlePage py-2 lg:text-3xl"> Products</div>
+    );
+
     return (
         <div>
             {search}
+            {side_pic}
         </div>
         )
 }
