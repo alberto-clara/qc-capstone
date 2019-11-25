@@ -5,7 +5,6 @@ import {Slider} from './AdSlide'
 
 export function Home(props) {
 
-
     function fetching(response) {
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
             .then(res => res.json())
@@ -19,7 +18,6 @@ export function Home(props) {
        
         <button className="bg-blue-200" onClick={fetching}> Fetching Data</button>
     </div>);
-
 
     const recommend = (<div className=" w-full h-64 ti:h-72 md:h-76 lg:justify-center  lg:px-20 pr-5 pl-5">
         <div className="font-bold">Label</div>
@@ -51,6 +49,7 @@ export function Home(props) {
         <div  >
             {homediv}
             <Slider /> 
+            
 
             {recommend}
             {recommend}

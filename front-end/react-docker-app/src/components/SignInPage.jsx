@@ -24,7 +24,7 @@ export function SignInPage(props) {
                 type: "LOGIN",
                 payload: response.user
             });
-
+            
             props.history.push("/");
         }
     }
