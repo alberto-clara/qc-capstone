@@ -12045,7 +12045,15 @@ video {
   color: #fff;
 }
 
+.product_id {
+  background-color: #48bb78
+}
+
 @media (min-width: 1024px) {
+  .product_id {
+    background-color: #48bb78
+  }
+
   .adSlide {
     height: 400px;
     border-width: 1px;

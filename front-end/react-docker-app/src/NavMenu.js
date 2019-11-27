@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
+
  function NavMenu(props) {
     const [stateNav, setStateNave] = useState(null);
     const [userEmail, setUserEmail] = useState("");
@@ -47,7 +48,7 @@ import FireBaseSetup from './FireBaseSetup';
                         Home
                     </div>
                 </Link>
-                <Link to={'/'}>
+                <Link to={'/browsing'}>
                     <div className="NavMenu_Text">
                         Browse
                     </div>
@@ -60,6 +61,11 @@ import FireBaseSetup from './FireBaseSetup';
                 <Link to={'/'}>
                     <div className="NavMenu_Text">
                         Contact Us
+                    </div>
+                </Link>
+                <Link to={'/product'}>
+                    <div className="NavMenu_Text">
+                        Product
                     </div>
                 </Link>
             </div>

@@ -6,7 +6,7 @@ import FireBaseSetup from '../FireBaseSetup';
 
 import { Auth } from '../authContext';
 
-export function SignInPage(props) {
+export const SignInPage=(props)=> {
     const [emailLogin, setEmail] = useState('');
     const [passwordLogin, setPassword] = useState('');
     const [routeRedirect, setRouteRedirect] = useState(false);
@@ -24,7 +24,7 @@ export function SignInPage(props) {
                 type: "LOGIN",
                 payload: response.user
             });
-
+            
             props.history.push("/");
         }
     }
