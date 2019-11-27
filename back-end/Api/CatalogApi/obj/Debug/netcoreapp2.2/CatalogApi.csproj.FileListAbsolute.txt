@@ -28,3 +28,17 @@ C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/
 /home/renn/githug/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorTargetAssemblyInfo.cache
 /home/renn/githug/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.dll
 /home/renn/githug/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.pdb
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.deps.json
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.runtimeconfig.json
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.runtimeconfig.dev.json
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.dll
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.pdb
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.csprojAssemblyReference.cache
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.csproj.CoreCompileInputs.cache
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorAssemblyInfo.cache
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorAssemblyInfo.cs
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.AssemblyInfoInputs.cache
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.AssemblyInfo.cs
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorTargetAssemblyInfo.cache
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.dll
+/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.pdb

@@ -12803,23 +12803,23 @@
     ]
   },
   "packageFolders": {
-    "/home/renn/.nuget/packages/": {},
+    "/home/choosey/.nuget/packages/": {},
     "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/renn/githug/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
+      "projectUniqueName": "/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
       "projectName": "CatalogApi",
-      "projectPath": "/home/renn/githug/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
-      "packagesPath": "/home/renn/.nuget/packages/",
-      "outputPath": "/home/renn/githug/qc-capstone/back-end/Api/CatalogApi/obj/",
+      "projectPath": "/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
+      "packagesPath": "/home/choosey/.nuget/packages/",
+      "outputPath": "/home/choosey/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/renn/.nuget/NuGet/NuGet.Config"
+        "/home/choosey/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"

@@ -55,7 +55,7 @@ import FireBaseSetup from './FireBaseSetup';
                 </Link>
                 <Link to={'/'}>
                     <div className="NavMenu_Text">
-                        Special & Offers
+                        Offers
                     </div>
                 </Link>
                 <Link to={'/'}>
