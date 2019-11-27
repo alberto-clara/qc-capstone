@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj": {}
+    "C:\\Users\\gumgu\\OneDrive\\Desktop\\ReactCode\\Team Project\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj": {}
   },
   "projects": {
-    "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj": {
+    "C:\\Users\\gumgu\\OneDrive\\Desktop\\ReactCode\\Team Project\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
+        "projectUniqueName": "C:\\Users\\gumgu\\OneDrive\\Desktop\\ReactCode\\Team Project\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
         "projectName": "CatalogApi",
-        "projectPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
-        "packagesPath": "C:\\Users\\Gum\\.nuget\\packages\\",
-        "outputPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\obj\\",
+        "projectPath": "C:\\Users\\gumgu\\OneDrive\\Desktop\\ReactCode\\Team Project\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
+        "packagesPath": "C:\\Users\\gumgu\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gumgu\\OneDrive\\Desktop\\ReactCode\\Team Project\\qc-capstone\\back-end\\Api\\CatalogApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "E:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Gum\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\gumgu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"

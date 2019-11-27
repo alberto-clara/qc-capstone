@@ -8,22 +8,30 @@ export const BrowsingList = (props) => {
     var limit = 0;
     const [items, setItems] = useState([]);
     const [load, setLoad] = useState(false);
-    const [pageNumber, setpageNumber] = useState(25);
-    const [pageLocation, setPageLocation] = useState(1);
+    const [pageNumber, setpageNumber] = useState(10);
+    const [pageLocation, setPageLocation] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
+    const [pagination, setPagination] = useState([]);
+
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
         totalfetch();
         fetching(pageNumber, pageLocation);
+        
         setLoad(false);
+       
     }, [load]);
     const totalfetch = async() => {
         await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
           
             setTotalPage(res.data.count);
-            limit = (res.data.count / 25)-1;
+            limit = (res.data.count / pageNumber) - 1;
+            setLoad(false);
         })
     }
+
+
+
     const fetching = async (number, location) => {
 
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + location).then((res) => {
@@ -49,14 +57,19 @@ export const BrowsingList = (props) => {
         }
                 )}
     const options = [
-        5, 10, 15, 20,25]
-    const options2 = [
-        1,2,3,4,5,6,7,8,9,10]
-
+        5, 10, 15, 20, 25]
+    var options2 = pagination;
+    
     const loopfetching = (number,location)=> {
         var htmlElements = '';
         console.log(number);
         console.log(location);
+        var stepup = Math.round(totalPage / pageNumber)
+        var arrayPage=[];
+        for (var o = 0; o < stepup; o++) {
+            arrayPage.push(o);
+        }
+        setPagination(arrayPage);
          for (var i = 0; i < number; i++) {
              htmlElements += `
                 <div class="flex border bg-green-100 mb-10">` +
@@ -76,8 +89,9 @@ export const BrowsingList = (props) => {
            setLoad(false);
         }
     const changeSize = async (e) => {
-        
         await setpageNumber(e.value);
+
+
     }
     const changePage = async (e) => {
        await setPageLocation(e.value);
@@ -91,7 +105,7 @@ export const BrowsingList = (props) => {
         </div>   
         <div className="w-56 flex">
             <div className="largeBold w-1/2">Location: </div>
-            <Dropdown className=" w-1/3 " options={options2} value={pageLocation.toString()} onChange={e =>changePage(e)} />
+            <Dropdown className=" w-1/3 " options={options2} value={(pageLocation).toString()} onChange={e =>changePage(e)} />
         </div> 
         <div className="flex max-w-full sm:px-8 lg:px-20">
             <div className="hidden lg:block flex-1 w-1/5 border bg-yellow-200 justify-start">

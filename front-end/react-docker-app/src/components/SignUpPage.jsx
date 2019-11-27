@@ -88,7 +88,7 @@ export const SignUpPage=(props) => {
             notice.innerHTML = "The Password needs atleast 8 characters";
         }
        else if (!validEmail(filter,Password)) {
-            notice.innerHTML = "The password is invalid";
+            notice.innerHTML = "Your Password must contain at least one: lowercase, uppercase, and a special character";
         }
         else {
             notice.innerHTML = " ";

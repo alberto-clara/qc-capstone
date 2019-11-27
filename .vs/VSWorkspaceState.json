@@ -1,14 +1,16 @@
 {
   "ExpandedNodes": [
     "",
-    "\\back-end",
     "\\back-end\\Api",
     "\\back-end\\Api\\ApiGateway",
     "\\back-end\\Api\\CatalogApi",
-    "\\back-end\\Api\\CatalogApi\\Controllers",
     "\\back-end\\Api\\OrdersApi",
-    "\\back-end\\Database"
+    "\\back-end\\Database",
+    "\\front-end",
+    "\\front-end\\react-docker-app",
+    "\\front-end\\react-docker-app\\src",
+    "\\front-end\\react-docker-app\\src\\components"
   ],
-  "SelectedNode": "\\back-end\\Database",
+  "SelectedNode": "\\front-end\\react-docker-app\\src\\components\\SignUpPage.jsx",
   "PreviewInSolutionExplorer": false
 }
