@@ -66,8 +66,7 @@ export const BrowsingList = (props) => {
         }
         )
     }
-    const options = [
-        5, 10, 15, 20, 25]
+    const options = [5, 10, 15, 20, 25]
     var options2 = pagination;
 
     const loopfetching = (number, location) => {
@@ -88,7 +87,7 @@ export const BrowsingList = (props) => {
                 `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
                 `</div>` +
                 `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1">` +
-                `<div class="text-sm lg:text-xl product_name">` + items[i].product_name + `</div>` +
+                `<a class="text-sm lg:text-xl product_name" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
                 `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
                 // `<div class="text-lg flex-wrap product_id">` + items[i].id + `</div>`+
                 `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
