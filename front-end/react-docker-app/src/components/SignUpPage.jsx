@@ -5,7 +5,7 @@ import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import '../css/mainTailwind.css';
 import FireBaseSetup from "../FireBaseSetup";
 
-export function SignUpPage(props) {
+export const SignUpPage=(props) => {
     const [emailVerify, setEmailVerify] = useState(false);
     const [passwordVerify,setpasswordVerify] = useState(false);
     const [confirmpasswordVerify,setConfirmPasswordVerify] = useState(false);
