@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../css/mainTailwind.css';
 
 import { Slider } from './AdSlide';
@@ -13,7 +13,9 @@ export const searchbar = (
     </div>);
 
 export const Home =(props)=> {
-
+    useEffect(() => {
+        document.title = `Home Depot - HomePage`;
+    },[]);
     const fetching=(response) => {
 
         fetch("http://localhost:7000/catalog-api/products/page?pageSize=3&pageIndex=10", { mode: 'cors' })
