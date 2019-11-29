@@ -108,7 +108,9 @@ namespace CatalogApi.Controllers
                                 rt2.supplier_name
                             });
 
-            var items = await newTable.ToListAsync();
+            var items = await newTable
+                                .OrderBy(p => p.Unit_retail)
+                                .ToListAsync();
 
             if (items.Count != 0) return Ok(items);
 
