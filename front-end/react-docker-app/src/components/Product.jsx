@@ -7,6 +7,7 @@ import axios from 'axios';
 export  const Product = (props) =>{
     let { id } = useParams();
     const [productName, setProductName] = useState('');
+
     const [description, setDescription] = useState('');
     useEffect(() => {
         document.title = `Home Depot - Product`;
@@ -16,6 +17,7 @@ export  const Product = (props) =>{
         await axios.get("http://localhost:7000/catalog-api/products/" + ProductID).then((res) => {
             console.log(res.data);
             setProductName(res.data.product_name);
+            
             setDescription(res.data.long_description);
         })
     }
@@ -23,6 +25,7 @@ export  const Product = (props) =>{
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Product View </div>
             <div className="titlePage"> {productName}</div>
+      
         </div>
     );
 
