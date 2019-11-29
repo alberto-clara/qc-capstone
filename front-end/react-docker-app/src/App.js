@@ -20,10 +20,11 @@ export default () => (
         <Route path='/forgotemail' component={ForgotEmail} />
         <Route path='/forgotpassword' component={ForgotPassword} />
 
-        <Route path='/product' component={Product} />
 
         <Route path='/browsing' component={BrowsingList} />
         <Route path='/signinpage' component={SignIn_SignUp} />
 
+        <Route path="/product/:id" component={Product} />
+      
     </Layout>
     );
