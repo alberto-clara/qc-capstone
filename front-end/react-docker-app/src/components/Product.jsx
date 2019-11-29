@@ -4,7 +4,7 @@ import { searchbar } from '../components/Home';
 import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import axios from 'axios';
-export  const Product = () =>{
+export  const Product = (props) =>{
     let { id } = useParams();
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
