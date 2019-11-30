@@ -46,11 +46,11 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
-        // GET api/products/page[?pageSize=3&pageIndex=10]
-        [HttpGet, Route("page")]
+        // GET api/products/page/priceSort[?pageSize=3&pageIndex=10]
+        [HttpGet, Route("page/{priceSort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items([FromQuery]int pageSize = 10,
+        public async Task<IActionResult> Items(string priceSort, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
             if (pageSize == 0) return BadRequest();
@@ -68,12 +68,31 @@ namespace CatalogApi.Controllers
                             Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
                         });
 
+            Console.Write("priceSort = ");
+            Console.WriteLine(priceSort);
+            /*
+                        if (priceSort == "ascending")
+                        {
+                            newT.OrderBy(p => p.Unit_retail);
+                            Console.WriteLine(newT);
+                        }
+
+
+                        else if (priceSort == "descending") newT.OrderByDescending(p => p.Unit_retail);
+
+
+                        else newT.OrderBy(p => p.Product_name);*/
+
             var itemsOnPage = await newT
-                               .GroupBy(p => p.Product_name)
-                               .Select(g => g.First())
-                               .Skip(pageSize * pageIndex)
-                               .Take(pageSize)
-                               .ToListAsync();
+                                   .GroupBy(p => p.Product_name)
+                                   .Select(g => g.First())
+                                   .Skip(pageSize * pageIndex)
+                                   .Take(pageSize)
+                                   .ToListAsync();
+
+            if (priceSort == "ascending") itemsOnPage = itemsOnPage.OrderBy(p => p.Unit_retail).ToList();
+
+            else if (priceSort == "descending") itemsOnPage = itemsOnPage.OrderByDescending(p => p.Unit_retail).ToList();
 
             var model = new PaginatedItemsViewModel<PageView>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
@@ -81,20 +100,20 @@ namespace CatalogApi.Controllers
             return Ok(model);
             }
 
-        // GET api/products/offerings/{offeringId}
+        // GET api/products/offerings/{productId}
         [HttpGet, Route("offerings/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> OfferingsByIdAsync(string offeringId) {
+        public async Task<IActionResult> OfferingsByIdAsync(string productId) {
 
-            if (offeringId == null) return BadRequest();
+            if (productId == null) return BadRequest();
 
             var newTable = (from pt in _catalogContext.products
                             join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
                             join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
                             into temp
                             from rt2 in temp.DefaultIfEmpty()
-                            where pt.Id == offeringId
+                            where pt.Id == productId
                             select new
                             {
                                 pt.Id,

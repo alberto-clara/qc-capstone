@@ -8,3 +8,5 @@ back-end/Api/ApiGateway/obj/
 back-end/Api/ApiGateway/bin/
 back-end/Api/CatalogApi/bin/
 back-end/Api/CatalogApi/obj/
+*.cache
+*.dll
