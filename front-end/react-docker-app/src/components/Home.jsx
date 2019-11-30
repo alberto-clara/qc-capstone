@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import '../css/mainTailwind.css';
-
+import { autoPlay } from 'react-swipeable-views-utils';
+import SwipeableViews from 'react-swipeable-views';
 import { Slider } from './AdSlide';
 
 export const searchbar = (
@@ -45,6 +46,26 @@ export const Home =(props)=> {
         <div className="forgetText mr-1">See more</div>
     </div>);
 
+
+    const Auto = autoPlay(SwipeableViews);
+    const swiping = <div>
+        <Auto enableMouseEvents>
+            <div className=" h-76 flex ">
+                <div className="bg-orange-400 h-full w-1/4"> </div>
+                <div className="bg-orange-600 h-full w-1/4"> </div>
+                <div className="bg-orange-400 h-full w-1/4"> </div>
+                <div className="bg-orange-700 h-full w-1/4"> </div>
+            </div>
+            <div className=" h-76 flex">
+                <div className="bg-blue-300 h-full w-1/4"> </div>
+                <div className="bg-blue-600 h-full w-1/4"> </div>
+                <div className="bg-blue-400 h-full w-1/4"> </div>
+                <div className="bg-blue-700 h-full w-1/4"> </div>
+            </div>
+            <div className="bg-red-700 h-76"> </div>
+        </Auto>
+        </div>
+  
     return (
         <div  >
             {searchbar}
@@ -52,7 +73,7 @@ export const Home =(props)=> {
             <Slider /> 
            
             {recommend}
-            {recommend}
+            {swiping}
         
 
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-
+import SwipeableViews from 'react-swipeable-views';
 export const Slider = () => {
 
     const width = useWindowWidth(); // determine the width of windows initially 
@@ -26,6 +26,7 @@ export const Slider = () => {
             <div className="w-1/5"> {state.currentIndex < state.items.length - 1 ? (<button className="bg-orange-500 hover:bg-orange-600 w-16 lg:w-32 text-white rounded-full border-white border-2 " onClick={() => dispatch({ type: "NEXT" })}> Next </button>) : ("")}</div>
     </div>);
     return (<><div className="adSlide border-2 border-black rounded ">
+
         <div className=" wrapper h-full  " width={width} style={{
             transform: `translateX(${-(state.currentIndex * width)}px)`,
             transition: "transform ease-out 0.40s",
@@ -88,7 +89,7 @@ const Slide = ({ item, width }) => {
     return (
         <>
             <div id="slider"className="flex  lg:h-full " style={{ width: width + "px" || "100%" }}>
-                <img src={item.pic}/>
+                    <img src={item.pic} />
             </div>
         </>)
 }

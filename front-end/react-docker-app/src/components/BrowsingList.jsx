@@ -3,6 +3,9 @@ import '../css/mainTailwind.css';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import { Pagination } from "semantic-ui-react";
+import 'semantic-ui-css/semantic.min.css';
+
 export const BrowsingList = (props) => {
     var initValue = [];
     var limit = 0;
@@ -11,6 +14,7 @@ export const BrowsingList = (props) => {
     const [pageNumber, setpageNumber] = useState(10);
     const [pageLocation, setPageLocation] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
+    const [countPage, setCountPage] = useState(0);
     const [pagination, setPagination] = useState([]);
 
     useEffect(() => {
@@ -19,7 +23,7 @@ export const BrowsingList = (props) => {
         fetching(pageNumber, pageLocation);
 
         setLoad(false);
-
+        
     }, [load]);
     const totalfetch = async () => {
         await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
@@ -29,17 +33,6 @@ export const BrowsingList = (props) => {
             setLoad(false);
         })
     }
-
-    const paginationNumber = (pageNumber, totalPage) => {
-        var arrayPage = [];
-        var totalPage = totalPage / pageNumber;
-        if (totalPage !== 0) { totalPage++ }
-        console.log('totalPage' + totalPage)
-        for (var i = 0; i < totalPage; i++) {
-            arrayPage.push(i);
-        }
-    }
-
 
     const fetching = async (number, location) => {
 
@@ -74,6 +67,7 @@ export const BrowsingList = (props) => {
         console.log(number);
         console.log(location);
         var stepup = Math.round(totalPage / pageNumber)
+        setCountPage(stepup);
         var arrayPage = [];
         for (var o = 0; o < stepup; o++) {
             arrayPage.push(o);
@@ -109,18 +103,19 @@ export const BrowsingList = (props) => {
         await setpageNumber(e.value);
     }
     const changePage = async (e) => {
-        await setPageLocation(e.value);
+      
+        await setPageLocation(e);
     }
 
     return (<>
+
         <div className="w-56 flex">
             <div className="largeBold w-1/2">Size: </div>
             <Dropdown className=" w-1/3 " options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
         </div>
-        <div className="w-56 flex">
-            <div className="largeBold w-1/2">Location: </div>
-            <Dropdown className=" w-1/3 " options={options2} value={(pageLocation).toString()} onChange={e => changePage(e)} />
-        </div> 
+       
+        <Pagination onPageChange={(e,data) => changePage(data.activePage)} defaultActivePage={1} boundaryRange={1}
+             totalPages={countPage} />
         <div className="flex justify-center text-md lg:text-xl py-1">
             Browse Page
         </div>
