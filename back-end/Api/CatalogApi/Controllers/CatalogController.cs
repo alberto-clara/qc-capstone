@@ -70,21 +70,6 @@ namespace CatalogApi.Controllers
                             Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
                         });
 
-            Console.Write("priceSort = ");
-            Console.WriteLine(priceSort);
-            /*
-                        if (priceSort == "ascending")
-                        {
-                            newT.OrderBy(p => p.Unit_retail);
-                            Console.WriteLine(newT);
-                        }
-
-
-                        else if (priceSort == "descending") newT.OrderByDescending(p => p.Unit_retail);
-
-
-                        else newT.OrderBy(p => p.Product_name);*/
-
             var itemsOnPage = await newT
                                    .GroupBy(p => p.Product_name)
                                    .Select(g => g.First())
@@ -106,7 +91,7 @@ namespace CatalogApi.Controllers
         [HttpGet, Route("offerings/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> OfferingsByIdAsync(string offeringId)
+        public async Task<IActionResult> OfferingsByIdAsync(string productId)
         {
 
             if (productId == null) return BadRequest();
