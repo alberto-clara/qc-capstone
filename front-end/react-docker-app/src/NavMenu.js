@@ -63,11 +63,7 @@ import FireBaseSetup from './FireBaseSetup';
                         Contact Us
                     </div>
                 </Link>
-                <Link to={'/product'}>
-                    <div className="NavMenu_Text">
-                        Product
-                    </div>
-                </Link>
+ 
             </div>
             <div className="hidden lg:flex">
                 <div className="NavMenu_Sign_Text">

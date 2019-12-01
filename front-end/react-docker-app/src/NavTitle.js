@@ -10,7 +10,7 @@ export default props => (
         </div>
         <div className="flex-1 text-white mr-6 lg:pl-0 sm:pl-6">
             <Link to={'/'}>
-                <span className="font-bold lg:text-3xl sm:text-xl">Quote Center</span>
+                <div className="font-bold lg:text-3xl sm:text-xl text-white">Quote Center</div>
             </Link>
         </div>
         <div>

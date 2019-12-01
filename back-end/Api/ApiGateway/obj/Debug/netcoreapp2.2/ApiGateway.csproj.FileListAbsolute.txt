@@ -1,20 +1,3 @@
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/appsettings.Development.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/appsettings.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ocelot.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/Properties/launchSettings.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.deps.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.runtimeconfig.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.runtimeconfig.dev.json
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.dll
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.pdb
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.csprojAssemblyReference.cache
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.RazorAssemblyInfo.cache
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.RazorAssemblyInfo.cs
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.AssemblyInfoInputs.cache
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.AssemblyInfo.cs
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.RazorTargetAssemblyInfo.cache
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.dll
-C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/ApiGateway/obj/Debug/netcoreapp2.2/ApiGateway.pdb
 /home/renn/githug/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.deps.json
 /home/renn/githug/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.runtimeconfig.json
 /home/renn/githug/qc-capstone/back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.runtimeconfig.dev.json
@@ -60,3 +43,20 @@ E:\ReactCode\TeamProj\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.
 E:\ReactCode\TeamProj\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorTargetAssemblyInfo.cache
 E:\ReactCode\TeamProj\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.dll
 E:\ReactCode\TeamProj\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.pdb
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ocelot.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.deps.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.runtimeconfig.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.runtimeconfig.dev.json
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.dll
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\bin\Debug\netcoreapp2.2\ApiGateway.pdb
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.csprojAssemblyReference.cache
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorAssemblyInfo.cache
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorAssemblyInfo.cs
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.AssemblyInfoInputs.cache
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.AssemblyInfo.cs
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.RazorTargetAssemblyInfo.cache
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.dll
+C:\Users\gumgu\OneDrive\Desktop\ReactCode\Team Project\qc-capstone\back-end\Api\ApiGateway\obj\Debug\netcoreapp2.2\ApiGateway.pdb

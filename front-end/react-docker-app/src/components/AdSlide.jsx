@@ -1,28 +1,33 @@
 import React, { useEffect, useReducer, useState } from "react";
-
+import SwipeableViews from 'react-swipeable-views';
 export const Slider = () => {
+
     const width = useWindowWidth(); // determine the width of windows initially 
     const [state, dispatch] = useReducer(reducer, {
         currentIndex: 0,
         items: [
-            { id: 1, name: "1", pic: require("./../Pics/Ad2.PNG")},
-            { id: 2, name: "2", pic: require("./../Pics/Ad3.PNG")},
-            { id: 3, name: "3", pic: require("./../Pics/Ad1.PNG")}
+            { id: 1, name: "1", pic: require("./../Pics/Ad1.PNG")},
+            { id: 2, name: "2", pic: require("./../Pics/Ad2.PNG")},
+            { id: 3, name: "3", pic: require("./../Pics/Ad3.PNG")}
         ]
     });
-    const NavAd = (<div className="text-center h-8 flex">
-        <div className="w-1/5">{state.currentIndex > 0 ? (<button className="bg-orange-500 hover:bg-orange-600 h-6 lg:h-12 w-20 rounded-full" onClick={() => dispatch({ type: "PREV" })} > Prev</button>) : ("")} </div>
-        <div className="w-1/5" />
-           {state.items.map((i, index) => {
+    const NavAd = (
+    <div className="text-center h-8 flex ">
+        <div className="w-1/5">{state.currentIndex > 0 ? (<button className="bg-orange-500 hover:bg-orange-600 w-16 lg:w-32 text-white rounded-full border-white border-2" onClick={() => dispatch({ type: "PREV" })} > Prev</button>) : ("")} </div>
+            <div className="w-1/5 flex  " />
+            <div className="w-1/5 flex text-center justify-center " >
+            {state.items.map((i, index) => {
             return (
-                <div className="bg-orange-600 flex cursor-pointer justify-center w-1/5 border-2 hover:bg-orange-800  h-6 lg:h-10 rounded-full" onClick={() => dispatch({ type: "GOTO", index })}> {index+1}
+                <div className="bg-orange-600 w-4 h-4 lg:w-6 lg:h-6 border-2 hover:bg-orange-800 justify-center  rounded-full" onClick={() => dispatch({ type: "GOTO", index })}> {' '}
                </div>);
-      })} 
+            })} 
+               </div>
         <div className="w-1/5" />
-        <div className="w-1/5"> {state.currentIndex < state.items.length - 1 ? (<button className="bg-orange-500 hover:bg-orange-600 rounded-full lg:h-12 w-20 " onClick={() => dispatch({ type: "NEXT" })}> Next </button>) : ("")}</div>
+            <div className="w-1/5"> {state.currentIndex < state.items.length - 1 ? (<button className="bg-orange-500 hover:bg-orange-600 w-16 lg:w-32 text-white rounded-full border-white border-2 " onClick={() => dispatch({ type: "NEXT" })}> Next </button>) : ("")}</div>
     </div>);
-    return (<><div className="adSlide border-2 border-black">
-        <div className="wrapper h-full " width={width} style={{
+    return (<><div className="adSlide border-2 border-black rounded ">
+
+        <div className=" wrapper h-full  " width={width} style={{
             transform: `translateX(${-(state.currentIndex * width)}px)`,
             transition: "transform ease-out 0.40s",
             width: width * state.items.length + "px"
@@ -41,7 +46,6 @@ export const Slider = () => {
         </div>
        
     </div>
-        <br/>
         {NavAd}
         <br/>
         <hr className="border-orange-600 border-2"/>
@@ -80,13 +84,12 @@ const useWindowWidth = () => {
     });
     return width;
 };
-//   <div className="text-center bg-green-200 w-full h-auto">{item.name}</div>
-//<img src={item.pic}/>
+
 const Slide = ({ item, width }) => {
     return (
         <>
-            <div className=" flex bg-red-200 lg:h-full" style={{ width: width + "px" || "100%" }}>
-                <img src={item.pic}/>
+            <div id="slider"className="flex  lg:h-full " style={{ width: width + "px" || "100%" }}>
+                    <img src={item.pic} />
             </div>
         </>)
 }
