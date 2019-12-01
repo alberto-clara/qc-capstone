@@ -48,6 +48,12 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
+        
+        /*
+         * {priceSort?} is an option route parameter, use ascending or descending to sort in the
+         * needed way and if no sorting is needed this parameter can be omitted from the route
+         * and it will be sorted based on the results will be sorted based on the product name.
+         */ 
         // GET api/products/page/priceSort[?pageSize=3&pageIndex=10]
         [HttpGet, Route("page/{priceSort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -70,6 +76,10 @@ namespace CatalogApi.Controllers
                             Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
                         });
 
+            if (priceSort == "ascending") newT = newT.OrderBy(p => p.Unit_retail);
+
+            else if (priceSort == "descending") newT = newT.OrderByDescending(p => p.Unit_retail);
+
             var itemsOnPage = await newT
                                    .GroupBy(p => p.Product_name)
                                    .Select(g => g.First())
@@ -77,9 +87,9 @@ namespace CatalogApi.Controllers
                                    .Take(pageSize)
                                    .ToListAsync();
 
-            if (priceSort == "ascending") itemsOnPage = itemsOnPage.OrderBy(p => p.Unit_retail).ToList();
+ //           if (priceSort == "ascending") itemsOnPage = itemsOnPage.OrderBy(p => p.Unit_retail).ToList();
 
-            else if (priceSort == "descending") itemsOnPage = itemsOnPage.OrderByDescending(p => p.Unit_retail).ToList();
+ //           else if (priceSort == "descending") itemsOnPage = itemsOnPage.OrderByDescending(p => p.Unit_retail).ToList();
 
             var model = new PaginatedItemsViewModel<PageView>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
@@ -87,8 +97,13 @@ namespace CatalogApi.Controllers
             return Ok(model);
         }
 
+        
+        /*
+         * This returns a list of all the offerings for a single product based on the product ID in the route. 
+         * If information is needed about a specific offering of a product this route should not be used.
+         */ 
         // GET api/products/offerings/{productId}
-        [HttpGet, Route("offerings/{offeringId}")]
+        [HttpGet, Route("offerings/{productId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> OfferingsByIdAsync(string productId)
@@ -120,6 +135,43 @@ namespace CatalogApi.Controllers
                                 .ToListAsync();
 
             if (items.Count != 0) return Ok(items);
+
+            return NotFound();
+        }
+
+        
+        /*
+         * use this route if you want to get the information about a single offering of a product
+         * the route needs to be passed the offering ID of what you want information about
+         */
+        // GET /api/products/offerings/single/{offeringId}
+        [HttpGet, Route("offerings/single/{offeringId}")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> SingleOfferingByIdAsync(string offeringId)
+        {
+            if (offeringId == null) return BadRequest();
+
+            var result = await (from ot in _catalogContext.offerings
+                                join pt in _catalogContext.products on ot.Product_key equals pt.Id
+                                join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
+                                into temp
+                                from rt2 in temp.DefaultIfEmpty()
+                                where ot.Id == offeringId
+                                select new
+                                {
+                                    pt.Product_name,
+                                    pt.Long_description,
+                                    ot.Product_key,
+                                    Offering_key = ot.Id,
+                                    Unit_retail = Math.Round(ot.Unit_retail, 2),
+                                    Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                    rt2.supplier_name
+                                }).ToListAsync();
+
+            Console.WriteLine(result.Count());
+
+            if (result.Count() != 0) return Ok(result);
 
             return NotFound();
         }
