@@ -36,7 +36,7 @@ export const BrowsingList = (props) => {
 
     const fetching = async (number, location) => {
 
-        await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + location).then((res) => {
+        await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
             }

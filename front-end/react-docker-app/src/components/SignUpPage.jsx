@@ -88,7 +88,7 @@ export const SignUpPage=(props) => {
             notice.innerHTML = "The Password needs atleast 8 characters";
         }
        else if (!validEmail(filter,Password)) {
-            notice.innerHTML = "The password is invalid";
+            notice.innerHTML = "The password is invalid. It needs at least a lower, upper, and special character";
         }
         else {
             notice.innerHTML = " ";
@@ -153,11 +153,11 @@ export const SignUpPage=(props) => {
                            <FormControl id="PasswordField" className="typingArea" autoComplete="none" onChange={e => CheckPassword(e.target.value)} type="password" placeholder="Enter Password" />
                            <br /><div className="text-red-500 pl-4" id="noticePassword"></div> <br />
                            <div className="pl-2">Your Password must contain at least:</div>
-                           <li className="passwordHint"> 8 charaters. </li>
+                           {/*    <li className="passwordHint"> 8 charaters. </li>
                            <li className="passwordHint"> Lowercase character. </li>
                            <li className="passwordHint"> Uppercase character. </li>
                            <li className="passwordHint"> Digits(0-9) character. </li>
-                           <li className="passwordHint"> Special character </li>
+                           <li className="passwordHint"> Special character </li>*/}
                            <br />
                            <p className="largeBold">Confirm Password:</p>
                            <FormControl className="typingArea" autoComplete="none" type="password" placeholder="Confirm Password" onChange={e => CheckPasswordConfirm(e.target.value)} />

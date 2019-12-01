@@ -24,7 +24,8 @@ namespace CatalogApi.Controllers
 
         // GET api/products
         [HttpGet]
-        public IActionResult Index() {
+        public IActionResult Index()
+        {
 
             return Ok(_catalogContext.products.ToArray());
         }
@@ -35,7 +36,8 @@ namespace CatalogApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(Products), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<Products>> ItemByIdAsync(string id) {
+        public async Task<ActionResult<Products>> ItemByIdAsync(string id)
+        {
 
             if (id == null) return BadRequest();
 
@@ -79,13 +81,14 @@ namespace CatalogApi.Controllers
                     pageIndex, pageSize, totalItems, itemsOnPage);
 
             return Ok(model);
-            }
+        }
 
         // GET api/products/offerings/{offeringId}
         [HttpGet, Route("offerings/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> OfferingsByIdAsync(string offeringId) {
+        public async Task<IActionResult> OfferingsByIdAsync(string offeringId)
+        {
 
             if (offeringId == null) return BadRequest();
 
@@ -108,7 +111,9 @@ namespace CatalogApi.Controllers
                                 rt2.supplier_name
                             });
 
-            var items = await newTable.ToListAsync();
+            var items = await newTable
+                                .OrderBy(p => p.Unit_retail)
+                                .ToListAsync();
 
             if (items.Count != 0) return Ok(items);
 
