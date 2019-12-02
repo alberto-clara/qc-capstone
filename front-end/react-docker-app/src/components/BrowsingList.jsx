@@ -20,7 +20,7 @@ export const BrowsingList = (props) => {
     
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
-        totalfetch();
+        forloop();
         if (fetchsort == '')
             fetching(pageNumber, pageLocation);
         else {
@@ -29,16 +29,12 @@ export const BrowsingList = (props) => {
         setLoad(false);
         
     }, [load]);
-    const totalfetch = async () => {
-        await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
-
-            setTotalPage(res.data.count);
-            limit = (res.data.count / pageNumber) - 1;
-            setLoad(false);
-        })
-    }
 
     const fetching = async (number, location) => {
+        await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
+            setTotalPage(res.data.count);
+            limit = (res.data.count / pageNumber) - 1;
+        })
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
@@ -74,7 +70,7 @@ export const BrowsingList = (props) => {
         }) 
     }
     const options = [5, 10, 15, 20, 25]
-   
+    const forloop = () => { for (var x; x < 100; x++);}
     const loopfetching = async (number, location) => {
         var htmlElements = '';
         console.log(number);
