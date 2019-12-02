@@ -37,11 +37,11 @@ export const SignUpPage=(props) => {
                 type: "SIGNUP",
                 payload: response
             })
-            props.history.push('/');
+                window.location.href = '/';
                  }
         }
         else {
-            props.history.replace('/signuppage');
+            window.location.href = '/signinpage';
         }
         
 

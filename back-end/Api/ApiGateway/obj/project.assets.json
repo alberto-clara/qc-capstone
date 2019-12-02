@@ -12496,11 +12496,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
+      "projectUniqueName": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
       "projectName": "ApiGateway",
-      "projectPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
+      "projectPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
       "packagesPath": "C:\\Users\\Gum\\.nuget\\packages\\",
-      "outputPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\ApiGateway\\obj\\",
+      "outputPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Microsoft\\Xamarin\\NuGet\\",
