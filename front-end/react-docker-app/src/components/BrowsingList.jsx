@@ -75,7 +75,7 @@ export const BrowsingList = (props) => {
     }
     const options = [5, 10, 15, 20, 25]
    
-    const loopfetching = (number, location) => {
+    const loopfetching = async (number, location) => {
         var htmlElements = '';
         console.log(number);
         console.log(location);
@@ -104,8 +104,8 @@ export const BrowsingList = (props) => {
                 ;
         }
         var container = document.getElementById("container");
-        container.innerHTML = htmlElements;
-        setLoad(false);
+         container.innerHTML = htmlElements;
+        await setLoad(false);
     }
     const changeSize = (e) => {
         setActivePage(1);
@@ -125,8 +125,6 @@ export const BrowsingList = (props) => {
             <div className="largeBold w-1/2">Size: </div>
             <Dropdown className=" w-1/3 " options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
         </div>
-   
-
         <div className="flex max-w-full sm:px-8 lg:px-20">
             <div className="hidden lg:block flex-1 w-1/5 rounded-lg border /*bg-gray-100*/ mr-2 h-auto">
                 <div className="flex justify-center text-xl pt-4">
