@@ -117,10 +117,6 @@ export const BrowsingList = (props) => {
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Browsing View </div>
         </div>
-        <div className="w-56 flex">
-            <div className="largeBold w-1/2">Size: </div>
-            <Dropdown className=" w-1/3 " options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
-        </div>
         <div className="flex max-w-full sm:px-8 lg:px-20">
             <div className="hidden lg:block flex-1 w-1/5 rounded-lg border /*bg-gray-100*/ mr-2 h-auto">
                 <div className="flex justify-center text-xl pt-4">
@@ -133,9 +129,9 @@ export const BrowsingList = (props) => {
                     <div className="flex-wrap text-md px-4">
                         <div className="flex">
                             <div className="w-1/3">Price</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="w-1/3 text-green-500 font-bold">	&#8593; </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="w-1/3 text-red-500 font-bold">	&#8595; </button>
-                            <button onClick={() => { setFetchSort('') }} className="w-1/3 font-bold">x </button>
+                            <button onClick={() => { setFetchSort('ascending') }} className="w-1/3 text-red-500 font-bold"> Highest&#8593; </button>
+                            <button onClick={() => { setFetchSort('descending') }} className="w-1/3 text-green-500 font-bold">Lowest&#8595; </button>
+                            <button onClick={() => { setFetchSort('') }} className="w-1/3 font-bold">x</button>
                         </div>
                         <div>
                             Ratings
@@ -154,20 +150,29 @@ export const BrowsingList = (props) => {
                 <div id="container" /*className="bg-orange-100"*/> </div>
             </div>
         </div>
-        <div className=" hidden lg:block justify-center text-center ">
-            <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
-                totalPages={countPage}
-                activePage={activePage} />
+        
+        <div className="bg-blue-100 flex justify-center px-8 lg:px-20">
+            <div className="flex-1 justify-center text-center ">
+                <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
+                    totalPages={countPage}
+                    activePage={activePage} />
+            </div>
+            {/* <div className="flex-1 cursor-pointer lg:hidden text-center">
+                <Pagination onPageChange={(e, data) => changePage(data.activePage)} defaultActivePage={1}
+                    ellipsisItem={null}
+                    boundaryRange={0}
+                    firstItem={null}
+                    lastItem={null}
+                    siblingRange={1}
+                    totalPages={countPage} />
+            </div> */}
+            <div className="hidden lg:flex justify-end bg-gray-100">
+                <div className="largeBold pr-8">
+                    Size:
+                </div>
+                <Dropdown className=" w-24 " options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
+            </div>
         </div>
-        <div className=" cursor-pointer block lg:hidden justify-center text-center">
-            <Pagination onPageChange={(e, data) => changePage(data.activePage)} defaultActivePage={1}
 
-                ellipsisItem={null}
-                boundaryRange={0}
-                firstItem={null}
-                lastItem={null}
-                siblingRange={1}
-                totalPages={countPage} />
-        </div>
     </>);
 }

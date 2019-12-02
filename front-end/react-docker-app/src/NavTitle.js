@@ -8,9 +8,9 @@ export default props => (
                 <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path fill="white" d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
             </button>
         </div>
-        <div className="flex-1 text-white mr-6 lg:pl-0 sm:pl-6">
+        <div className="flex-1 text-white text-lg mr-6 lg:pl-0 sm:pl-6 pt-2">
             <Link to={'/'}>
-                <div className="font-bold lg:text-3xl sm:text-xl text-white">Quote Center</div>
+                <span className="font-bold lg:text-3xl sm:text-xl text-white">Quote Center</span>
             </Link>
         </div>
         <div>
