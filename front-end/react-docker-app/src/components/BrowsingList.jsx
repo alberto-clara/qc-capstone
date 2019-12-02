@@ -15,13 +15,17 @@ export const BrowsingList = (props) => {
     const [pageLocation, setPageLocation] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
     const [countPage, setCountPage] = useState(0);
-    const [pagination, setPagination] = useState([]);
-
+    const [fetchsort, setFetchSort] = useState('');
+    const [activePage, setActivePage] = useState(1);
+    
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
         totalfetch();
-        fetching(pageNumber, pageLocation);
-
+        if (fetchsort == '')
+            fetching(pageNumber, pageLocation);
+        else {
+            sortFetching(pageNumber, pageLocation,fetchsort);
+        }
         setLoad(false);
         
     }, [load]);
@@ -35,7 +39,6 @@ export const BrowsingList = (props) => {
     }
 
     const fetching = async (number, location) => {
-
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
@@ -59,20 +62,25 @@ export const BrowsingList = (props) => {
         }
         )
     }
+    const sortFetching = async (number, location, sortPrice) => {
+        await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice +"?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
+            console.log(res.data);
+            for (var i = 0; i < number; i++) {
+                initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+            }
+            
+            setItems(initValue)
+            setLoad(true);
+        }) 
+    }
     const options = [5, 10, 15, 20, 25]
-    var options2 = pagination;
-
+   
     const loopfetching = (number, location) => {
         var htmlElements = '';
         console.log(number);
         console.log(location);
         var stepup = Math.round(totalPage / pageNumber)
         setCountPage(stepup);
-        var arrayPage = [];
-        for (var o = 0; o < stepup; o++) {
-            arrayPage.push(o);
-        }
-        setPagination(arrayPage);
         //console.log(pagination);
         for (var i = 0; i < number; i++) {
             htmlElements += `
@@ -80,8 +88,8 @@ export const BrowsingList = (props) => {
                 `<div class="justify-start content-center>` +
                 `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
                 `</div>` +
-                `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1">` +
-                `<a class="text-sm lg:text-xl product_name" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
+                `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
+                `<a class="text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
                 `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
                 // `<div class="text-lg flex-wrap product_id">` + items[i].id + `</div>`+
                 `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
@@ -99,26 +107,26 @@ export const BrowsingList = (props) => {
         container.innerHTML = htmlElements;
         setLoad(false);
     }
-    const changeSize = async (e) => {
-        await setpageNumber(e.value);
+    const changeSize = (e) => {
+        setActivePage(1);
+        setPageLocation(1);
+        setpageNumber(e.value);
     }
-    const changePage = async (e) => {
-      
-        await setPageLocation(e);
+    const changePage = (e) => {
+        setPageLocation(e);
+        setActivePage(e);
     }
 
     return (<>
-
+        <div className="mt-4 justify-center w-full h-auto md:h-auto">
+            <div className=" titlePage py-2 lg:text-3xl"> Browsing View </div>
+        </div>
         <div className="w-56 flex">
             <div className="largeBold w-1/2">Size: </div>
             <Dropdown className=" w-1/3 " options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
         </div>
-       
-        <Pagination onPageChange={(e,data) => changePage(data.activePage)} defaultActivePage={1} boundaryRange={1}
-             totalPages={countPage} />
-        <div className="flex justify-center text-md lg:text-xl py-1">
-            Browse Page
-        </div>
+   
+
         <div className="flex max-w-full sm:px-8 lg:px-20">
             <div className="hidden lg:block flex-1 w-1/5 rounded-lg border /*bg-gray-100*/ mr-2 h-auto">
                 <div className="flex justify-center text-xl pt-4">
@@ -129,8 +137,11 @@ export const BrowsingList = (props) => {
                         Sort by:
                     </div>
                     <div className="flex-wrap text-md px-4">
-                        <div>
-                            Price
+                        <div className="flex">
+                            <div className="w-1/3">Price</div>
+                            <button onClick={() => { setFetchSort('ascending') }} className="w-1/3 text-green-500 font-bold">	&#8593; </button>
+                            <button onClick={() => { setFetchSort('descending') }} className="w-1/3 text-red-500 font-bold">	&#8595; </button>
+                            <button onClick={() => { setFetchSort('') }} className="w-1/3 font-bold">x </button>
                         </div>
                         <div>
                             Ratings
@@ -148,6 +159,21 @@ export const BrowsingList = (props) => {
                 <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div>
                 <div id="container" /*className="bg-orange-100"*/> </div>
             </div>
+        </div>
+        <div className=" hidden lg:block justify-center text-center ">
+            <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
+                totalPages={countPage}
+                activePage={activePage} />
+        </div>
+        <div className=" cursor-pointer block lg:hidden justify-center text-center">
+            <Pagination onPageChange={(e, data) => changePage(data.activePage)} defaultActivePage={1}
+
+                ellipsisItem={null}
+                boundaryRange={0}
+                firstItem={null}
+                lastItem={null}
+                siblingRange={1}
+                totalPages={countPage} />
         </div>
     </>);
 }

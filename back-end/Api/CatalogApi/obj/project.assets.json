@@ -12805,11 +12805,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
+      "projectUniqueName": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
       "projectName": "CatalogApi",
-      "projectPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
+      "projectPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\CatalogApi\\CatalogApi.csproj",
       "packagesPath": "C:\\Users\\Gum\\.nuget\\packages\\",
-      "outputPath": "E:\\ReactCode\\TeamProj\\qc-capstone\\back-end\\Api\\CatalogApi\\obj\\",
+      "outputPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\CatalogApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\Microsoft\\Xamarin\\NuGet\\",

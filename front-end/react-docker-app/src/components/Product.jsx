@@ -103,7 +103,7 @@ export  const Product = (props) =>{
         <div>
             {searchbar}
             {page_title}
-           <div className="lg:mx-70 lg:bg-green-200">
+           <div className="lg:mx-70 ">
                 <div className=" lg:flex">
                      <div className="lg:w-1/2">
                             {side_pic}  
