@@ -10,3 +10,4 @@ back-end/Api/CatalogApi/bin/
 back-end/Api/CatalogApi/obj/
 *.cache
 *.dll
+back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.dll
