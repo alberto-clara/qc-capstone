@@ -175,5 +175,32 @@ namespace CatalogApi.Controllers
 
             return NotFound();
         }
+
+        /*
+         * Route for the homepage to grab ten randomly selected products 
+         * from the database.
+         */
+        // GET /api/products/home
+        [HttpGet, Route("home")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> RandomHomePageProducts(string offeringId)
+        {
+
+            Random rnd = new Random();
+            var randomResults = await (from pt in _catalogContext.products
+                                       orderby rnd.Next()
+                                       select new
+                                       {
+                                           pt.Product_name,
+                                           pt.Id,
+                                           pt.Long_description
+                                       })
+                                       .Take(10)
+                                       .ToListAsync();
+
+            if (randomResults.Count > 0) return Ok(randomResults);
+
+            return NotFound();
+        }
     }
 }
