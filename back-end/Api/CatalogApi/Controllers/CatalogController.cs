@@ -50,15 +50,18 @@ namespace CatalogApi.Controllers
 
         
         /*
-         * {priceSort?} is an option route parameter, use ascending or descending to sort in the
+         * {sort?} is an option route parameter.
+         * ascending = sorted by price in ascending order
+         * descending = sorted by price in descending order
+         * reverse = reverse alphabetical order for product names
          * needed way and if no sorting is needed this parameter can be omitted from the route
-         * and it will be sorted based on the results will be sorted based on the product name.
+         * and it will be sorted based on the product name.
          */ 
-        // GET api/products/page/priceSort[?pageSize=3&pageIndex=10]
-        [HttpGet, Route("page/{priceSort?}")]
+        // GET api/products/page/sort[?pageSize=3&pageIndex=10]
+        [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Items(string priceSort, [FromQuery]int pageSize = 10,
+        public async Task<IActionResult> Items(string sort, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
             if (pageSize == 0) return BadRequest();
@@ -76,9 +79,11 @@ namespace CatalogApi.Controllers
                             Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
                         });
 
-            if (priceSort == "ascending") newT = newT.OrderBy(p => p.Unit_retail);
+            if (sort == "ascending") newT = newT.OrderBy(p => p.Unit_retail);
 
-            else if (priceSort == "descending") newT = newT.OrderByDescending(p => p.Unit_retail);
+            else if (sort == "descending") newT = newT.OrderByDescending(p => p.Unit_retail);
+
+            else if (sort == "reverse") newT = newT.OrderByDescending(p => p.Product_name);
 
             var itemsOnPage = await newT
                                    .GroupBy(p => p.Product_name)
@@ -86,10 +91,6 @@ namespace CatalogApi.Controllers
                                    .Skip(pageSize * pageIndex)
                                    .Take(pageSize)
                                    .ToListAsync();
-
- //           if (priceSort == "ascending") itemsOnPage = itemsOnPage.OrderBy(p => p.Unit_retail).ToList();
-
- //           else if (priceSort == "descending") itemsOnPage = itemsOnPage.OrderByDescending(p => p.Unit_retail).ToList();
 
             var model = new PaginatedItemsViewModel<PageView>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
