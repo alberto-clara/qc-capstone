@@ -121,14 +121,14 @@ export const BrowsingList = (props) => {
             <div className="block lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
                 <div className="flex justify-center">
                     <button className="filterbutton flex lg:hidden lg:text-black font-bold text-lg py-4">
-                        Filters
+                        Filters &#9660;
                     </button>
                     <div className="filterbutton hidden lg:flex text-blue-600 lg:text-black font-bold text-2xl pt-4 pl-4">
                         Filters
                     </div>
                 </div>
-                <div id="filter" className="block flex-wrap text-lg px-8 py-4">
-                    <div className="flex flex-wrap pt-2 text-lg justify-center lg:justify-start font-bold">
+                <div id="filter" className="lg:block flex-wrap text-lg px-8 py-4">
+                    <div className="flex flex-wrap lg:pt-2 font-bold justify-center lg:justify-start">
                         Sort by:
                     </div>
                     <div className="px-2">
@@ -149,11 +149,13 @@ export const BrowsingList = (props) => {
                         </div> */}
                     </div>
                     
-                    <div className="block py-4">
-                        <div className="text-lg font-bold">
-                            Items per Page:
+                    <div className="lg:block py-4">
+                        <div className="flex justify-center lg:justify-start font-bold">
+                            Items Per Page:
                         </div>
-                        <Dropdown className="justify-end" options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
+                        <div className="flex justify-center lg:justify-start">
+                            <Dropdown className="w-1/8" options={options} value={pageNumber.toString()} onChange={e => changeSize(e)} />
+                        </div>
                     </div>
 
                 </div>
@@ -189,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var $filterbutton = Array.prototype.slice.call(document.querySelectorAll('.filterbutton'), 0); // Get all "navbar-burger" elements
     if ($filterbutton.length > 0) { // Check if there are any navbar burgers
         var $target = document.getElementById('filter') // Get the "filter" element
-        $target.classList.toggle('visible');
+        $target.classList.toggle('hidden');
         // Add a click event on each of them // Toggle the className on "filter"
         $filterbutton.forEach(function ($el) {$el.addEventListener('click', function(){$target.classList.toggle('hidden');});});
     }
