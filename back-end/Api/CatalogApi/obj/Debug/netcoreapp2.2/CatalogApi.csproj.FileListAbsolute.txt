@@ -58,22 +58,6 @@ C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/
 C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorTargetAssemblyInfo.cache
 C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.dll
 C:/Users/gumgu/OneDrive/Desktop/ReactCode/Team Project/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.pdb
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/appsettings.Development.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/appsettings.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/Properties/launchSettings.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.deps.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.runtimeconfig.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.runtimeconfig.dev.json
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.dll
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/CatalogApi.pdb
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.csprojAssemblyReference.cache
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorAssemblyInfo.cache
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorAssemblyInfo.cs
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.AssemblyInfoInputs.cache
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.AssemblyInfo.cs
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorTargetAssemblyInfo.cache
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.dll
-C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.pdb
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/appsettings.Development.json
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/appsettings.json
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/bin/Debug/netcoreapp2.2/Properties/launchSettings.json
@@ -90,3 +74,19 @@ C:/Users/Gum/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netc
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.RazorTargetAssemblyInfo.cache
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.dll
 /mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/obj/Debug/netcoreapp2.2/CatalogApi.pdb
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\CatalogApi.deps.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\CatalogApi.runtimeconfig.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\CatalogApi.runtimeconfig.dev.json
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\CatalogApi.dll
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\bin\Debug\netcoreapp2.2\CatalogApi.pdb
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.csprojAssemblyReference.cache
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.RazorAssemblyInfo.cache
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.RazorAssemblyInfo.cs
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.AssemblyInfoInputs.cache
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.AssemblyInfo.cs
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.RazorTargetAssemblyInfo.cache
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.dll
+C:\Users\Gum\Documents\GitHub\qc-capstone\back-end\Api\CatalogApi\obj\Debug\netcoreapp2.2\CatalogApi.pdb

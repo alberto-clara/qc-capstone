@@ -8,8 +8,11 @@ import 'semantic-ui-css/semantic.min.css';
 
 export const BrowsingList = (props) => {
     var initValue = [];
+    var rest = [];
     var limit = 0;
     const [items, setItems] = useState([]);
+    const [restItem, setRestItem] = useState([])
+    const [totalRest, setTotalRest] = useState(0);
     const [load, setLoad] = useState(false);
     const [pageNumber, setpageNumber] = useState(10);
     const [pageLocation, setPageLocation] = useState(0);
@@ -17,6 +20,7 @@ export const BrowsingList = (props) => {
     const [countPage, setCountPage] = useState(0);
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
+    const [restload, setRestLoad] = useState(false);
     
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
@@ -45,19 +49,25 @@ export const BrowsingList = (props) => {
         ).catch(async function (e) {
             console.log("fetching limit");
             console.log(number);
-            console.log(limit);
-            console.log(e.message);
-            await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + limit).then((res) => {
-                for (var i = 0; i < number; i++) {
-                    initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+            var startingRest = (number * (countPage - 1));
+            console.log(startingRest);
+            console.log(totalItem);
+            await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+                for (var i = startingRest; i < totalItem; i++) {
+                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
                 }
-                setItems(initValue)
+                setRestItem(rest);
+                setTotalRest(totalItem - startingRest);
+                console.log("rest");             
+                console.log(rest);
+                setRestLoad(true);
                 setLoad(true);
             });
 
         }
         )
     }
+
     const sortFetching = async (number, location, sortPrice) => {
         await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice +"?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
             console.log(res.data);
@@ -77,10 +87,11 @@ export const BrowsingList = (props) => {
         console.log(location);
         var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
-        if (!isInt(totalItem/ pageNumber)) {
+        if (!isInt(totalItem / pageNumber) && restload) { 
             console.log("Not an Integer");
+            number = totalRest;
+           
         }
-        //console.log(pagination);
         for (var i = 0; i < number; i++) {
             htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
@@ -90,7 +101,7 @@ export const BrowsingList = (props) => {
                 `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
                 `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
                 `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
-                // `<div class="text-lg flex-wrap product_id">` + items[i].id + `</div>`+
+               
                 `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
                 `<div class="flex content-end">` +
                 `<div class="text-xs lg:text-md flex pt-12 lg:pt-24 hover:text-blue-600">` + `Add to Favorites` + `</div>` +

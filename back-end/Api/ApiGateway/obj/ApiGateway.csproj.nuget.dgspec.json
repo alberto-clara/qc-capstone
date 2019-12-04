@@ -1,28 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/ApiGateway/ApiGateway.csproj": {}
+    "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj": {}
   },
   "projects": {
-    "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/ApiGateway/ApiGateway.csproj": {
+    "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/ApiGateway/ApiGateway.csproj",
+        "projectUniqueName": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
         "projectName": "ApiGateway",
-        "projectPath": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/ApiGateway/ApiGateway.csproj",
-        "packagesPath": "/home/fabi/.nuget/packages/",
-        "outputPath": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/ApiGateway/obj/",
+        "projectPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\ApiGateway.csproj",
+        "packagesPath": "C:\\Users\\Gum\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Gum\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\ApiGateway\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+          "E:\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "/home/fabi/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Gum\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -75,7 +79,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
