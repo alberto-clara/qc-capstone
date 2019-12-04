@@ -41,20 +41,20 @@ export  const Product = (props) => {
     
     const counters = (
         
-        <div className="justify-center m-20 rounded hover:bg-gray-300 h-11 border-2 border-orange-500">
+        <div className="justify-center m-20 rounded h-11 border-2 border-orange-500">
             <div className="flex font-semibold hover:text-black focus:text-black text-gray-700" >
                 <button onClick={() => { 
                     setCount(count - 1); 
                     if (count == 1) { setCount(1) } 
                     }} class=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
-                    <div class="flex items-center text-2xl h-10">-</div>
+                    <div class="mx-20 flex items-center text-2xl h-10">-</div>
                 </button>
 
                 <div type="number" className="h-10 font-semibold flex justify-center text-gray-700 w-1/3 items-center text-2xl" >
                     {count}
                 </div>
 
-                <button onClick={() => setCount(count + 1)} class="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-gray-400 h-full text-right w-1/3 border-l-2 border-orange-500">
+                <button onClick={() => setCount(count + 1)} class="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
                     <div class="flex items-center text-2xl h-10">+</div>
                 </button>
             </div> 
@@ -75,46 +75,54 @@ export  const Product = (props) => {
         );
     const toVendor = () => { console.log("hi");}
     const NameVendorCost = (   
-        <div className=" pl-6 lg:text-5xl ">
-            <div className="text-lg font-thin"> {productName}</div>
-            <div className="flex text-lg font-extrabold ">
-                <div className="w-3/5 ">
-                    <div className="flex">
-                        <div className="pr-2">Rating</div>
-                        <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    </div>
-                    <div className="flex">
-                        <div className="pr-2">{vendor}</div>
-                        <div >${unitcost}</div>
-                    </div>
-
-                </div>
-
-                <div className="lg:w-2/5 ">
-                    <Link to={'/vendors/' + id}> <div className="rounded hover:bg-gray-300 border-2 border-orange-500 px-5 text-base h-12 justify-center h-12 mr-12"> Other Vendors</div></Link>
-                </div>
-            </div>
+        <div className="mx-20 flex">
+            <div className="text-2xl font-bold"> {productName}</div>
         </div>
     );
 
+    const rate = (
+        <div className="mx-20 block">
+        <div className="flex">
+            <div className="pr-2">Rating</div>
+            <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        </div>
+    </div>
+    )
+
+    const vendor_name = (
+        <div className="mx-20 block">
+            <div className="flex pr-2 font-bold">{vendor}</div>
+            <div className="flex">
+            <Link to={'/vendors/' + id}> <div className="justify-center text-sm">Other Vendors</div></Link>
+        </div>
+        </div>
+    )
  
         return (
         <div>
             {searchbar}
             {page_title}
-           <div className="xl:mx-70 bg-gray-500">
-                <div className=" xl:flex">
+           <div className="sm:mx-16 md:mx-32 lg:mx-64 xl:mx-74">
+                <div className=" lg:flex pt-10">
                      <div className="xl:w-1/2">
                             {side_pic}  
                      </div>
-                      <div className="xl:w-1/2 xl:pt-40 bg-yellow-400 ">
-                            {NameVendorCost}
-                            <div className="flex bg-green-500">
+                      <div className="lg:w-1/2">
+                      <div className="flex">{NameVendorCost}</div>
+                            <div className="flex">
+                            <div className="w-1/2"> 
+                            {rate}
+                            <div className="flex pt-2">{vendor_name}</div>
+                            </div>
+                            <div className="flex justify-center items-center w-1/2 text-3xl font-extrabold"> ${unitcost}</div>
+                            </div>
+                        
+                            <div className="flex">
                                 <div className="w-1/2 justify-center">
                                     {counters}
                                 </div>
-                                <div className="flex justify-center w-1/2 h-11 bg-blue-500 md:h-72 xl:h-78">
-                                    <div className=" m-20 rounded hover:bg-gray-300 border-2 border-orange-500 px-5 text-sm">Add to Cart</div>
+                                <div className="flex justify-center w-1/2">
+                                    <div className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold pt-2">Add to Cart</div>
                                 </div>
 
                             </div>
@@ -127,8 +135,8 @@ export  const Product = (props) => {
             {/* specifications */}
             <div className="justify-center flex xl:px-35 pl-5 pr-5">
                 <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                    <Collapsible className="h-10" trigger="Specifications">
-                        <div className="border-t-2 border-orange-500"> {description} </div>
+                    <Collapsible className="h-10 text-lg pt-2" trigger="Specifications">
+                        <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                     </Collapsible>
                 </div>
             </div>
@@ -136,8 +144,8 @@ export  const Product = (props) => {
             {/* Reviews */}
             <div className="justify-center flex xl:px-35 pl-5 pr-5">
                 <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                    <Collapsible className=" h-10" trigger="Review">
-                        <div >{description} </div>
+                    <Collapsible className=" h-10 text-lg pt-2" trigger="Review">
+                        <div className="border-t-2 border-orange-500">{description} </div>
                     </Collapsible>
                 </div>
             </div>
@@ -145,8 +153,8 @@ export  const Product = (props) => {
             {/* QA */}
             <div className="justify-center flex xl:px-35 pl-5 pr-5">
                 <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 text-sm" >
-                    <Collapsible className=" h-10" trigger="Question and Answers">
-                        <div >{description} </div>
+                    <Collapsible className="h-10 text-lg pt-2" trigger="Question and Answers">
+                        <div className="border-t-2 border-orange-500">{description} </div>
                     </Collapsible>
                 </div>
              </div>
