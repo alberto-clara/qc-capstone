@@ -13,14 +13,14 @@ export const BrowsingList = (props) => {
     const [load, setLoad] = useState(false);
     const [pageNumber, setpageNumber] = useState(10);
     const [pageLocation, setPageLocation] = useState(0);
-    const [totalPage, setTotalPage] = useState(0);
+    const [totalItem, setTotalItem] = useState(0);
     const [countPage, setCountPage] = useState(0);
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
     
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
-        forloop();
+       
         if (fetchsort == '')
             fetching(pageNumber, pageLocation);
         else {
@@ -32,7 +32,7 @@ export const BrowsingList = (props) => {
 
     const fetching = async (number, location) => {
         await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
-            setTotalPage(res.data.count);
+            setTotalItem(res.data.count);
             limit = (res.data.count / pageNumber) - 1;
         })
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
@@ -69,14 +69,17 @@ export const BrowsingList = (props) => {
             setLoad(true);
         }) 
     }
-    const options = [5, 10, 15, 20, 25]
-    const forloop = () => { for (var x; x < 100; x++);}
+    const options = [5, 10, 15, 20, 25];
+    const isInt = (n) => { return parseInt(n) === n  };
     const loopfetching = async (number, location) => {
         var htmlElements = '';
         console.log(number);
         console.log(location);
-        var stepup = Math.round(totalPage / pageNumber)
+        var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
+        if (!isInt(totalItem/ pageNumber)) {
+            console.log("Not an Integer");
+        }
         //console.log(pagination);
         for (var i = 0; i < number; i++) {
             htmlElements += `
