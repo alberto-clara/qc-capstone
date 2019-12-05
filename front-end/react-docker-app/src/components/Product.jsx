@@ -73,8 +73,8 @@ export  const Product = (props) => {
          
         </div>
         );
-    const toVendor = () => { console.log("hi");}
-    const NameVendorCost = (   
+
+    const prodc_name = (   
         <div className="mx-20 flex">
             <div className="text-2xl font-bold"> {productName}</div>
         </div>
@@ -98,23 +98,23 @@ export  const Product = (props) => {
         </div>
     )
  
-        return (
+    return (
         <div>
             {searchbar}
             {page_title}
-           <div className="sm:mx-16 md:mx-24 lg:mx-56 xl:mx-70">
+        <div className="sm:mx-16 md:mx-24 lg:mx-56 xl:mx-70">
                 <div className=" lg:flex pt-10">
-                     <div className="xl:w-1/2">
+                        <div className="xl:w-1/2">
                             {side_pic}  
-                     </div>
-                      <div className="lg:w-1/2">
-                      <div className="flex">{NameVendorCost}</div>
+                        </div>
+                        <div className="lg:w-1/2">
+                            <div className="flex">{prodc_name}</div>
                             <div className="flex">
-                            <div className="w-2/3"> 
-                            {rate}
-                            <div className="flex pt-2">{vendor_name}</div>
-                            </div>
-                            <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitcost}</div>
+                                <div className="w-2/3"> 
+                                {rate}
+                                <div className="flex pt-2">{vendor_name}</div>
+                                </div>
+                                <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitcost}</div>
                             </div>
                         
                             <div className="flex">
@@ -124,41 +124,40 @@ export  const Product = (props) => {
                                 <div className="flex justify-center w-1/2 lg:w-3/5">
                                     <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
                                 </div>
-
                             </div>
-                      </div>
+                    </div>
                 </div>
             
 
-           
         
-            {/* specifications */}
-            <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                    <Collapsible className="h-10 text-lg pt-2" trigger="Specifications">
-                        <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
-                    </Collapsible>
+        
+                {/* specifications */}
+                <div className="justify-center flex xl:px-35 pl-5 pr-5">
+                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
+                        <Collapsible className="h-10 text-lg pt-2" trigger="Specifications">
+                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
+                        </Collapsible>
+                    </div>
+                </div>
+
+                {/* Reviews */}
+                <div className="justify-center flex xl:px-35 pl-5 pr-5">
+                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
+                        <Collapsible className=" h-10 text-lg pt-2" trigger="Review">
+                            <div className="border-t-2 border-orange-500 text-lg">{description} </div>
+                        </Collapsible>
+                    </div>
+                </div>
+
+                {/* QA */}
+                <div className="justify-center flex xl:px-35 pl-5 pr-5">
+                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 text-sm" >
+                        <Collapsible className="h-10 text-lg pt-2" trigger="Question and Answers">
+                            <div className="border-t-2 border-orange-500 text-lg">{description} </div>
+                        </Collapsible>
+                    </div>
                 </div>
             </div>
-
-            {/* Reviews */}
-            <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                    <Collapsible className=" h-10 text-lg pt-2" trigger="Review">
-                        <div className="border-t-2 border-orange-500 text-lg">{description} </div>
-                    </Collapsible>
-                </div>
-            </div>
-
-            {/* QA */}
-            <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 text-sm" >
-                    <Collapsible className="h-10 text-lg pt-2" trigger="Question and Answers">
-                        <div className="border-t-2 border-orange-500 text-lg">{description} </div>
-                    </Collapsible>
-                </div>
-             </div>
         </div>
-    </div>
     )
 }

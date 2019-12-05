@@ -26,14 +26,14 @@ export const Vendors=  () => {
             }
             setSupplier(initValue);
            setLoad(true);
-        })
+        }
+        )
     }
     const loopfetching =  (totalVendor) => {
         var htmlElements = '';
         console.log(supplier);
         for (var i = 0; i < totalVendor; i++) {
-            htmlElements += `
-              
+            htmlElements += `      
                 <div>` + supplier[i].supplier + `</div>`
                ;
         }
@@ -43,10 +43,9 @@ export const Vendors=  () => {
     }
 
     return (<>
-        <div >
-            hey there {idv}
-                 <div> {load ? loopfetching(totalVendor) : null} </div>
-            <div id="contatiner"></div>
+        <div>
+            <div> {load ? loopfetching(totalVendor) : null} </div>
+            <div id="contatiner">hey there {idv}</div>
         </div>
      </>);
    
