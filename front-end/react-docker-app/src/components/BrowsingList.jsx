@@ -8,8 +8,11 @@ import 'semantic-ui-css/semantic.min.css';
 
 export const BrowsingList = (props) => {
     var initValue = [];
+    var rest = [];
     var limit = 0;
     const [items, setItems] = useState([]);
+    const [restItem, setRestItem] = useState([])
+    const [totalRest, setTotalRest] = useState(0);
     const [load, setLoad] = useState(false);
     const [pageNumber, setpageNumber] = useState(10);
     const [pageLocation, setPageLocation] = useState(0);
@@ -17,6 +20,7 @@ export const BrowsingList = (props) => {
     const [countPage, setCountPage] = useState(0);
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
+    const [restload, setRestLoad] = useState(false);
     
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
@@ -43,31 +47,46 @@ export const BrowsingList = (props) => {
             setLoad(true);
         }
         ).catch(async function (e) {
-            console.log("fetching limit");
-            console.log(number);
-            console.log(limit);
-            console.log(e.message);
-            await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + limit).then((res) => {
-                for (var i = 0; i < number; i++) {
-                    initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+            
+            var startingRest = (number * (countPage - 1));
+        //    console.log(startingRest);
+       //     console.log(totalItem);
+            await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+                for (var i = startingRest; i < totalItem; i++) {
+                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
                 }
-                setItems(initValue)
+                setRestItem(rest);
+                setTotalRest(totalItem - startingRest);
+        //        console.log("rest");             
+        //        console.log(rest);
+                setRestLoad(true);
                 setLoad(true);
             });
 
         }
         )
     }
+
     const sortFetching = async (number, location, sortPrice) => {
-        await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice +"?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
+        await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
             console.log(res.data);
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
             }
-            
             setItems(initValue)
             setLoad(true);
-        }) 
+        }).catch(async function (e) {
+            var startingRest = (number * (countPage - 1));
+            await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+                for (var i = startingRest; i < totalItem; i++) {
+                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+                }
+                setRestItem(rest);
+                setTotalRest(totalItem - startingRest);
+                setRestLoad(true);
+                setLoad(true);
+            })
+        })
     }
     const options = [5, 10, 15, 20, 25];
     const isInt = (n) => { return parseInt(n) === n  };
@@ -77,30 +96,53 @@ export const BrowsingList = (props) => {
         console.log(location);
         var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
-        if (!isInt(totalItem/ pageNumber)) {
-            console.log("Not an Integer");
-        }
-        //console.log(pagination);
-        for (var i = 0; i < number; i++) {
-            htmlElements += `
+        if (!isInt(totalItem / pageNumber) && restload) {
+            for (var i = 0; i < totalRest; i++) {
+                console.log("rest");
+                htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
-                `<div class="justify-start content-center>` +
-                `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
-                `</div>` +
-                `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
-                `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
-                `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
-                // `<div class="text-lg flex-wrap product_id">` + items[i].id + `</div>`+
-                `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
-                `<div class="flex content-end">` +
-                `<div class="text-xs lg:text-md flex pt-12 lg:pt-24 hover:text-blue-600">` + `Add to Favorites` + `</div>` +
-                `</div>` +
-                `</div>` +
-                `<div class="hidden lg:flex px-4 py-2 lg:px-8 lg:py-4">` +
-                `<div class="text-lg unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
-                `</div>` +
-                `</div>`
-                ;
+                    `<div class="justify-start content-center>` +
+                    `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
+                    `</div>` +
+                    `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
+                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + restItem[i].id + `">` + restItem[i].product_name + `</a>` +
+                    `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + restItem[i].unit_retail + `</div>` +
+
+                    `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
+                    `<div class="flex content-end">` +
+                    `<div class="text-xs lg:text-md flex pt-12 lg:pt-24 hover:text-blue-600">` + `Add to Favorites` + `</div>` +
+                    `</div>` +
+                    `</div>` +
+                    `<div class="hidden lg:flex px-4 py-2 lg:px-8 lg:py-4">` +
+                    `<div class="text-lg unit_retail">` + 'Cost: $' + restItem[i].unit_retail + `</div>` +
+                    `</div>` +
+                    `</div>`
+                    ;
+            }
+            setRestLoad(false);
+        }
+        else {
+            for (var i = 0; i < number; i++) {
+                htmlElements += `
+             <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
+                    `<div class="justify-start content-center>` +
+                    `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
+                    `</div>` +
+                    `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
+                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
+                    `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
+
+                    `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
+                    `<div class="flex content-end">` +
+                    `<div class="text-xs lg:text-md flex pt-12 lg:pt-24 hover:text-blue-600">` + `Add to Favorites` + `</div>` +
+                    `</div>` +
+                    `</div>` +
+                    `<div class="hidden lg:flex px-4 py-2 lg:px-8 lg:py-4">` +
+                    `<div class="text-lg unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
+                    `</div>` +
+                    `</div>`
+                    ;
+            }
         }
         var container = document.getElementById("container");
          container.innerHTML = htmlElements;
@@ -130,29 +172,21 @@ export const BrowsingList = (props) => {
                         Filters
                     </div>
                 </div>
-                <div id="filter" className="lg:block flex-wrap text-lg px-8 py-4">
-                    <div className="flex flex-wrap lg:pt-2 font-bold justify-center lg:justify-start">
+                <div id="filter" className="lg:block flex-wrap text-lg py-4">
+                    <div className="flex flex-wrap lg:pt-2 px-8 font-bold justify-center lg:justify-start">
                         Sort by:
                     </div>
-                    <div className="px-2">
-                        <div className="flex justify-center lg:justify-start lg:block p-2">
-                            <div className="">Price:</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="hover:text-blue-600 px-2">Lowest </button>
-                            {/* <button onClick={() => { setFetchSort('') }} className="w-1/3 font-bold">x</button> */}
+                    <div className="flex flex-wrap justify-center lg:justify-start">
+                        <div className="flex flex-wrap  lg:justify-start w-48">
+                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Highest Cost</button>
+                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Lowest Cost</button>
+                            <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Reverse </button>
+                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
+                          
                         </div>
-                        {/* <div className="flex justify-center lg:justify-start p-2">
-                        <div className="">Rating:</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="hover:text-blue-600 px-2">Lowest </button>                        </div>
-                        <div className="flex justify-center lg:justify-start p-2">
-                        <div className="">Brand:</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="hover:text-blue-600 px-2">Lowest </button>
-                        </div> */}
                     </div>
                     
-                    <div className="lg:block py-4">
+                    <div className="lg:block px-8 py-4">
                         <div className="flex justify-center lg:justify-start font-bold">
                             Items Per Page:
                         </div>
@@ -180,6 +214,7 @@ export const BrowsingList = (props) => {
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)} defaultActivePage={1}
                     ellipsisItem={null}
                     boundaryRange={0}
+                    activePage={activePage}
                     firstItem={null}
                     lastItem={null}
                     siblingRange={1}
