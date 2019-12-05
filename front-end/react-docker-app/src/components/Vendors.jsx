@@ -25,7 +25,7 @@ export const Vendors=  () => {
                 initValue.push({ supplier: res.data[i].supplier, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail });
             }
             setSupplier(initValue);
-           setLoad(true);
+            setLoad(true);
         }
         )
     }
@@ -33,12 +33,13 @@ export const Vendors=  () => {
         var htmlElements = '';
         console.log(supplier);
         for (var i = 0; i < totalVendor; i++) {
+            console.log("initValue");
             htmlElements += `      
                 <div>` + supplier[i].supplier + `</div>`
                ;
         }
         var container = document.getElementById("container");
-        container.innerHTML = htmlElements;
+        // container.innerHTML = htmlElements;
         setLoad(false);
     }
 

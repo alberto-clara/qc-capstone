@@ -178,8 +178,8 @@ export const BrowsingList = (props) => {
                     </div>
                     <div className="flex flex-wrap justify-center lg:justify-start">
                         <div className="flex flex-wrap  lg:justify-start w-48">
-                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Highest Cost</button>
-                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Lowest Cost</button>
+                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Lowest Cost</button>
+                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Highest Cost</button>
                             <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Reverse </button>
                             <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
                           
