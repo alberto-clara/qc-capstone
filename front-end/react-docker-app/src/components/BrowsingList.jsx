@@ -172,32 +172,21 @@ export const BrowsingList = (props) => {
                         Filters
                     </div>
                 </div>
-                <div id="filter" className="lg:block flex-wrap text-lg px-8 py-4">
-                    <div className="flex flex-wrap lg:pt-2 font-bold justify-center lg:justify-start">
+                <div id="filter" className="lg:block flex-wrap text-lg py-4">
+                    <div className="flex flex-wrap lg:pt-2 px-8 font-bold justify-center lg:justify-start">
                         Sort by:
                     </div>
-                    <div className="px-2">
-                        <div className="flex justify-center lg:justify-start lg:block p-2">
-                            <div className="">Price:</div>
-                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="hover:text-blue-600 px-2 border-orange-500 border rounded"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="hover:text-blue-600 px-2 border-orange-500 border rounded">Lowest </button>
-                          
-                            <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="hover:text-blue-600 px-1 border-orange-500 border rounded">Alphabet Reverse </button>
-                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="hover:text-blue-600 px-1 border-orange-500 border rounded">No sort</button> 
+                    <div className="flex flex-wrap justify-center lg:justify-start">
+                        <div className="flex flex-wrap  lg:justify-start w-48">
+                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Highest Cost</button>
+                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Lowest Cost</button>
+                            <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Reverse </button>
+                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
                           
                         </div>
-                        {/* <div className="flex justify-center lg:justify-start p-2">
-                        <div className="">Rating:</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="hover:text-blue-600 px-2">Lowest </button>                        </div>
-                        <div className="flex justify-center lg:justify-start p-2">
-                        <div className="">Brand:</div>
-                            <button onClick={() => { setFetchSort('ascending') }} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending') }} className="hover:text-blue-600 px-2">Lowest </button>
-                        </div> */}
                     </div>
                     
-                    <div className="lg:block py-4">
+                    <div className="lg:block px-8 py-4">
                         <div className="flex justify-center lg:justify-start font-bold">
                             Items Per Page:
                         </div>
