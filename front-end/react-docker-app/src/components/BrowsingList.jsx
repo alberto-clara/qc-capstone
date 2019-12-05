@@ -179,9 +179,11 @@ export const BrowsingList = (props) => {
                     <div className="px-2">
                         <div className="flex justify-center lg:justify-start lg:block p-2">
                             <div className="">Price:</div>
-                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="hover:text-blue-600 px-2"> Highest </button>
-                            <button onClick={() => { setFetchSort('descending'); changePage(1);}} className="hover:text-blue-600 px-2">Lowest </button>
-                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="hover:text-blue-600 ">No sort</button> 
+                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="hover:text-blue-600 px-2 border-orange-500 border rounded"> Highest </button>
+                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="hover:text-blue-600 px-2 border-orange-500 border rounded">Lowest </button>
+                          
+                            <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="hover:text-blue-600 px-1 border-orange-500 border rounded">Alphabet Reverse </button>
+                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="hover:text-blue-600 px-1 border-orange-500 border rounded">No sort</button> 
                           
                         </div>
                         {/* <div className="flex justify-center lg:justify-start p-2">
