@@ -12430,11 +12430,17 @@ video {
   background-color: #edf2f7;
 }
 
-.boldBlueTerm{
+.boldBlueTerm {
   font-weight: 700;
   color: #3182ce;
   font-size: 0.875rem;
   text-align: center;
+}
+
+.boldBlueTerm:hover {
+  background-color: #edf2f7;
+  color: #2b6cb0;
+  cursor: pointer;
 }
 
 .forgetText {

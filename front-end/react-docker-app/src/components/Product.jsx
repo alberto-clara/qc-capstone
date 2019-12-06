@@ -48,16 +48,16 @@ export  const Product = (props) => {
                 <button onClick={() => { 
                     setCount(count - 1); 
                     if (count === 1) { setCount(1) } 
-                    }} class=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
-                    <div class="mx-20 flex items-center text-2xl h-10">-</div>
+                    }} className=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
+                    <div className="mx-20 flex items-center text-2xl h-10">-</div>
                 </button>
 
                 <div type="number" className="h-10 font-semibold flex justify-center text-gray-700 w-1/3 items-center text-2xl" >
                     {count}
                 </div>
 
-                <button onClick={() => setCount(count + 1)} class="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
-                    <div class="flex items-center text-2xl h-10">+</div>
+                <button onClick={() => setCount(count + 1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
+                    <div className="flex items-center text-2xl h-10">+</div>
                 </button>
             </div> 
         </div>

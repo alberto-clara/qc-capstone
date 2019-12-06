@@ -47,10 +47,11 @@ export const SignInPage=(props)=> {
                     {/* <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view <div className="pl-1 underline">more details</div> </div> */}
                     <br />
                     <div className="lg:hidden">
-                        <div className="largeBold flex justify-center font-bold text-lg lg:text-2xl " >Don't have an account?</div>
+                        <hr className=" bg-orange-600 h-1 " />
+                        <div className="titlePage flex justify-center lg:text-3xl " >Don't have an account?</div>
                         <div className="flex justify-center text-sm lg:text-xl"> Take a few moments and sign up today!</div>
                         <br />
-                        <Link to={'/signuppage'}><button className=" signInCreateButton " >Create Account </button></Link>
+                        <Link to={'/signuppage'}><button className=" signInCreateButton " >Create Account </button></Link> 
                         <div className="boldBlueTerm">My Account Terms & Conditions </div>
                         <div className="boldBlueTerm">Privacy & Security Statement</div>
                     </div>

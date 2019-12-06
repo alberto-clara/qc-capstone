@@ -158,6 +158,7 @@ export const BrowsingList = (props) => {
     const changePage = (e) => {
         setPageLocation(e);
         setActivePage(e);
+        window.scrollBy(0, -10000)
     }
 
     return (<>
@@ -206,14 +207,14 @@ export const BrowsingList = (props) => {
             </div>
         </div>
         
-        <div className="bg-blue-100 flex justify-center px-8 lg:px-20">
+        <div className=" flex justify-center px-8 lg:px-20">
             <div className="hidden lg:flex justify-center text-center ">
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
                     totalPages={countPage}
                     activePage={activePage} />
             </div>
             <div className="flex-1 cursor-pointer lg:hidden text-center">
-                <Pagination onPageChange={(e, data) => changePage(data.activePage)} defaultActivePage={1}
+                <Pagination onPageChange={(e, data) => changePage(data.activePage)} 
                     ellipsisItem={null}
                     boundaryRange={0}
                     activePage={activePage}

@@ -41,7 +41,8 @@ export const SignUpPage=(props) => {
                  }
         }
         else {
-            window.location.href = '/signinpage';
+            alert("The register is invalid");
+            //window.location.href = '/signuppage';
         }
         
 
@@ -143,47 +144,45 @@ export const SignUpPage=(props) => {
     }
            const signup = (
             <div>
-                <h1 className=" titlePage py-2 lg:text-3xl"> Sign Up</h1>
+                <div className=" titlePage py-2 lg:text-3xl"> Sign Up</div>
                    <Form className="relative justify-center flex lg:block lg:mx-20 content-center ">
               
                     <FormGroup className="mx-4  " action="#" >
-                        <p className="largeBold lg:text-lg">Email: </p>
+                        <div className="largeBold lg:text-lg">Email: </div>
                            <FormControl className="typingArea" onChange={e => { CheckEmail(e.target.value) }} type="email" placeholder="Example@gmail.com"/>
                         <br /><div className="text-red-500 pl-4"id="noticeEmail"></div> <br />
-                        <p className="largeBold">Password:</p>
+                        <div className="largeBold">Password:</div>
                            <FormControl id="PasswordField" className="typingArea" autoComplete="none" onChange={e => CheckPassword(e.target.value)} type="password" placeholder="Enter Password" />
-                           <br /><div className="text-red-500 pl-4" id="noticePassword"></div> <br />
-                           <div className="pl-2">Your Password must contain at least:</div>
-                           {/*    <li className="passwordHint"> 8 charaters. </li>
-                           <li className="passwordHint"> Lowercase character. </li>
-                           <li className="passwordHint"> Uppercase character. </li>
-                           <li className="passwordHint"> Digits(0-9) character. </li>
-                           <li className="passwordHint"> Special character </li>*/}
+                           <div className="pl-2 lg:text-lg">Your Password must contain at least a lowercase, uppercase, digit, special character</div>
+                           <div className="text-red-500 pl-4" id="noticePassword"></div>
+                           
+                         
                            <br />
-                           <p className="largeBold">Confirm Password:</p>
+                           <div className="largeBold">Confirm Password:</div>
                            <FormControl className="typingArea" autoComplete="none" type="password" placeholder="Confirm Password" onChange={e => CheckPasswordConfirm(e.target.value)} />
                            <br /><div className="text-red-500 pl-4" id="noticePasswordConfirm"></div> <br />
-                           <p className="largeBold">Zip Code:</p>
+                           <div className="largeBold">Zip Code:</div>
                            <FormControl className="typingArea" maxLength="5" autoComplete="section-red shipping postal-code" placeholder="Example: 12345" onChange={e => CheckZipCode(e.target.value)} />
                            <br /><div className="text-red-500 pl-4" id="noticeZipCode"></div> <br />
-                        <p className="largeBold ">Phone:</p>
+                           <div className="largeBold ">Phone:</div>
                            <FormControl className="typingArea" placeholder="Example: 123-456-7890" onChange={e => CheckPhone(e.target.value)} />
                            <br /><div className="text-red-500 pl-4" id="noticePhone"></div> <br />
-                           <button className="signInButton " onClick={onRegister} type="submit"  >Create Account</button>
+                           <button className="signInButton  " onClick={onRegister} type="submit"  >Create Account</button>
+                           
                            <br /> <div className="text-red-500 pl-4" id="noticeAll"></div><br/>
                        
                         <div className="lg:hidden">
                                    <hr className=" bg-orange-600 h-1 " />
                                    <br />
-                            <p className="titlePage flex justify-center lg:text-3xl " >Already have an account?</p>
+                            <div className="titlePage flex justify-center lg:text-3xl " >Already have an account?</div>
                             <br />
                             <Link to={'/signinpage'}><button className=" signInCreateButton" >Sign In </button></Link>
                             <br /><br />
-                            <p className="flex justify-center text-sm lg:text-xl"> By clicking 'Create Account' you are agreeing to the Terms & Conditions and Privacy & Security Statement below</p>
+                            <div className="flex justify-center text-sm lg:text-xl"> By clicking 'Create Account' you are agreeing to the Terms & Conditions and Privacy & Security Statement below</div>
                                    <br />
                         </div>
-                        <p className="boldBlueTerm">My Account Terms & Conditions </p>
-                        <p className="boldBlueTerm">Privacy & Security Statement</p>
+                        <div className="boldBlueTerm">My Account Terms & Conditions </div>
+                        <div className="boldBlueTerm">Privacy & Security Statement</div>
                         <br/>
                     </FormGroup>
                  
