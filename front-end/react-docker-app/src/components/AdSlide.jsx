@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import SwipeableViews from 'react-swipeable-views';
+//import SwipeableViews from 'react-swipeable-views';
 export const Slider = () => {
 
     const width = useWindowWidth(); // determine the width of windows initially 
@@ -89,7 +89,7 @@ const Slide = ({ item, width }) => {
     return (
         <>
             <div id="slider"className="flex  lg:h-full " style={{ width: width + "px" || "100%" }}>
-                    <img src={item.pic} />
+                    <img src={item.pic} alt="item pic" />
             </div>
         </>)
 }

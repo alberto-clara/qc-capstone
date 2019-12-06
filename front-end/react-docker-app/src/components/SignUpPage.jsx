@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext/*,useEffect*/ } from "react";
 import { Auth } from '../authContext';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
@@ -14,7 +14,7 @@ export const SignUpPage=(props) => {
     const [emailSignUp, setEmailSignUp] = useState('');
     const [passwordSignUp, setPasswordSignUp] = useState('');
 
-    const { state, dispatch } = useContext(Auth);
+    const { /*state,*/ dispatch } = useContext(Auth);
     const onRegister = async (e) => {
         e.preventDefault();
         console.log(emailVerify);
@@ -60,6 +60,7 @@ export const SignUpPage=(props) => {
     const is_numeric=(str) =>{ return /^\d+$/.test(str); }
    
     const CheckEmail= (event) => {
+        // eslint-disable-next-line
         var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var Email = event;
         console.log(Email);

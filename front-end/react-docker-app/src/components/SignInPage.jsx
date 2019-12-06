@@ -9,9 +9,9 @@ import { Auth } from '../authContext';
 export const SignInPage=(props)=> {
     const [emailLogin, setEmail] = useState('');
     const [passwordLogin, setPassword] = useState('');
-    const [routeRedirect, setRouteRedirect] = useState(false);
+    const [routeRedirect/*, setRouteRedirect*/] = useState(false);
 
-    const { state, dispatch } = useContext(Auth);
+    const { /*state,*/ dispatch } = useContext(Auth);
     const loginHandle = async (e) => {
         e.preventDefault();
         let response = await FireBaseSetup.login(emailLogin, passwordLogin);

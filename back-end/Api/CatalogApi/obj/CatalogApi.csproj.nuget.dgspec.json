@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj": {}
+    "/mnt/c/Users/Renn_/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj": {}
   },
   "projects": {
-    "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj": {
+    "/mnt/c/Users/Renn_/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
+        "projectUniqueName": "/mnt/c/Users/Renn_/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
         "projectName": "CatalogApi",
-        "projectPath": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
+        "projectPath": "/mnt/c/Users/Renn_/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/CatalogApi.csproj",
         "packagesPath": "/home/fabi/.nuget/packages/",
-        "outputPath": "/mnt/c/Users/fabiz/Desktop/Git/qc-capstone/back-end/Api/CatalogApi/obj/",
+        "outputPath": "/mnt/c/Users/Renn_/Documents/GitHub/qc-capstone/back-end/Api/CatalogApi/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/share/dotnet/sdk/NuGetFallbackFolder"
@@ -68,16 +68,10 @@
             }
           },
           "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
+            "net461"
           ],
           "assetTargetFallback": true,
-          "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.0.101/RuntimeIdentifierGraph.json"
+          "warn": true
         }
       }
     }

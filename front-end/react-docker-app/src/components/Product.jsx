@@ -6,6 +6,8 @@ import { useParams, Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
+import kitty1 from '../images/cute-kitty-1.jpg';
+import kitty2 from '../images/kitty_sleep-compressor.jpg';
 
 export  const Product = (props) => {
 
@@ -19,7 +21,7 @@ export  const Product = (props) => {
     useEffect(() => {
         document.title = `Home Depot - Product`;
         fetching(id);
-    }, []);
+    });
 
     const fetching = async (ProductID) => {
 
@@ -45,7 +47,7 @@ export  const Product = (props) => {
             <div className="flex font-semibold hover:text-black focus:text-black text-gray-700" >
                 <button onClick={() => { 
                     setCount(count - 1); 
-                    if (count == 1) { setCount(1) } 
+                    if (count === 1) { setCount(1) } 
                     }} class=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
                     <div class="mx-20 flex items-center text-2xl h-10">-</div>
                 </button>
@@ -64,10 +66,12 @@ export  const Product = (props) => {
     const side_pic = (
         
         <div>
-            <div className="justify-center flex px-35 pl-5 pr-5">
+            <div className="justify-center flex px-5 lg:px-0">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                    <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
-                    <img src="http://lorempixel.com/output/cats-q-c-640-480-2.jpg" />
+                    <img src={kitty1} alt="kitty1"/>
+                    <img src={kitty2} alt="kitty2"/>
+                    {/* <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
+                    <img src="http://lorempixel.com/output/cats-q-c-640-480-3.jpg" /> */}
                 </Carousel>
             </div>  
          
@@ -132,28 +136,28 @@ export  const Product = (props) => {
         
         
                 {/* specifications */}
-                <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                        <Collapsible className="h-10 text-lg pt-2" trigger="Specifications">
+                <div className="flex px-5 lg:px-0">
+                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
+                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Specifications">
                             <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                         </Collapsible>
                     </div>
                 </div>
 
                 {/* Reviews */}
-                <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 pr-8 text-sm" >
-                        <Collapsible className=" h-10 text-lg pt-2" trigger="Review">
-                            <div className="border-t-2 border-orange-500 text-lg">{description} </div>
+                <div className="flex px-5 lg:px-0">
+                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
+                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Reviews">
+                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                         </Collapsible>
                     </div>
                 </div>
 
                 {/* QA */}
-                <div className="justify-center flex xl:px-35 pl-5 pr-5">
-                    <div class="rounded w-full xl:w-full border-2 border-orange-500 bg-white px-5 text-sm" >
-                        <Collapsible className="h-10 text-lg pt-2" trigger="Question and Answers">
-                            <div className="border-t-2 border-orange-500 text-lg">{description} </div>
+                <div className="flex px-5 lg:px-0">
+                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
+                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Questions & Answers">
+                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                         </Collapsible>
                     </div>
                 </div>

@@ -5,11 +5,12 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Pagination } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
+/* eslint no-useless-concat: 0 */
 
 export const BrowsingList = (props) => {
     var initValue = [];
     var rest = [];
-    var limit = 0;
+    //var limit = 0;
     const [items, setItems] = useState([]);
     const [restItem, setRestItem] = useState([])
     const [totalRest, setTotalRest] = useState(0);
@@ -25,19 +26,20 @@ export const BrowsingList = (props) => {
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
        
-        if (fetchsort == '')
+        if (fetchsort === '')
             fetching(pageNumber, pageLocation);
         else {
             sortFetching(pageNumber, pageLocation,fetchsort);
         }
         setLoad(false);
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [load]);
 
     const fetching = async (number, location) => {
         await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
             setTotalItem(res.data.count);
-            limit = (res.data.count / pageNumber) - 1;
+           //limit = (res.data.count / pageNumber) - 1;
         })
         await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
@@ -122,7 +124,7 @@ export const BrowsingList = (props) => {
             setRestLoad(false);
         }
         else {
-            for (var i = 0; i < number; i++) {
+            for (i = 0; i < number; i++) {
                 htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
                     `<div class="justify-start content-center>` +
