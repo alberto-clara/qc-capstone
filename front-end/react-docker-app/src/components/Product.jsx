@@ -26,7 +26,7 @@ export  const Product = (props) => {
     const fetching = async (ProductID) => {
 
         await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-            console.log(res.data[0]);
+          //  console.log(res.data[0]);
             setProductName(res.data[0].product_name);
             setUnitCost(res.data[0].unit_retail);
             setVender(res.data[0].supplier_name);
