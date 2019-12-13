@@ -12558,13 +12558,13 @@ video {
   }
 
   .NavTitle_Background {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .NavMenu_Container {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .NavMenu_Text {

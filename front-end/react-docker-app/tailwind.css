@@ -105,11 +105,11 @@
     }
 
     .NavTitle_Background {
-        @apply px-20;
+        @apply px-0;
     }
 
     .NavMenu_Container {
-        @apply px-20;
+        @apply px-0;
     }
 
     .NavMenu_Text {

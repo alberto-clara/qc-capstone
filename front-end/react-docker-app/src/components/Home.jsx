@@ -8,8 +8,8 @@ import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
 
 export const searchbar = (
-    <div className="  mt-4 justify-center flex text-gray-600 md:px-24 lg:px-0 px-5">
-        <input className=" rounded w-full lg:w-3/5 border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm" type="search" name="search" placeholder="Search"></input>
+    <div className="  mt-4 justify-center flex text-gray-600 w-full">
+        <input className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder="Search"></input>
         <button type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-white hover:border-orange-500">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="15"><path className="heroicon-ui " fill="gray" d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" /></svg>
         </button>
@@ -23,9 +23,9 @@ export const Home =(props)=> {
 
     const recommend = (
     <div className="flex justify-center">
-    <div className=" w-full lg:w-2/3 h-64 ti:h-72 md:h-76 px-5 lg:px-0">
+    <div className=" w-full">
     <div className="font-bold">Recommendation</div>
-    <div className="px-4 bg-gray-200 xl:px-32 ti:h-70 md:h-72 xl:h-78">
+    <div className="bg-gray-200 xl:px-32 ti:h-70 md:h-72 xl:h-78">
         <div className="flex border-2 h-56">
             <div className="bg-blue-400 w-1/2  ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 xl:h-78">
                 <div className="flex bg-red-200 h-32 xl:h-48 justify-center items-center"> picture </div>
@@ -80,17 +80,13 @@ export const Home =(props)=> {
     //     <div className="forgetText mr-1">See more</div>
     // </div>);
 
-    const side_pic = (
-        <div className="flex justify-center md:px-5 lg:px-0">
-            <div className="lg:w-2/3">
+    const carousel_slide = (
+        <div className="flex justify-center w-full">
                 <div className="justify-center flex">
                     <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
                         <img src={mountain} alt="mountain"/>
                         <img src={sky} alt="sky"/>
-                        {/* <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
-                        <img src="http://lorempixel.com/output/cats-q-c-640-480-3.jpg" /> */}
                     </Carousel>
-                </div>  
             </div>
         </div>
         );
@@ -118,7 +114,7 @@ export const Home =(props)=> {
         <div  >
             {searchbar}
             <br/>
-            {side_pic}
+            {carousel_slide}
             {/* <Slider />  */}
            
             {recommend}
