@@ -20,9 +20,9 @@ export default props => (
             </div>
         </div>
         <div className="flex justify-center px-4 lg:px-0">
-        <div className="bg-gray-300 max-w-6xl">
-            {props.children}
+            <div className="bg-gray-300 w-full max-w-6xl">
+                {props.children}
             </div>
-            </div>
+        </div>
     </Row>
 );

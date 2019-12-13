@@ -162,11 +162,11 @@ export const BrowsingList = (props) => {
     }
 
     return (<>
-        <div className="mt-4 justify-center w-full h-auto md:h-auto">
+        <div className="mt-4 justify-center w-full">
             <div className=" titlePage pt-2 pb-4 lg:text-3xl"> Browsing View </div>
         </div>
-        <div className="lg:flex max-w-full">
-            <div className="block lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
+        <div className="lg:flex w-full">
+            <div className="block w-full lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
                 <div className="flex justify-center">
                     <button className="filterbutton lg:hidden lg:text-black font-bold text-lg py-4">
                         Filters &#9660;
@@ -175,11 +175,11 @@ export const BrowsingList = (props) => {
                         Filters
                     </div>
                 </div>
-                <div id="filter" className="lg:block flex-no-wrap text-lg py-4">
-                    <div className="flex flex-wrap lg:pt-2 px-8 font-bold justify-center lg:justify-start">
+                <div id="filter" className="lg:block text-lg py-4">
+                    <div className="flex lg:pt-2 px-8 font-bold justify-center lg:justify-start">
                         Sort by:
                     </div>
-                    <div className="flex flex-no-wrap justify-center lg:justify-start">
+                    {/* <div className="flex flex-no-wrap justify-center lg:justify-start"> */}
                         <div className="flex flex-wrap justify-center lg:justify-start">
                             <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Lowest Cost</button>
                             <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Highest Cost</button>
@@ -187,7 +187,7 @@ export const BrowsingList = (props) => {
                             <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
                           
                         </div>
-                    </div>
+                    {/* </div> */}
                     
                     <div className="lg:block px-8 py-4">
                         <div className="flex justify-center lg:justify-start font-bold">
@@ -207,7 +207,7 @@ export const BrowsingList = (props) => {
             </div>
         </div>
         
-        <div className=" flex justify-center px-8 lg:px-20">
+        <div className=" flex justify-center lg:px-20">
             <div className="hidden lg:flex justify-center text-center ">
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
                     totalPages={countPage}
