@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../css/mainTailwind.css';
 //import { autoPlay } from 'react-swipeable-views-utils';
-//import SwipeableViews from 'react-swipeable-views';
+import SwipeableViews from 'react-swipeable-views';
 // import { Slider } from './AdSlide';
 import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
@@ -21,65 +21,80 @@ export const Home =(props)=> {
     },[]);
 
 
-    const recommend = (
-    <div className="flex justify-center">
-    <div className=" w-full">
-    <div className="font-bold">Recommendation</div>
-    <div className="bg-gray-200 xl:px-32 ti:h-70 md:h-72 xl:h-78">
-        <div className="flex border-2 h-56">
-            <div className="bg-blue-400 w-1/2  ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 xl:h-78">
-                <div className="flex bg-red-200 h-32 xl:h-48 justify-center items-center"> picture </div>
-                <div className="flex justify-center items-center"> product name </div>
-            </div>
-            <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72">
+   
+    const swiping = <div>
+    <SwipeableViews enableMouseEvents>
+        <div className=" h-76 flex w-full border-2">           
+                <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
+                    <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                    <div className="flex justify-center items-center"> product name </div>
+                </div>
+                <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
+                    <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                    <div className="flex justify-center items-center"> product name </div>
+                </div>
+                <div className="bg-blue-700 hidden ti:block ti:w-1/3 md:w-1/5  ti:h-70 md:h-72 border-2">
+                    <div className="flex bg-red-200 flex h-32 xl:h-48 justify-center items-center"> picture </div>
+                    <div className="flex justify-center items-center"> product name </div>
+                </div>
+                <div className="bg-blue-300 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
+                    <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                    <div className="flex justify-center items-center"> product name </div>
+                </div>
+                <div className="bg-blue-200 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
+                    <div className="flex bg-red-100 h-32 xl:h-48 justify-center items-center"> picture </div>
+                    <div className="flex justify-center items-center"> product name </div>
+                </div>
+            
+        </div>
+        <div className=" h-76 flex w-full border-2">
+            <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
                 <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
                 <div className="flex justify-center items-center"> product name </div>
             </div>
-            <div className="bg-blue-700 hidden ti:block ti:w-1/3 md:w-1/5  ti:h-70 md:h-72">
+            <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-orange-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
+            <div className="bg-blue-700 hidden ti:block ti:w-1/3 md:w-1/5  ti:h-70 md:h-72 border-2">
                 <div className="flex bg-red-200 flex h-32 xl:h-48 justify-center items-center"> picture </div>
                 <div className="flex justify-center items-center"> product name </div>
             </div>
-            <div className="bg-blue-300 hidden md:block md:w-1/3 ti:h-70 md:h-72">
-                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+            <div className="bg-blue-300 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-orange-300 h-32 xl:h-48 justify-center items-center"> picture </div>
                 <div className="flex justify-center items-center"> product name </div>
             </div>
-            <div className="bg-blue-200 hidden md:block md:w-1/3 ti:h-70 md:h-72 ">
+            <div className="bg-blue-200 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
                 <div className="flex bg-red-100 h-32 xl:h-48 justify-center items-center"> picture </div>
                 <div className="flex justify-center items-center"> product name </div>
             </div>
+
         </div>
+        <div className=" h-76 flex w-full border-2">
+            <div className="bg-green-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
+            <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-green-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
+            <div className="bg-green-700 hidden ti:block ti:w-1/3 md:w-1/5  ti:h-70 md:h-72 border-2">
+                <div className="flex bg-red-200 flex h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
+            <div className="bg-blue-300 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-green-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
+            <div className="bg-green-200 hidden md:block md:w-1/3 ti:h-70 md:h-72 border-2">
+                <div className="flex bg-red-100 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex justify-center items-center"> product name </div>
+            </div>
 
+        </div>
+    </SwipeableViews>
     </div>
-    <div className="forgetText mr-1">See more</div>
-</div>
-</div>);
-
-    // const recommend = (<div className=" w-full h-64 ti:h-72 md:h-76 lg:justify-center  lg:px-20 pr-5 pl-5">
-    //     <div className="font-bold">Recommendation</div>
-    //     <div className="px-4 bg-gray-200 ti:mx-4  md:mx-12 lg:mx-40 xl:px-32 ti:h-70 md:h-72 xl:h-78">
-    //         <div className="flex border-2 h-56">
-    //             <div className="bg-blue-400 w-1/2  ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 xl:h-78">
-    //                 <div className="bg-red-200 h-32 xl:h-48"> </div>
-    //             </div>
-    //             <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 ">
-    //                 <div className="bg-red-300 h-32 xl:h-48"></div>
-    //             </div>
-    //             <div className="bg-blue-700 hidden ti:block ti:w-1/3 md:w-1/5  ti:h-70 md:h-72">
-    //                 <div className="bg-red-200 flex h-32 xl:h-48"> </div>
-    //             </div>
-    //             <div className="bg-blue-300 hidden md:block md:w-1/3 ti:h-70 md:h-72">
-    //                 <div className="bg-red-300 h-32 xl:h-48"> </div>
-    //             </div>
-    //             <div className="bg-blue-200 hidden md:block md:w-1/3 ti:h-70 md:h-72">
-    //                 <div className="bg-red-100 h-32 xl:h-48"> </div>
-    //             </div>
-
-    //         </div>
-
-    //     </div>
-    //     <div className="forgetText mr-1">See more</div>
-    // </div>);
-
     const carousel_slide = (
         <div className="flex justify-center w-full">
                 <div className="justify-center flex">
@@ -91,34 +106,16 @@ export const Home =(props)=> {
         </div>
         );
 
-    // const Auto = autoPlay(SwipeableViews);
-    // const swiping = <div>
-    //     <Auto enableMouseEvents>
-    //         <div className=" h-76 flex ">
-    //             <div className="bg-orange-400 h-full w-1/4"> </div>
-    //             <div className="bg-orange-600 h-full w-1/4"> </div>
-    //             <div className="bg-orange-400 h-full w-1/4"> </div>
-    //             <div className="bg-orange-700 h-full w-1/4"> </div>
-    //         </div>
-    //         <div className=" h-76 flex">
-    //             <div className="bg-blue-300 h-full w-1/4"> </div>
-    //             <div className="bg-blue-600 h-full w-1/4"> </div>
-    //             <div className="bg-blue-400 h-full w-1/4"> </div>
-    //             <div className="bg-blue-700 h-full w-1/4"> </div>
-    //         </div>
-    //         <div className="bg-red-700 h-76"> </div>
-    //     </Auto>
-    //     </div>
+    
   
     return (
         <div  >
             {searchbar}
             <br/>
             {carousel_slide}
-            {/* <Slider />  */}
            
-            {recommend}
-            {/* {swiping} */}
+            {swiping}
+          
          
         
 
