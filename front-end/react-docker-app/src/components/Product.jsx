@@ -132,33 +132,27 @@ export  const Product = (props) => {
 
     const rate = (
         <div className="mx-20 block">
-        <div className="flex">
-            <div className="pr-2">Rating</div>
-            <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div className="flex">
+                <div className="pr-2">Rating</div>
+                <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            </div>
         </div>
-    </div>
-    )
+    );
 
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
             <div className="flex">
-            <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+                <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+            </div>
         </div>
-        </div>
-    )
-    const xxx = () => {
-        var x;
-      //  { load ? x = document.getElementById('container').cloneNode(true) : null}
+    );
     
-        return (<> {x}</>)
-    }
     return (
         <div>
-            {xxx}
             {searchbar}
-            {load ? helloLoop(totalVendor) : null}
-            <VendorProvider value={load ? helloLoop(totalVendor) : null}>
+            {load ? console.log(VendorArray) : null}
+            <VendorProvider value={load ? VendorArray : null}>
                 <ModalProvider>
                     <ModalInProductPage />
                 </ModalProvider>
