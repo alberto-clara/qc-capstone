@@ -11,10 +11,7 @@ export const ModalInProductPage = () => {
     let { id } = useParams();
     const [arrayVendor, setVendor] = useState([]);
     const [load, setLoad] = useState(false);
-    useEffect(() => {
-      
-    
-    },[]);
+
     var resultSupplier = [];
     var resultRetail = [];
     var resultAll = [];
@@ -44,23 +41,12 @@ export const ModalInProductPage = () => {
         () => (
         <ReactModal  isOpen>
             <p>Modal content</p>
-                <div>{id}</div>
+                <button onClick={hideModal}>Hide modal</button>
+
                 < VendorConsumer >
-                    {props => {
-
-                        {
-                            setVendor(props);
-                            forEachArray(props);
-
-                        }
-              
+                    {props => {    
                         return (<div>
-                            <div>{resultAll}</div>
-                            <hr />
-                            <hr />
-                            <div>{resultSupplier}</div>
-                            <div>{resultRetail}</div>
-
+                            {props}
                            </div>
                             );
                     }
@@ -71,8 +57,8 @@ export const ModalInProductPage = () => {
                
               
   
-            <button onClick={hideModal}>Hide modal</button>
+           
         </ReactModal>));
 
-    return <button onClick={showModal}>show modal </button>
+    return <button className="underline justify-center text-blue-400" onClick={showModal}>Other Vendors </button>
 };

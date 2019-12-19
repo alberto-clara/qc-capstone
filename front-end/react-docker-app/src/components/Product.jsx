@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { createElement, useState, useEffect } from 'react';
+import { Markup } from 'interweave';
 import { ModalProvider } from "react-modal-hook";
 import Collapsible from 'react-collapsible';
 import { searchbar } from '../components/Home';
@@ -25,6 +26,7 @@ export  const Product = (props) => {
     useEffect(() => {
         document.title = `Home Depot - Product`;
         fetching(id);   
+       
     },[]);
 
     const fetching = async (ProductID) => {
@@ -138,12 +140,21 @@ export  const Product = (props) => {
             </div>
         </div>
     );
-
+      
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
-            <div className="flex">
+            <div className="flex lg:hidden">
                 <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+            </div>
+            <div className="flex">
+
+                {load ? <div className="hidden">{helloLoop(totalVendor)}</div> : null}
+                <VendorProvider value={load ? <Markup content={document.getElementById("container").innerHTML} /> : null}>
+                    <ModalProvider>
+                        <ModalInProductPage />
+                    </ModalProvider>
+                </VendorProvider>
             </div>
         </div>
     );
@@ -151,14 +162,8 @@ export  const Product = (props) => {
     return (
         <div>
             {searchbar}
-            {load ? console.log(VendorArray) : null}
-            <VendorProvider value={load ? VendorArray : null}>
-                <ModalProvider>
-                    <ModalInProductPage />
-                </ModalProvider>
-            </VendorProvider>
-            <div id="container"></div>
-            {load?page_title:null}
+            <div id="container" className="hidden"></div>
+            {page_title}
         <div className="sm:mx-16 md:mx-24 lg:mx-56 xl:mx-70">
                 <div className=" lg:flex pt-10">
                         <div className="xl:w-1/2">
