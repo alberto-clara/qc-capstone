@@ -85,7 +85,6 @@ export  const Product = (props) => {
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Product View </div>
-    
         </div>
     );     
 

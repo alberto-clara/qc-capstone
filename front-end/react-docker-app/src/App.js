@@ -8,7 +8,7 @@ import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
 
 import { Product } from './components/Product';
-
+import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
 import { Vendors } from './components/Vendors';
@@ -18,6 +18,7 @@ export default () => (
         <Route exact path='/' component={Home} />
         <Route path='/signin' component={SignInPage} />
         <Route path='/signuppage' component={SignUpPage} />
+        <Route path='/manageuser' component={ManagePage} />
         <Route path='/forgotemail' component={ForgotEmail} />
         <Route path='/forgotpassword' component={ForgotPassword} />
 
