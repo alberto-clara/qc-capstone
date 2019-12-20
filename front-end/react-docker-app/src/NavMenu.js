@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
 
- function NavMenu(props) {
+const NavMenu = (props) => {
     const [stateNav, setStateNave] = useState(null);
     const [userEmail, setUserEmail] = useState("");
     const { state, dispatch } = useContext(Auth);
@@ -21,12 +21,12 @@ import FireBaseSetup from './FireBaseSetup';
     const logout = () => {
         FireBaseSetup.logout();
         setStateNave(null);
-        props.history.replace("/");
+        window.location.href = '/';
         return dispatch({
             type: "LOGOUT",
             payload: {}
         });
-
+        
     }
     if (stateNav != null || state.user.hasOwnProperty("user")) {
         buttons = (<Fragment>

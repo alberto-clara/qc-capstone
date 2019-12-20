@@ -1,48 +1,95 @@
-﻿import React, { useState,useEffect } from 'react';
-import '../css/mainTailwind.css';
+﻿import React, { createElement, useState, useEffect } from 'react';
+import { Markup } from 'interweave';
+import { ModalProvider } from "react-modal-hook";
 import Collapsible from 'react-collapsible';
 import { searchbar } from '../components/Home';
 import { useParams, Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
+import { ModalInProductPage } from './ModalVendor';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
+import { VendorProvider } from './VendorsContext'
 
 export  const Product = (props) => {
-
     let { id } = useParams();
     const [productName, setProductName] = useState('');
     const [unitcost, setUnitCost] = useState('');
     const [description, setDescription] = useState('');
     const [count, setCount] = useState(1);
     const [vendor, setVender] = useState('');
-
+    const [totalVendor, setTotalVendor] = useState(0);
+    const VendorValue = [];
+    const [VendorArray, setVendorArray] = useState([]);
+    const [load, setLoad] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
-        fetching(id);
-    });
+        fetching(id);   
+       
+    },[]);
 
     const fetching = async (ProductID) => {
 
         await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-          //  console.log(res.data[0]);
+
             setProductName(res.data[0].product_name);
             setUnitCost(res.data[0].unit_retail);
             setVender(res.data[0].supplier_name);
             setDescription(res.data[0].long_description);
+            for (var i = 0; i < res.data.length; i++) {
+                VendorValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail })
+            }
+            setTotalVendor(res.data.length);
+            setVendorArray(VendorValue);
+            setLoad(!load);
         })
+      
     }
-    
-    const page_title = (
 
+    var x;
+    const helloLoop = (totalVendor) => {
+        var htmlElements = "";
+        var loopElements = '';
+        var colorchange = '';
+        for (var i = 0; i < totalVendor; i++) {
+            (i % 2 == 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
+            loopElements += `
+            <tr>`+
+                `<td class="p-2 border-2 border-orange-500 text-center ` + colorchange + `">` + VendorArray[i].supplier +
+                `</td>` +
+                `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange + `">` + VendorArray[i].unit_cost +
+                `</td>` +
+                `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange + `">` + VendorArray[i].unit_retail +
+                `</td>` +
+                `</tr>`
+        }
+        htmlElements += `      
+                <table class="table-auto">`+
+            `<thead>` +
+            `<tr>` +
+            `<th class="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl">` + "Vendor" + `</th>` +
+            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Cost" + `</th>` +
+            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Retail" + `</th>` +
+            `</tr>` +
+            `<thead>` +
+            `<tbody>` +
+            loopElements +
+            `</tbody>` +
+            `</table>`
+            ;
+        document.getElementById("container").innerHTML = htmlElements;
+        return (htmlElements);
+        setLoad(false);
+    }
+    const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Product View </div>
         </div>
     );     
-    
+
+
     const counters = (
-        
         <div className="justify-center m-20 rounded h-11 border-2 border-orange-500">
             <div className="flex font-semibold hover:text-black focus:text-black text-gray-700" >
                 <button onClick={() => { 
@@ -86,25 +133,35 @@ export  const Product = (props) => {
 
     const rate = (
         <div className="mx-20 block">
-        <div className="flex">
-            <div className="pr-2">Rating</div>
-            <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div className="flex">
+                <div className="pr-2">Rating</div>
+                <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            </div>
         </div>
-    </div>
-    )
-
+    );
+      
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
+            <div className="flex lg:hidden">
+                <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+            </div>
             <div className="flex">
-            <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+
+                {load ? <div className="hidden">{helloLoop(totalVendor)}</div> : null}
+                <VendorProvider value={load ? <Markup content={document.getElementById("container").innerHTML} /> : null}>
+                    <ModalProvider>
+                        <ModalInProductPage />
+                    </ModalProvider>
+                </VendorProvider>
+            </div>
         </div>
-        </div>
-    )
- 
+    );
+    
     return (
         <div>
             {searchbar}
+            <div id="container" className="hidden"></div>
             {page_title}
         <div className="sm:mx-16 md:mx-24 lg:mx-56 xl:mx-70">
                 <div className=" lg:flex pt-10">

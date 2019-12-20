@@ -15,7 +15,7 @@ export const Vendors=  () => {
          setLoad(false);
       
      }, [load]);
-     const fetching = async (ProductID) => {
+    const fetching = async (ProductID) => {
 
          await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
              console.log(res.data);
