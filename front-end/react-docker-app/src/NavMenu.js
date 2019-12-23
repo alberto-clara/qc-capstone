@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
 
-const NavMenu = (props) => {
+export const NavMenu = (props) => {
     const [stateNav, setStateNave] = useState(null);
     const [userEmail, setUserEmail] = useState("");
     const { state, dispatch } = useContext(Auth);
     let buttons ;
+
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
