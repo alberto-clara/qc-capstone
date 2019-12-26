@@ -15,7 +15,7 @@ export const SignIn_SignUp=(props) => {
                 <SignInPage/>
             </div>
             <div className="hidden lg:flex lg:mx-10 pt-10">
-                <div className="w-1/2  border-r-4 border-orange-600">
+                <div className="w-1/2 border-r-4 border-orange-600">
                     <SignInPage/>
                 </div>
                 <div className=" lg:w-1/2 ">
