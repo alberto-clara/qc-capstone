@@ -128,7 +128,7 @@ export const BrowsingList = (props) => {
                 htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
                     `<div class="justify-start content-center>` +
-                    `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
+                    `<a target="_blank"><img class="rounded-lg" src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
                     `</div>` +
                     `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
                     `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
@@ -165,8 +165,9 @@ export const BrowsingList = (props) => {
         <div className="mt-4 justify-center w-full">
             <div className=" titlePage pt-2 pb-4 lg:text-3xl"> Browsing View </div>
         </div>
+        <div className="h-full">
         <div className="lg:flex w-full">
-            <div className="block w-full lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
+            <div className="block w-full bg-green-500 lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
                 <div className="flex justify-center">
                     <button className="filterbutton lg:hidden lg:text-black font-bold text-lg py-4">
                         Filters &#9660;
@@ -201,13 +202,14 @@ export const BrowsingList = (props) => {
                 </div>
             </div>
 
-            <div className="w-full lg:w-4/5">
+            <div className="w-full">
                 <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div>
-                <div id="container" /*className="bg-orange-100"*/> </div>
+                <div className="bg-red-500" id="container"> </div>
             </div>
         </div>
-        
-        <div className=" flex justify-center lg:px-20">
+        </div>
+
+        {/* <div className=" flex justify-center lg:px-20">
             <div className="hidden lg:flex justify-center text-center ">
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
                     totalPages={countPage}
@@ -223,7 +225,7 @@ export const BrowsingList = (props) => {
                     siblingRange={1}
                     totalPages={countPage} />
             </div>
-        </div>
+        </div> */}
 
     </>);
 }
