@@ -167,7 +167,7 @@ export const BrowsingList = (props) => {
         </div>
         <div className="h-full">
         <div className="lg:flex w-full">
-            <div className="block w-full bg-green-500 lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto">
+            <div className="block w-full bg-green-500 lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto mb-2 lg:mb-6">
                 <div className="flex justify-center">
                     <button className="filterbutton lg:hidden lg:text-black font-bold text-lg py-4">
                         Filters &#9660;
@@ -209,7 +209,7 @@ export const BrowsingList = (props) => {
         </div>
         </div>
 
-        {/* <div className=" flex justify-center lg:px-20">
+        <div className=" flex justify-center lg:px-20">
             <div className="hidden lg:flex justify-center text-center ">
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
                     totalPages={countPage}
@@ -225,7 +225,7 @@ export const BrowsingList = (props) => {
                     siblingRange={1}
                     totalPages={countPage} />
             </div>
-        </div> */}
+        </div>
 
     </>);
 }
