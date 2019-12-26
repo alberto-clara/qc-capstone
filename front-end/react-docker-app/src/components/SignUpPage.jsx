@@ -1,4 +1,4 @@
-import React, { useState, useContext/*,useEffect*/ } from "react";
+﻿import React, { useState, useContext/*,useEffect*/ } from "react";
 import { Auth } from '../authContext';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
@@ -9,8 +9,6 @@ export const SignUpPage=(props) => {
     const [emailVerify, setEmailVerify] = useState(false);
     const [passwordVerify,setpasswordVerify] = useState(false);
     const [confirmpasswordVerify,setConfirmPasswordVerify] = useState(false);
-    // const [zipcodeVerify,setZipcodeVerify] = useState(false);
-    // const [phoneVerify,setPhoneVerify ]= useState(false);
     const [emailSignUp, setEmailSignUp] = useState('');
     const [passwordSignUp, setPasswordSignUp] = useState('');
 
@@ -20,8 +18,7 @@ export const SignUpPage=(props) => {
         console.log(emailVerify);
         console.log(passwordVerify);
         console.log(confirmpasswordVerify );
-        // console.log(zipcodeVerify);
-        // console.log(phoneVerify);
+       
         console.log(passwordSignUp);
         var notice = document.getElementById('noticeAll');
         if (emailVerify && passwordVerify && confirmpasswordVerify) {
@@ -29,7 +26,6 @@ export const SignUpPage=(props) => {
 
             if (response.user == null) {
                 //alert(response);
-                
                 notice.innerHTML=(response);
                  }
                      else {
@@ -58,7 +54,6 @@ export const SignUpPage=(props) => {
         } catch (e) {}
         return false;
     }
-    const is_numeric=(str) =>{ return /^\d+$/.test(str); }
    
     const CheckEmail= (event) => {
         // eslint-disable-next-line
@@ -78,26 +73,112 @@ export const SignUpPage=(props) => {
             setEmailSignUp(Email);
         }
     }
-
+   
+    const [l1Color, SetL1Color] = useState('text-gray-500');
+    const [l2Color, SetL2Color] = useState('text-gray-500');
+    const [l3Color, SetL3Color] = useState('text-gray-500');
+    const [l4Color, SetL4Color] = useState('text-gray-500');
     const CheckPassword = (event) => {
-        var filter = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z]).{8,50}$/;
+        var filter = /^(?=.*[A-Z])(?=.*[\W])(?=.*[0-9])(?=.*[a-z].*[a-z]).{8,50}$/;
+        var filter1 = /^[a-z]{0,}$/;
+        var filter2 = /^[A-Z]{0,}$/;
+        var filter3 = /^[0-9]*$/;
+        var filter4 = /^[!@#$%^&*()_+]*$/; 
+        var filter12 = /^(?=.*[a-z])(?=.*[A-Z])(?!.*\d)(?!.*[!@#$%^&*()_+]).+$/;
+        var filter13 = /^(?=.*\d)(?=.*[a-z])(?!.*[A-Z])(?!.*[!@#$%^&*()_+]).+$/;
+        var filter14 = /^(?!.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()_+])(?!.*[A-Z]).+$/;
+        var filter23 = /^(?=.*\d)(?=.*[A-Z])(?!.*[a-z])(?!.*[!@#$%^&*()_+]).+$/;
+        var filter24 = /^(?!.*\d)(?!.*[a-z])(?=.*[!@#$%^&*()_+])(?=.*[A-Z]).+$/;
+        var filter124 = /^(?!.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()_+])(?=.*[A-Z]).+$/;
+        var filter134 = /^(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()_+])(?!.*[A-Z]).+$/;
+        var filter234 = /^(?=.*\d)(?!.*[a-z])(?=.*[!@#$%^&*()_+])(?=.*[A-Z]).+$/;
+        var filter34 = /^(?=.*\d)(?!.*[a-z])(?=.*[!@#$%^&*()_+])(?!.*[A-Z]).+$/;
+        var filter123 = /^(?=.*\d)(?=.*[a-z])(?!.*[!@#$%^&*()_+])(?=.*[A-Z]).+$/;
+       
         var Password = event;
         var notice = document.getElementById('noticePassword');
+     
+        SetL1Color('text-gray-500');
+        SetL2Color('text-gray-500');
+        SetL3Color('text-gray-500');
+        SetL4Color('text-gray-500');
         if (ifEmpty(Password)) {
             notice.innerHTML = "The Password is empty";
         }
+        else if (validEmail(filter1, Password)) {
+            SetL1Color('text-green-400');
+        }
+        else if (validEmail(filter2, Password)) {
+            SetL2Color('text-green-400');
+        }
+        else if (validEmail(filter3, Password)) {
+            SetL3Color('text-green-400');
+        }
+        else if (validEmail(filter4, Password)) {
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter12, Password)) {
+            SetL1Color('text-green-400');
+            SetL2Color('text-green-400');
+        }
+        else if (validEmail(filter13, Password)) {
+            SetL1Color('text-green-400');
+            SetL3Color('text-green-400');
+        }
+        else if (validEmail(filter14, Password)) {
+            SetL1Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter124, Password)) {
+            SetL1Color('text-green-400');
+            SetL2Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter134, Password)) {
+            SetL1Color('text-green-400');
+            SetL3Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter23, Password)) {
+            SetL2Color('text-green-400');
+            SetL3Color('text-green-400');
+        }
+        else if (validEmail(filter234, Password)) {
+            SetL2Color('text-green-400');
+            SetL3Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter24, Password)) {
+            SetL2Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter34, Password)) {
+            SetL3Color('text-green-400');
+            SetL4Color('text-green-400');
+        }
+        else if (validEmail(filter123, Password)) {
+            SetL1Color('text-green-400');
+            SetL2Color('text-green-400');
+            SetL3Color('text-green-400');
+        }
+
         else if (!validAtleast(Password, 8)) {
             notice.innerHTML = "The Password needs atleast 8 characters";
         }
-       else if (!validEmail(filter,Password)) {
+        else if (!validEmail(filter, Password)) {
             notice.innerHTML = "The password is invalid. It needs at least a lower, upper, and special character";
         }
-        else {
+        else if (validEmail(filter,Password)){
             notice.innerHTML = " ";
+            SetL1Color('text-green-400');
+            SetL2Color('text-green-400');
+            SetL3Color('text-green-400');
+            SetL4Color('text-green-400');
             setPasswordSignUp(Password);
             setpasswordVerify(true);
         }
     }
+    
 
     const CheckPasswordConfirm = (event) => {
         var PasswordConfirm = event;
@@ -113,35 +194,6 @@ export const SignUpPage=(props) => {
         }
     }
 
-    // const CheckZipCode = (event) => {
-    //     var ZipCode = event;
-    //     var notice = document.getElementById('noticeZipCode');
-    //     if (ifEmpty(ZipCode)) {
-    //         notice.innerHTML = " The Zip Code is empty";
-    //     }
-    //     else if (!is_numeric(ZipCode) )
-    //     {
-    //         notice.innerHTML = " The Zip Code need to be all numbers";
-    //     }
-    //     else {
-    //         notice.innerHTML = " ";
-    //         setZipcodeVerify(true);
-    //     }
-    // }
-    // const CheckPhone = (event) => {
-    //     var Phone = event;
-    //     var notice = document.getElementById('noticePhone');
-    //     if (ifEmpty(Phone)) {
-    //         notice.innerHTML = "The phone number is empty";
-    //     }
-    //     else if (!validAtleast(Phone, 10)) {
-    //         notice.innerHTML = "The phone number need atleast 10 number";
-    //     }
-    //     else {
-    //         notice.innerHTML = " ";
-    //         setPhoneVerify(true);
-    //     }
-    // }
            const signup = (
             <div>
                 <div className=" titlePage py-2 lg:text-3xl"> Sign Up</div>
@@ -153,13 +205,13 @@ export const SignUpPage=(props) => {
                         <br /><div className="text-red-500 pl-4"id="noticeEmail"></div> <br />
                         <div className="largeBold">Password:</div>
                            <FormControl id="PasswordField" className="typingArea" autoComplete="none" onChange={e => CheckPassword(e.target.value)} type="password" placeholder="Enter Password" />
-                           <div className="pl-2 lg:text-lg text-gray-500">Your Password must contain:</div>
+                           <div className="pl-2 lg:text-lg text-gray-800">Your Password must contain at least 8 characters:</div>
                            <div className="pl-6 lg:text-lg text-gray-500">
-                           <div>At least one lowercase</div>
-                           <div>At least one uppercase</div>
-                           <div>At least one number</div>
-                           <div>At least one special character</div>
-                           <div>At least 8 characters</div>
+                           <div id="line1" className={l1Color}>At least one lowercase</div>
+                           <div id="line2" className={l2Color}>At least one uppercase</div>
+                           <div id="line3" className={l3Color}>At least one number</div>
+                           <div id="line4" className={l4Color}>At least one special character</div>
+                
                            </div>
                            <div className="text-red-500 pl-4" id="noticePassword"></div>
                            
