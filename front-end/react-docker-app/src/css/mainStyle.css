@@ -88,8 +88,16 @@
 }
 
 .product_id {
-    @apply bg-green-500
+    @apply bg-green-500;
 }
+.ReactCollapse--collapse {
+    max-width: 800px;
+    border: 1px solid rgba(3, 169, 244, 0.3);
+    border-radius: 10px;
+    background-color: rgba(100, 255, 100, 0.1);
+    transition: height 2000ms;
+}
+
 
 @screen lg {
     .product_id {

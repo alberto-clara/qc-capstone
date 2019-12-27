@@ -1,6 +1,7 @@
 ﻿import React, { createElement, useState, useEffect } from 'react';
 import { Markup } from 'interweave';
 import { ModalProvider } from "react-modal-hook";
+import { Collapse } from 'react-collapse';
 import Collapsible from 'react-collapsible';
 import { searchbar } from '../components/Home';
 import { useParams, Link } from "react-router-dom";
@@ -23,6 +24,7 @@ export  const Product = (props) => {
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
         fetching(id);   
@@ -46,7 +48,7 @@ export  const Product = (props) => {
         })
       
     }
-
+    
     var x;
     const helloLoop = (totalVendor) => {
         var htmlElements = "";
@@ -157,7 +159,7 @@ export  const Product = (props) => {
             </div>
         </div>
     );
-    
+    const height = 150;
     return (
         <div>
             {searchbar}
@@ -202,11 +204,11 @@ export  const Product = (props) => {
                 </div>
 
                 {/* Reviews */}
-                <div className="flex px-5 lg:px-0">
-                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
-                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Reviews">
-                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
-                        </Collapsible>
+                <div className="flex px-5 lg:px-0" onClick={()=>setIsOpen(!isOpen)} >
+                    <div className="rounded w-full h-48 border-2 border-orange-500 bg-white text-lg" >
+                        <Collapse className="h-10 text-lg pt-2 pl-5" isOpened={isOpen}>
+                            <div style={{ height }}className="border-t-2 border-orange-500 text-lg"> {description} </div>
+                        </Collapse>
                     </div>
                 </div>
 
