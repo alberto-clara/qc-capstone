@@ -5,7 +5,7 @@ import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
 const NavTitle = (props) => {
     const [stateNav, setStateNave] = useState(null);
-    const { state, dispatch } = useContext(Auth);
+    const { state } = useContext(Auth);
     let buttonManage;
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {

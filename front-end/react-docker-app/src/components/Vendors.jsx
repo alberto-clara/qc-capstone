@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../css/mainTailwind.css';
 import axios from 'axios';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+/* eslint no-useless-concat: 0 */
+
 export const Vendors=  () => {
      let { idv } = useParams();
      var initValue = [];
@@ -13,7 +15,8 @@ export const Vendors=  () => {
          document.title = `Home Depot - Vendor`;
          fetching(idv);
          setLoad(false);
-      
+    
+          // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [load]);
     const fetching = async (ProductID) => {
 
@@ -33,7 +36,7 @@ export const Vendors=  () => {
          var loopElements = '';
          var colorchange = '';
          for (var i = 0; i < totalVendor; i++) { 
-             (i % 2 == 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
+             (i % 2 === 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
              loopElements += `
             <tr>`+
                  `<td class="p-2 border-2 border-orange-500 text-center ` + colorchange+`">` + supplier[i].supplier +

@@ -1,6 +1,5 @@
-import React, { useState, useContext,useEffect } from "react";
+import React from "react";
 import ReactModal from "react-modal";
-import { useParams } from "react-router-dom";
 import { useModal } from "react-modal-hook";
 import {  VendorConsumer } from './VendorsContext'
 

@@ -1,4 +1,4 @@
-﻿import React, { createElement, useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Markup } from 'interweave';
 import { ModalProvider } from "react-modal-hook";
 import { Collapse } from 'react-collapse';
@@ -12,6 +12,7 @@ import { ModalInProductPage } from './ModalVendor';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import { VendorProvider } from './VendorsContext'
+/* eslint no-useless-concat: 0 */
 
 export  const Product = (props) => {
     let { id } = useParams();
@@ -27,8 +28,9 @@ export  const Product = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
-        fetching(id);   
-       
+        fetching(id); 
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const fetching = async (ProductID) => {
@@ -49,13 +51,12 @@ export  const Product = (props) => {
       
     }
     
-    var x;
     const helloLoop = (totalVendor) => {
         var htmlElements = "";
         var loopElements = '';
         var colorchange = '';
         for (var i = 0; i < totalVendor; i++) {
-            (i % 2 == 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
+            (i % 2 === 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
             loopElements += `
             <tr>`+
                 `<td class="p-2 border-2 border-orange-500 text-center ` + colorchange + `">` + VendorArray[i].supplier +
@@ -66,6 +67,7 @@ export  const Product = (props) => {
                 `</td>` +
                 `</tr>`
         }
+
         htmlElements += `      
                 <table class="table-auto">`+
             `<thead>` +
@@ -82,7 +84,6 @@ export  const Product = (props) => {
             ;
         document.getElementById("container").innerHTML = htmlElements;
         return (htmlElements);
-        setLoad(false);
     }
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
