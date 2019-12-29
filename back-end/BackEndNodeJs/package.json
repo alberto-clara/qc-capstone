@@ -1,0 +1,24 @@
+{
+  "name": "backendnodejs",
+  "version": "1.0.0",
+  "description": "Trial",
+  "main": "server.js",
+  "dependencies": {
+    "@rama41222/node-logger": "^1.0.1",
+    "axios": "^0.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.5",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

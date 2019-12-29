@@ -1,9 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import FireBaseSetup from '../FireBaseSetup';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 export const ManagePage = (props) => {
-    
+    const [email, setEmail] = useState("");
+    const [uid, setUID] = useState("");
+    useEffect(() => {
+        FireBaseSetup.isInitialized().then(user => {
+            if (user) {
+                setUID(user.uid);
+                setEmail(user.email);
+                postI(user.uid);
+            }
+        });
+    });
+    const postInfo = (uidValue) => {
+        axios({
+            'Content-type': 'application/json',   "Access-Control-Allow-Origin": "*"}
+            , {
+           method:'get',
+           url: '/user',
+          
+         
+            data: {
+                uid: uid,
+                email: email,
+                name: '',
+                address: '',
+                phone:''
+            }
 
+        }).then((response) => {
+            console.log(response);
+        }, (error) => {
+            console.log(error);
+        });;
+    }
+    const postI = (uidValue) => {
+        var postData = {
+            uid: uid,
+            email: email,
+            name: '',
+            address: '',
+            phone: ''
+        };
+
+        let axiosConfig = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                "Access-Control-Allow-Origin": "*",
+            }
+        };
+
+        axios.post('http://localhost:3000/user/'+uid, postData, axiosConfig)
+            .then((res) => {
+                console.log("RESPONSE RECEIVED: ", res);
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR: ", err);
+            })
+    }
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
@@ -60,8 +117,8 @@ export const ManagePage = (props) => {
     
        const left_menu = (
            <div className="justify-center w-full rounded border-2 border-orange-500 bg-white">
-                <Link> <div className="underline"></div>My Password</Link>
-                <Link> <div className="underline"></div>My Address</Link>
+               <Link> <div className="underline"></div>{uid}</Link>
+               <Link> <div className="underline"></div>{email}</Link>
                 <Link> <div className="underline"></div>My Order</Link>
                 <Link> <div className="underline"></div>My Cart</Link>
                 <Link> <div className="underline"></div>Help</Link>
