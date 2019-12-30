@@ -3,7 +3,7 @@ var axios = require('axios');
 var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 
-var userInfo;
+var userInfo=[];
 
 
 MongoClient.connect(url, function (err, db) {
@@ -13,9 +13,7 @@ MongoClient.connect(url, function (err, db) {
     dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
         if (err) throw err;
         userInfo = result;
-        for (var l = 0; l < userInfo.length; l++) {
-            console.log(userInfo);
-        }
+        console.log(userInfo);
     
         db.close();
     });
@@ -24,9 +22,9 @@ MongoClient.connect(url, function (err, db) {
 var controllers = {
     home: function (req, res) { res.send("Welcome Backend Api"); },
     user: function (req, res) {
-        console.log(req.params.id);
-        axios.get('http://localhost:3000/user/'+req.params.id);
-        res.send(req.params.id);
+        console.log(userInfo);
+
+        res.send(userInfo);
     }
  /*   leastRetail: function (req, res) {
         var productInfo = [];

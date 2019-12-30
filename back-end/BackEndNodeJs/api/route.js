@@ -5,7 +5,7 @@ module.exports = function (app) {
     app.use(cors());
     app.route('/')
         .get(controllers.home);
-    app.route('/user/:id')
+    app.route('/user')
         .get(controllers.user);
     
 };

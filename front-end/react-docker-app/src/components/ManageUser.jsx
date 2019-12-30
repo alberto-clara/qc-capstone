@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { MongoClient } from 'mongodb';
+var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -11,15 +13,21 @@ export const ManagePage = (props) => {
             if (user) {
                 setUID(user.uid);
                 setEmail(user.email);
-                postI(user.uid);
+               // postInfo(user.uid);
+                mongoFetch(user.uid);
             }
         });
     });
+    const mongoFetch = (uidValue) => {
+         var db = MongoClient.connect(url);
+        console.log(uidValue);
+    };
+      
     const postInfo = (uidValue) => {
         axios({
             'Content-type': 'application/json',   "Access-Control-Allow-Origin": "*"}
             , {
-           method:'get',
+           method:'post',
            url: '/user',
           
          
@@ -37,30 +45,7 @@ export const ManagePage = (props) => {
             console.log(error);
         });;
     }
-    const postI = (uidValue) => {
-        var postData = {
-            uid: uid,
-            email: email,
-            name: '',
-            address: '',
-            phone: ''
-        };
-
-        let axiosConfig = {
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-                "Access-Control-Allow-Origin": "*",
-            }
-        };
-
-        axios.post('http://localhost:3000/user/'+uid, postData, axiosConfig)
-            .then((res) => {
-                console.log("RESPONSE RECEIVED: ", res);
-            })
-            .catch((err) => {
-                console.log("AXIOS ERROR: ", err);
-            })
-    }
+   
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
