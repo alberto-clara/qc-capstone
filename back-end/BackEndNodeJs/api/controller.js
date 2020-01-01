@@ -22,10 +22,26 @@ MongoClient.connect(url, function (err, db) {
 var controllers = {
     home: function (req, res) { res.send("Welcome Backend Api"); },
     user: function (req, res) {
+        // user/phuuuuu
+        // req.params.id =.... phuuuuuuuu
         console.log(userInfo);
 
         res.send(userInfo);
+    },
+    postuser: function (req, res) {
+        console.log("HEEEEEEEEEEEEEEEEEY");
+        console.log(req.body.objName); //Empty
+        res.send(req.method);
     }
+/*
+  router.post('/updateData', (req, res) => {
+      const { id, update } = req.body;
+      Data.findByIdAndUpdate(id, update, (err) => {
+          if (err) return res.json({ success: false, error: err });
+          return res.json({ success: true });
+      });
+  });
+  */
  /*   leastRetail: function (req, res) {
         var productInfo = [];
         for (var i = 0; i < LeastRetail.length; i++) {

@@ -7,5 +7,7 @@ module.exports = function (app) {
         .get(controllers.home);
     app.route('/user')
         .get(controllers.user);
-    
+    app.route('/post-user')
+        .post(controllers.postuser);
+
 };
