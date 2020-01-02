@@ -18,7 +18,20 @@ MongoClient.connect(url, function (err, db) {
         db.close();
     });
 });
+const mongoAdding =(addedObject) => {
+    MongoClient.connect(url, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("HomeDepot");
+        var queryAll = {};
+        dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
+            if (err) throw err;
+            userInfo = result;
+            console.log(userInfo);
 
+            db.close();
+        });
+    });
+}
 var controllers = {
     home: function (req, res) { res.send("Welcome Backend Api"); },
     user: function (req, res) {
@@ -31,7 +44,8 @@ var controllers = {
     postuser: function (req, res) {
         console.log("HEEEEEEEEEEEEEEEEEY");
         console.log(req.body.objName); //Empty
-        res.send(req.method);
+        mongoAdding(req.body.objName);
+   
     }
 /*
   router.post('/updateData', (req, res) => {
