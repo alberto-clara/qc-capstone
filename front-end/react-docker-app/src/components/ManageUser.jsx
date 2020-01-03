@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
-import { Link } from "react-router-dom";
 import axios from 'axios';
-import { MongoClient } from 'mongodb';
-var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
+//var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -18,7 +16,7 @@ export const ManagePage = (props) => {
                 setUID(user.uid);
                 setEmail(user.email);      
                 mongoFetch(user.uid);
-             //   postInfo(user.uid);
+      
             }
         });
     },[]);
@@ -26,7 +24,7 @@ export const ManagePage = (props) => {
         var initValue = [];
         
         await axios.get("http://localhost:3001/user").then((res) => {
-          //  console.log(res.data);
+           console.log(res.data);
         //  console.log(uidValue);
             for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ uid: res.data[i].uid, email: res.data[i].email, name: res.data[i].name, address: res.data[i].address, phone: res.data[i].phone, zipcode: res.data[i].zipcode });
@@ -46,7 +44,7 @@ export const ManagePage = (props) => {
         })
         
     };
-      
+     /* 
     const postInfo = (uidValue) => {
         axios({
             'Content-type': 'application/json',   "Access-Control-Allow-Origin": "*"}
@@ -69,7 +67,7 @@ export const ManagePage = (props) => {
             console.log(error);
         });;
     }
-   
+   */
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
@@ -77,11 +75,12 @@ export const ManagePage = (props) => {
     );     
     const EditNameButton = () => {
         var nameTyping = document.getElementById('nameInput').value;
-       
+        console.log()
         axios.post('http://localhost:3001/post-user', {
             id: uid,
             objName: nameTyping
         });
+    
     }
     const my_address = (
         <div className="justify-center w-full">
@@ -91,6 +90,15 @@ export const ManagePage = (props) => {
                     <input id="nameInput" className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objName}></input>
                     <button onClick={EditNameButton} type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
                        Edit
+                    </button>
+                </div>
+            </div>
+            <div className="pt-4 text-xl">Email Address</div>
+            <div className="justify-center flex text-gray-600 w-full">
+                <div className="  mt-4 justify-center flex text-gray-600 w-full">
+                    <input className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
+                    <button type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
+                        Edit
                     </button>
                 </div>
             </div>
@@ -140,11 +148,9 @@ export const ManagePage = (props) => {
     
        const left_menu = (
            <div className="justify-center w-full rounded border-2 border-orange-500 bg-white">
-               <Link> <div className="underline"></div>{uid}</Link>
-               <Link> <div className="underline"></div>{email}</Link>
-                <Link> <div className="underline"></div>My Order</Link>
-                <Link> <div className="underline"></div>My Cart</Link>
-                <Link> <div className="underline"></div>Help</Link>
+               <div className="underline">{uid}</div>
+               <div className="underline">{email}</div>
+                
            </div>
        )
 

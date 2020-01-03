@@ -13,39 +13,38 @@ MongoClient.connect(url, function (err, db) {
     dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
         if (err) throw err;
         userInfo = result;
-        console.log(userInfo);
+    //    console.log(userInfo);
     
         db.close();
     });
 });
-const mongoAdding =(addedObject) => {
+const mongoUpdating = (uidValue, nameObject) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("HomeDepot");
-        var queryAll = {};
-        dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
+        var query = { uid: uidValue };
+        var newvalues = { $set: { name: nameObject } };
+        dbo.collection("UserInfo").updateOne(query, newvalues, function (err, result) {
             if (err) throw err;
-            userInfo = result;
-            console.log(userInfo);
-
+           
+            console.log("Document updated");
             db.close();
         });
     });
-}
+};
 var controllers = {
     home: function (req, res) { res.send("Welcome Backend Api"); },
     user: function (req, res) {
-        // user/phuuuuu
-        // req.params.id =.... phuuuuuuuu
-        console.log(userInfo);
-
         res.send(userInfo);
     },
     postuser: function (req, res) {
-        console.log("HEEEEEEEEEEEEEEEEEY");
+        console.log(req.body.id);
         console.log(req.body.objName); //Empty
-        mongoAdding(req.body.objName);
-   
+        mongoUpdating(req.body.id, req.body.objName);
+      
+        res.send('POST request');
+      //  return res.json({ success: true });
+
     }
 /*
   router.post('/updateData', (req, res) => {
@@ -56,39 +55,7 @@ var controllers = {
       });
   });
   */
- /*   leastRetail: function (req, res) {
-        var productInfo = [];
-        for (var i = 0; i < LeastRetail.length; i++) {
-            if (LeastRetail[i].id === "") { break; }
-            productInfo.push({
-                id: LeastRetail[i].id,
-                product_name: LeastRetail[i].product_name,
-                description: LeastRetail[i].long_description,
-                retail: LeastRetail[i].unit_retail
-            });
-        }
-
-        res.send(productInfo);
-    },
-
-    vendorPage: function (req, res) {
-
-        MongoClient.connect(url, function (err, db) {
-            if (err) throw err;
-            var dbo = db.db("HomeDepot");
-            var query = { "product_key": req.params.id };
-            dbo.collection("Vendors").find(query).toArray(function (err, result) {
-                Vendors = result;
-                for (var i = 0; i < Vendors.length; i++) {
-                    if (Vendors[i].Supplier_name === null) { Vendors[i] = Vendors[i - 1]; }
-                    Vendors[i].Supplier_name = replacing(Vendors[i].Supplier_name);
-                }
-
-                //  console.log(result);
-            });
-        });
-        res.send(Vendors);
-    }*/
+ 
 }
 
 
