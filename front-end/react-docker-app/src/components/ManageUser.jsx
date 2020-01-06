@@ -50,12 +50,14 @@ export const ManagePage = (props) => {
             <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
         </div>
     );     
-    const EditNameButton = async() => {
+ 
+    const EditNameButton = async () => {
+
         var nameTyping = document.getElementById('nameInput').value;
         var EmailAddressTyping = document.getElementById('EmailAddressInput').value;
         var AddressTyping = document.getElementById('AddressInput').value;
         var PhoneTyping = document.getElementById('PhoneInput').value;
-        console.log()
+      
         await axios.post('http://localhost:3001/post-user', {
             id: uid,
             objName: nameTyping,
