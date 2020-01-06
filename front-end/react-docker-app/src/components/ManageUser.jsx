@@ -10,15 +10,17 @@ export const ManagePage = (props) => {
     const [objEmail, setObjEmail] = useState("");
     const [objAddress, setObjAddress] = useState("");
     const [objPhone, setObjPhone] = useState("");
-   
+    var emailInser, uidInsert;
     const [editChange, setEditChange] = useState(false);
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 setUID(user.uid);
+                uidInsert = user.uid;
+                emailInser = user.email;
                 setEmail(user.email);      
                 mongoFetch(user.uid);
-                console.log(objName);
+              
             }
       
         });
@@ -26,7 +28,7 @@ export const ManagePage = (props) => {
 
     const mongoFetch = async (uidValue) => {
         var initValue = [];
-        
+        var found = false;
         await axios.get("http://localhost:3001/user").then((res) => {
 
             for (var i = 0; i < res.data.length; i++) {
@@ -38,9 +40,19 @@ export const ManagePage = (props) => {
                     setObjEmail(element.email);
                     setObjAddress(element.address);
                     setObjPhone(element.phone);
+                    found = true;
                 }
             });
-
+            if (found == false) {
+                console.log("Not Found");
+                 axios.post('http://localhost:3001/insert-user', {
+                     id: uidInsert,
+                     email: emailInser
+                 }).then((res) => {
+                     console.log(res);
+                    console.log("Test insert");
+                })
+            }
         })
         
     };

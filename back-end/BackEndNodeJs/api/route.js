@@ -9,5 +9,6 @@ module.exports = function (app) {
         .get(controllers.user);
     app.route('/post-user')
         .post(controllers.postuser);
-
+    app.route('/insert-user')
+        .post(controllers.newuser);
 };

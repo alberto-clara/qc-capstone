@@ -38,10 +38,22 @@ var controllers = {
         console.log(req.body.id);
         console.log(req.body.objName); //Empty
         mongoUpdating(req.body.id, req.body.objName, req.body.objEmailAddress, req.body.objAddress, req.body.objPhone);
-      
-       
        res.json({ success: true });
-
+    },
+    newuser: function (req, res) {
+        console.log(req.body.id);
+        console.log(req.body.email);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("HomeDepot");
+            var query = { uid: req.body.id, email: req.body.email};
+            dbo.collection("UserInfo").insertOne(query, function (err, result) {
+                if (err) throw err;
+                console.log("1 document inserted");
+                db.close();
+            });
+        });
+        res.json({ success: true });
     }
 /*
   router.post('/updateData', (req, res) => {
