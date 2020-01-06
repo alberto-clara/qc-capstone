@@ -1,32 +1,16 @@
 var MongoClient = require('mongodb').MongoClient;
-var axios = require('axios');
+
 var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 
-var userInfo=[];
-
-
-MongoClient.connect(url, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("HomeDepot");
-    var queryAll = {};
-    dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
-        if (err) throw err;
-        userInfo = result;
-    //    console.log(userInfo);
-    
-        db.close();
-    });
-});
-const mongoUpdating = (uidValue, nameObject) => {
+const mongoUpdating = (uidValue, nameObject,emailObject,addressObject,phoneObject) => {
     MongoClient.connect(url, function (err, db) {
         if (err) throw err;
         var dbo = db.db("HomeDepot");
         var query = { uid: uidValue };
-        var newvalues = { $set: { name: nameObject } };
+        var newvalues = { $set: { name: nameObject, email: emailObject, address: addressObject, phone: phoneObject } };
         dbo.collection("UserInfo").updateOne(query, newvalues, function (err, result) {
             if (err) throw err;
-           
             console.log("Document updated");
             db.close();
         });
@@ -35,15 +19,28 @@ const mongoUpdating = (uidValue, nameObject) => {
 var controllers = {
     home: function (req, res) { res.send("Welcome Backend Api"); },
     user: function (req, res) {
-        res.send(userInfo);
+        var info;
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("HomeDepot");
+            var queryAll = {};
+            dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
+                if (err) throw err;
+                info = result;
+                console.log(info);
+                res.send(info);
+                db.close();
+            });
+        });
+      
     },
     postuser: function (req, res) {
         console.log(req.body.id);
         console.log(req.body.objName); //Empty
-        mongoUpdating(req.body.id, req.body.objName);
+        mongoUpdating(req.body.id, req.body.objName, req.body.objEmailAddress, req.body.objAddress, req.body.objPhone);
       
-        res.send('POST request');
-      //  return res.json({ success: true });
+       
+       res.json({ success: true });
 
     }
 /*

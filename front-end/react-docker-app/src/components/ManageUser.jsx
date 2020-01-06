@@ -6,124 +6,127 @@ import axios from 'axios';
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
     const [uid, setUID] = useState("");
-    const [objName, setObjName] = useState("");
+    var [objName, setObjName] = useState("");
     const [objEmail, setObjEmail] = useState("");
     const [objAddress, setObjAddress] = useState("");
     const [objPhone, setObjPhone] = useState("");
+   
+    const [editChange, setEditChange] = useState(false);
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 setUID(user.uid);
                 setEmail(user.email);      
                 mongoFetch(user.uid);
-      
+                console.log(objName);
             }
+      
         });
-    },[]);
+    }, []);
+
     const mongoFetch = async (uidValue) => {
         var initValue = [];
         
         await axios.get("http://localhost:3001/user").then((res) => {
-           console.log(res.data);
-        //  console.log(uidValue);
+
             for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ uid: res.data[i].uid, email: res.data[i].email, name: res.data[i].name, address: res.data[i].address, phone: res.data[i].phone, zipcode: res.data[i].zipcode });
             }
             initValue.forEach(element => {
-               // console.log(element.uid);
-                if (element.uid === uidValue) {
-                   
+                if (element.uid === uidValue) {    
                     setObjName(element.name);
                     setObjEmail(element.email);
                     setObjAddress(element.address);
                     setObjPhone(element.phone);
                 }
             });
-           // console.log(initValue);
-          
+
         })
         
     };
-     /* 
-    const postInfo = (uidValue) => {
-        axios({
-            'Content-type': 'application/json',   "Access-Control-Allow-Origin": "*"}
-            , {
-           method:'post',
-           url: '/user',
-          
-         
-            data: {
-                uid: uid,
-                email: email,
-                name: '',
-                address: '',
-                phone:''
-            }
-
-        }).then((response) => {
-            console.log(response);
-        }, (error) => {
-            console.log(error);
-        });;
-    }
-   */
+     
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
         </div>
     );     
-    const EditNameButton = () => {
+    const EditNameButton = async() => {
         var nameTyping = document.getElementById('nameInput').value;
+        var EmailAddressTyping = document.getElementById('EmailAddressInput').value;
+        var AddressTyping = document.getElementById('AddressInput').value;
+        var PhoneTyping = document.getElementById('PhoneInput').value;
         console.log()
-        axios.post('http://localhost:3001/post-user', {
+        await axios.post('http://localhost:3001/post-user', {
             id: uid,
-            objName: nameTyping
-        });
-    
+            objName: nameTyping,
+            objEmailAddress: EmailAddressTyping,
+            objAddress: AddressTyping,
+            objPhone: PhoneTyping
+        }).then((res)=>{
+            if (res.data !== null) {
+
+        
+                setObjName(nameTyping);
+                setObjEmail(EmailAddressTyping);
+                setObjAddress(AddressTyping);
+                setObjPhone(PhoneTyping);
+                console.log(nameTyping);
+                window.location.href = '/manageuser';
+            };
+        })
+     
+       // window.location.href = '/manageuser';
     }
     const my_address = (
         <div className="justify-center w-full">
             <div className="pt-4 text-xl">Name</div>
             <div className="justify-center flex text-gray-600 w-full">
                 <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input id="nameInput" className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objName}></input>
-                    <button onClick={EditNameButton} type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
-                       Edit
-                    </button>
+                    <input id="nameInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objName}></input>
+                    
                 </div>
             </div>
             <div className="pt-4 text-xl">Email Address</div>
             <div className="justify-center flex text-gray-600 w-full">
                 <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
-                    <button type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
-                        Edit
-                    </button>
+                    <input id="EmailAddressInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
+               
                 </div>
             </div>
             <div className="pt-4 text-xl">Address</div>
             <div className="justify-center flex text-gray-600 w-full">
                 <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objAddress}></input>
-                    <button type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
-                        Edit
-                    </button>
+                    <input id="AddressInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objAddress}></input>
+                   
                 </div>
             </div>
             <div className="pt-4 text-xl">Phone</div>
             <div className="justify-center flex text-gray-600 w-full">
                 <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input className=" rounded border-2 border-orange-500 bg-white h-15 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone}></input>
-                    <button type="submit" className="px-4 py-2 border-2 rounded text-gray-300 border-orange-500 bg-white hover:text-red-200 hover:border-orange-500">
-                        Edit
-                    </button>
+                    <input id="PhoneInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone}></input>
+                   
                 </div>
             </div>
-             
+            <div className="justify-center flex text-gray-600 w-full pt-4">
+                <button onClick={EditNameButton} type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
+                    Edit 
+                </button>
+            </div>   
         </div>
     );
-
+    const bold_address = (
+        <>
+        <div>{objName}</div>
+        <div>{objEmail}</div>
+        <div>{objAddress}</div>
+        <div>{objPhone}</div>
+            <div className="justify-center flex text-gray-600 w-full pt-4">
+                <button onClick={()=>setEditChange(!editChange)} type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
+                         Edit Field
+                </button>
+            </div> 
+        </> 
+        );
     const my_password = (
         <>
         <div className="pt-4 text-xl">Old Password</div>   
@@ -140,7 +143,7 @@ export const ManagePage = (props) => {
         </div>
         <div className="justify-center flex text-gray-600 w-full pt-4">
                 <button type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
-                Submit Changes
+               Edit
                 </button>
             </div>   
         </>
@@ -161,7 +164,7 @@ export const ManagePage = (props) => {
         <div className="w-1/4 pt-10">{left_menu}</div>
         <div className="w-1/4 pt-10"></div>
         <div className="lg:hidden"></div>
-        <div className="w-1/2">{my_address}</div>
+       <div className="w-1/2">{editChange ? my_address: bold_address}</div>
         </div>
         <div className="w-1/2">{my_password}</div>
          
