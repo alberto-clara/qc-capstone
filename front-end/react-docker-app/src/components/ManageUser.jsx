@@ -12,6 +12,7 @@ export const ManagePage = (props) => {
     const [objPhone, setObjPhone] = useState("");
     var emailInser, uidInsert;
     const [editChange, setEditChange] = useState(false);
+    const [editOrder, setEditOrder] = useState(false);
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
@@ -59,7 +60,7 @@ export const ManagePage = (props) => {
      
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
-            <div className=" titlePage py-2 lg:text-3xl"> My Account </div>
+            <div className=" titlePage pt-4 lg:text-3xl"> My Account </div>
         </div>
     );     
  
@@ -92,55 +93,51 @@ export const ManagePage = (props) => {
        // window.location.href = '/manageuser';
     }
     const my_address = (
-        <div className="justify-center w-full">
-            <div className="pt-4 text-xl">Name</div>
-            <div className="justify-center flex text-gray-600 w-full">
-                <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input id="nameInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objName}></input>
-                    
-                </div>
+        <div className="justify-center w-full rounded border-2 border-orange-500">
+            <div className="px-4 pt-4 text-xl">Name</div>
+                <div className="justify-center flex text-gray-600 px-4 w-full">
+                    <input id="nameInput" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objName}></input>
             </div>
-            <div className="pt-4 text-xl">Email Address</div>
+            <div className="px-4 pt-4 text-xl">Email</div>
             <div className="justify-center flex text-gray-600 w-full">
-                <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input id="EmailAddressInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
+                <div className="justify-center flex text-gray-600 px-4 w-full">
+                    <input id="EmailAddressInput" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
                
                 </div>
             </div>
-            <div className="pt-4 text-xl">Address</div>
+            <div className="px-4 pt-4 text-xl">Address</div>
             <div className="justify-center flex text-gray-600 w-full">
-                <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input id="AddressInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objAddress}></input>
+                <div className="justify-center flex text-gray-600 px-4 w-full">
+                    <input id="AddressInput" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objAddress}></input>
                    
                 </div>
             </div>
-            <div className="pt-4 text-xl">Phone</div>
+            <div className="px-4 pt-4 text-xl">Phone</div>
             <div className="justify-center flex text-gray-600 w-full">
-                <div className="  mt-4 justify-center flex text-gray-600 w-full">
-                    <input id="PhoneInput" className=" rounded border-2 border-orange-500 bg-white h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone}></input>
+                <div className="justify-center flex text-gray-600 px-4 w-full">
+                    <input id="PhoneInput" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone}></input>
                    
                 </div>
             </div>
-            <div className="justify-center flex text-gray-600 w-full pt-4">
-                <button onClick={EditNameButton} type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
-                    Edit 
+            <div className="justify-center flex text-gray-600 w-full p-4">
+                <button onClick={EditNameButton} type="submit" className="px-4 py-2 border rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
+                    Submit 
                 </button>
             </div>   
         </div>
     );
+
     const bold_address = (
         <>
-        <div>{objName}</div>
-        <div>{objEmail}</div>
-        <div>{objAddress}</div>
-        <div>{objPhone}</div>
-            <div className="justify-center flex text-gray-600 w-full pt-4">
-                <button onClick={()=>setEditChange(!editChange)} type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
-                         Edit Field
-                </button>
-            </div> 
+        <div className="text-center rounded border-2 border-orange-500 py-4 text-xl">
+        <div>My Name: {objName}</div>
+        <div>My Email: {objEmail}</div>
+        <div>My Address: {objAddress}</div>
+        <div>My Phone: {objPhone}</div>
+        </div>
         </> 
         );
+
     const my_password = (
         <>
         <div className="pt-4 text-xl">Old Password</div>   
@@ -161,26 +158,55 @@ export const ManagePage = (props) => {
                 </button>
             </div>   
         </>
-    );
-    
+    ); 
+
        const left_menu = (
-           <div className="justify-center w-full rounded border-2 border-orange-500 bg-white">
-               <div className="underline">{uid}</div>
-               <div className="underline">{email}</div>
-                
+           <div className="justify-center w-full rounded border-2 border-orange-500">
+               {/* <div className="underline">{uid}</div>
+               <div className="underline">{email}</div> */}
+               <div className="justify-center flex text-gray-600 w-full pt-4">
+                    <button onClick={()=>setEditChange(!editChange)} type="submit" className="underline">
+                            My information
+                    </button>
+                </div>   
+                <div className="justify-center flex text-gray-600 w-full pt-4">
+                    <button type="submit" className="underline">
+                            My Password
+                    </button>
+                </div>   
+                <div className="justify-center flex text-gray-600 w-full pt-4">
+                    <button type="submit" className="underline">
+                            My Orders
+                    </button>
+                </div>   
+                <div className="justify-center flex text-gray-600 w-full pt-4">
+                    <button type="submit" className="underline">
+                            My Wishlist
+                    </button>
+                </div>   
+                <div className="justify-center flex text-gray-600 w-full pt-4">
+                    <button type="submit" className="underline">
+                            Help
+                    </button>
+                </div> 
+                <div className="justify-center flex text-gray-600 w-full pt-8 pb-4">
+                    <button type="submit" className="underline">
+                            Log Out
+                    </button>
+                </div> 
            </div>
+
        )
+
+
 
     return (
         <> 
         {page_title}
-        <div className="flex justify-center w-full">
-        <div className="w-1/4 pt-10">{left_menu}</div>
-        <div className="w-1/4 pt-10"></div>
-        <div className="lg:hidden"></div>
-       <div className="w-1/2">{editChange ? my_address: bold_address}</div>
+        <div className="block justify-center w-full sm:flex md:flex">
+        <div className="w-full pt-10 md:w-1/4 md:pr-2">{left_menu}</div>
+        <div className="w-full pt-10 text-left hidden sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
         </div>
-        <div className="w-1/2">{my_password}</div>
-         
+    
         </>)
 }
