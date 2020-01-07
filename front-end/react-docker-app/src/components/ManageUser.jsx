@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 //var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 export const ManagePage = (props) => {
@@ -169,36 +170,43 @@ export const ManagePage = (props) => {
                             My information
                     </button>
                 </div>   
-                <div className="justify-center flex text-gray-600 w-full pt-4">
-                    <button type="submit" className="underline">
-                            My Password
-                    </button>
+                <div className="justify-center flex w-full pt-4">
+                <Link to={'/mypassword'}>
+                    <div className="underline text-gray-600">
+                       My Password
+                    </div>
+                </Link>
                 </div>   
-                <div className="justify-center flex text-gray-600 w-full pt-4">
-                    <button type="submit" className="underline">
-                            My Orders
-                    </button>
+                <div className="justify-center flex w-full pt-4">
+                <Link to={'/manageuser/myorders'}>
+                    <div className="underline text-gray-600">
+                       My Orders
+                    </div>
+                </Link>
                 </div>   
-                <div className="justify-center flex text-gray-600 w-full pt-4">
-                    <button type="submit" className="underline">
-                            My Wishlist
-                    </button>
+                <div className="justify-center flex w-full pt-4">
+                <Link to={'/manageuser/mywishlist'}>
+                    <div className="underline text-gray-600">
+                       My Wishlist
+                    </div>
+                </Link>
                 </div>   
-                <div className="justify-center flex text-gray-600 w-full pt-4">
-                    <button type="submit" className="underline">
-                            Help
-                    </button>
-                </div> 
+                <div className="justify-center flex w-full pt-4">
+                <Link to={'/help'}>
+                    <div className="underline text-gray-600">
+                       Help
+                    </div>
+                </Link>
+                </div>   
                 <div className="justify-center flex text-gray-600 w-full pt-8 pb-4">
                     <button type="submit" className="underline">
                             Log Out
                     </button>
                 </div> 
+              
            </div>
 
        )
-
-
 
     return (
         <> 
