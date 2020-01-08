@@ -130,11 +130,20 @@ export const ManagePage = (props) => {
 
     const bold_address = (
         <>
-        <div className="text-center rounded border-2 border-orange-500 py-4 text-xl">
-        <div>My Name: {objName}</div>
-        <div>My Email: {objEmail}</div>
-        <div>My Address: {objAddress}</div>
-        <div>My Phone: {objPhone}</div>
+        <div className="px-4 flex rounded border-2 border-orange-500 py-4 text-xl">
+            <div className="flex-1">
+                <div className="py-2">{objName}</div>
+                <div className="py-2">{objEmail}</div>
+                <div className="py-2">{objAddress}</div>
+                <div className="py-2">{objPhone}</div>
+            </div>
+            <div className="py-2">
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                    <path className="heroicon-ui" d="M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z"/>
+                </svg>
+            </button>
+        </div>
         </div>
         </> 
         );
@@ -212,8 +221,8 @@ export const ManagePage = (props) => {
         <> 
         {page_title}
         <div className="block justify-center w-full sm:flex md:flex">
-        <div className="w-full pt-10 md:w-1/4 md:pr-2">{left_menu}</div>
-        <div className="w-full pt-10 text-left hidden sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
+        <div className="w-full pt-10 md:w-1/4 hidden sm:block md:pr-2">{left_menu}</div>
+        <div className="w-full pt-10 text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
         </div>
     
         </>)

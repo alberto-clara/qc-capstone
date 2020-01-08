@@ -75,7 +75,7 @@
 }
 
 .NavTitle_Icons_Boxed {
-    @apply p-2 border border-white rounded
+    @apply p-2 border border-white rounded;
 }
 
 .NavMenu_Container {
