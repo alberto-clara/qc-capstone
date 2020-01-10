@@ -9,7 +9,7 @@ const mongoUpdating = (uidValue, nameObject,emailObject,addressObject,phoneObjec
         var dbo = db.db("HomeDepot");
         var query = { uid: uidValue };
         var newvalues = { $set: { name: nameObject, email: emailObject, address: addressObject, phone: phoneObject } };
-        dbo.collection("UserInfo").updateOne(query, newvalues, function (err, result) {
+        dbo.collection("UserDetail").updateOne(query, newvalues, function (err, result) {
             if (err) throw err;
             console.log("Document updated");
             db.close();
@@ -24,7 +24,7 @@ var controllers = {
             if (err) throw err;
             var dbo = db.db("HomeDepot");
             var queryAll = {};
-            dbo.collection("UserInfo").find(queryAll).toArray(function (err, result) {
+            dbo.collection("UserDetail").find(queryAll).toArray(function (err, result) {
                 if (err) throw err;
                 info = result;
                 console.log(info);
@@ -46,8 +46,9 @@ var controllers = {
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
             var dbo = db.db("HomeDepot");
+            console.log(req);
             var query = { uid: req.body.id, email: req.body.email};
-            dbo.collection("UserInfo").insertOne(query, function (err, result) {
+            dbo.collection("UserDetail").insertOne(query, function (err, result) {
                 if (err) throw err;
                 console.log("1 document inserted");
                 db.close();
