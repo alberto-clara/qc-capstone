@@ -45,7 +45,7 @@ var controllers = {
             console.log(query);
             var newvalues = {
                 $set: {
-                    email: req.body.email,
+              
                     full_name: { first_name: req.body.objFirstName, middle_name: req.body.objMiddleName, last_name: req.body.objLastName },
                     first_address: { street: req.body.objStreet1, apt: req.body.objapt1, city: req.body.objCity1, state: req.body.objState1, zip_code: req.body.objZipcode1 },
                     second_address: { street: req.body.objStreet2, apt: req.body.objapt2, city: req.body.objCity2, state: req.body.objState2, zip_code: req.body.objZipcode2 },

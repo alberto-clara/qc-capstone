@@ -267,7 +267,7 @@ export const ManagePage = (props) => {
                 {/* <div className="block w-1/3">
                     <div className="px-4 pt-4 text-xl">State</div>
                     <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <Dropdown value={objState1} id="state1_input" options={states} placeholder={objState1 == "" ? '---' : objState1} onChange={e => State1Change(e)}/>              
+                        <Dropdown  id="state1_input" options={states} placeholder={objState1 == "" ? '---' : objState1} onChange={e => State1Change(e)}/>              
                     </div> 
                 </div>*/}
 
