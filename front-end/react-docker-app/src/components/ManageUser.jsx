@@ -29,12 +29,12 @@ export const ManagePage = (props) => {
     const [objExt1, setObjExt1] = useState("");
     const [objExt2, setObjExt2] = useState("");
    
-    const [objEmail, setObjEmail] = useState("");
+
 
   
     var emailInser, uidInsert;
     const [editChange, setEditChange] = useState(false);
-    const [editOrder, setEditOrder] = useState(false);
+  
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
@@ -154,7 +154,7 @@ export const ManagePage = (props) => {
         var street1Typing = document.getElementById('street1_input');
         var apt1Typing = document.getElementById('apt1_input');
         var city1Typing = document.getElementById('city1_input');
-        var state1Typing = document.getElementById('state1_input');
+       
         var zipcode1Typing = document.getElementById('zipcode1_input');
         var street2Typing = document.getElementById('street2_input');
         var apt2Typing = document.getElementById('apt2_input');
@@ -178,8 +178,8 @@ export const ManagePage = (props) => {
             objapt2: apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
             objCity1: city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
             objCity2: city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
-            objState1: state1Typing.value === '' ? state1Typing.placeholder : state1Typing.value,
-            objState2: state2Typing.value === '' ? state2Typing.placeholder : state2Typing.value,
+            objState1: objState1,
+            objState2: objState2,
             objZipcode1: zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
             objZipcode2: zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
             objPhone1: phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
@@ -197,13 +197,6 @@ export const ManagePage = (props) => {
        // window.location.href = '/manageuser';
     }
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
-
-    const State1Change = (e) => {
-        setObjState1(e);
-    }
-    const State2Change = (e) => {
-        setObjState2(e);
-    }
     const my_address = (
         <div className="justify-center w-full rounded border-2 border-orange-500">
             <div className="flex w-full">
@@ -264,21 +257,21 @@ export const ManagePage = (props) => {
                     </div>    
                 </div>
                 
-                {/* <div className="block w-1/3">
+                <div className="block w-1/3">
                     <div className="px-4 pt-4 text-xl">State</div>
                     <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <Dropdown  id="state1_input" options={states} placeholder={objState1 == "" ? '---' : objState1} onChange={e => State1Change(e)}/>              
+                        <Dropdown id="state1_input" options={states} value={objState1 == null ? '---' : objState1} onChange={e => setObjState1(e.value)}/>              
                     </div> 
-                </div>*/}
+                </div>
 
-                <div className="block w-1/4">
+                {/*<div className="block w-1/4">
                     <div className="px-4 pt-4 text-xl">State</div>
                     <div className="justify-right flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
                             <input id="state1_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState1}></input>
                         </div>
                     </div>
-                </div> 
+                </div> */}
 
                 <div className="block w-1/4">
                     <div className="px-4 pt-4 text-xl">Zip Code</div>
@@ -337,20 +330,20 @@ export const ManagePage = (props) => {
                     </div>
                 </div>
 
-                {/*  <div className="block w-1/3">
-                    <div className="px-4 pt-4 text-xl">State 2</div>
-                    <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <Dropdown value={objState2} id="dropdown_manageuser" options={states} placeholder={objState1 == "" ? '---' : objState1} onChange={e => State2Change(e)} />
-                    </div>
-                </div>*/}
                 <div className="block w-1/3">
+                    <div className="px-4 pt-4 text-xl">State</div>
+                    <div className="justify-center flex text-gray-600 px-4 w-full">
+                        <Dropdown id="state1_input" options={states} value={objState1 == null ? '---' : objState1} onChange={e => setObjState2(e.value)} />
+                    </div>
+                </div>
+                {/* <div className="block w-1/3">
                     <div className="px-4 pt-4 text-xl"> State 2</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
                             <input id="state2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState2}></input>
                         </div>
                     </div>
-                </div>
+                </div>*/}
                 <div className="block w-1/4">
                     <div className="px-4 pt-4 text-xl">Zip Code 2</div>
                     <div className="justify-right flex text-gray-600 w-full">
