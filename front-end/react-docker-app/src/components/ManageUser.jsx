@@ -54,8 +54,8 @@ export const ManagePage = (props) => {
         var found = false;
         await axios.get("http://localhost:3001/user").then((res) => {
             const myinfo = res.data[0];
-            console.log("HIIIIIIIIIII")
             console.log(
+                "all", res.data,
                 "uid: ", myinfo.uid,
                 "email: ", myinfo.email,
                 "firstname: ", myinfo.full_name.first_name,
@@ -76,7 +76,7 @@ export const ManagePage = (props) => {
                 "phone2: ", myinfo.phone_number.secondary_phone.phone,
                 "ext2: ", myinfo.phone_number.secondary_phone.ext
             );
-            for (var i = 0; i < res.data.length; i++) {
+           for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ 
                     uid: res.data[i].uid,
                     email: res.data[i].email,
@@ -101,7 +101,7 @@ export const ManagePage = (props) => {
             }
             initValue.forEach(element => {
                 console.log("HEEEERRRRREEEEEEEEEEEEE");
-                var my_ui = res.data[0].uid;
+               
                 var x = "oY2wCvKmahVnG7ZtoNuBp22K6ko2";
                 if (element.uid === uidValue) {
                     console.log(element);
@@ -130,9 +130,10 @@ export const ManagePage = (props) => {
                // console.log("Not Found");
                  axios.post('http://localhost:3001/insert-user', {
                      id: uidInsert,
-                     email: emailInser
+                     email: emailInser,
+
                  }).then((res) => {
-                 //    console.log(res);
+                     console.log(res);
                   //  console.log("Test insert");
                 })
             }
@@ -223,7 +224,7 @@ export const ManagePage = (props) => {
                 <div className="block w-1/2">
                     <div className="px-4 pt-4 text-xl">Last Name</div>
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <input id="lastname_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objFirstName}></input>
+                        <input id="lastname_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objLastName}></input>
                     </div>
                 </div>
             </div>
