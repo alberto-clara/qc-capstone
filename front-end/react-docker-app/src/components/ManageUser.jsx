@@ -79,7 +79,7 @@ export const ManagePage = (props) => {
            for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ 
                     uid: res.data[i].uid,
-                    email: res.data[i].email,
+         //           email: res.data[i].email,
                     first_name: res.data[i].full_name.first_name,
                     middle_name: res.data[i].full_name.middle_name,
                     last_name: res.data[i].full_name.last_name,
@@ -100,12 +100,12 @@ export const ManagePage = (props) => {
                 });
             }
             initValue.forEach(element => {
-                console.log("HEEEERRRRREEEEEEEEEEEEE");
-               
+              
                 var x = "oY2wCvKmahVnG7ZtoNuBp22K6ko2";
                 if (element.uid === uidValue) {
+                    found = true;
                     console.log(element);
-                    setObjEmail(element.email);
+           //         setObjEmail(element.email);
                     setObjFirstName(element.first_name);
                     setObjMiddleName(element.middle_name);
                     setObjLastName(element.last_name);
@@ -123,18 +123,16 @@ export const ManagePage = (props) => {
                     setObjPhone2(element.phone2);
                     setObjExt1(element.ext1);
                     setObjExt2(element.ext2);
-                    found = true;
+                   
                 }
             });
             if (found == false) {
-               // console.log("Not Found");
+               
                  axios.post('http://localhost:3001/insert-user', {
                      id: uidInsert,
-                     email: emailInser,
-
+                    email: emailInser,
                  }).then((res) => {
-                     console.log(res);
-                  //  console.log("Test insert");
+                     window.location.href = '/manageuser';
                 })
             }
         })
@@ -149,45 +147,45 @@ export const ManagePage = (props) => {
  
     const EditInfoButton = async () => {
 
-        var firstnameTyping = document.getElementById('firstname_input').value;
-        var middlenameTyping = document.getElementById('middlename_input').value;
-        var lastnameTyping = document.getElementById('lastname_input').value;
-        var emailTyping = document.getElementById('email_input').value;
-        var street1Typing = document.getElementById('street1_input').value;
-        var apt1Typing = document.getElementById('apt1_input').value;
-        var city1Typing = document.getElementById('city1_input').value;
-        var state1Typing = document.getElementById('state1_input').value;
-        var zipcode1Typing = document.getElementById('zipcode1_input').value;
-        var street2Typing = document.getElementById('street2_input').value;
-        var apt2Typing = document.getElementById('apt2_input').value;
-        var city2Typing = document.getElementById('city2_input').value;
-        var state2Typing = document.getElementById('state2_input').value;
-        var zipcode2Typing = document.getElementById('zipcode2_input').value;
-        var phone1Typing = document.getElementById('phone1_input').value;
-        var ext1Typing = document.getElementById('ext1_input').value;
-        var phone2Typing = document.getElementById('phone2_input').value;
-        var ext2Typing = document.getElementById('ext2_input').value;
-      
+        var firstnameTyping = document.getElementById('firstname_input');
+        var middlenameTyping = document.getElementById('middlename_input');
+        var lastnameTyping = document.getElementById('lastname_input');
+        //var emailTyping = document.getElementById('email_input');
+        var street1Typing = document.getElementById('street1_input');
+        var apt1Typing = document.getElementById('apt1_input');
+        var city1Typing = document.getElementById('city1_input');
+        var state1Typing = document.getElementById('state1_input');
+        var zipcode1Typing = document.getElementById('zipcode1_input');
+        var street2Typing = document.getElementById('street2_input');
+        var apt2Typing = document.getElementById('apt2_input');
+        var city2Typing = document.getElementById('city2_input');
+        var state2Typing = document.getElementById('state2_input');
+        var zipcode2Typing = document.getElementById('zipcode2_input');
+        var phone1Typing = document.getElementById('phone1_input');
+        var ext1Typing = document.getElementById('ext1_input');
+        var phone2Typing = document.getElementById('phone2_input');
+        var ext2Typing = document.getElementById('ext2_input');
+
         await axios.post('http://localhost:3001/post-user', {
             id: uid,
-            objEmailAddress: emailTyping,
-            objFirstName: firstnameTyping,
-            objMiddleName: middlenameTyping,
-            objLastName: lastnameTyping,
-            objStreet1: street1Typing,
-            objStreet2: street2Typing,
-            objapt1: apt1Typing,
-            objapt2: apt2Typing,
-            objCity1: city1Typing,
-            objCity2: city2Typing,
-            objState1: state1Typing,
-            objState2: state2Typing,
-            objZipcode1: zipcode1Typing,
-            objZipcode2: zipcode2Typing,
-            objPhone1: phone1Typing,
-            objPhone2: phone2Typing,
-            objExt1: ext1Typing,
-            objExt2: ext2Typing
+            //objEmailAddress: emailTyping.value === '' ? emailTyping.placeholder : emailTyping.value,
+            objFirstName: firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
+            objMiddleName: middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
+            objLastName: lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
+            objStreet1: street1Typing.value === '' ? street1Typing.placeholder : street1Typing.value,
+            objStreet2: street2Typing.value === '' ? street2Typing.placeholder : street2Typing.value,
+            objapt1: apt1Typing.value === '' ? apt1Typing.placeholder : apt1Typing.value,
+            objapt2: apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
+            objCity1: city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
+            objCity2: city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
+            objState1: state1Typing.value === '' ? state1Typing.placeholder : state1Typing.value,
+            objState2: state2Typing.value === '' ? state2Typing.placeholder : state2Typing.value,
+            objZipcode1: zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
+            objZipcode2: zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
+            objPhone1: phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
+            objPhone2: phone2Typing.value === '' ? phone2Typing.placeholder : phone2Typing.value,
+            objExt1: ext1Typing.value === '' ? ext1Typing.placeholder : ext1Typing.value,
+            objExt2: ext2Typing.value === '' ? ext2Typing.placeholder : ext2Typing.value
         }).then((res)=>{
             if (res.data !== null) {
               
@@ -229,13 +227,13 @@ export const ManagePage = (props) => {
                 </div>
             </div>
 
-            <div className="px-4 pt-4 text-xl">Email</div>
+            {/*   <div className="px-4 pt-4 text-xl">Email</div>
             <div className="justify-center flex text-gray-600 w-full">
                 <div className="justify-center flex text-gray-600 px-4 w-full">
                     <input id="email_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
-               
+
                 </div>
-            </div>
+            </div>*/}
             
             <div className="flex w-full">
                 <div className="block w-3/4">
@@ -277,7 +275,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">State</div>
                     <div className="justify-right flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="state1_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>
+                            <input id="state1_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState1}></input>
                         </div>
                     </div>
                 </div> 
@@ -349,7 +347,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl"> State 2</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="state2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity1}></input>
+                            <input id="state2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState2}></input>
                         </div>
                     </div>
                 </div>
@@ -397,7 +395,7 @@ export const ManagePage = (props) => {
         <div className="px-4 flex rounded border-2 border-orange-500 py-4 text-xl">
             <div className="flex-1">
                 <div className="py-2">Name: {objFirstName} {objMiddleName} {objLastName}</div>
-                <div className="py-2">Email: {objEmail}</div>
+                    {/*   <div className="py-2">Email: {objEmail}</div>*/}
                 <div>
                     <div className="py-2">
                         <div>Primary Address:</div>
