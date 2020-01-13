@@ -109,6 +109,9 @@ namespace CatalogApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> OfferingsByIdAsync(string productId)
         {
+            DateTime dateTime = DateTime.Now;
+            DateTimeOffset dto = DateTimeOffset.Now;
+            Int64 currentUnixTimestamp = dto.ToUnixTimeSeconds();
 
             if (productId == null) return BadRequest();
 
@@ -118,6 +121,7 @@ namespace CatalogApi.Controllers
                             into temp
                             from rt2 in temp.DefaultIfEmpty()
                             where pt.Id == productId
+                            where pt.Active_date < currentUnixTimestamp
                             select new
                             {
                                 pt.Id,
@@ -126,14 +130,17 @@ namespace CatalogApi.Controllers
                                 Offering_key = ot.Id,
                                 Unit_retail = Math.Round(ot.Unit_retail, 2),
                                 Unit_cost = Math.Round(ot.Unit_cost, 2),
+//                                Active_date = ot.ConvertUnixTimestamp(ot.Active_date),
                                 ot.Uom,
                                 ot.Supplier_key,
                                 rt2.supplier_name
                             });
 
             var items = await newTable
-                                .OrderBy(p => p.Unit_retail)
+                                .OrderBy(p => p.Unit_retail)                               
                                 .ToListAsync();
+
+//            items.SkipWhile(p => p.Active_date >= dateTime);
 
             if (items.Count != 0) return Ok(items);
 

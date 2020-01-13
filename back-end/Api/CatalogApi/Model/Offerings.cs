@@ -14,5 +14,14 @@ namespace CatalogApi.Model {
         public string Supplier_key { get; set; }
 
         public Offerings() { }
+ /*       
+        public DateTime ConvertUnixTimestamp(int timestamp)
+        {
+            DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(timestamp);
+            DateTime dateTime = dateTimeOffset.UtcDateTime;
+
+            return dateTime;
+        }
+        */
     }
 }

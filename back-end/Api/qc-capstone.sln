@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogApi", "CatalogApi\Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{D896767D-5C02-4C5A-AFA2-C58FFF632C7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckoutApi", "CheckoutApi\CheckoutApi.csproj", "{714A707F-1DBF-40E2-A60D-91177E7636BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{D896767D-5C02-4C5A-AFA2-C58FFF632C7D}.Release|x64.Build.0 = Release|Any CPU
 		{D896767D-5C02-4C5A-AFA2-C58FFF632C7D}.Release|x86.ActiveCfg = Release|Any CPU
 		{D896767D-5C02-4C5A-AFA2-C58FFF632C7D}.Release|x86.Build.0 = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Debug|x86.Build.0 = Debug|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|x64.Build.0 = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{714A707F-1DBF-40E2-A60D-91177E7636BF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

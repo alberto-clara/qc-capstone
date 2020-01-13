@@ -8,6 +8,12 @@ back-end/Api/ApiGateway/obj/
 back-end/Api/ApiGateway/bin/
 back-end/Api/CatalogApi/bin/
 back-end/Api/CatalogApi/obj/
+back-end/Api/BasketApi/obj/
+back-end/Api/BasketApi/bin/
+back-end/Api/CheckoutApi/obj/
+back-end/Api/CheckoutApi/bin/
+back-end/Api/OrdersApi/obj/
+back-end/Api/OrdersApi/bin/
 *.cache
 *.dll
 back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.dll
