@@ -18,7 +18,7 @@ namespace UserInfoApi.Controllers
 
         public BasketController(IBucketProvider bucketProvider)
         {
-            _bucket = bucketProvider.GetBucket("basket");
+            _bucket = bucketProvider.GetBucket("Basket");
         }
 
         [HttpPost]

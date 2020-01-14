@@ -34,7 +34,7 @@ namespace UserInfoApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
-                .AddCouchbaseBucket<BasketContext>("Basket");
+                .AddCouchbaseBucket<IMyBucketProvider>("Basket");
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "BasketAPI" });

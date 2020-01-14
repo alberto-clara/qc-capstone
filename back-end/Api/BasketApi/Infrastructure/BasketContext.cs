@@ -6,7 +6,7 @@ using Couchbase.Extensions.DependencyInjection;
 
 namespace BasketApi.Infrastructure
 {
-    public interface BasketContext : INamedBucketProvider
+    public interface IMyBucketProvider : INamedBucketProvider
     {
     }
 }
