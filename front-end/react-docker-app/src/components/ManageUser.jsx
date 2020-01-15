@@ -4,10 +4,12 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
+import './myStyle.css';
 //var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
+    const [objEmail] = useState("");
     const [uid, setUID] = useState("");
     const [objFirstName, setObjFirstName] = useState("");
     const [objMiddleName, setObjMiddleName] = useState("");
@@ -126,7 +128,7 @@ export const ManagePage = (props) => {
                    
                 }
             });
-            if (found == false) {
+            if (found === false) {
                
                  axios.post('http://localhost:3001/insert-user', {
                      id: uidInsert,
@@ -141,7 +143,7 @@ export const ManagePage = (props) => {
      
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
-            <div className=" titlePage pt-4 lg:text-3xl"> My Account </div>
+            <div className=" titlePage py-10 lg:text-3xl"> My Account </div>
         </div>
     );     
  
@@ -159,7 +161,7 @@ export const ManagePage = (props) => {
         var street2Typing = document.getElementById('street2_input');
         var apt2Typing = document.getElementById('apt2_input');
         var city2Typing = document.getElementById('city2_input');
-        var state2Typing = document.getElementById('state2_input');
+        //var state2Typing = document.getElementById('state2_input');
         var zipcode2Typing = document.getElementById('zipcode2_input');
         var phone1Typing = document.getElementById('phone1_input');
         var ext1Typing = document.getElementById('ext1_input');
@@ -199,6 +201,7 @@ export const ManagePage = (props) => {
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
     const my_address = (
         <div className="justify-center w-full rounded border-2 border-orange-500">
+            <div className="px-4 py-4 text-2xl">User</div>
             <div className="flex w-full">
                 <div className="block w-1/2">
                     <div className="px-4 pt-4 text-xl">First Name</div>
@@ -220,14 +223,14 @@ export const ManagePage = (props) => {
                 </div>
             </div>
 
-            {/*   <div className="px-4 pt-4 text-xl">Email</div>
-            <div className="justify-center flex text-gray-600 w-full">
+              <div className="px-4 pt-4 text-xl">Email</div>
+            <div className="justify-center flex text-gray-600 w-full pb-4">
                 <div className="justify-center flex text-gray-600 px-4 w-full">
-                    <input id="email_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objEmail}></input>
-
+                    dajdlksa@dajsldka.com
                 </div>
-            </div>*/}
-            
+            </div>
+            <hr className="m-1 px-4 pt-1 bg-orange-500"/>
+            <div className="px-4 py-4 text-2xl"> Primary Address</div>
             <div className="flex w-full">
                 <div className="block w-3/4">
                     <div className="px-4 pt-4 text-xl">Street</div>
@@ -260,7 +263,7 @@ export const ManagePage = (props) => {
                 <div className="block w-1/3">
                     <div className="px-4 pt-4 text-xl">State</div>
                     <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <Dropdown id="state1_input" options={states} value={objState1 == null ? '---' : objState1} onChange={e => setObjState1(e.value)}/>              
+                        <Dropdown id="state1_input" options={states} value={objState2 == null ? '---' : objState2} onChange={e => setObjState2(e.value)}/>              
                     </div> 
                 </div>
 
@@ -275,13 +278,71 @@ export const ManagePage = (props) => {
 
                 <div className="block w-1/4">
                     <div className="px-4 pt-4 text-xl">Zip Code</div>
-                    <div className="justify-right flex text-gray-600 w-full">
+                    <div className="justify-right flex text-gray-600 w-full pb-4">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
                             <input id="zipcode1_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>   
                         </div>
                     </div>
                 </div>              
             </div>
+      
+            <hr className="m-1 px-4 pt-1 bg-orange-500"/>
+            <div className="px-4 py-4 text-2xl"> Secondary Address</div>
+            <div className="flex w-full">
+                <div className="block w-3/4">
+                    <div className="px-4 pt-4 text-xl">Street </div>
+                    <div className="justify-center flex text-gray-600 w-full">
+                        <div className="justify-center flex text-gray-600 px-4 w-full">
+                            <input id="street2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet1}></input>
+                        </div>
+                    </div>
+                </div>
+                <div className="block w-1/4">
+                    <div className="px-4 pt-4 text-xl">Apt </div>
+                    <div className="justify-center flex text-gray-600 w-full">
+                        <div className="justify-center flex text-gray-600 px-4 w-full">
+                            <input id="apt2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt1}></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex w-full">
+                <div className="block w-1/3">
+                    <div className="px-4 pt-4 text-xl">City </div>
+                    <div className="justify-center flex text-gray-600 w-full">
+                        <div className="justify-center flex text-gray-600 px-4 w-full">
+                            <input id="city2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity1}></input>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="block w-1/3">
+                    <div className="px-4 pt-4 text-xl">State HERE</div>
+                    <div className="justify-center flex text-gray-600 px-4 w-full">
+                        <Dropdown id="state1_input" options={states} value={objState1 == null ? '---' : objState1} onChange={e => setObjState2(e.value)} />
+                    </div>
+                </div>
+                {/* <div className="block w-1/3">
+                    <div className="px-4 pt-4 text-xl"> State 2</div>
+                    <div className="justify-center flex text-gray-600 w-full">
+                        <div className="justify-center flex text-gray-600 px-4 w-full">
+                            <input id="state2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState2}></input>
+                        </div>
+                    </div>
+                </div>*/}
+                <div className="block w-1/4">
+                    <div className="px-4 pt-4 text-xl">Zip Code </div>
+                    <div className="justify-right flex text-gray-600 w-full pb-4">
+                        <div className="justify-center flex text-gray-600 px-4 w-full">
+                            <input id="zipcode2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr className="m-1 px-4 pt-1 bg-orange-500"/>
+            <div className="px-4 py-4 text-2xl">Phone Number</div>
             <div className="flex w-full">
                 <div className="block w-3/4">
                     <div className="px-4 pt-4 text-xl">Phone 1</div>
@@ -300,61 +361,6 @@ export const ManagePage = (props) => {
                     </div>
                 </div>
             </div>
-            <hr className="m-2 pt-1 bg-orange-500"/>
-            <div className="flex w-full">
-                <div className="block w-3/4">
-                    <div className="px-4 pt-4 text-xl">Street 2</div>
-                    <div className="justify-center flex text-gray-600 w-full">
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="street2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet1}></input>
-                        </div>
-                    </div>
-                </div>
-                <div className="block w-1/4">
-                    <div className="px-4 pt-4 text-xl">Apt 2</div>
-                    <div className="justify-center flex text-gray-600 w-full">
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="apt2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt1}></input>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="flex w-full">
-                <div className="block w-1/3">
-                    <div className="px-4 pt-4 text-xl">City 2</div>
-                    <div className="justify-center flex text-gray-600 w-full">
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="city2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity1}></input>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="block w-1/3">
-                    <div className="px-4 pt-4 text-xl">State</div>
-                    <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <Dropdown id="state1_input" options={states} value={objState1 == null ? '---' : objState1} onChange={e => setObjState2(e.value)} />
-                    </div>
-                </div>
-                {/* <div className="block w-1/3">
-                    <div className="px-4 pt-4 text-xl"> State 2</div>
-                    <div className="justify-center flex text-gray-600 w-full">
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="state2_input" className="rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objState2}></input>
-                        </div>
-                    </div>
-                </div>*/}
-                <div className="block w-1/4">
-                    <div className="px-4 pt-4 text-xl">Zip Code 2</div>
-                    <div className="justify-right flex text-gray-600 w-full">
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="zipcode2_input" className=" rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-       
                 
             <div className="flex w-full">
                 <div className="block w-3/4">
@@ -446,9 +452,14 @@ export const ManagePage = (props) => {
     ); 
 
        const left_menu = (
-           <div className="justify-center w-full rounded border-2 border-orange-500">
+           <div className="justify-center w-full rounded border-2 h-full border-orange-500">
                {/* <div className="underline">{uid}</div>
                <div className="underline">{email}</div> */}
+                <div className="justify-center flex w-full pt-4">
+                    <div className="font-bold text-lg text-gray-800">
+                       Settings
+                    </div>
+                </div>  
                <div className="justify-center flex text-gray-600 w-full pt-4">
                    <button onClick={() => { if(editChange) setEditChange(!editChange) }} type="submit" className="underline">
                             My information
@@ -497,8 +508,8 @@ export const ManagePage = (props) => {
         <> 
         {page_title}
         <div className="block justify-center w-full sm:flex md:flex">
-        <div className="w-full pt-10 md:w-1/4 hidden sm:block md:pr-2">{left_menu}</div>
-        <div className="w-full pt-10 text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
+            <div className="w-full md:w-1/4 hidden sm:block md:pr-2 bg-red-200">{left_menu}</div>
+            <div className="w-full text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
         </div>
     
         </>)
