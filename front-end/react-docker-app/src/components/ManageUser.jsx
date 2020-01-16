@@ -9,11 +9,12 @@ import './myStyle.css';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
-    const [objEmail] = useState("");
+   
     const [uid, setUID] = useState("");
     const [objFirstName, setObjFirstName] = useState("");
     const [objMiddleName, setObjMiddleName] = useState("");
     const [objLastName, setObjLastName] = useState("");
+  
 
     const [objStreet1, setObjStreet1] = useState("");
     const [objStreet2, setObjStreet2] = useState("");
@@ -226,7 +227,7 @@ export const ManagePage = (props) => {
               <div className="px-4 pt-4 text-xl">Email</div>
             <div className="justify-center flex text-gray-600 w-full pb-4">
                 <div className="justify-center flex text-gray-600 px-4 w-full">
-                    dajdlksa@dajsldka.com
+                    {email}
                 </div>
             </div>
             <hr className="m-1 px-4 pt-1 bg-orange-500"/>
@@ -394,7 +395,7 @@ export const ManagePage = (props) => {
         <div className="px-4 flex rounded border-2 border-orange-500 py-4 text-xl">
             <div className="flex-1">
                 <div className="py-2">Name: {objFirstName} {objMiddleName} {objLastName}</div>
-                    {/*   <div className="py-2">Email: {objEmail}</div>*/}
+                <div className="py-2">Email: {email}</div>
                 <div>
                     <div className="py-2">
                         <div>Primary Address:</div>
