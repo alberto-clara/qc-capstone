@@ -8,6 +8,7 @@ namespace BasketApi.Model
     public class Basket
     {
         public Guid? Uid { get; set; }
+        public DateTime Date { get; set; }
         public Dictionary<string, Offering> Items { get; set; }
         
         public Basket() { }
@@ -20,7 +21,6 @@ namespace BasketApi.Model
         public string Supplier_key { get; set; }
         public decimal Unit_cost { get; set; }
         public string Uom { get; set; }
-        public DateTime Date { get; set; }
         public int Quantity { get; set; }
     }
 }
