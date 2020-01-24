@@ -1,3 +1,6 @@
+.dropdown_manageuser {
+    @apply rounded border border-orange-500 h-20 px-5 pr-8 text-sm w-full;
+}
 .titlePage{
     @apply font-bold text-gray-700 text-xl text-center;
 }
@@ -72,7 +75,7 @@
 }
 
 .NavTitle_Icons_Boxed {
-    @apply p-2 border border-white rounded
+    @apply p-2 border border-white rounded;
 }
 
 .NavMenu_Container {

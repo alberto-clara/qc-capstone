@@ -15,3 +15,5 @@ back-end/Api/CheckoutApi/bin/
 *.cache
 *.dll
 back-end/Api/ApiGateway/bin/Debug/netcoreapp2.2/ApiGateway.dll
+back-end/BackEndNodeJS/node_modules
+back-end/BackEndNodeJS/log

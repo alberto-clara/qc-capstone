@@ -208,7 +208,7 @@ export  const Product = (props) => {
                 <div className="flex px-5 lg:px-0" onClick={()=>setIsOpen(!isOpen)} >
                     <div className="rounded w-full h-48 border-2 border-orange-500 bg-white text-lg" >
                         <Collapse className="h-10 text-lg pt-2 pl-5" isOpened={isOpen}>
-                            <div style={{ height }}className="border-t-2 border-orange-500 text-lg"> {description} </div>
+                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                         </Collapse>
                     </div>
                 </div>
