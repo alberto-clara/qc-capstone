@@ -37,6 +37,7 @@ export const ManagePage = (props) => {
   
     var emailInser, uidInsert;
     const [editChange, setEditChange] = useState(false);
+    const [editPassword, setEditPassword] = useState(false);
   
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
@@ -437,6 +438,12 @@ export const ManagePage = (props) => {
         </>
     ); 
 
+    const bold_password = (
+        <>
+        hiiiii new page
+        </>
+    )
+
        const left_menu = (
            <div className="justify-center w-full rounded border-2 h-full border-orange-500">
                {/* <div className="underline">{uid}</div>
@@ -452,11 +459,10 @@ export const ManagePage = (props) => {
                     </button>
                 </div>   
                 <div className="justify-center flex w-full pt-4">
-                <Link to={'/mypassword'}>
-                    <div className="underline text-gray-600">
+                <button onClick={() => { if (editPassword) setEditPassword(!editPassword) }} type="submit" className="underline">
                        My Password
-                    </div>
-                </Link>
+                </button>
+                
                 </div>   
                 <div className="justify-center flex w-full pt-4">
                 <Link to={'/manageuser/myorders'}>
@@ -495,7 +501,8 @@ export const ManagePage = (props) => {
         {page_title}
         <div className="block justify-center w-full sm:flex md:flex">
             <div className="w-full md:w-1/4 hidden sm:block md:pr-2 bg-red-200">{left_menu}</div>
-            <div className="w-full text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} </div>
+            <div className="w-full text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} {editPassword ? my_password: bold_password}  </div>
+
         </div>
     
         </>)

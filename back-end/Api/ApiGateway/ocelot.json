@@ -23,28 +23,16 @@
       "UpstreamPathTemplate": "/orders-api/{catchAll}"
     },
     {
-      "DownsteamPathTemplate": "/api/{catchAll}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7003
-        }
-      ],
-      "UpstreamPathTemplate": "/basket-api/{catchAll}"
-    },
-    {
-      "DownstreamPathTemplate": "/api/{catchAll}",
-      "DownstreamScheme": "http",
-      "DownsteamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7004
-        }
-      ],
-      "UpstreamPathTemplate": "checkout-api/{catchAll}"
-    }
-
+        "DownstreamPathTemplate": "/api/{catchAll}",
+        "DownstreamScheme": "http",
+        "DownstreamHostAndPorts": [
+          {
+            "Host": "localhost",
+            "Port": 7001
+          }
+        ],
+        "UpstreamPathTemplate": "/basket-api/{catchAll}"
+      }
   ],
     "GlobalConfiguration": {
         "BaseUrl": "https://localhost:7000"
