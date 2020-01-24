@@ -12373,6 +12373,18 @@ video {
   z-index: auto;
 }
 
+.dropdown_manageuser {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-color: #ed8936;
+  height: 2rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-right: 2rem;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
 .titlePage{
   font-weight: 700;
   color: #4a5568;
