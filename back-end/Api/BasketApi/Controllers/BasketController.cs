@@ -9,6 +9,7 @@ using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Model;
 using System.Net;
 using Couchbase.N1QL;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UserInfoApi.Controllers
 {
@@ -35,6 +36,7 @@ namespace UserInfoApi.Controllers
          * Route that adds a new document to the DB
          * goto
          */
+        [Authorize]
         [HttpPost]
         [Route("/add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)

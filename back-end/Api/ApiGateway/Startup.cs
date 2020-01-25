@@ -14,6 +14,7 @@ using Ocelot.Middleware;
 using Ocelot.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using FirebaseAdmin;
 
 namespace ApiGateway
 {
@@ -44,13 +45,13 @@ namespace ApiGateway
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "placeholder";
+                    options.Authority = "https://securetoken.google.com/homedepotcs420";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = "palceholder",
+                        ValidIssuer = "https://securetoken.google.com/homedepotcs420",
                         ValidateAudience = true,
-                        ValidAudience = "placeholder",
+                        ValidAudience = "homedepotcs420",
                         ValidateLifetime = true
                     };
                 }

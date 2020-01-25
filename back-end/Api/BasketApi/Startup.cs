@@ -10,10 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Couchbase;
 using Couchbase.Extensions.DependencyInjection;
-using Couchbase.Authentication;
-using Couchbase.Configuration.Client;
 using BasketApi.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
 

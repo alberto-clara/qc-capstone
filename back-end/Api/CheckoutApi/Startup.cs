@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
+using Couchbase.Extensions.DependencyInjection;
+using CheckoutApi.Infrastructure;
 
 namespace CheckoutApi
 {
@@ -26,10 +29,19 @@ namespace CheckoutApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddCouchbase(Configuration.GetSection("Couchbase"))
+                .AddCouchbaseBucket<UserInfoContext>("UserInfo")
+                .AddCouchbaseBucket<CheckoutContext>("Checkout");
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "ChecoutAPI" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime applicationLifetime)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +55,13 @@ namespace CheckoutApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger()
+                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CheckoutAPI"));
+
+            applicationLifetime.ApplicationStopped.Register(() =>
+            {
+                app.ApplicationServices.GetRequiredService<ICouchbaseLifetimeService>().Close();
+            });
         }
     }
 }

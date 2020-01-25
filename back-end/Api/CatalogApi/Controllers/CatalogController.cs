@@ -8,6 +8,7 @@ using CatalogApi.Infrastructure;
 using CatalogApi.Model;
 using CatalogApi.ViewModel;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CatalogApi.Controllers
 {
@@ -58,6 +59,7 @@ namespace CatalogApi.Controllers
          * and it will be sorted based on the product name.
          */ 
         // GET api/products/page/sort[?pageSize=3&pageIndex=10]
+        [Authorize]
         [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
