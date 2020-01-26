@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
-//var url = "mongodb+srv://gum:Gumgum123@cluster0-ycsux.azure.mongodb.net/test?retryWrites=true&w=majority";
+
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -31,14 +31,12 @@ export const ManagePage = (props) => {
     const [objPhone2, setObjPhone2] = useState("");
     const [objExt1, setObjExt1] = useState("");
     const [objExt2, setObjExt2] = useState("");
-   
 
-
-  
     var emailInser, uidInsert;
-    const [editChange, setEditChange] = useState(false);
-    const [editPassword, setEditPassword] = useState(false);
-  
+
+    const [Page, setPage] = useState("default");
+
+
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
@@ -51,6 +49,8 @@ export const ManagePage = (props) => {
             }
       
         });
+
+    
     }, []);
 
     const mongoFetch = async (uidValue) => {
@@ -104,12 +104,11 @@ export const ManagePage = (props) => {
                 });
             }
             initValue.forEach(element => {
-              
-                var x = "oY2wCvKmahVnG7ZtoNuBp22K6ko2";
+           
                 if (element.uid === uidValue) {
                     found = true;
                     console.log(element);
-           //         setObjEmail(element.email);
+       
                     setObjFirstName(element.first_name);
                     setObjMiddleName(element.middle_name);
                     setObjLastName(element.last_name);
@@ -407,7 +406,7 @@ export const ManagePage = (props) => {
             </div>
             <div className="py-2">
             <button>
-                <svg onClick={() => setEditChange(!editChange)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <svg onClick={() => setPage("editPage")} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path className="heroicon-ui" d="M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z"/>
                 </svg>
             </button>
@@ -416,7 +415,7 @@ export const ManagePage = (props) => {
         </> 
         );
 
-    const my_password = (
+ /*   const my_password = (
         <>
         <div className="pt-4 text-xl">Old Password</div>   
         <div className="justify-center flex text-gray-600 w-full">
@@ -437,10 +436,45 @@ export const ManagePage = (props) => {
             </div>   
         </>
     ); 
-
-    const bold_password = (
+*/
+    const logout = () => {
+        FireBaseSetup.logout();
+        window.location.href = '/';
+    }
+    const PasswordPage = (
         <>
-        hiiiii new page
+            <div className="pt-4 text-xl">Old Password</div>
+            <div className="justify-center flex text-gray-600 w-full">
+                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
+            </div>
+            <div className="pt-4 text-xl">New Password</div>
+            <div className="justify-center flex text-gray-600 w-full">
+                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
+            </div>
+            <div className="pt-4 text-xl">Confirm New Password</div>
+            <div className="justify-center flex text-gray-600 w-full">
+                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
+            </div>
+            <div className="justify-center flex text-gray-600 w-full pt-4">
+                <button type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
+                    Edit
+            </button>
+            </div> 
+        </>
+    )
+    const OrderPage= (
+        <>
+            Hi OrderPage
+        </>
+    )
+    const WishListPage = (
+        <>
+            Hi WishListPage
+        </>
+    )
+    const HelpPage = (
+        <>
+            Hi Help what?
         </>
     )
 
@@ -454,55 +488,59 @@ export const ManagePage = (props) => {
                     </div>
                 </div>  
                <div className="justify-center flex text-gray-600 w-full pt-4">
-                   <button onClick={() => { if(editChange) setEditChange(!editChange) }} type="submit" className="underline">
+                   <button onClick={() => { if(Page!=="default") setPage("default") }} type="submit" className="underline">
                             My information
                     </button>
                 </div>   
                 <div className="justify-center flex w-full pt-4">
-                <button onClick={() => { if (editPassword) setEditPassword(!editPassword) }} type="submit" className="underline">
+                   <button onClick={() => { setPage("passwordPage"); }} type="submit" className="underline">
                        My Password
                 </button>
                 
                 </div>   
                 <div className="justify-center flex w-full pt-4">
-                <Link to={'/manageuser/myorders'}>
-                    <div className="underline text-gray-600">
-                       My Orders
-                    </div>
-                </Link>
+                   <button onClick={() => { setPage("orderPage"); }} type="submit" className="underline">
+                       My Order
+                    </button>
                 </div>   
                 <div className="justify-center flex w-full pt-4">
-                <Link to={'/manageuser/mywishlist'}>
-                    <div className="underline text-gray-600">
-                       My Wishlist
-                    </div>
-                </Link>
+                   <button onClick={() => { setPage("wishlistPage"); }} type="submit" className="underline">
+                       My Order
+                    </button>
                 </div>   
                 <div className="justify-center flex w-full pt-4">
-                <Link to={'/help'}>
-                    <div className="underline text-gray-600">
+                   <button onClick={() => { setPage("helpPage"); }} type="submit" className="underline">
                        Help
-                    </div>
-                </Link>
+                    </button>
                 </div>   
-                <div className="justify-center flex text-gray-600 w-full pt-8 pb-4">
-                    <button type="submit" className="underline">
+               <div className="justify-center flex text-gray-600 w-full pt-8 pb-4">
+                   <button onClick={logout} type="submit" className="underline">
                             Log Out
                     </button>
-                </div> 
-              
+                </div>       
            </div>
-
        )
        
 
     return (
         <> 
         {page_title}
+      
         <div className="block justify-center w-full sm:flex md:flex">
-            <div className="w-full md:w-1/4 hidden sm:block md:pr-2 bg-red-200">{left_menu}</div>
-            <div className="w-full text-left sm:block md:w-3/4">{editChange ? my_address: bold_address} {editPassword ? my_password: bold_password}  </div>
-
+                <div className="w-full md:w-1/4 hidden sm:block md:pr-2 bg-red-200">{left_menu}</div>
+                <div className="w-full text-left sm:block md:w-3/4">
+                    {(() => {
+                        switch (Page) {
+                            case "editPage": return my_address;
+                            case "passwordPage": return PasswordPage;
+                            case "orderPage": return OrderPage;
+                            case "wishlistPage": return WishListPage;
+                            case "helpPage": return HelpPage;
+                            default: return bold_address;
+                        }
+                    })()}
+                </div>
+                
         </div>
     
         </>)
