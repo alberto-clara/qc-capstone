@@ -219,13 +219,7 @@ export const SignUpPage=(props) => {
                            <br />
                            <div className="largeBold">Confirm Password:</div>
                            <FormControl className="typingArea" autoComplete="none" type="password" placeholder="Confirm Password" onChange={e => CheckPasswordConfirm(e.target.value)} />
-                           <br /><div className="text-red-500 pl-4" id="noticePasswordConfirm"></div> <br />
-                           {/* <div className="largeBold">Zip Code:</div>
-                           <FormControl className="typingArea" maxLength="5" autoComplete="section-red shipping postal-code" placeholder="Example: 12345" onChange={e => CheckZipCode(e.target.value)} />
-                           <br /><div className="text-red-500 pl-4" id="noticeZipCode"></div> <br />
-                           <div className="largeBold ">Phone:</div> */}
-                           {/* <FormControl className="typingArea" placeholder="Example: 123-456-7890" onChange={e => CheckPhone(e.target.value)} />
-                           <br /><div className="text-red-500 pl-4" id="noticePhone"></div> <br /> */}
+                           <br /><div className="text-red-500 pl-4" id="noticePasswordConfirm"></div> <br/>
                            <button className="signInButton  " onClick={onRegister} type="submit"  >Create Account</button>
                            
                            <br /> <div className="text-red-500 pl-4" id="noticeAll"></div><br/>

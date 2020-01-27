@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
@@ -143,8 +142,8 @@ export const ManagePage = (props) => {
     };
      
     const page_title = (
-        <div className="mt-4 justify-center w-full h-auto md:h-auto">
-            <div className=" titlePage py-10 lg:text-3xl"> My Account </div>
+        <div className="justify-center w-full h-auto md:h-auto">
+            <div className=" titlePage py-6 md:py-10 lg:text-3xl"> My Account </div>
         </div>
     );     
  
@@ -200,6 +199,7 @@ export const ManagePage = (props) => {
        // window.location.href = '/manageuser';
     }
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
+   
     const my_address = (
         <div className="justify-center w-full rounded border-2 border-orange-500">
             <div className="px-4 py-4 text-2xl">User</div>
@@ -207,19 +207,19 @@ export const ManagePage = (props) => {
                 <div className="block w-full md:w-1/2">
                     <div className="px-4 pt-4 text-xl">First Name</div>
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="firstname_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objFirstName}></input>
+                            <input id="firstname_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objFirstName}></input>
                         </div>
                 </div>
                 <div className="block w-full md:w-1/6">
                     <div className="px-4 pt-4 text-xl">Middle</div>
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="middlename_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objMiddleName}></input>
+                            <input id="middlename_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objMiddleName}></input>
                         </div>
                 </div>
                 <div className="block w-full md:w-1/2">
                     <div className="px-4 pt-4 text-xl">Last Name</div>
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                        <input id="lastname_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objLastName}></input>
+                        <input id="lastname_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objLastName}></input>
                     </div>
                 </div>
             </div>
@@ -238,7 +238,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Phone 1</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="phone1_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone1}></input>
+                            <input id="phone1_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone1}></input>
                         </div>
                     </div>
                 </div>
@@ -246,7 +246,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Ext#</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="ext1_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objExt1}></input>
+                            <input id="ext1_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objExt1}></input>
                         </div>
                     </div>
                 </div>
@@ -257,7 +257,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Phone 2</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="phone2_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone2}></input>                   
+                            <input id="phone2_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objPhone2}></input>                   
                         </div>
                     </div>
                 </div>
@@ -265,7 +265,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Ext#</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 pb-4 w-full">
-                            <input id="ext2_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objExt2}></input>   
+                            <input id="ext2_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objExt2}></input>   
                         </div>
                     </div>
                 </div>
@@ -278,7 +278,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Street</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="street1_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet1}></input>                  
+                            <input id="street1_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet1}></input>                  
                         </div>
                     </div>       
                     </div>
@@ -286,7 +286,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Apt</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="apt1_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt1}></input>                  
+                            <input id="apt1_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt1}></input>                  
                         </div>
                     </div>      
                 </div>
@@ -297,7 +297,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">City</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="city1_input" className="rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity1}></input>                  
+                            <input id="city1_input" className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity1}></input>                  
                         </div>
                     </div>    
                 </div>
@@ -313,7 +313,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Zip Code</div>
                     <div className="justify-right flex text-gray-600 w-full pb-4">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="zipcode1_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>   
+                            <input id="zipcode1_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode1}></input>   
                         </div>
                     </div>
                 </div>              
@@ -326,7 +326,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Street</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="street2_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet2}></input>                  
+                            <input id="street2_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objStreet2}></input>                  
                         </div>
                     </div>       
                     </div>
@@ -334,7 +334,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Apt</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="apt2_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt2}></input>                  
+                            <input id="apt2_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objApt2}></input>                  
                         </div>
                     </div>      
                 </div>
@@ -345,7 +345,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">City</div>
                     <div className="justify-center flex text-gray-600 w-full">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="city2_input" className="rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity2}></input>                  
+                            <input id="city2_input" className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objCity2}></input>                  
                         </div>
                     </div>    
                 </div>
@@ -361,7 +361,7 @@ export const ManagePage = (props) => {
                     <div className="px-4 pt-4 text-xl">Zip Code</div>
                     <div className="justify-right flex text-gray-600 w-full pb-4">
                         <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="zipcode2_input" className=" rounded border border-gray-600 h-20 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode2}></input>   
+                            <input id="zipcode2_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objZipCode2}></input>   
                         </div>
                     </div>
                 </div>              
@@ -415,51 +415,34 @@ export const ManagePage = (props) => {
         </> 
         );
 
- /*   const my_password = (
-        <>
-        <div className="pt-4 text-xl">Old Password</div>   
-        <div className="justify-center flex text-gray-600 w-full">
-            <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
-        </div>
-        <div className="pt-4 text-xl">New Password</div>   
-        <div className="justify-center flex text-gray-600 w-full">
-            <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
-        </div>
-        <div className="pt-4 text-xl">Confirm New Password</div>   
-        <div className="justify-center flex text-gray-600 w-full">
-            <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
-        </div>
-        <div className="justify-center flex text-gray-600 w-full pt-4">
-                <button type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
-               Edit
-                </button>
-            </div>   
-        </>
-    ); 
-*/
     const logout = () => {
         FireBaseSetup.logout();
         window.location.href = '/';
     }
     const PasswordPage = (
         <>
-            <div className="pt-4 text-xl">Old Password</div>
-            <div className="justify-center flex text-gray-600 w-full">
-                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
+        <div className="justify-center w-full rounded border-2 border-orange-500">
+        <div className="px-4 py-4 text-2xl"> Change Password</div>
+            <div className="block w-full px-4">
+                <div className="pt-4 text-xl">Old Password</div>
+                <div className="justify-center flex text-gray-600 w-full">
+                    <input className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full"></input>
+                </div>
+                <div className="pt-4 text-xl">New Password</div>
+                <div className="justify-center flex text-gray-600 w-full">
+                    <input className="h-10 rounded border border-gray-600 bg-white w-full"></input>
+                </div>
+                <div className="pt-4 text-xl">Confirm New Password</div>
+                <div className="justify-center flex text-gray-600 w-full">
+                    <input className="h-10 rounded border border-gray-600 bg-white w-full"></input>
+                </div>
+                <div className="justify-center flex text-gray-600 w-full p-4">
+                <button className="px-4 py-2 border rounded text-white border-orange-500 bg-orange-500 hover:border-orange-500">
+                    Submit 
+                </button>
+            </div>   
             </div>
-            <div className="pt-4 text-xl">New Password</div>
-            <div className="justify-center flex text-gray-600 w-full">
-                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
-            </div>
-            <div className="pt-4 text-xl">Confirm New Password</div>
-            <div className="justify-center flex text-gray-600 w-full">
-                <input className="h-10 rounded border-2 border-orange-500 bg-white w-full"></input>
-            </div>
-            <div className="justify-center flex text-gray-600 w-full pt-4">
-                <button type="submit" className="px-4 py-2 border-2 rounded text-gray-700 border-orange-500 bg-white hover:border-orange-500">
-                    Edit
-            </button>
-            </div> 
+        </div>
         </>
     )
     const OrderPage= (
@@ -478,17 +461,15 @@ export const ManagePage = (props) => {
         </>
     )
 
-       const left_menu = (
+       const left_menu_web = (
            <div className="justify-center w-full rounded border-2 h-full border-orange-500">
-               {/* <div className="underline">{uid}</div>
-               <div className="underline">{email}</div> */}
                 <div className="justify-center flex w-full pt-4">
                     <div className="font-bold text-lg text-gray-800">
                        Settings
                     </div>
                 </div>  
-               <div className="justify-center flex text-gray-600 w-full pt-4">
-                   <button onClick={() => { if(Page!=="default") setPage("default") }} type="submit" className="underline">
+               <div className="justify-center flex w-full pt-4">
+                   <button onClick={() => { if(Page!=="bold_address") setPage("bold_address") }} type="submit" className="underline">
                             My information
                     </button>
                 </div>   
@@ -505,7 +486,7 @@ export const ManagePage = (props) => {
                 </div>   
                 <div className="justify-center flex w-full pt-4">
                    <button onClick={() => { setPage("wishlistPage"); }} type="submit" className="underline">
-                       My Order
+                       My WishList
                     </button>
                 </div>   
                 <div className="justify-center flex w-full pt-4">
@@ -520,17 +501,53 @@ export const ManagePage = (props) => {
                 </div>       
            </div>
        )
+
+       const left_menu_mobile = (<>
+      
+            <div className="justify-center flex  w-full">
+                <button onClick={() => { if(Page!=="left_menu_mobile") setPage("bold_address") }} type="submit" className="justify-center w-full rounded border-2 h-10 border-orange-500">
+                         My information
+                 </button>
+             </div>   
+             <div className="justify-center flex w-full pt-4">
+                <button onClick={() => { setPage("passwordPage"); }} type="submit" className="justify-center w-full rounded border-2 h-10 border-orange-500">
+                    My Password
+                </button>
+             </div>   
+             <div className="justify-center flex w-full pt-4">
+                <button onClick={() => { setPage("orderPage"); }} type="submit" className="justify-center w-full rounded border-2 h-10 border-orange-500">
+                    My Order
+                 </button>
+             </div>   
+             <div className="justify-center flex w-full pt-4">
+                <button onClick={() => { setPage("wishlistPage"); }} type="submit" className="justify-center w-full rounded border-2 h-10 border-orange-500">
+                    My WishList
+                 </button>
+             </div>   
+             <div className="justify-center flex w-full pt-4">
+                <button onClick={() => { setPage("helpPage"); }} type="submit" className="justify-center w-full rounded border-2 h-10 border-orange-500">
+                    Help
+                 </button>
+             </div>   
+            <div className="justify-center flex w-full pt-8 pb-4">
+                <button onClick={logout} type="submit" className="underline">
+                         Log Out
+                 </button>
+             </div>       
+        </>
+       )
        
 
     return (
         <> 
         {page_title}
-      
-        <div className="block justify-center w-full sm:flex md:flex">
-                <div className="w-full md:w-1/4 hidden sm:block md:pr-2 bg-red-200">{left_menu}</div>
+        {/* web */}
+        <div className="hidden block justify-center w-full sm:flex md:flex">
+                <div className="w-full md:w-1/4 hidden sm:block md:pr-2 ">{left_menu_web}</div>
                 <div className="w-full text-left sm:block md:w-3/4">
                     {(() => {
                         switch (Page) {
+                            case "bold_address": return bold_address;
                             case "editPage": return my_address;
                             case "passwordPage": return PasswordPage;
                             case "orderPage": return OrderPage;
@@ -542,6 +559,23 @@ export const ManagePage = (props) => {
                 </div>
                 
         </div>
-    
+        {/* mobile */}
+        <div className="block justify-center w-full sm:flex md:flex md:hidden lg:hidden">
+                <div className="w-full md:w-1/4 hidden sm:block md:pr-2">{left_menu_mobile}</div>
+                <div className="w-full text-left sm:block md:w-3/4">
+                    {(() => {
+                        switch (Page) {
+                            case "bold_address": return bold_address;
+                            case "editPage": return my_address;
+                            case "passwordPage": return PasswordPage;
+                            case "orderPage": return OrderPage;
+                            case "wishlistPage": return WishListPage;
+                            case "helpPage": return HelpPage;
+                            default: return left_menu_mobile;
+                        }
+                    })()}
+                </div>
+                
+        </div>
         </>)
 }
