@@ -12,7 +12,6 @@ import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
 import { Vendors } from './components/Vendors';
-import { ManageUser_password } from './components/ManageUser_password';
 
 export default () => (
     <Layout>

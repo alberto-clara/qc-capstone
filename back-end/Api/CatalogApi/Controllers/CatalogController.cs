@@ -49,7 +49,7 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
-        
+
         /*
          * {sort?} is an option route parameter.
          * ascending = sorted by price in ascending order
@@ -57,9 +57,11 @@ namespace CatalogApi.Controllers
          * reverse = reverse alphabetical order for product names
          * needed way and if no sorting is needed this parameter can be omitted from the route
          * and it will be sorted based on the product name.
-         */ 
+         */
         // GET api/products/page/sort[?pageSize=3&pageIndex=10]
+
        // [Authorize]
+
         [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
@@ -100,11 +102,11 @@ namespace CatalogApi.Controllers
             return Ok(model);
         }
 
-        
+
         /*
-         * This returns a list of all the offerings for a single product based on the product ID in the route. 
+         * This returns a list of all the offerings for a single product based on the product ID in the route.
          * If information is needed about a specific offering of a product this route should not be used.
-         */ 
+         */
         // GET api/products/offerings/{productId}
         [HttpGet, Route("offerings/{productId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -139,7 +141,7 @@ namespace CatalogApi.Controllers
                             });
 
             var items = await newTable
-                                .OrderBy(p => p.Unit_retail)                               
+                                .OrderBy(p => p.Unit_retail)
                                 .ToListAsync();
 
 //            items.SkipWhile(p => p.Active_date >= dateTime);
@@ -149,7 +151,7 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
-        
+
         /*
          * use this route if you want to get the information about a single offering of a product
          * the route needs to be passed the offering ID of what you want information about
@@ -187,7 +189,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
-         * Route for the homepage to grab ten randomly selected products 
+         * Route for the homepage to grab ten randomly selected products
          * from the database.
          */
         // GET /api/products/home
