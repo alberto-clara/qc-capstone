@@ -59,7 +59,7 @@ namespace CatalogApi.Controllers
          * and it will be sorted based on the product name.
          */ 
         // GET api/products/page/sort[?pageSize=3&pageIndex=10]
-        [Authorize]
+       // [Authorize]
         [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
@@ -205,7 +205,7 @@ namespace CatalogApi.Controllers
                                            pt.Id,
                                            pt.Long_description
                                        })
-                                       .Take(10)
+                                       .Take(15)
                                        .ToListAsync();
 
             if (randomResults.Count > 0) return Ok(randomResults);
