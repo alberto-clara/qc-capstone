@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
-const NavTitle = (props) => {
+
+const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);
     const { state } = useContext(Auth);
     let buttonManage;
@@ -15,6 +16,7 @@ const NavTitle = (props) => {
         });
     },[]);
     if (stateNav != null || state.user.hasOwnProperty("user")) {
+  
         buttonManage = (<Fragment>
             <Link to={'/manageuser'}>
                 <button className="NavTitle_Icons">

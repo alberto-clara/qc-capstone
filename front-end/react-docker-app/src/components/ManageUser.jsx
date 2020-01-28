@@ -5,7 +5,6 @@ import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
 
-
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
    
@@ -33,7 +32,7 @@ export const ManagePage = (props) => {
 
     var emailInser, uidInsert;
 
-    const [Page, setPage] = useState("default");
+     const [Page, setPage] = useState("default");
 
 
     useEffect(() => {
