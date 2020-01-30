@@ -4,6 +4,5 @@ namespace CheckoutApi.Infrastructure
 {
     public interface UserInfoContext : INamedBucketProvider
     {
-
     }
 }

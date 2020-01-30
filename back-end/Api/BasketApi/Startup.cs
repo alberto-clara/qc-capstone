@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
+using Newtonsoft.Json;
 
 namespace UserInfoApi
 {
@@ -36,12 +37,6 @@ namespace UserInfoApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "BasketAPI" });
             });
-            /*
-            ClusterHelper.Initialize(new ClientConfiguration
-            {
-                Servers = new List<Uri> { new Uri("couchbase://localhost") }
-            }, new PasswordAuthenticator("admin", "password"));
-            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

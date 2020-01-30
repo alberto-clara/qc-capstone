@@ -6,7 +6,7 @@ using Couchbase.Extensions.DependencyInjection;
 
 namespace CheckoutApi.Infrastructure
 {
-    public interface CheckoutContext : INamedBucketProvider
+    public interface IMyBucketProvider : INamedBucketProvider
     {
     }
 }

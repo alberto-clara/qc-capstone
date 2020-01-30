@@ -132,9 +132,8 @@ namespace CatalogApi.Controllers
                                 pt.Long_description,
                                 pt.Product_name,
                                 Offering_key = ot.Id,
-                                Unit_retail = Math.Round(ot.Unit_retail, 2),
-                                Unit_cost = Math.Round(ot.Unit_cost, 2),
-//                                Active_date = ot.ConvertUnixTimestamp(ot.Active_date),
+                                Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
+                                Unit_cost = Math.Round(ot.Unit_cost, 2).ToString(),
                                 ot.Uom,
                                 ot.Supplier_key,
                                 rt2.supplier_name
@@ -143,8 +142,6 @@ namespace CatalogApi.Controllers
             var items = await newTable
                                 .OrderBy(p => p.Unit_retail)
                                 .ToListAsync();
-
-//            items.SkipWhile(p => p.Active_date >= dateTime);
 
             if (items.Count != 0) return Ok(items);
 
@@ -195,7 +192,7 @@ namespace CatalogApi.Controllers
         // GET /api/products/home
         [HttpGet, Route("home")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> RandomHomePageProducts(string offeringId)
+        public async Task<IActionResult> RandomHomePageProducts()
         {
 
             Random rnd = new Random();
