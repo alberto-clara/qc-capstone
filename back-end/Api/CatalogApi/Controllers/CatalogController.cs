@@ -8,7 +8,6 @@ using CatalogApi.Infrastructure;
 using CatalogApi.Model;
 using CatalogApi.ViewModel;
 using System.Net;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CatalogApi.Controllers
 {
@@ -23,6 +22,8 @@ namespace CatalogApi.Controllers
             _catalogContext = context;
         }
 
+        /*
+         * shouldn't be used this was to test at the very beginning
         // GET api/products
         [HttpGet]
         public IActionResult Index()
@@ -30,6 +31,7 @@ namespace CatalogApi.Controllers
 
             return Ok(_catalogContext.products.ToArray());
         }
+        */
 
         // GET api/products/{id}
         [HttpGet]
@@ -49,7 +51,6 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
-
         /*
          * {sort?} is an option route parameter.
          * ascending = sorted by price in ascending order
@@ -59,9 +60,6 @@ namespace CatalogApi.Controllers
          * and it will be sorted based on the product name.
          */
         // GET api/products/page/sort[?pageSize=3&pageIndex=10]
-
-       // [Authorize]
-
         [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
@@ -70,6 +68,7 @@ namespace CatalogApi.Controllers
         {
             if (pageSize == 0) return BadRequest();
 
+            // return in alphabetical order by default
             var totalItems = await _catalogContext.products.LongCountAsync();
             var newT = (from pt in _catalogContext.products
                         join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
@@ -83,10 +82,13 @@ namespace CatalogApi.Controllers
                             Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
                         });
 
+            // if the optional route parameter equals 'ascending' sort results in ascending price
             if (sort == "ascending") newT = newT.OrderBy(p => p.Unit_retail);
 
+            // if the optional route parameter equals 'descending' sort results in descending price
             else if (sort == "descending") newT = newT.OrderByDescending(p => p.Unit_retail);
 
+            // if the optional route parameter equals 'reverse' sort results in reverse alphabetical order
             else if (sort == "reverse") newT = newT.OrderByDescending(p => p.Product_name);
 
             var itemsOnPage = await newT
@@ -96,6 +98,7 @@ namespace CatalogApi.Controllers
                                    .Take(pageSize)
                                    .ToListAsync();
 
+            // too the JSON being returned this is adding the fields pageIndex, pageSize, totalItems and itemsOnPage
             var model = new PaginatedItemsViewModel<PageView>(
                     pageIndex, pageSize, totalItems, itemsOnPage);
 

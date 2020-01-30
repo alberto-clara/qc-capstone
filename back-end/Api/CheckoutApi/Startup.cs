@@ -29,10 +29,10 @@ namespace CheckoutApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-//            services
-//                .AddCouchbase(Configuration.GetSection("Couchbase"))
-//                .AddCouchbaseBucket<UserInfoContext>("UserInfo")
-//                .AddCouchbaseBucket<IMyBucketProvider>("Checkout");
+            services
+                .AddCouchbase(Configuration.GetSection("Couchbase"))
+                .AddCouchbaseBucket<UserInfoContext>("UserInfo")
+                .AddCouchbaseBucket<IMyBucketProvider>("Checkout");
 
             services.AddSwaggerGen(c =>
             {
