@@ -186,7 +186,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
-         * Route for the homepage to grab ten randomly selected products
+         * Route for the homepage to grab 15 randomly selected products
          * from the database.
          */
         // GET /api/products/home
@@ -197,12 +197,19 @@ namespace CatalogApi.Controllers
 
             Random rnd = new Random();
             var randomResults = await (from pt in _catalogContext.products
+                                       join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
+                                       join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
                                        orderby rnd.Next()
                                        select new
                                        {
                                            pt.Product_name,
-                                           pt.Id,
-                                           pt.Long_description
+                                           pt.Long_description,
+                                           Offering_key = ot.Id,
+                                           ot.Product_key,
+                                           ot.Supplier_key,
+                                           ot.Unit_retail,
+                                           ot.Uom,
+                                           st.supplier_name
                                        })
                                        .Take(15)
                                        .ToListAsync();

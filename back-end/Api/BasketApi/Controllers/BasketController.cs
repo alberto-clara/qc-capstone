@@ -26,17 +26,9 @@ namespace UserInfoApi.Controllers
         }
 
         /*
-        public void CreateIndex()
-        {
-            const string createIndex = "CREATE INDEX basket_uid on Basket;";
-            var query = _bucket.Query<dynamic>(createIndex);
-        }
-        */
-        /*
          * Route that adds a new document to the DB
          * goto
          */
-        [Authorize]
         [HttpPost]
         [Route("/add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)

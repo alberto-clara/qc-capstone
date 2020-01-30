@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using CatalogApi.Infrastructure;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CatalogApi
 {
@@ -30,7 +31,12 @@ namespace CatalogApi
             services.AddDbContext<CatalogContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "CatalogAPI" });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +54,8 @@ namespace CatalogApi
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseSwagger()
+                .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CatalogAPI"));
         }
     }
 }
