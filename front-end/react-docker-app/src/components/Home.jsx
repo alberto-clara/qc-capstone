@@ -48,7 +48,22 @@ export const Home = (props) => {
                     </Carousel>
             </div>
         </div>
-        );
+    );
+   
+    const itemSwipe = AdItems.map(item => {
+        return (
+            <div key={item.id} className=" h-76 w-full border-2">
+                <SwipeableViews enableMouseEvents>
+                    <div className="bg-green-300 w-1/2 md:w-1/5 ti:h-64 md:h-72 border-2">
+                        <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                        <div className="flex justify-center items-center">{load === false ? null : item.product_name} </div>
+                        <div className="flex justify-center items-center">${load === false ? null : roundDigit(item.price)}</div>
+                    </div>
+                </SwipeableViews>
+            </div>
+        )
+    })
+
     const swiping = (<div><SwipeableViews enableMouseEvents>
         <div className=" h-76 flex w-full border-2">
             <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
@@ -142,7 +157,7 @@ export const Home = (props) => {
             {searchbar}
             <br/>
             {carousel_slide}
-            {swiping}
+            {itemSwipe}
 
         </div>
     );
