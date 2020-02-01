@@ -8,7 +8,7 @@ import axios from 'axios';
 const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);
     const { state } = useContext(Auth);
-    const [countItem, setCountItem] = useState(999999);
+    const [countItem, setCountItem] = useState();
     let buttonManage;
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
@@ -22,23 +22,20 @@ const NavTitle = (props)=> {
         
     }, []);
     const tryFetch = async (uidValue) => {
-        var found = false;
+
         var initValue = [];
         await axios.get("http://localhost:3001/user").then((res) => {
          //   console.log(res.data);
             for (var i = 0; i < res.data.length; i++) {
                 initValue.push({
                     uid: res.data[i].uid,
-                    cart: res.data[i].cart.countItem
+                    cart: res.data[i].cart
                 });
             };
           //  console.log(initValue);
             initValue.forEach(element => {
                 if (element.uid == uidValue) {
                     setCountItem(element.cart);
-                    console.log(element.cart)
-                    console.log("thing: ", element.cart);
-                    console.log("object type: ", typeof(element.cart));
                 }
             });
 
@@ -77,11 +74,12 @@ const NavTitle = (props)=> {
                 </Link>
             </div>
             <div>
-                <div> {countItem}</div>
-                <button className="NavTitle_Icons">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><title>Cart</title><path className="heroicon-ui" fill="white" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" /></svg>
-                </button>
-                
+                <div className="text-white"> {countItem}</div>
+                <Link to={'/cart'}>
+                    <button className="NavTitle_Icons">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><title>Cart</title><path className="heroicon-ui" fill="white" d="M17 16a3 3 0 1 1-2.83 2H9.83a3 3 0 1 1-5.62-.1A3 3 0 0 1 5 12V4H3a1 1 0 1 1 0-2h3a1 1 0 0 1 1 1v1h14a1 1 0 0 1 .9 1.45l-4 8a1 1 0 0 1-.9.55H5a1 1 0 0 0 0 2h12zM7 12h9.38l3-6H7v6zm0 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" /></svg>
+                    </button>
+                </Link>
                 {buttonManage}
             </div>
         </nav>

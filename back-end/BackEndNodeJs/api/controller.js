@@ -35,8 +35,29 @@ var controllers = {
         });
       
     },
-    postuser: function (req, res) {
+    cart: function (req, res) {
         console.log(req.body);
+        MongoClient.connect(url, function (err, db) {
+            if (err) throw err;
+            var dbo = db.db("HomeDepot");
+            var query = { uid: req.body.user_id };
+            var newvalues = {
+                $inc: { cart: 1 }, 
+                $addToSet: {
+                    CartItems: { itemName: req.body.product_name, itemPrice: req.body.unit_cost}
+                }
+            };
+           
+            dbo.collection("UserDetail").updateOne(query, newvalues, function (err, result) {
+                if (err) throw err;
+                console.log("Cart updated");
+                db.close();
+            });
+        });
+
+    },
+    postuser: function (req, res) {
+       // console.log(req.body);
         //mongoUpdating(req.body.id, req.body.objName, req.body.objEmailAddress, req.body.objAddress, req.body.objPhone);
         MongoClient.connect(url, function (err, db) {
             if (err) throw err;
@@ -76,7 +97,8 @@ var controllers = {
                 second_address: { street: " ", apt: " ", city: " ", state: " ", zip_code: " " },
                 phone_number: {
                     primary_phone: { phone: " ", ext: " " }, secondary_phone: { phone: " ", ext: " " }
-                }  
+                },
+                cart:0 // new things
             };
             dbo.collection("UserDetail").insertOne(query, function (err, result) {
                 if (err) throw err;

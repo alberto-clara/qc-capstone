@@ -11,4 +11,6 @@ module.exports = function (app) {
         .post(controllers.postuser);
     app.route('/insert-user')
         .post(controllers.newuser);
+    app.route('/cart')
+        .post(controllers.cart);
 };

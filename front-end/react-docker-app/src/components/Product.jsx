@@ -12,10 +12,12 @@ import { ModalInProductPage } from './ModalVendor';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import { VendorProvider } from './VendorsContext'
+import FireBaseSetup from '../FireBaseSetup';
 /* eslint no-useless-concat: 0 */
 
 export  const Product = (props) => {
     let { id } = useParams();
+    const [UserUID, setUserUID] = useState("");
     const [productName, setProductName] = useState('');
     const [unitcost, setUnitCost] = useState('');
     const [description, setDescription] = useState('');
@@ -28,6 +30,12 @@ export  const Product = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
+        FireBaseSetup.isInitialized().then(user => {
+            if (user) {
+                setUserUID(user.uid);
+            }
+        });
+
         fetching(id); 
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -142,7 +150,22 @@ export  const Product = (props) => {
             </div>
         </div>
     );
-      
+    const AddCartButton = async () => {
+        console.log(productName, unitcost, id, UserUID);
+         axios.post('http://localhost:3001/cart', {
+            user_id: UserUID,
+            product_id: id,
+            product_name: productName,
+            unit_cost: unitcost
+         }).then((res) => {
+             console.log("well", res);
+            if (res.data !== null) {
+                console.log("well",res);
+              
+            };
+        })
+        window.location.href = '/product/' + id;
+    }
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
@@ -160,7 +183,7 @@ export  const Product = (props) => {
             </div>
         </div>
     );
-    const height = 150;
+   
     return (
         <div>
             {searchbar}
@@ -186,7 +209,7 @@ export  const Product = (props) => {
                                     {counters}
                                 </div>
                                 <div className="flex justify-center w-1/2 lg:w-3/5">
-                                    <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
+                                <button onClick={AddCartButton} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
                                 </div>
                             </div>
                     </div>

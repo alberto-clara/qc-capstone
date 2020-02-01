@@ -55,29 +55,7 @@ export const ManagePage = (props) => {
         var initValue = [];
         var found = false;
         await axios.get("http://localhost:3001/user").then((res) => {
-            const myinfo = res.data[0];
-            console.log(
-                "all", res.data,
-                "uid: ", myinfo.uid,
-                "email: ", myinfo.email,
-                "firstname: ", myinfo.full_name.first_name,
-                "middlename: ", myinfo.full_name.middle_name,
-                "lastname: ", myinfo.full_name.last_name,
-                "street1: ", myinfo.first_address.street,
-                "apt1: ", myinfo.first_address.apt,
-                "city1: ", myinfo.first_address.city,
-                "state1: ", myinfo.first_address.state,
-                "zipcode1: ", myinfo.first_address.zip_code,
-                "street2: ", myinfo.second_address.street,
-                "apt2: ", myinfo.second_address.apt,
-                "city2: ", myinfo.second_address.city,
-                "state2: ", myinfo.second_address.state,
-                "zipcode2: ", myinfo.second_address.zip_code,
-                "phone1: ", myinfo.phone_number.primary_phone.phone,
-                "ext1: ", myinfo.phone_number.primary_phone.ext,
-                "phone2: ", myinfo.phone_number.secondary_phone.phone,
-                "ext2: ", myinfo.phone_number.secondary_phone.ext
-            );
+
            for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ 
                     uid: res.data[i].uid,
@@ -194,8 +172,7 @@ export const ManagePage = (props) => {
                 window.location.href = '/manageuser';
             };
         })
-     
-       // window.location.href = '/manageuser';
+
     }
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
    

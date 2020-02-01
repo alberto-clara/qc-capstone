@@ -12,6 +12,7 @@ import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
 import { Vendors } from './components/Vendors';
+import { Cart } from './components/Cart';
 
 export default () => (
     <Layout>
@@ -25,6 +26,7 @@ export default () => (
             <Route path='/user/:id' component={PostUserInfo} />
             <Route path="/vendors/:idv" component={Vendors} />
             <Route path='/browsing' component={BrowsingList} />
+            <Route path='/cart' component={Cart} />
             <Route path='/signinpage' component={SignIn_SignUp} />
             <Route path="/product/:id" component={Product} />
        </Switch>
