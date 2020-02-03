@@ -18,11 +18,18 @@ import FireBaseSetup from '../FireBaseSetup';
 export  const Product = (props) => {
     let { id } = useParams();
     const [UserUID, setUserUID] = useState("");
+    const [offeringKey, setOfferingKey] = useState('');
+    const [productKey, setProductKey] = useState('');
     const [productName, setProductName] = useState('');
+    const [supplierKey, setSupplierKey] = useState('');
+    const [vendor, setVender] = useState('');
     const [unitcost, setUnitCost] = useState('');
+    const [uom, setUOM] = useState('');
+    const [quantity, setQuantity] = useState(0);
+
     const [description, setDescription] = useState('');
     const [count, setCount] = useState(1);
-    const [vendor, setVender] = useState('');
+
     const [totalVendor, setTotalVendor] = useState(0);
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
@@ -38,16 +45,20 @@ export  const Product = (props) => {
 
         fetching(id); 
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const fetching = async (ProductID) => {
 
         await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-
+            console.log(res);
+            setOfferingKey(res.data[0].offering_key);
+            setProductKey(id);
             setProductName(res.data[0].product_name);
-            setUnitCost(res.data[0].unit_retail);
+            setSupplierKey(res.data[0].supplier_key);
             setVender(res.data[0].supplier_name);
+            setUnitCost(res.data[0].unit_retail);
+            setUOM(res.data[0].uom);
+            
             setDescription(res.data[0].long_description);
             for (var i = 0; i < res.data.length; i++) {
                 VendorValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail })
@@ -80,9 +91,9 @@ export  const Product = (props) => {
                 <table class="table-auto">`+
             `<thead>` +
             `<tr>` +
-            `<th class="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl">` + "Vendor" + `</th>` +
-            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Cost" + `</th>` +
-            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Retail" + `</th>` +
+            `<th class="p-4 border-r-2  border-t-2 border-l-2 border-orange-500 underline text-xl">` + "Vendor" + `</th>` +
+            `<th class="p-4 border-r-2 border-t-2 border-orange-500 underline text-xl">` + "Unit Cost" + `</th>` +
+            `<th class="p-4 border-r-2  border-t-2 border-orange-500 underline text-xl">` + "Unit Retail" + `</th>` +
             `</tr>` +
             `<thead>` +
             `<tbody>` +
@@ -151,6 +162,28 @@ export  const Product = (props) => {
         </div>
     );
     const AddCartButton = async () => {
+       
+        //console.log(UserUID, offeringKey, productKey, productName, supplierKey, vendor, unitcost, uom, quantity, Date());
+        var items = {
+            offering_key: offeringKey,
+            product_key: productKey,
+            product_name: productName,
+            supplier_key: supplierKey,
+            supplier_name: vendor,
+            unit_retail: unitcost,
+            uom: uom,
+            quantity: count
+        };
+        console.log(items);
+        axios.post('http://localhost:7003/add', {
+            uid: UserUID,
+            date: Date(),
+            items: items
+        });
+      //  window.location.href = '/product/' + id;
+    }
+
+/*    const AddCartButton = async () => {
         console.log(productName, unitcost, id, UserUID);
          axios.post('http://localhost:3001/cart', {
             user_id: UserUID,
@@ -165,19 +198,19 @@ export  const Product = (props) => {
             };
         })
         window.location.href = '/product/' + id;
-    }
+    }*/
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
             <div className="flex lg:hidden">
                 <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
             </div>
-            <div className="flex">
+            <div className="lg:flex hidden">
 
-                {load ? <div className="hidden">{helloLoop(totalVendor)}</div> : null}
+                {load ? <div className="hidden ">{helloLoop(totalVendor)}</div> : null}
                 <VendorProvider value={load ? <Markup content={document.getElementById("container").innerHTML} /> : null}>
                     <ModalProvider>
-                        <ModalInProductPage />
+                        <ModalInProductPage/>
                     </ModalProvider>
                 </VendorProvider>
             </div>
@@ -187,7 +220,7 @@ export  const Product = (props) => {
     return (
         <div>
             {searchbar}
-            <div id="container" className="hidden"></div>
+            <div id="container" className="hidden "></div>
             {page_title}
         <div className="w-full">
                 <div className=" lg:flex pt-10">
@@ -205,7 +238,7 @@ export  const Product = (props) => {
                             </div>
                         
                             <div className="flex">
-                                <div className="w-1/2 justify-center">
+                                <div id="quantity" className="w-1/2 justify-center">
                                     {counters}
                                 </div>
                                 <div className="flex justify-center w-1/2 lg:w-3/5">
