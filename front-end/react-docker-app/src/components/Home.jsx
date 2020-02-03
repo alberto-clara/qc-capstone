@@ -36,6 +36,38 @@ export const Home = (props) => {
         tryFetch();
       
     }, []);
+
+    var imagesArray = [
+        "image1.jpg",
+        "image2.jpg",
+        "image3.jpg",
+        "image4.jpg",
+        "image5.jpg",
+        "image6.jpg",
+        "image7.jpg",
+        "image8.jpg",
+        "image9.jpg",
+        "image10.jpg",
+        "image11.jpg",
+        "image12.jpg",
+        "image13.jpg",
+        "image14.jpg",
+        "image15.jpg",
+        "image16.jpg",
+    ]
+
+    function display_image () {
+        var num = Math.floor(Math.random() * 16); // 0...6
+        var random_image = "../../public/home_images/" + imagesArray[num];
+        console.log("Got here?");
+        console.log("image ddd: ", random_image);
+        return (
+          <div>
+            <img src={random_image} />
+          </div>
+        );
+    }
+
     const roundDigit = (value) => {
         return (Math.round(value * 100) / 100).toFixed(2) ;
     }
@@ -50,27 +82,26 @@ export const Home = (props) => {
         </div>
     );
    
-    // const itemSwipe = AdItems.map(item => {
-    //     return (
-           
-    //             <SwipeableViews enableMouseEvents>
-    //                 <div className="inline-block w-full bg-yellow-400">
-    //                     <div key={item.id} className="block bg-gray-500 border-2">
-    //                         <div className="flex-1 bg-green-300 border-2">
-    //                             <div className=" bg-red-300 w-full h-32 justify-center items-center"> picture </div>
-    //                             <div className="justify-center bg-purple-400 w-full items-center">{load === false ? null : item.product_name} </div>
-    //                             <div className="justify-center w-full bg-blue-400 items-center">${load === false ? null : roundDigit(item.price)}</div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </SwipeableViews>
-    //     )
-    // })
+    const itemSwipe = AdItems.map(item => {
+        return (
+            // <div className="block bg-purple-300">
+                <SwipeableViews enableMouseEvents className="inline-block w-1/5 bg-yellow-400">
+                    <div key={item.id} className="block bg-gray-500 border-2">
+                            {/* <div className="flex-1 bg-green-300 border-2"> */}
+                                <div className=" bg-red-300 w-full h-32 justify-center items-center"> picture </div>
+                                {/* <div className="justify-center bg-purple-400 w-full items-center">{load === false ? null : item.product_name} </div>
+                                <div className="justify-center w-fzull bg-blue-400 items-center">${load === false ? null : roundDigit(item.price)}</div> */}
+                            {/* </div> */}
+                    </div>
+                </SwipeableViews>
+            // </div>
+        )
+    })
 
     const swiping = (<div><SwipeableViews enableMouseEvents>
         <div className=" h-76 flex w-full border-2">
             <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
-                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> {display_image()} </div>
                 <div className="flex justify-center items-center">{load === false ? null : AdItems[0].product_name}</div>
                 <div className="flex justify-center items-center">${load === false ? null : roundDigit(AdItems[0].price)}</div>
             </div>
@@ -98,7 +129,7 @@ export const Home = (props) => {
         </div>
         <div className=" h-76 flex w-full border-2">
             <div className="bg-blue-300 w-1/2 ti:w-1/3 md:w-1/5 ti:h-70 md:h-72 border-2">
-                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> picture </div>
+                <div className="flex bg-red-300 h-32 xl:h-48 justify-center items-center"> {"../../public/home_images/image1.jpg"} </div>
                 <div className="flex justify-center items-center"> {load === false ? null : AdItems[5].product_name}</div>
                 <div className="flex justify-center items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
             </div>
