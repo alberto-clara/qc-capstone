@@ -12796,23 +12796,23 @@
     ]
   },
   "packageFolders": {
-    "/home/renn/.nuget/packages/": {},
-    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
+    "C:\\Users\\Renn_\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/renn/githug/qc-capstone/back-end/Api/OrdersApi/OrdersApi.csproj",
+      "projectUniqueName": "c:\\Users\\Renn_\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\OrdersApi\\OrdersApi.csproj",
       "projectName": "OrdersApi",
-      "projectPath": "/home/renn/githug/qc-capstone/back-end/Api/OrdersApi/OrdersApi.csproj",
-      "packagesPath": "/home/renn/.nuget/packages/",
-      "outputPath": "/home/renn/githug/qc-capstone/back-end/Api/OrdersApi/obj/",
+      "projectPath": "c:\\Users\\Renn_\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\OrdersApi\\OrdersApi.csproj",
+      "packagesPath": "C:\\Users\\Renn_\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\Renn_\\Documents\\GitHub\\qc-capstone\\back-end\\Api\\OrdersApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "/home/renn/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Renn_\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"

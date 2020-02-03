@@ -40,16 +40,30 @@ export const Cart = (props) => {
         );
         setLoad(!load);
     }
+
     const listItemCart = ItemArray.map(item => {
         return (
             <div>
-                <div>{item.itemName}</div>
-                <div>{item.itemPrice}</div>
+                <div className="w-full h-72 bg-yellow-500">
+                    <div className="flex">
+                        <div className="block w-1/3 bg-green-500">image</div>
+                        <div className="flex">
+                            <div className="block">
+                                <div className="text-lg bg-purple-500">{item.itemName}</div>
+                                <div className="text-lg bg-blue-500">{item.itemPrice}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            )
+        )
     })
+
     return (<>
         <div>
+        <div className="mt-4 justify-center w-full">
+            <div className=" titlePage pt-2 pb-4 lg:text-3xl"> My Cart </div>
+        </div>
             {load ? listItemCart : null}
             </div>
         </>);
