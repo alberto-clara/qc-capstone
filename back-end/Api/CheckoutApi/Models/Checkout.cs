@@ -5,7 +5,7 @@ namespace CheckoutApi.Models
 {
     public class Checkout
     {
-        public Order[] Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 
     public class Order

@@ -33,21 +33,14 @@ namespace CheckoutApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            /*
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                                .AllowAnyMethod()
-                                .AllowAnyHeader());
-            });
-            */
+
             FirebaseApp.Create(new AppOptions()
             {
                 ProjectId = "homedepotcs420",
                 Credential = GoogleCredential.FromFile("AuthKey.json")
                 
             });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -62,12 +55,13 @@ namespace CheckoutApi
                     };
                 }
                 );
-            /*
+
+            
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
                 .AddCouchbaseBucket<UserInfoContext>("UserInfo")
                 .AddCouchbaseBucket<IMyBucketProvider>("Checkout");
-*/
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ChecoutAPI" });
@@ -92,12 +86,12 @@ namespace CheckoutApi
             app.UseMvc();
             app.UseSwagger()
                 .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CheckoutAPI"));
-            /*
+            
             applicationLifetime.ApplicationStopped.Register(() =>
             {
                 app.ApplicationServices.GetRequiredService<ICouchbaseLifetimeService>().Close();
             });
-            */
+            
         }
     }
 }

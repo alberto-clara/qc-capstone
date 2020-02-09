@@ -13,16 +13,16 @@ using Couchbase.Extensions.DependencyInjection;
 using System.Text;
 using Microsoft.Extensions.Primitives;
 using Microsoft.AspNetCore.Authorization;
-using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Http;
 
 namespace CheckoutApi.Controllers
 {
+    [Authorize]
     [Route("api/checkout/")]
     [ApiController]
     public class CheckoutController : ControllerBase
     {
-        /*
+        
         private IBucket _checkoutBucket;
         private IBucket _userInfoBucket;
 
@@ -32,7 +32,7 @@ namespace CheckoutApi.Controllers
             _checkoutBucket = bucketProvider.GetBucket("Checkout");
             _userInfoBucket = bucketProvider.GetBucket("UserInfo");
         }
-        */
+        
         /*
          * POSTMAN
          * GET /api/checkout/getOrderHistory
@@ -41,23 +41,28 @@ namespace CheckoutApi.Controllers
          *              NOTE TO SELF
          * will probably need to deserialize the JSON doc back to the 
          * checkout model before the response to the frontend is sent.
-         
-        [HttpGet, Route("/getOrderHistory")]
+         */
+        [HttpGet, Route("getOrderHistory")]
         public async Task<IActionResult> retrieveOrderHist()
         {
-            var uid = Request.Headers["Authorization"].ToString();
+            var currentUser = HttpContext.User;
 
-            var queryRequest = new QueryRequest()
-                .Statement("SELECT * FROM Checkout WHERE META().id = $uid")
-                .AddNamedParameter("$uid", uid);
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return BadRequest();
 
-            var result = await _checkoutBucket.QueryAsync<dynamic>(queryRequest);
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+            Console.WriteLine();
+            Console.WriteLine($"ID = {ID}");
+            Console.WriteLine();
 
-            if (!result.Success) return NotFound();
+            var result = await _checkoutBucket.GetAsync<Checkout>(ID);
 
-            else return Ok(result);
+            if (!result.Success)
+                return NotFound();
+
+            return Ok(result.Value);
         }
-*/
+
         /* 
          *                    ---- NOTE TO MYSELF ----
          * need to eventually first check to see if a Checkout doc for the
@@ -67,55 +72,29 @@ namespace CheckoutApi.Controllers
          * the OrderId for the new order with a new Guid and add the new order
          * to the array of orders for the users doc retrieved from the DB.
          */ 
-        [Authorize]
+//        [Authorize]
         [HttpPost, Route("addOrder")]
 //        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
 //        [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddOrder([FromBody] Checkout checkoutDoc)
         {
-            if (Request.Headers.TryGetValue("Authorization", out StringValues authToken))
-            {
-                string authHeader = authToken.First();
-                Console.WriteLine();
-                Console.WriteLine($"authHeader = {authHeader}");
-                Console.WriteLine();
-
-            }
-            /*
-            Request.Headers.TryGetValue("Authorization", out uid);
-            var uid = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
-            var credentialBytes = Convert.FromBase64String(uid.Parameter);
-            var credential = System.Text.Encoding.UTF8.GetString((credentialBytes));
-            var auth = HttpRequestHeader.Authorization.ToString();
-            Console.WriteLine();
-            Console.WriteLine("credential = ", credential);
-            Console.WriteLine();
-            */
-            var uid = Request.Headers["Authorization"].ToString();
-            Console.WriteLine();
-            Console.WriteLine($"uid = {uid}");
-            Console.WriteLine();
-            var tok = uid.Split(new[] { ' ' }, 2);
-            var token = tok[1];
-            Console.WriteLine();
-            Console.WriteLine($"token = {token}");
-            Console.WriteLine();
-            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(token);
-            string id = decodedToken.Uid;
-            Console.WriteLine();
-            Console.WriteLine($"id = {id}");
-            Console.WriteLine();
             // check to make sure the Checkout model was bound correctly
             if (ModelState.IsValid)
             {
-
-                // loop through the list of orders
-                for (int ii = 0; ii < checkoutDoc.Orders.Count(); ii++)
+                var currentUser = HttpContext.User;
+                if (!currentUser.HasClaim(c => c.Type == "user_id"))
                 {
-                    Console.WriteLine();
-                    Console.WriteLine($"checkoutDoc.Orders.Count() = {checkoutDoc.Orders.Count().ToString()}");
-                    Console.WriteLine();
-                    // the order where OrderId is null is the new one that needs updated
+                    return BadRequest();
+                }
+                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+                Console.WriteLine();
+                Console.WriteLine($"ID = {ID}");
+                Console.WriteLine();
+
+                var userDoc = await _checkoutBucket.GetAsync<Checkout>(ID);
+
+                if (!userDoc.Success)
+                {
                     if (checkoutDoc.Orders[0].OrderId == null)
                     {
                         // set the OrderId with a new Guid
@@ -124,19 +103,40 @@ namespace CheckoutApi.Controllers
                         Console.WriteLine($"checkoutDoc.Orders[0].OrderId = {checkoutDoc.Orders[0].OrderId.ToString()}");
                         Console.WriteLine();
                     }
+                    var result = await _checkoutBucket.InsertAsync(ID, checkoutDoc);
+
+                    if (result.Success)
+                        return Ok(checkoutDoc);
+                    return Conflict();
+                }
+                else
+                {
+                    if (checkoutDoc.Orders[0].OrderId == null)
+                    {
+                        // set the OrderId with a new Guid
+                        checkoutDoc.Orders[0].OrderId = Guid.NewGuid();
+                        Console.WriteLine();
+                        Console.WriteLine($"checkoutDoc.Orders[0].OrderId = {checkoutDoc.Orders[0].OrderId.ToString()}");
+                        Console.WriteLine();
+                        Checkout doc = userDoc.Value;
+                        Console.WriteLine();
+                        Console.WriteLine($"checkoutDoc.Orders.Count() = {checkoutDoc.Orders.Count().ToString()}");
+                        Console.WriteLine();
+                        doc.Orders.Add(checkoutDoc.Orders[0]);
+                        Console.WriteLine();
+                        Console.WriteLine($"checkoutDoc.Orders.Count() = {checkoutDoc.Orders.Count().ToString()}");
+                        Console.WriteLine();
+
+                        var result = await _checkoutBucket.UpsertAsync(ID, doc);
+
+                        if (!result.Success)
+                            return BadRequest();
+
+                        return BadRequest();
+                    }
                 }
             }
-            else return BadRequest();
-
-            /*
-            var doc = new Document<Checkout>
-            {
-                Id = uid,
-                Content = checkoutDoc
-            };
-            */
-
-            return Ok(checkoutDoc);
+            return BadRequest();
         }
 
         /*
@@ -145,33 +145,26 @@ namespace CheckoutApi.Controllers
          * also not entirely finished yet. I need to check if a doc for the user exists first
          * if one does not then set the Id and content of the new doc then add it to the DB.
          */
-        [HttpPost, Route("/addUserInfo")]
+        [HttpPost, Route("addUserInfo")]
         public async Task<IActionResult> AddUserInfo([FromBody] UserInfo newUserInfo)
         {
-            var uid = Request.Headers["Authorization"].ToString();
-
-            /*
-            var queryRequest = new QueryRequest()
-                .Statement("SELECT * FROM UserInfo WHERE META().id = $uid")
-                .AddNamedParameter("$uid", uid);
-
-            var result = await _userInfoBucket.QueryAsync<dynamic>(queryRequest);
-
-            if (result.Success) return Conflict();
-            */
-
-            var doc = new Document<UserInfo>
+            if (ModelState.IsValid)
             {
-                Id = uid,
-                Content = newUserInfo
-            };
-            /*
-            var result = await _userInfoBucket.InsertAsync(doc);
+                var currentUser = HttpContext.User;
 
-            if (result.Status == ResponseStatus.KeyExists)
-                return Conflict();
-*/
-            return Ok();
+                if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                    return BadRequest();
+
+                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+                var result = await _checkoutBucket.UpsertAsync(ID, newUserInfo);
+
+                if (!result.Success)
+                    return BadRequest();
+
+                return Ok();
+            }
+            else
+                return BadRequest();
         }
 
         /*
@@ -202,25 +195,25 @@ namespace CheckoutApi.Controllers
         }
         */
 
-        /*
+        /* Should be finished and working correctly
          * Route to get user info and send it to the frontend
          * GET /api/catalog/getUserInfo
          */
-         /*
-        [HttpGet, Route("/getUserInfo")]
+        [HttpGet, Route("getUserInfo")]
         public async Task<IActionResult> GetUserInfo()
         {
-            var uid = Request.Headers["Authorization"].ToString();
+            var currentUser = HttpContext.User;
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+            {
+                return BadRequest();
+            }
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+            var result = await _userInfoBucket.GetAsync<UserInfo>(ID);
 
-            var queryRequest = new QueryRequest()
-                .Statement("SELECT * FROM UserInfo WHERE META().id = $uid")
-                .AddNamedParameter("$uid", uid);
+            if (!result.Success)
+                return NotFound();
 
-            var result = await _userInfoBucket.QueryAsync<dynamic>(queryRequest);
-
-            if (!result.Success) return NotFound();
-            else return Ok();
+            return Ok(result.Value);
         }
-        */
     }
 }
