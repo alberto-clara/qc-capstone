@@ -13,7 +13,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace UserInfoApi.Controllers
 {
-    [Route("api/basket")]
+    /* BASKET MICROSERVICE - In the care of an error a 404 Not Found or 400 Bad Request will be returned.
+     *                       Eventually once we have authorization working, is a user is not authorized
+     *                       a HTTP status code 401 Unauthorized will be returned automatically if
+     *                       they are not authorized by the APIGateway.
+     */
+    [Route("api/basket/")]
     [ApiController]
     public class BasketController : Controller
     {
@@ -26,8 +31,9 @@ namespace UserInfoApi.Controllers
         }
 
         /*
-         * Route that adds a new document to the DB
-         * goto
+         * Route should be used when user has an empty basket and adds
+         * their first item
+         * POST /api/basket/add
          */
         [HttpPost]
         [Route("/add")]
@@ -44,8 +50,13 @@ namespace UserInfoApi.Controllers
             return Ok(newBasketItem);
         }
 
+        /*
+         * Route to retrieve a users basket if one exists. If the user does not have
+         * a basket document a HTTP status code 404 NOT FOUND will be returned.
+         * GET /api/basket/find
+         */
         [HttpGet]
-        [Route("/find/{uid}")]
+        [Route("find/{uid}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> LookupDoc(Guid uid)
         {
@@ -60,6 +71,11 @@ namespace UserInfoApi.Controllers
             return Ok(result);
         }
 
+        /*
+         * Route to be used when a user finalizes a purchase or when they remove
+         * the last item from the basket.
+         * DELETE /api/basket/delete
+         */
         [HttpDelete]
         [Route("/delete/{uid}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -72,6 +88,10 @@ namespace UserInfoApi.Controllers
             return Ok();
         }
 
+        /*
+         * Route to use when a user adds or removes an item from an already existing basket.
+         * PUT /api/basket/update
+         */
         [HttpPut]
         [Route("/update")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

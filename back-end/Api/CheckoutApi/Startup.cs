@@ -13,6 +13,10 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Couchbase.Extensions.DependencyInjection;
 using CheckoutApi.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace CheckoutApi
 {
@@ -29,11 +33,41 @@ namespace CheckoutApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            /*
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader());
+            });
+            */
+            FirebaseApp.Create(new AppOptions()
+            {
+                ProjectId = "homedepotcs420",
+                Credential = GoogleCredential.FromFile("AuthKey.json")
+                
+            });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/homedepotcs420";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/homedepotcs420",
+                        ValidateAudience = true,
+                        ValidAudience = "homedepotcs420",
+                        ValidateLifetime = true
+                    };
+                }
+                );
+            /*
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
                 .AddCouchbaseBucket<UserInfoContext>("UserInfo")
                 .AddCouchbaseBucket<IMyBucketProvider>("Checkout");
-
+*/
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "ChecoutAPI" });
@@ -53,15 +87,17 @@ namespace CheckoutApi
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger()
                 .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CheckoutAPI"));
-
+            /*
             applicationLifetime.ApplicationStopped.Register(() =>
             {
                 app.ApplicationServices.GetRequiredService<ICouchbaseLifetimeService>().Close();
             });
+            */
         }
     }
 }

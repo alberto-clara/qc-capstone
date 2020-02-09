@@ -13,7 +13,6 @@ using Microsoft.Extensions.Options;
 using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
-using Newtonsoft.Json;
 
 namespace UserInfoApi
 {
@@ -52,7 +51,7 @@ namespace UserInfoApi
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+//            app.UseHttpsRedirection();
             app.UseMvc();
             app.UseSwagger()
                 .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BasketAPI"));

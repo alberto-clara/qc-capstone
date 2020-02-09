@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "homedepotcs420",
+  "private_key_id": "053654ee4b9a70452a29870407e8375e5a489760",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC71fk0nk0AUNDU\nI50l6zjecASY4788JL2E17vM+lcH1C+HdKZTaek/kvIfvQK7R4BO7W43KBCIKpWb\nud9d+oaCp/RVqm6HX9WdV3Wr8//gYMNE0ZZLHWZIPnUMOTjRaAIiL72vBdpuEp+B\nvo5dKfzOeO2FzR4INVvXomxmRZ9iWwyPu4aNCRLZ3dSEjKGrfc4f8GsxSo1J9qG+\nvNrW6W7VvU3mY39UE9EQzYdePRfHVhQhiXRdd642Ul9mgDwo2vls2khJBANbBAw5\nxItJ22WXBO8pl24mYI7h7xXZLJxxpzPOEzFZdWYUl9wa/etYK604+dbnmswJBb9B\nuHVRUtQ3AgMBAAECggEAMKbwoIdsLGvCW2BKIPs3RK5BEpTTALIHgLQcSbCCAF4e\nXXiCaFKjfrsCCeR8I6QWgNsQ1CqFda+KBsbzKzVrx8XXDKVTca8J9nIj4YEWwrht\ne5LJ2fTofEfpK1xa8ip9evtgp0fd1urt8742w7zPZW9/HkwNvlSL0GOarjbUXLYE\n11K0uSZ9VCPNTxHExeMESwoLkanD+3sU6iSIP26GpUW8yos9t9jAn+QZcNpGeTjC\nLkWVUdhOOzXztl5m62pfMSDt4L2ardHLejMtqOPheBX/blxbHrK17RB4m4Lk5Vav\nNnx+hnJXlxr1GbyXgm1g6STmJnLEe8dhv79p30khcQKBgQDoMoVTJLEYn4+7WXkN\nwiDJ8O6YJ3w1q1XKQ5XZQSxFdtxPZ5naY5dANyjtXj71N81awwX6e7bLR8rqt9xh\nrxBVnbt4O/NnO860dPlBdKYRAn4xapTEK/EO8/RN+ipFuoPLlMtAgjjo2DKLVA3t\nrW0I0lH0AhP3PzTfFpIKsQ3fLwKBgQDPF0m3BYt4ywkUtMuF6+4nN0gQAAdLIPzM\nuZS6y5TdLzeWmRak2Pu4wocoj7gMdaLxos3NKvJ8mXB5N3u7zcIYSYQU3uEsfGbd\nR+ncFl18VY5dSFs2XdJoFwYr/oF7AwhAxO99k9s7NF1KEhc6WkYvZQuFpUCwxESl\nAPsrgGNZeQKBgQDITaSzx6g6PJNKI/IIi1mruvqoKQ++YJI+TLU82DrvpYyBtzaC\nrXzxuWPF+JJJCZ1N2YUTwps6mzER8A/d+J4XrVzmaJkdiftTssC+1XjYnZTs3it9\nWwa1Rn+OsOq8ghxlh3Mar/uV6cMYbCcjzIKNpJlr7Er68/yRIjBTps73owKBgQDO\nnSN0sNmIOLnkqMTt5ogDJEqHfB/Kuyy9bOKQw5DQZM2HOVG4QqxSl/KVa15rP+rE\nPnQqIJEx8zyeE9cldpIR/TcEQ6JQ6gUO/TK73KyE4i9ZrlkiktTb+Sy1NAUnH81a\nIaH3nk76cLIqtoXqOCsSGjQ2sLssIYWDQslVi5CTsQKBgQDGkNdZA0iQ/gCotxZT\nx3PHbW2KczwNJFdCsbEZx6l1s0cd6/DOLZ7IN9VxXcsNi11NYkcUoitMqeXYgBd+\nKRyKkTw25kuwMFnQQ91AMG/5HLw7ubn4vHyWblziwdBXaO+WkLwYznVSZqKBKLlE\nDq1bTmYWS4/OZu8netzAIy//JA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-o0bn5@homedepotcs420.iam.gserviceaccount.com",
+  "client_id": "111265922174666914844",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-o0bn5%40homedepotcs420.iam.gserviceaccount.com"
+}
