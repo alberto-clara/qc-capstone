@@ -18,6 +18,7 @@ namespace UserInfoApi.Controllers
      *                       a HTTP status code 401 Unauthorized will be returned automatically if
      *                       they are not authorized by the APIGateway.
      */
+    [Authorize]
     [Route("api/basket/")]
     [ApiController]
     public class BasketController : Controller
@@ -35,19 +36,30 @@ namespace UserInfoApi.Controllers
          * their first item
          * POST /api/basket/add
          */
-        [HttpPost]
-        [Route("/add")]
+        [HttpPost, Route("add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)
         {
-            if (!newBasketItem.Uid.HasValue)
-                newBasketItem.Uid = Guid.NewGuid();
+            if (ModelState.IsValid)
+            {
+                if (!newBasketItem.Uid.HasValue)
+                    newBasketItem.Uid = Guid.NewGuid();
 
-            var response = await _bucket.UpsertAsync(newBasketItem.Uid.ToString(), newBasketItem);
+                var currentUser = HttpContext.User;
 
-            if (!response.Success)
-                return BadRequest(newBasketItem);
+                if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                    return BadRequest();
 
-            return Ok(newBasketItem);
+                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+
+                var response = await _bucket.UpsertAsync(ID, newBasketItem);
+
+                if (!response.Success)
+                    return BadRequest(newBasketItem);
+
+                return Ok(newBasketItem);
+            }
+
+            return BadRequest();
         }
 
         /*
@@ -55,20 +67,23 @@ namespace UserInfoApi.Controllers
          * a basket document a HTTP status code 404 NOT FOUND will be returned.
          * GET /api/basket/find
          */
-        [HttpGet]
-        [Route("find/{uid}")]
+        [HttpGet, Route("find")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> LookupDoc(Guid uid)
+        public async Task<IActionResult> LookupDoc()
         {
-            var queryRequest = new QueryRequest()
-                .Statement("SELECT * FROM Basket WHERE uid = $uid")
-                .AddNamedParameter("$uid", uid);
+            var currentUser = HttpContext.User;
 
-            var result = await _bucket.QueryAsync<dynamic>(queryRequest);
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return BadRequest();
 
-            if (!result.Success) return NotFound();
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
-            return Ok(result);
+            var result = await _bucket.GetAsync<Basket>(ID);
+
+            if (!result.Success)
+                return NotFound();
+
+            return Ok(result.Value);
         }
 
         /*
@@ -76,14 +91,21 @@ namespace UserInfoApi.Controllers
          * the last item from the basket.
          * DELETE /api/basket/delete
          */
-        [HttpDelete]
-        [Route("/delete/{uid}")]
+        [HttpDelete, Route("delete")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> DeleteDoc(Guid uid)
+        public async Task<IActionResult> DeleteDoc()
         {
-            var result = await _bucket.RemoveAsync(uid.ToString());
+            var currentUser = HttpContext.User;
 
-            if (!result.Success) return NotFound();
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return BadRequest();
+
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+
+            var result = await _bucket.RemoveAsync(ID);
+
+            if (!result.Success)
+                return NotFound();
 
             return Ok();
         }
@@ -92,16 +114,23 @@ namespace UserInfoApi.Controllers
          * Route to use when a user adds or removes an item from an already existing basket.
          * PUT /api/basket/update
          */
-        [HttpPut]
-        [Route("/update")]
+        [HttpPut, Route("update")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> UpdateDoc([FromBody] Basket updateItem)
         {
-            var result = await _bucket.UpsertAsync(updateItem.Uid.ToString(), updateItem);
+            var currentUser = HttpContext.User;
 
-            if (!result.Success) return NotFound();
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return BadRequest();
 
-            return Ok();
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+
+            var result = await _bucket.UpsertAsync(ID, updateItem);
+
+            if (!result.Success)
+                return NotFound();
+
+            return Ok(result);
         }
     }
 }

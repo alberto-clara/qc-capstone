@@ -11,7 +11,6 @@ using Couchbase.IO;
 using Couchbase.N1QL;
 using Couchbase.Extensions.DependencyInjection;
 using System.Text;
-using Microsoft.Extensions.Primitives;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 

@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace UserInfoApi
 {
@@ -28,6 +30,21 @@ namespace UserInfoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/homedepotcs420";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/homedepotcs420",
+                        ValidateAudience = true,
+                        ValidAudience = "homedepotcs420",
+                        ValidateLifetime = true
+                    };
+                }
+                );
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
@@ -51,7 +68,8 @@ namespace UserInfoApi
                 app.UseHsts();
             }
 
-//            app.UseHttpsRedirection();
+            //            app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger()
                 .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BasketAPI"));
