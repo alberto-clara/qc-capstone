@@ -15,8 +15,6 @@ using Couchbase.Extensions.DependencyInjection;
 using CheckoutApi.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using FirebaseAdmin;
-using Google.Apis.Auth.OAuth2;
 
 namespace CheckoutApi
 {
@@ -33,14 +31,6 @@ namespace CheckoutApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            /*
-            FirebaseApp.Create(new AppOptions()
-            {
-                ProjectId = "homedepotcs420",
-                Credential = GoogleCredential.FromFile("AuthKey.json")
-                
-            });
-            */
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -55,7 +45,6 @@ namespace CheckoutApi
                     };
                 }
                 );
-
             
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))

@@ -7,10 +7,12 @@ namespace BasketApi.Model
 {
     public class Basket
     {
+        // NOT USER ID, I generate this on the backend
         public Guid? Uid { get; set; }
-        public DateTime Date { get; set; }
-        public List<Offerings> Offerings { get; set; }
+        public string Date { get; set; }
         public int total_items { get; set; }
+        public List<Offerings> Offerings { get; set; }
+        
         
         public Basket() { }
     }
