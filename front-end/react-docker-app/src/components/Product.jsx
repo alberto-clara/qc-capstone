@@ -193,9 +193,10 @@ export  const Product = (props) => {
         }*/
         axios.post('http://localhost:7000/basket-api/basket/add',  {
           //  header: { 'Authorization': 'Bearer '.concat(userToken)},
-            uid: UserUID,
+            uid: null,
             date: Date(),
-            items: items
+            offerings: items,
+            total_items:0
         }, myHeader);
        // axios.post(config);
       //  window.location.href = '/product/' + id;
