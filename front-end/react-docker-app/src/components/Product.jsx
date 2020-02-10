@@ -169,7 +169,7 @@ export  const Product = (props) => {
     const AddCartButton = async () => {
        
         //console.log(UserUID, offeringKey, productKey, productName, supplierKey, vendor, unitcost, uom, quantity, Date());
-        var items = {
+        var items = [{
 
             offering_key: offeringKey,
             product_key: productKey,
@@ -179,7 +179,7 @@ export  const Product = (props) => {
             unit_retail: unitcost,
             uom: uom,
             quantity: count
-        };
+        }];
         //console.log(items);
         const myHeader = {
             headers: {
