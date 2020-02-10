@@ -30,6 +30,7 @@ export const ManagePage = (props) => {
     const [objExt1, setObjExt1] = useState("");
     const [objExt2, setObjExt2] = useState("");
 
+    const [userToken, setUserToken] = useState("");
     var emailInser, uidInsert;
 
      const [Page, setPage] = useState("default");
@@ -38,6 +39,10 @@ export const ManagePage = (props) => {
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
+                user.getIdToken().then(function (idToken) {  // <------ Check this line
+                    console.log(idToken);
+                    setUserToken(idToken); // It shows the Firebase token now
+                });
                 setUID(user.uid);
                 uidInsert = user.uid;
                 emailInser = user.email;
@@ -516,6 +521,7 @@ export const ManagePage = (props) => {
 
     return (
         <> 
+            <div>Token:{userToken} </div>
         {page_title}
         {/* web */}
         <div className="hidden block justify-center w-full sm:flex md:flex">

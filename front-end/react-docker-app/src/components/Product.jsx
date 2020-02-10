@@ -25,7 +25,8 @@ export  const Product = (props) => {
     const [vendor, setVender] = useState('');
     const [unitcost, setUnitCost] = useState('');
     const [uom, setUOM] = useState('');
-    const [quantity, setQuantity] = useState(0);
+    
+    const [userToken, setUserToken] = useState("");
 
     const [description, setDescription] = useState('');
     const [count, setCount] = useState(1);
@@ -39,6 +40,10 @@ export  const Product = (props) => {
         document.title = `Home Depot - Product`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
+                user.getIdToken().then(function (idToken) {
+                    //console.log(idToken);
+                    setUserToken(idToken);
+                });
                 setUserUID(user.uid);
             }
         });
@@ -165,6 +170,7 @@ export  const Product = (props) => {
        
         //console.log(UserUID, offeringKey, productKey, productName, supplierKey, vendor, unitcost, uom, quantity, Date());
         var items = {
+
             offering_key: offeringKey,
             product_key: productKey,
             product_name: productName,
@@ -174,12 +180,24 @@ export  const Product = (props) => {
             uom: uom,
             quantity: count
         };
-        console.log(items);
-        axios.post('http://localhost:7003/add', {
+        //console.log(items);
+        const myHeader = {
+            headers: {
+                'Authorization': 'Bearer '.concat(userToken)
+            }
+        }
+       /* const config = {
+            method: 'post',
+            url: 'http://localhost:7000/basket-api/basket/add',
+            headers:
+        }*/
+        axios.post('http://localhost:7000/basket-api/basket/add',  {
+          //  header: { 'Authorization': 'Bearer '.concat(userToken)},
             uid: UserUID,
             date: Date(),
             items: items
-        });
+        }, myHeader);
+       // axios.post(config);
       //  window.location.href = '/product/' + id;
     }
 

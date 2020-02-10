@@ -38,10 +38,12 @@ namespace ApiGateway
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:3000",
-                                    "https://localhost:3000");
+                                    "https://localhost:3000")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
                 });
             });
-
+            /*
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -56,7 +58,7 @@ namespace ApiGateway
                     };
                 }
                 );
-
+                */
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOcelot(Configuration);
         }
