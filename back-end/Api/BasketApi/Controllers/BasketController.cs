@@ -118,19 +118,24 @@ namespace UserInfoApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> UpdateDoc([FromBody] Basket updateItem)
         {
-            var currentUser = HttpContext.User;
+            if (ModelState.IsValid)
+            {
+                var currentUser = HttpContext.User;
 
-            if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                return BadRequest();
+                if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                    return BadRequest();
 
-            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
-            var result = await _bucket.UpsertAsync(ID, updateItem);
+                var result = await _bucket.UpsertAsync(ID, updateItem);
 
-            if (!result.Success)
-                return NotFound();
+                if (!result.Success)
+                    return NotFound();
 
-            return Ok(result);
+                return Ok(result);
+            }
+
+            return BadRequest();
         }
     }
 }
