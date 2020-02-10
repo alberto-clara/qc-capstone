@@ -59,7 +59,7 @@ namespace UserInfoApi.Controllers
                 return Ok(newBasketItem);
             }
 
-            return BadRequest();
+            return Conflict();
         }
 
         /*
