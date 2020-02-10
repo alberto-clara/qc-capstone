@@ -195,8 +195,8 @@ export  const Product = (props) => {
           //  header: { 'Authorization': 'Bearer '.concat(userToken)},
             uid: null,
             date: Date(),
-            offerings: items,
-            total_items:0
+            total_items: 0,
+            offerings: items           
         }, myHeader);
        // axios.post(config);
       //  window.location.href = '/product/' + id;
