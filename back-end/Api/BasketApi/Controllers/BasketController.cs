@@ -41,9 +41,6 @@ namespace UserInfoApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!newBasketItem.Uid.HasValue)
-                    newBasketItem.Uid = Guid.NewGuid();
-
                 var currentUser = HttpContext.User;
 
                 if (!currentUser.HasClaim(c => c.Type == "user_id"))
@@ -51,9 +48,23 @@ namespace UserInfoApi.Controllers
 
                 var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
-                var response = await _bucket.UpsertAsync(ID, newBasketItem);
+                var doc = await _bucket.GetAsync<Basket>(ID);
 
-                if (!response.Success)
+                if (!doc.Success)
+                {
+                    if (!newBasketItem.Uid.HasValue)
+                        newBasketItem.Uid = Guid.NewGuid();
+                    var response = await _bucket.UpsertAsync(ID, newBasketItem);
+                    if (!response.Success)
+                        return BadRequest(newBasketItem);
+                    return Ok(newBasketItem);
+                }
+
+                Basket userDoc = doc.Value;
+                userDoc.Offerings.Add(newBasketItem.Offerings[0]);
+                var result = await _bucket.UpsertAsync(ID, userDoc);
+
+                if (!result.Success)
                     return BadRequest(newBasketItem);
 
                 return Ok(newBasketItem);
