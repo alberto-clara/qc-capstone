@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>50d1e3f2-2d19-447b-b0ea-6422b3965dbb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
