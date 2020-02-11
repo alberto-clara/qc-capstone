@@ -1,0 +1,35 @@
+
+version: '3.4'
+
+services:
+  catalogapi:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - ASPNETCORE_URLS=http://+:443;http://+:80;http://+:7001
+    network_mode: bridge
+    depends_on:
+      - "catalogDB"
+    links:
+      - catalogDB
+    ports:
+      - "64341:80"
+      - "7001:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  apigateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Staging
+      - ASPNETCORE_URLS=http://+:443;http://+:80;http://+:7000
+    network_mode: bridge
+    depends_on:
+      - "catalogapi"
+    links:
+      - catalogapi
+    ports:
+      - "41405:80"
+      - "7000:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

@@ -1,0 +1,30 @@
+  
+version: '3.4'
+
+services:
+  catalogDB:
+    image: skylarcruz/catalogdb:latest
+    container_name: catalogdbc
+    ports:
+      - "3308:3306"
+    network_mode: bridge
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+  catalogapi:
+    image: catalogapi
+    container_name: catalogapic
+    depends_on:
+      - "catalogDB"
+    build:
+      context: .
+      dockerfile: CatalogApi/Dockerfile
+
+  apigateway:
+    image: apigateway
+    container_name: apigatewayc
+    depends_on:
+      - "catalogapi"
+    build:
+      context: .
+      dockerfile: ApiGateway/Dockerfile
