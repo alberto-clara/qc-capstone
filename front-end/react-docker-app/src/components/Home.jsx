@@ -7,6 +7,7 @@ import SwipeableViews from 'react-swipeable-views';
 import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
+import '../../public/home_images/';
 
 export const searchbar = (
     <div className="  mt-4 justify-center flex text-gray-600 w-full">
