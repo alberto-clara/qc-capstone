@@ -167,7 +167,7 @@ export const BrowsingList = (props) => {
         </div>
         <div className="h-full">
         <div className="lg:flex w-full">
-            <div className="block w-full bg-green-500 lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto mb-2 lg:mb-6">
+            <div className="block w-full lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto mb-2 lg:mb-6">
                 <div className="flex justify-center">
                     <button className="filterbutton lg:hidden lg:text-black font-bold text-lg py-4">
                         Filters &#9660;
@@ -204,7 +204,7 @@ export const BrowsingList = (props) => {
 
             <div className="w-full">
                 <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div>
-                <div className="bg-red-500" id="container"> </div>
+                <div id="container"> </div>
             </div>
         </div>
         </div>
