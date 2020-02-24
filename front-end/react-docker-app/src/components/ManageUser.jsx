@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
+import { UserManageMobileProvider } from './UserManageContext';
+import NavTitle from '../NavTitle';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -40,9 +42,10 @@ export const ManagePage = (props) => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                    console.log(idToken);
+                   // console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
                 });
+                
                 setUID(user.uid);
                 uidInsert = user.uid;
                 emailInser = user.email;
@@ -50,11 +53,11 @@ export const ManagePage = (props) => {
                 mongoFetch(user.uid);
               
             }
-      
+          
         });
 
     
-    }, []);
+    }, [Page]);
 
     const mongoFetch = async (uidValue) => {
         var initValue = [];
@@ -152,7 +155,7 @@ export const ManagePage = (props) => {
 
         await axios.post('http://localhost:3001/post-user', {
             id: uid,
-            //objEmailAddress: emailTyping.value === '' ? emailTyping.placeholder : emailTyping.value,
+           
             objFirstName: firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
             objMiddleName: middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
             objLastName: lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
@@ -517,11 +520,19 @@ export const ManagePage = (props) => {
              </div>       
         </>
        )
-       
-
+    const providePage = (<>
+        <UserManageMobileProvider value={Page}>
+            <div className="hidden">
+                <NavTitle />
+            </div>
+        </UserManageMobileProvider>
+    </>)
+    const backButton = (<> <br/>
+        <button className="justify-center w-full rounded border-2 h-full border-orange-500" onClick={() => setPage("default")}> BackButton</button>
+        </>);
     return (
         <> 
-            <div>Token:{userToken} </div>
+            {/* <div>Token:{userToken} </div>*/}
         {page_title}
         {/* web */}
         <div className="hidden block justify-center w-full sm:flex md:flex">
@@ -557,7 +568,9 @@ export const ManagePage = (props) => {
                         }
                     })()}
                 </div>
-                
+                {Page == "default" ? null : backButton}
+                {providePage}
         </div>
         </>)
 }
+
