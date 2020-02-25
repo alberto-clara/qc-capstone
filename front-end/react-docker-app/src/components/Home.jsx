@@ -155,10 +155,10 @@ export const Home = (props) => {
         </div>
     </SwipeableViews>    </div>);
     
-  const footr = (
+/*  const footr = (
       <div className="w-full bg-gray-500">footer/need to implement</div>
   );
-
+*/
     return (
         <div  >
             {searchbar}
@@ -167,7 +167,7 @@ export const Home = (props) => {
             <div className="w-full">
                 {swiping}
             </div>
-            {footr}
+         
         </div>
     );
 }
