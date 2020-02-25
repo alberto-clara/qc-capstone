@@ -27,9 +27,12 @@ export default props => (
         <div className="bg-orange-400">
             <div className="flex justify-center bg-orange-600">Footer </div>
             <div className=" flex justify-center">
-                <div className="  flex  w-1/3 bg-orange-200 h-64"></div>
+                <div className=" w-1/4 border text-center border-black bg-orange-400 h-64">Customer Service</div>
+                <div className=" w-1/4 border text-center border-black bg-orange-300 h-64">Resources</div>
+                <div className=" w-1/4 border text-center border-black bg-orange-400 h-64">About Us</div>
+                <div className=" w-1/4 border text-center border-black bg-orange-300 h-64"> Other</div>
             </div>
-
+            
         </div>
     </>
 );
