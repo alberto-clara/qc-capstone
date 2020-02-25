@@ -90,8 +90,8 @@ export const Cart = (props) => {
             {/* {load ? listItemCart : null} */}
             <div className="bg-yellow-400 flex w-full">
                     <div className="flex border-0 w-full">
-                        <div className="flex w-1/2 ml-4 justify-center items-center md:w-56">{display_image()}</div>
-                        <div className="block text-lg ml-4 w-full bg-green-400">
+                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
+                        <div className="block text-lg w-full bg-green-400">
                             <div className="bg-purple-500">NAMEEEEEEEEEEE</div>
                                 <div className="bg-gray-500">
                                     <div className="pt-2">VENDOR</div>
