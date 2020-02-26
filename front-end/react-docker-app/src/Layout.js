@@ -23,16 +23,22 @@ export default props => (
                 {props.children}
             </div>
         </div>
-        <br/>
-        <div className="bg-orange-400">
-            <div className="flex justify-center bg-orange-600">Footer </div>
-            <div className=" flex justify-center">
-                <div className=" w-1/4 border text-center border-black bg-orange-400 h-64">Customer Service</div>
-                <div className=" w-1/4 border text-center border-black bg-orange-300 h-64">Resources</div>
-                <div className=" w-1/4 border text-center border-black bg-orange-400 h-64">About Us</div>
-                <div className=" w-1/4 border text-center border-black bg-orange-300 h-64"> Other</div>
+        <br />
+        <div className="bg-green-400">
+            <div className="flex justify-center px-4 lg:px-0">
+                <div className="bg-orange-400 w-full max-w-6xl  ">
+                    <div className="flex justify-center bg-orange-600">Footer </div>
+                    <div className=" flex justify-center">
+                        <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">Customer Service</div>
+                        <div className=" w-1/4 border text-center border-black bg-orange-300 h-50">Resources</div>
+                        <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">About Us</div>
+                        <div className=" w-1/4 border text-center border-black bg-orange-300 h-50"> Other</div>
+                    </div>
+                    <div className="flex justify-center bg-orange-600">
+                        
+                    </div>
+                </div>   
             </div>
-            
         </div>
     </>
 );

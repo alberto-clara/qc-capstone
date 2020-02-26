@@ -109,83 +109,83 @@ export const Home = (props) => {
     const swiping = (<div><SwipeableViews enableMouseEvents>
         <div className="flex w-full ">
             <div className="w-1/2 md:w-1/5 ">
-                <div className="flex h-48 md:h-56 justify-center items-center"> {display_image()} </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[0].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[0].price)}</div>
+                <div className="flex md:h-56 justify-center items-center"> {display_image()} </div>
+                <div className="flex h-4 md:pt-4">{load === false ? null : AdItems[0].product_name}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[0].price)}</div>
             </div>
             <div className="w-1/2 md:w-1/5 ">
-                <div className="flex h-48 md:h-56 justify-center items-center"> {display_image()} </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[1].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[1].price)}</div>
+                <div className="flex md:h-56 justify-center items-center"> {display_image()} </div>
+                <div className="flex h-4 md:pt-4"> {load === false ? null : AdItems[1].product_name}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[1].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[2].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[2].price)}</div>
+                <div className="flex h-4 md:pt-4">{load === false ? null : AdItems[2].product_name} </div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[2].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[3].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[3].price)}</div>
+                <div className="flex h-4 md:pt-4"> {load === false ? null : AdItems[3].product_name} </div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[3].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[4].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[4].price)}</div>
+                <div className="flex h-4 md:pt-4"> {load === false ? null : AdItems[4].product_name} </div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[4].price)}</div>
             </div>
         </div>
         <div className="flex w-full ">
             <div className="w-1/2 md:w-1/5 ">
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[5].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
+                <div className="flex justify-center pt-12 md:pt-4 items-center bg-green-200">{load === false ? null : AdItems[5].product_name}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
             </div>
             <div className="w-1/2 md:w-1/5 ">
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[6].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[6].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[6].price)}</div>
             </div>
             <div className="hidden ti:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[7].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[7].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[7].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[8].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[8].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[8].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[9].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[9].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[9].price)}</div>
             </div>
         </div>
         <div className="flex w-full ">
             <div className="w-1/2 md:w-1/5 ">
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[10].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[10].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[10].price)}</div>
             </div>
             <div className="w-1/2 md:w-1/5 ">
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[11].product_name}</div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[11].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[11].price)}</div>
             </div>
             <div className="hidden ti:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center">{load === false ? null : AdItems[12].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[12].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[12].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[13].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[13].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[13].price)}</div>
             </div>
             <div className="hidden md:block md:w-1/5 ">
                 <div className="flex h-56 justify-center items-center"> {display_image()}  </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center"> {load === false ? null : AdItems[14].product_name} </div>
-                <div className="flex justify-center pt-2 items-center">${load === false ? null : roundDigit(AdItems[14].price)}</div>
+                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[14].price)}</div>
             </div>
         </div>
     </SwipeableViews>    </div>);
