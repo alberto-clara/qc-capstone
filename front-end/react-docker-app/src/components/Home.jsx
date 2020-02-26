@@ -137,7 +137,7 @@ export const Home = (props) => {
         <div className="flex w-full ">
             <div className="w-1/2 md:w-1/5 ">
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center bg-green-200">{load === false ? null : AdItems[5].product_name}</div>
+                <div className="flex justify-center pt-12 md:pt-4 items-center ">{load === false ? null : AdItems[5].product_name}</div>
                 <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
             </div>
             <div className="w-1/2 md:w-1/5 ">

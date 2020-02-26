@@ -18,27 +18,36 @@ export default props => (
                 </div>
             </div>
         </div>
-        <div className="flex justify-center px-4 lg:px-0">
-            <div className=" w-full max-w-6xl">
-                {props.children}
+
+            <div className="flex justify-center px-4 lg:px-0 bg-gray-200 ">
+                <div className=" bg-white w-full max-w-6xl">
+                    {props.children}
+                </div>
             </div>
-        </div>
-        <br />
-        <div className="bg-green-400">
-            <div className="flex justify-center px-4 lg:px-0">
-                <div className="bg-orange-400 w-full max-w-6xl  ">
-                    <div className="flex justify-center bg-orange-600">Footer </div>
-                    <div className=" flex justify-center">
-                        <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">Customer Service</div>
-                        <div className=" w-1/4 border text-center border-black bg-orange-300 h-50">Resources</div>
-                        <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">About Us</div>
-                        <div className=" w-1/4 border text-center border-black bg-orange-300 h-50"> Other</div>
-                    </div>
-                    <div className="flex justify-center bg-orange-600">
-                        
-                    </div>
-                </div>   
+       
+        <div className="bg-gray-200 h-16 py-16" />
+        
+            <div className="bg-orange-500 h-50">
+                <div className="flex justify-center px-4 lg:px-0">
+                    <div className="bg-orange-400 w-full max-w-6xl  ">
+                   
+                        <div className=" flex justify-center">
+                            <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">Customer Service</div>
+                            <div className=" w-1/4 border text-center border-black bg-orange-300 h-50">Resources</div>
+                            <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">About Us</div>
+                            <div className=" w-1/4 border text-center border-black bg-orange-300 h-50"> Other</div>
+                        </div>
+                    
+                    
+                    
+                    </div> 
+                    
+                </div>
+                <div className="text-center bg-orange-600 text-xl  border-black h-12 w-full">
+                    <div>Copy Right &copy; 2019-2020</div>
+                    <div>WSU-CAPSTONE Group Project</div>
+                </div>
             </div>
-        </div>
+      
     </>
 );
