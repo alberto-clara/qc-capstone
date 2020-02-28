@@ -12502,6 +12502,10 @@ video {
   top: 0;
 }
 
+.bottom_bar {
+  bottom: 0;
+}
+
 .NavTitle_Background {
   display: -webkit-box;
   display: flex;

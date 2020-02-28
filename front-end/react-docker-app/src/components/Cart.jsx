@@ -93,27 +93,28 @@ export const Cart = (props) => {
 
     return (<>
         <div>
-        <div className="mt-4 justify-center w-full /*bg-blue-400*/">
-            <div className=" titlePage pt-2 pb-4 lg:text-3xl"> My Cart </div>
-        </div>
+            <div className="mt-4 justify-center w-full /*bg-blue-400*/">
+                <div className=" titlePage pt-2 pb-4 lg:text-3xl"> My Cart </div>
+            </div>
             {/* {load ? listItemCart : null} */}
-            <div className="flex w-full /*bg-yellow-400*/">
-                    <div className="flex border border-orange-300 w-full">
-                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
-                        <div className="block text-lg w-full">
-                            <div className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">Heavy Ducimus Bucket</div>
-                                <div className="m-4 text-2xl font-extrabold pt-2">$143.21</div>
-                                <div className="pl-4 pt-2">ErrorIpsa CO.</div>
-                                <div className="pl-4">{rate}</div>        
-                                <div className="md:hidden"> {counters} 
+            <div className="mb-8">
+                <div className="flex w-full /*bg-yellow-400*/">
+                        <div className="flex border border-orange-300 w-full">
+                            <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
+                            <div className="block text-lg w-full">
+                                <div className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">Heavy Ducimus Bucket</div>
+                                    <div className="m-4 text-2xl font-extrabold pt-2">$143.21</div>
+                                    <div className="pl-4 pt-2">ErrorIpsa CO.</div>
+                                    <div className="pl-4">{rate}</div>        
+                                    <div className="md:hidden"> {counters} 
+                                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
+                                    </div>
+                            </div>
+                                <div className="hidden md:block md:w-1/4 justify-center ">
+                                    {counters}
                                     <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
                                 </div>
                         </div>
-                            <div className="hidden md:block md:w-1/4 justify-center ">
-                                {counters}
-                                <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
-                            </div>
-                    </div>
                 </div>
 
                 <div className="flex w-full /*bg-yellow-400*/">
@@ -173,5 +174,6 @@ export const Cart = (props) => {
                     </div>
                 </div>
             </div>
-        </>);
+        </div>
+    </>);
 }
