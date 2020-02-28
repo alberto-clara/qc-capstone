@@ -165,7 +165,7 @@ export const BrowsingList = (props) => {
         <div className="mt-4 justify-center w-full">
             <div className=" titlePage pt-2 pb-4 lg:text-3xl"> Browsing View </div>
         </div>
-        <div className="h-full">
+        <div className="h-auto /*bg-blue-400*/">
         <div className="lg:flex w-full">
             <div className="block w-full lg:w-1/5 rounded-lg border /*bg-gray-100*/ lg:mr-2 h-auto mb-2 lg:mb-6">
                 <div className="flex justify-center">
@@ -201,15 +201,14 @@ export const BrowsingList = (props) => {
 
                 </div>
             </div>
-
-            <div className="w-full">
+            <div className="w-full /*bg-green-400*/">
                 <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div>
                 <div id="container"> </div>
             </div>
-        </div>
-        </div>
+        </div>    
+    </div>
 
-        <div className=" flex justify-center lg:px-20">
+        <div className=" flex justify-center lg:px-20 pt-2 pb-8 /*bg-yellow-400*/">
             <div className="hidden lg:flex justify-center text-center ">
                 <Pagination onPageChange={(e, data) => changePage(data.activePage)}  boundaryRange={1}
                     totalPages={countPage}

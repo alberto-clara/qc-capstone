@@ -72,13 +72,13 @@ export const Home = (props) => {
         <div className="flex w-full">
             <div className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
+                <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
 
             </div>
             <div className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
+                <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
 
             </div>
@@ -178,12 +178,21 @@ export const Home = (props) => {
             <br/>
             {carousel_slide}
             <div className="w-full">
+    
                 <div className="font-extrabold text-xl">Trending Now</div>
-                <hr className="m-1 px-4 pt-1 bg-gray-300"/>
+                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
                 {swiping}
-                <hr className="m-1 px-4 pt-1 bg-gray-300"/>
+                
+                <div className="font-extrabold text-xl md:pt-4">Deals</div>
+                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
+                {swiping}
+              
+                <div className="font-extrabold text-xl md:pt-4">Popular</div>
+                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
+                {swiping}
+                
+                <div className="md:py-4"></div>
             </div>
-
         </div>
     );
 }

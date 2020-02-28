@@ -13,6 +13,7 @@ import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import { VendorProvider } from './VendorsContext'
 import FireBaseSetup from '../FireBaseSetup';
+import display_image from './PicArray';
 /* eslint no-useless-concat: 0 */
 
 export  const Product = (props) => {
@@ -142,6 +143,7 @@ export  const Product = (props) => {
         <div>
             <div className="justify-center flex px-5 lg:px-0">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
+                    {/* {display_image()} */}
                     <img src={kitty1} alt="kitty1"/>
                     <img src={kitty2} alt="kitty2"/>
                     {/* <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
@@ -280,16 +282,23 @@ export  const Product = (props) => {
                 </div>
 
                 {/* Reviews */}
-                <div className="flex px-5 lg:px-0" onClick={()=>setIsOpen(!isOpen)} >
-                    <div className="rounded w-full h-48 border-2 border-orange-500 bg-white text-lg" >
+                <div className="flex px-5 lg:px-0">
+                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
+                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Reviews">
+                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
+                        </Collapsible>
+                    </div>
+                </div>
+                {/* <div className="flex px-5 lg:px-0" onClick={()=>setIsOpen(!isOpen)} >
+                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
                         <Collapse className="h-10 text-lg pt-2 pl-5" isOpened={isOpen}>
                             <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
                         </Collapse>
                     </div>
-                </div>
+                </div> */}
 
                 {/* QA */}
-                <div className="flex px-5 lg:px-0">
+                <div className="flex px-5 lg:px-0 pb-8">
                     <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
                         <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Questions & Answers">
                             <div className="border-t-2 border-orange-500 text-lg"> {description} </div>

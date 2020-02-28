@@ -19,33 +19,31 @@ export default props => (
             </div>
         </div>
 
-            <div className="flex justify-center px-4 lg:px-0 bg-gray-200 ">
+            <div className="flex justify-center px-4 lg:px-0">
                 <div className=" bg-white w-full max-w-6xl">
                     {props.children}
                 </div>
             </div>
        
-        <div className="bg-gray-200 h-16 py-16" />
+        {/* <div className="bg-gray-200 h-16 py-16" /> */}
         
             <div className="bg-orange-500 h-50">
-                <div className="flex justify-center px-4 lg:px-0">
-                    <div className="bg-orange-400 w-full max-w-6xl  ">
-                   
-                        <div className=" flex justify-center">
-                            <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">Customer Service</div>
-                            <div className=" w-1/4 border text-center border-black bg-orange-300 h-50">Resources</div>
-                            <div className=" w-1/4 border text-center border-black bg-orange-400 h-50">About Us</div>
-                            <div className=" w-1/4 border text-center border-black bg-orange-300 h-50"> Other</div>
+                {/* <div className="flex justify-center px-4 lg:px-0">
+                    <div className="w-full max-w-6xl">
+                        <div className=" flex justify-center bg-orange-500 m-4">
+                            <div className="NavMenu_Text w-1/4 text-center">About Us</div>
+                            <div className="NavMenu_Text w-1/4 text-center">Contact Us</div>
+                            <div className="NavMenu_Text w-1/4 text-center">Resources</div>
+                            <div className="NavMenu_Text w-1/4 text-center"> Help</div>
                         </div>
-                    
-                    
                     
                     </div> 
                     
-                </div>
-                <div className="text-center bg-orange-600 text-xl  border-black h-12 w-full">
-                    <div>Copy Right &copy; 2019-2020</div>
+                </div> */}
+                <div className="text-center text-sm text-white bg-orange-500 h-12 w-full mt-4 pt-2">
                     <div>WSU-CAPSTONE Group Project</div>
+                    <div>Product Authority, LLC. All Rights Reserved </div>
+                    <div>Privacy & Conditions &copy; 2019-2020</div>
                 </div>
             </div>
       
