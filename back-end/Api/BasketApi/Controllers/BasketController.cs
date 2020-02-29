@@ -42,36 +42,66 @@ namespace UserInfoApi.Controllers
         [HttpPost, Route("add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)
         {
+            // check if the model binds correctly
             if (ModelState.IsValid)
             {
+                // get the information about the current user from the HTTP context
                 var currentUser = HttpContext.User;
 
+                // check to make sure the current user has a user_id from the decrypted authorization token
                 if (!currentUser.HasClaim(c => c.Type == "user_id"))
                     return BadRequest();
 
+                // get the value of the user_id
                 var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
+                // check to see if a document for the user exists or not
                 var doc = await _bucket.GetAsync<Basket>(ID);
 
+                // if the user doesn't already have a basket document make a new one
                 if (!doc.Success)
                 {
+                    // check to see if the GUID is set or not
                     if (!newBasketItem.Uid.HasValue)
                         newBasketItem.Uid = Guid.NewGuid();
+                    // update the total number of offerings count in the document
                     newBasketItem.total_items = newBasketItem.Offerings.Count();
+                    // attempt to insert the new document
                     var response = await _bucket.UpsertAsync(ID, newBasketItem);
+                    // return a BadReuqest if this fails
                     if (!response.Success)
                         return BadRequest(newBasketItem);
+                    // otherwise return 200 OK
                     return Ok(newBasketItem);
                 }
 
                 Basket userDoc = doc.Value;
-                userDoc.Offerings.Add(newBasketItem.Offerings[0]);
+                //                userDoc.Offerings.Add(newBasketItem.Offerings[0]);
+                // find if the product offering already exists, if it does replace it with the new one
+                var userOffering = userDoc.Offerings.First(i => i.Offering_key == newBasketItem.Offerings[0].Offering_key);
+
+                // get the index of duplicate item currently stored in the basket doc if it eists
+                var index = userDoc.Offerings.IndexOf(userOffering);
+
+                // if there is a duplicate item add the quantities together
+                if (index != -1)
+                    userDoc.Offerings[index].Quantity += newBasketItem.Offerings[0].Quantity;
+
+                // if there isn't a duplicate item insert the new item being added at the beginning of the list
+                else
+                    userDoc.Offerings.Prepend(newBasketItem.Offerings[0]);
+
+                // update the total count of the number of offerings stored in the document
                 userDoc.total_items = userDoc.Offerings.Count();
+
+                // attempt to insert the updated document into the Basket bucket
                 var result = await _bucket.UpsertAsync(ID, userDoc);
 
+                // if the upsert fails return a bad request
                 if (!result.Success)
                     return BadRequest(newBasketItem);
 
+                // if document was successfully replaced return 200 OK
                 return Ok(newBasketItem);
             }
 
