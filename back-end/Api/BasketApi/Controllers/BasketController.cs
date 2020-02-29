@@ -57,6 +57,7 @@ namespace UserInfoApi.Controllers
                 {
                     if (!newBasketItem.Uid.HasValue)
                         newBasketItem.Uid = Guid.NewGuid();
+                    newBasketItem.total_items = newBasketItem.Offerings.Count();
                     var response = await _bucket.UpsertAsync(ID, newBasketItem);
                     if (!response.Success)
                         return BadRequest(newBasketItem);
