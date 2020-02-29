@@ -63,6 +63,10 @@
     @apply right-0 relative top-0;
 }
 
+.bottom_bar {
+    @apply bottom-0;
+}
+
 .NavTitle_Background {
     @apply flex flex-wrap bg-orange-500 py-2 px-5;
 }

@@ -14,7 +14,7 @@ const NavTitle = (props)=> {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
 
-                tryFetch(user.uid);
+                // tryFetch(user.uid);
                 setStateNave(user);
             }
         });

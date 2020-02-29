@@ -78,7 +78,7 @@ namespace ApiGateway
 
             app.UseCors(MyAllowSpecificOrigins);
 
-            app.UseHttpsRedirection();
+ //           app.UseHttpsRedirection();
             app.UseMvc();
             await app.UseOcelot();
         }

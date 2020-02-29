@@ -35,6 +35,9 @@ namespace UserInfoApi.Controllers
          * Route should be used when user has an empty basket and adds
          * their first item
          * POST /api/basket/add
+         * need to consider adding the same item from the prodcut page
+         * need to look at all of the offering ids in the document if it exists
+         * and replace it if it does
          */
         [HttpPost, Route("add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)
