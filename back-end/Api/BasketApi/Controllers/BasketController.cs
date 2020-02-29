@@ -65,6 +65,7 @@ namespace UserInfoApi.Controllers
 
                 Basket userDoc = doc.Value;
                 userDoc.Offerings.Add(newBasketItem.Offerings[0]);
+                userDoc.total_items = userDoc.Offerings.Count();
                 var result = await _bucket.UpsertAsync(ID, userDoc);
 
                 if (!result.Success)
