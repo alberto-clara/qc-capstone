@@ -36,7 +36,7 @@ export const CartItem = (props) => {
             </div>
         </div>
     );
-
+    console.log(props.value)
     return (<>
       
             <div>
@@ -44,9 +44,9 @@ export const CartItem = (props) => {
                     <div className="flex border border-orange-300 w-full">
                         <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                         <div className="block text-lg w-full">
-                        <div className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.name}</div>
-                        <div className="m-4 text-2xl font-extrabold pt-2">${props.value.price}</div>
-                        {/* <div className="pl-4 pt-2">{props.value.name}</div>*/}
+                        <div className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.product_name}</div>
+                        <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
+                         <div className="pl-4 pt-2">{props.value.supplier_name}</div>
                             <div className="pl-4">{rate}</div>
                             <div className="md:hidden"> {counters}
                                 <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>

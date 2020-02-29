@@ -31,7 +31,6 @@ export const Cart = (props) => {
         /*console.log(counterArray);*/
     }, []);
     const fetching = async (idToken) => {
-
         var initValue = [];
         const Auth = 'Bearer '.concat(idToken);
         var config = {
@@ -40,30 +39,16 @@ export const Cart = (props) => {
             }
         }
         await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
-             console.log(res.data);
-           
+            //console.log(res.data.offerings);
+            setItemArray(res.data.offerings);
+
         });
     }
   
-    // const listItemCart = ItemArray.map(item => {
-    //     return (
-    //         <div>
-    //             <div className="w-full h-72 bg-yellow-500">
-    //                 <div className="flex">
-    //                     <div className="block w-1/3 bg-green-500">image</div>
-    //                     <div className="flex">
-    //                         <div className="block">
-    //                             <div className="text-lg bg-purple-500">{item.itemName}</div>
-    //                             <div className="text-lg bg-blue-500">{item.itemPrice}</div>
-    //                         </div>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
+   
     var exampleItem = [{ name: "cat", price: "20" }, { name: "dog", price: "30" }, { name: "mouse", price: "10" }]
     const ListItem =
-        exampleItem.map(e => {
+        ItemArray.map(e => {
         return (<>
             <CartItem value={e} />
         </>);
