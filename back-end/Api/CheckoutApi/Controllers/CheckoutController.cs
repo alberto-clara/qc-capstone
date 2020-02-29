@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Http;
 namespace CheckoutApi.Controllers
 {
     [Authorize]
-    [Route("api/checkout/")]
+    [Route("api/checkout")]
     [ApiController]
     public class CheckoutController : ControllerBase
     {
@@ -147,6 +147,7 @@ namespace CheckoutApi.Controllers
         [HttpPost, Route("addUserInfo")]
         public async Task<IActionResult> AddUserInfo([FromBody] UserInfo newUserInfo)
         {
+            Console.WriteLine("WE GOT HERE");
             if (ModelState.IsValid)
             {
                 var currentUser = HttpContext.User;
@@ -155,12 +156,14 @@ namespace CheckoutApi.Controllers
                     return BadRequest();
 
                 var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-                var result = await _checkoutBucket.UpsertAsync(ID, newUserInfo);
+                var result = await _userInfoBucket.UpsertAsync(ID, newUserInfo);
+
+//                Console.WriteLine($"newUserInfo = {newUserInfo.}");
 
                 if (!result.Success)
                     return BadRequest();
 
-                return Ok();
+                return Ok(newUserInfo);
             }
             else
                 return BadRequest();
@@ -194,7 +197,8 @@ namespace CheckoutApi.Controllers
         }
         */
 
-        /* Should be finished and working correctly
+        /* WORKING!!!!!
+         * Should be finished and working correctly
          * Route to get user info and send it to the frontend
          * GET /api/catalog/getUserInfo
          */

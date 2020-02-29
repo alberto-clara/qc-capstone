@@ -42,7 +42,7 @@
           "Port": 7004
         }
       ],
-      "UpstreamPathTemplate": "/checout-api/{catchAll}"
+      "UpstreamPathTemplate": "/checkout-api/{catchAll}"
     }
   ],
     "GlobalConfiguration": {

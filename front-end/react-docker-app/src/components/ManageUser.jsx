@@ -22,8 +22,8 @@ export const ManagePage = (props) => {
     const [objCity2, setObjCity2] = useState("");
     const [objApt1, setObjApt1] = useState("");
     const [objApt2, setObjApt2] = useState("");
-    const [objZipCode1, setObjZipCode1] = useState("");
-    const [objZipCode2, setObjZipCode2] = useState("");
+    const [objZipCode1, setObjZipCode1] = useState(0);
+    const [objZipCode2, setObjZipCode2] = useState(0);
 
     const [objPhone1, setObjPhone1] = useState("");
     const [objPhone2, setObjPhone2] = useState("");
@@ -33,35 +33,43 @@ export const ManagePage = (props) => {
     const [userToken, setUserToken] = useState("");
     var emailInser, uidInsert;
 
-     const [Page, setPage] = useState("default");
+    const [Page, setPage] = useState("default");
 
 
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                   // console.log(idToken);
+                    // console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
+                    mongoFetch(user.uid, idToken); 
+
                 });
-                
+                  
                 setUID(user.uid);
                 uidInsert = user.uid;
                 emailInser = user.email;
                 setEmail(user.email);      
-                mongoFetch(user.uid);
-              
             }
-          
         });
 
     
     }, [Page]);
 
-    const mongoFetch = async (uidValue) => {
+    const mongoFetch = async (uidValue, idToken) => {
         var initValue = [];
         var found = false;
-        await axios.get("http://localhost:3001/user").then((res) => {
+        const Auth = 'Bearer '.concat(idToken);
+        var config = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
 
+        // console.log("My Header: ", config);
+        // console.log("usertoken: ", idToken);
+
+        await axios.get('http://localhost:7000/checkout-api/checkout/getUserInfo', config).then((res) => {
            for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ 
                     uid: res.data[i].uid,
@@ -85,6 +93,7 @@ export const ManagePage = (props) => {
                     ext2: res.data[i].phone_number.secondary_phone.ext
                 });
             }
+            console.log(res);
             initValue.forEach(element => {
            
                 if (element.uid === uidValue) {
@@ -111,15 +120,14 @@ export const ManagePage = (props) => {
                    
                 }
             });
-            if (found === false) {
-               
-                 axios.post('http://localhost:3001/insert-user', {
-                     id: uidInsert,
-                    email: emailInser,
-                 }).then((res) => {
-                     window.location.href = '/manageuser';
-                })
-            }
+            // if (found === false) {               
+            //      axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', config, {
+            //         id: uidInsert,
+            //         email: emailInser,
+            //      }).then((res) => {
+            //          window.location.href = '/manageuser';
+            //     })
+            // }
         })
         
     };
@@ -151,32 +159,81 @@ export const ManagePage = (props) => {
         var phone2Typing = document.getElementById('phone2_input');
         var ext2Typing = document.getElementById('ext2_input');
 
-        await axios.post('http://localhost:3001/post-user', {
-            id: uid,
+
+        const Auth = 'Bearer '.concat(userToken);
+        var config2 = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
+        console.log("POST HEADER USERIDTOKE = ", config2);
+        console.log("Name: ", firstnameTyping.value);
+        // await axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', {headers: {'Authorization': Auth}}, {
+        //     id: uid,
            
-            objFirstName: firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
-            objMiddleName: middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
-            objLastName: lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
-            objStreet1: street1Typing.value === '' ? street1Typing.placeholder : street1Typing.value,
-            objStreet2: street2Typing.value === '' ? street2Typing.placeholder : street2Typing.value,
-            objapt1: apt1Typing.value === '' ? apt1Typing.placeholder : apt1Typing.value,
-            objapt2: apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
-            objCity1: city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
-            objCity2: city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
-            objState1: objState1,
-            objState2: objState2,
-            objZipcode1: zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
-            objZipcode2: zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
-            objPhone1: phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
-            objPhone2: phone2Typing.value === '' ? phone2Typing.placeholder : phone2Typing.value,
-            objExt1: ext1Typing.value === '' ? ext1Typing.placeholder : ext1Typing.value,
-            objExt2: ext2Typing.value === '' ? ext2Typing.placeholder : ext2Typing.value
-        }).then((res)=>{
-            if (res.data !== null) {
+        //     objFirstName: firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
+        //     objMiddleName: middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
+        //     objLastName: lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
+        //     objStreet1: street1Typing.value === '' ? street1Typing.placeholder : street1Typing.value,
+        //     objStreet2: street2Typing.value === '' ? street2Typing.placeholder : street2Typing.value,
+        //     objapt1: apt1Typing.value === '' ? apt1Typing.placeholder : apt1Typing.value,
+        //     objapt2: apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
+        //     objCity1: city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
+        //     objCity2: city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
+        //     objState1: objState1,
+        //     objState2: objState2,
+        //     objZipcode1: zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
+        //     objZipcode2: zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
+        //     objPhone1: phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
+        //     objPhone2: phone2Typing.value === '' ? phone2Typing.placeholder : phone2Typing.value,
+        //     objExt1: ext1Typing.value === '' ? ext1Typing.placeholder : ext1Typing.value,
+        //     objExt2: ext2Typing.value === '' ? ext2Typing.placeholder : ext2Typing.value
+        // }).then((res)=>{
+            
+        var submit_obj = {
+            "Uid": null,
+            "Email": 'test@test.com',
+            "Full_name": {
+                "First_name": firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
+                "Middle_name": middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
+                "Last_name": lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
+            },
+            "First_address": {
+                "Street": street1Typing.value === '' ? street1Typing.placeholder : street1Typing.value,
+                "apt": apt1Typing.value === '' ? apt1Typing.placeholder : apt1Typing.value,
+                "city": city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
+                "state": objState1,
+                "zip_code": zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
+            },
+            "second_address": {
+                "street": street2Typing.value === '' ? street2Typing.placeholder : street2Typing.value,
+                "apt": apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
+                "city": city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
+                "state": objState2,
+                "zip_code": zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
+            },
+            "phone_number": {
+                "primary_phone": {
+                    "phone": phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
+                    "ext": ext1Typing.value === '' ? ext1Typing.placeholder : ext1Typing.value,
+                },
+                "secondary_phone": {
+                    "phone": phone2Typing.value === '' ? phone2Typing.placeholder : phone2Typing.value,
+                    "ext": ext2Typing.value === '' ? ext2Typing.placeholder : ext2Typing.value
+                }
+            }
+        }
+
+        console.log("body : ", submit_obj);
+        await axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', 
+        {...submit_obj},
+        config2).then((res)=>{
+            console.log(res);
+            // if (res.data !== null) {
               
-                console.log(res);
-                window.location.href = '/manageuser';
-            };
+            //     console.log(res);
+            //     window.location.href = '/manageuser';
+            // };
         })
 
     }
