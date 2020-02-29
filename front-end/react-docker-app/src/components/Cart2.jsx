@@ -11,19 +11,40 @@ export const Cart = (props) => {
     const [load, setLoad] = useState(false);
     var [counterArray, setCounterArray] = useState([]);
     var numberItem = 3;
+    const [userToken, setUserToken] = useState("");
    
     useEffect(() => {
         document.title = `Home Depot - Cart`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
+                user.getIdToken().then(function (idToken) {  // <------ Check this line
+                     console.log(idToken);
+                    setUserToken(idToken); // It shows the Firebase token now
+                    fetching(idToken);
+
+                });
                 setUserUID(user.uid);
                 setLoad(true);
             }
         });
-        
+      
         /*console.log(counterArray);*/
     }, []);
+    const fetching = async (idToken) => {
 
+        var initValue = [];
+        const Auth = 'Bearer '.concat(idToken);
+        var config = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
+        await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
+             console.log(res.data);
+           
+        });
+    }
+  
     // const listItemCart = ItemArray.map(item => {
     //     return (
     //         <div>
