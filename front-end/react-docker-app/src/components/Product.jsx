@@ -193,15 +193,15 @@ export  const Product = (props) => {
             url: 'http://localhost:7000/basket-api/basket/add',
             headers:
         }*/
-        axios.post('http://localhost:7000/basket-api/basket/add',  {
-          //  header: { 'Authorization': 'Bearer '.concat(userToken)},
+        axios.post('http://localhost:7000/basket-api/basket/add', {
+            //  header: { 'Authorization': 'Bearer '.concat(userToken)},
             uid: null,
             date: Date(),
             total_items: 0,
-            offerings: items           
+            offerings: items
         }, myHeader);
        // axios.post(config);
-      //  window.location.href = '/product/' + id;
+       // window.location.href = '/product/' + id;
     }
 
 /*    const AddCartButton = async () => {
