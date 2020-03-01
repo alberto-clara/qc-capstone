@@ -17,7 +17,7 @@ const NavTitle = (props)=> {
 
                 // tryFetch(user.uid);
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                    console.log(idToken);
+                    
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
 

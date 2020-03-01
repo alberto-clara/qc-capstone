@@ -26,9 +26,9 @@ export const Home = (props) => {
       //  tryFetch();
         const tryFetch = async () => {
            await axios.get("http://localhost:7000/catalog-api/products/home").then((res) => {
-               console.log(res);
+               //console.log(res);
                 for (var i = 0; i < res.data.length; i++) {
-                    initValue.push({ id: res.data[i].id, product_name: res.data[i].product_name, price: res.data[i].unit_retail});
+                    initValue.push({ id: res.data[i].product_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail});
                 }
                 setAdItems(initValue);
                 setLoad(true);
@@ -51,50 +51,39 @@ export const Home = (props) => {
             </div>
         </div>
     );
-
-    const itemSwipe = AdItems.map(item => {
-        return (
-            // <div className="block bg-purple-300">
-                <SwipeableViews enableMouseEvents className="inline-block w-1/5 bg-yellow-400">
-                    <div key={item.id} className="block bg-gray-500 border-2">
-                            {/* <div className="flex-1 bg-green-300 border-2"> */}
-                                <div className=" bg-red-300 w-full h-32 justify-center items-center"> picture </div>
-                                {/* <div className="justify-center bg-purple-400 w-full items-center">{load === false ? null : item.product_name} </div>
-                                <div className="justify-center w-fzull bg-blue-400 items-center">${load === false ? null : roundDigit(item.price)}</div> */}
-                            {/* </div> */}
-                    </div>
-                </SwipeableViews>
-            // </div>
-        )
-    })
-
-    const swiping = (<div><SwipeableViews enableMouseEvents>
-        <div className="flex w-full">
-            <div className="w-1/2 md:w-1/5 ">
+    //console.log(AdItems[0]);
+    const linktoItem = (itemId) => {
+        window.location.assign("/product/" + itemId);
+    }
+    const swiping = (
+     
+        <div><SwipeableViews enableMouseEvents>
+            <div className="flex w-full">
+                <div onClick={() => linktoItem(AdItems[0].id)} className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
 
             </div>
-            <div className="w-1/2 md:w-1/5 ">
+                <div onClick={() => linktoItem(AdItems[1].id)} className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+                <div onClick={() => linktoItem(AdItems[2].id)} className="hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[2].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+                <div onClick={() => linktoItem(AdItems[3].id)} className="hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[3].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+                <div onClick={() => linktoItem(AdItems[4].id)} className="hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[4].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
@@ -102,32 +91,32 @@ export const Home = (props) => {
             </div>
         </div>
         <div className="flex w-full">
-            <div className="w-1/2 md:w-1/5 ">
+                <div onClick={() => linktoItem(AdItems[5].id)} className="w-1/2 md:w-1/5 ">
 
                 <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
                 <div className="flex justify-center pt-12 md:pt-4 items-center ">{load === false ? null : AdItems[5].product_name}</div>
                 <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
 
             </div>
-            <div className="w-1/2 md:w-1/5 ">
+              <div onClick={() => linktoItem(AdItems[6].id)}  className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[6].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
 
             </div>
-            <div className="hidden ti:block md:w-1/5 ">
+            <div onClick={() => linktoItem(AdItems[7].id)}  className="hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+            <div onClick={() => linktoItem(AdItems[8].id)}  className="hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[8].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+            <div onClick={() => linktoItem(AdItems[9].id)}  className="hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[9].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
@@ -135,31 +124,31 @@ export const Home = (props) => {
             </div>
         </div>
         <div className="flex w-full">
-            <div className="w-1/2 md:w-1/5 ">
+            <div onClick={() => linktoItem(AdItems[10].id)}  className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[10].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
 
             </div>
-            <div className="w-1/2 md:w-1/5 ">
+            <div  onClick={() => linktoItem(AdItems[11].id)} className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[11].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
 
             </div>
-            <div className="hidden ti:block md:w-1/5 ">
+            <div  onClick={() => linktoItem(AdItems[12].id)} className="hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[12].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+            <div  onClick={() => linktoItem(AdItems[13].id)} className="hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[13].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
 
             </div>
-            <div className="hidden md:block md:w-1/5 ">
+            <div  onClick={() => linktoItem(AdItems[14].id)} className="hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[14].price)}</div>
                 <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
