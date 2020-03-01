@@ -9,36 +9,34 @@ const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);
     const { state } = useContext(Auth);
     const [countItem, setCountItem] = useState();
+    const [userToken, setUserToken] = useState("");
     let buttonManage;
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
 
                 // tryFetch(user.uid);
+                user.getIdToken().then(function (idToken) {  // <------ Check this line
+                    
+                    setUserToken(idToken); // It shows the Firebase token now
+                    fetching(idToken);
+
+                });
                 setStateNave(user);
             }
         });
             
         
     }, []);
-    const tryFetch = async (uidValue) => {
-
-        var initValue = [];
-        await axios.get("http://localhost:3001/user").then((res) => {
-         //   console.log(res.data);
-            for (var i = 0; i < res.data.length; i++) {
-                initValue.push({
-                    uid: res.data[i].uid,
-                    cart: res.data[i].cart
-                });
-            };
-          //  console.log(initValue);
-            initValue.forEach(element => {
-                if (element.uid == uidValue) {
-                    setCountItem(element.cart);
-                }
-            });
-
+    const fetching = async (idToken) => {
+        const Auth = 'Bearer '.concat(idToken);
+        var config = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
+        await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+            setCountItem(res.data.offerings.length);
         });
     }
 

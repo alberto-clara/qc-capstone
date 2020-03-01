@@ -31,7 +31,6 @@ export const Cart = (props) => {
         /*console.log(counterArray);*/
     }, []);
     const fetching = async (idToken) => {
-        var initValue = [];
         const Auth = 'Bearer '.concat(idToken);
         var config = {
             headers: {
@@ -39,14 +38,13 @@ export const Cart = (props) => {
             }
         }
         await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
-            //console.log(res.data.offerings);
+            console.log(res.data.offerings);
             setItemArray(res.data.offerings);
 
         });
     }
   
-   
-    var exampleItem = [{ name: "cat", price: "20" }, { name: "dog", price: "30" }, { name: "mouse", price: "10" }]
+
     const ListItem =
         ItemArray.map(e => {
         return (<>

@@ -18,7 +18,7 @@ export const CartItem = (props) => {
                 </button>
 
                 <div type="number" className="h-10 font-semibold flex justify-center text-gray-700 w-1/3 items-center text-2xl" >
-                    {count}
+                    {props.value.quantity}
                 </div>
 
                 <button onClick={() => setCount(count + 1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
@@ -36,9 +36,12 @@ export const CartItem = (props) => {
             </div>
         </div>
     );
-    console.log(props.value)
+    const removeItem = ()=>{
+
+    }
+    console.log(props);
     return (<>
-      
+   
             <div>
                 <div className="flex w-full /*bg-yellow-400*/">
                     <div className="flex border border-orange-300 w-full">
@@ -49,12 +52,15 @@ export const CartItem = (props) => {
                          <div className="pl-4 pt-2">{props.value.supplier_name}</div>
                             <div className="pl-4">{rate}</div>
                             <div className="md:hidden"> {counters}
-                                <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
+                                <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
+                                 <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                             </div>
+                            
                         </div>
                         <div className="hidden md:block md:w-1/4 justify-center ">
                             {counters}
-                            <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
+                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
+                        <button  className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Itemt</button>
                         </div>
                     </div>
                 </div>
