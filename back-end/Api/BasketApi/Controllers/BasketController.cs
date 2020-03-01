@@ -139,12 +139,7 @@ namespace UserInfoApi.Controllers
             if (!result.Success)
                 return NotFound(new NotFoundError("Document not found or failed to connect to database."));
 
-            var delResult = await _bucket.RemoveAsync(ID);
-
-            if (!result.Success)
-                return NotFound(new NotFoundError("Failed to delete document or failed to connect to database."));
-
-            return Ok();
+            return Ok(result.Value);
         }
 
         /*
