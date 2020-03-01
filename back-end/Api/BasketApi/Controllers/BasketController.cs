@@ -10,6 +10,7 @@ using BasketApi.Model;
 using System.Net;
 using Couchbase.N1QL;
 using Microsoft.AspNetCore.Authorization;
+using BasketApi.BasketApiErrors;
 
 namespace UserInfoApi.Controllers
 {
@@ -50,16 +51,13 @@ namespace UserInfoApi.Controllers
 
                 // check to make sure the current user has a user_id from the decrypted authorization token
                 if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                    return BadRequest();
-
-                // get the value of the user_id
-                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-
-                // check to see if a document for the user exists or not
-                var doc = await _bucket.GetAsync<Basket>(ID);
-
-                // if the user doesn't already have a basket document make a new one
-                if (!doc.Success)
+                    return BadRequest(new BadRequestError("Unable to find users_id from token"));
+                
+                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value; // get the value of the user_id
+               
+                var doc = await _bucket.GetAsync<Basket>(ID);   // check to see if a document for the user exists or not
+               
+                if (!doc.Success) // if the user doesn't already have a basket document make a new one
                 {
                     // check to see if the GUID is set or not
                     if (!newBasketItem.Uid.HasValue)
@@ -139,9 +137,14 @@ namespace UserInfoApi.Controllers
             var result = await _bucket.GetAsync<Basket>(ID);
 
             if (!result.Success)
-                return NotFound();
+                return NotFound(new NotFoundError("Document not found or failed to connect to database."));
 
-            return Ok(result.Value);
+            var delResult = await _bucket.RemoveAsync(ID);
+
+            if (!result.Success)
+                return NotFound(new NotFoundError("Failed to delete document or failed to connect to database."));
+
+            return Ok();
         }
 
         /*
@@ -163,7 +166,7 @@ namespace UserInfoApi.Controllers
             var result = await _bucket.RemoveAsync(ID);
 
             if (!result.Success)
-                return NotFound();
+                return StatusCode(503, new ServiceUnavailableError("Unable to add document to database."));
 
             return Ok();
         }
@@ -180,7 +183,7 @@ namespace UserInfoApi.Controllers
         public async Task<IActionResult> UpdateDoc(string offeringId, int quant)
         {
             if (offeringId == null)
-                return BadRequest();
+                return BadRequest(new BadRequestError("Request has missing offeringId in URI."));
 
             var currentUser = HttpContext.User;
 
@@ -192,35 +195,38 @@ namespace UserInfoApi.Controllers
             // get the current docutment for the user from the database
             var result = await _bucket.GetAsync<Basket>(ID);
             if (!result.Success)
-                return NotFound();
+                return NotFound(new NotFoundError($"No document found for user {ID}"));
 
             // assign the value of the docuemnt returned to a type Basket
             Basket doc = result.Value;
 
-            // find the offering in the Basket.Offerings list that matches offeringId
-            var userOffering = doc.Offerings.First(i => i.Offering_key == offeringId);
-            // get the index of offering that matches
-            var index = doc.Offerings.IndexOf(userOffering);
-
-            // if the index was found
-            if (index != -1)
+            if (doc.Offerings.Exists(i => i.Offering_key == offeringId))
             {
-                // if the quant > 0 set the quantity to quant
-                if (quant > 0) doc.Offerings[index].Quantity = quant;
-                // if quant = 0 remove that offering from Basket.Offerings
-                else doc.Offerings.Remove(userOffering);
+                // find the offering in the Basket.Offerings list that matches offeringId
+                var userOffering = doc.Offerings.First(i => i.Offering_key == offeringId);
+                // get the index of offering that matches
+                var index = doc.Offerings.IndexOf(userOffering);
 
-                // upsert the updated document into the database
-                var upsertResult = await _bucket.UpsertAsync(ID, doc);
-                // if upsert fails return BadRequest (need to think of a different status code for this)
-                if (!result.Success)
-                    return NotFound();
+                // if the index was found
+                if (index != -1)
+                {
+                    // if the quant > 0 set the quantity to quant
+                    if (quant > 0) doc.Offerings[index].Quantity = quant;
+                    // if quant = 0 remove that offering from Basket.Offerings
+                    else doc.Offerings.Remove(userOffering);
 
-                // return 200 OK if everything works
-                return Ok();
+                    // upsert the updated document into the database
+                    var upsertResult = await _bucket.UpsertAsync(ID, doc);
+                    // if upsert fails return BadRequest (need to think of a different status code for this)
+                    if (!result.Success)
+                        return NotFound();
+
+                    // return 200 OK if everything works
+                    return Ok();
+                }
+                else
+                    return NotFound(new BadRequestError($"Document does not contain an offering with {offeringId}"));
             }
-
-
             else
                 return NotFound(offeringId);
         }
