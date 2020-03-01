@@ -160,28 +160,41 @@ namespace UserInfoApi.Controllers
          * Route to use when a user adds or removes an item from an already existing basket.
          * PUT /api/basket/update
          */
-        [HttpPut, Route("update")]
+        [HttpPut, Route("update/{offeringId}/{quant}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> UpdateDoc([FromBody] Basket updateItem)
+        public async Task<IActionResult> UpdateDoc(string offeringId, int quant)
         {
-            if (ModelState.IsValid)
+            if (offeringId == null)
+                return BadRequest();
+
+            var currentUser = HttpContext.User;
+
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return BadRequest();
+
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+
+            var result = await _bucket.GetAsync<Basket>(ID);
+            if (!result.Success)
+                return NotFound();
+
+            Basket doc = result.Value;
+            var userOffering = doc.Offerings.First(i => i.Offering_key == offeringId);
+            var index = doc.Offerings.IndexOf(userOffering);
+
+            if (index != -1)
             {
-                var currentUser = HttpContext.User;
+                if (quant > 0) doc.Offerings[index].Quantity = quant;
+                else doc.Offerings.Remove(userOffering);
 
-                if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                    return BadRequest();
-
-                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-
-                var result = await _bucket.UpsertAsync(ID, updateItem);
-
+                var upsertResult = await _bucket.UpsertAsync(ID, doc);
                 if (!result.Success)
                     return NotFound();
 
-                return Ok(result);
+                return Ok();
             }
-
-            return BadRequest();
+            else
+                return NotFound(offeringId);
         }
     }
 }
