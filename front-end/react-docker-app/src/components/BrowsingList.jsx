@@ -71,7 +71,7 @@ export const BrowsingList = (props) => {
 
     const sortFetching = async (number, location, sortPrice) => {
         await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
-            console.log(res.data);
+           // console.log(res.data);
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
             }
@@ -94,8 +94,8 @@ export const BrowsingList = (props) => {
     const isInt = (n) => { return parseInt(n) === n  };
     const loopfetching = async (number, location) => {
         var htmlElements = '';
-        console.log(number);
-        console.log(location);
+      //  console.log(number);
+      //  console.log(location);
         var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
         if (!isInt(totalItem / pageNumber) && restload) {

@@ -29,16 +29,19 @@ const NavTitle = (props)=> {
             
         
     }, []);
-    const fetching = async (idToken) => {
+    const fetching =(idToken) => {
         const Auth = 'Bearer '.concat(idToken);
         var config = {
             headers: {
                 'Authorization': Auth
             }
         }
-        await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+  
+        axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+  
             setCountItem(res.data.offerings.length);
-        }).catch((e)=>{ console.log(e);});
+        }).catch((e) => { setCountItem(0); });
+       
     }
 
     if (stateNav != null || state.user.hasOwnProperty("user")) {

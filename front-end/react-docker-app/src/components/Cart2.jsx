@@ -6,11 +6,10 @@ import { CartItem } from './CartItem';
 
 export const Cart = (props) => {
     const [UserUID, setUserUID] = useState("");
-    const [count, setCount] = useState(1);
+  
     const [ItemArray, setItemArray] = useState([]);
     const [load, setLoad] = useState(false);
-    var [counterArray, setCounterArray] = useState([]);
-    var numberItem = 3;
+
     const [userToken, setUserToken] = useState("");
    
     useEffect(() => {
@@ -18,7 +17,7 @@ export const Cart = (props) => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                     console.log(idToken);
+                     //console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
 
@@ -47,8 +46,9 @@ export const Cart = (props) => {
 
     const ListItem =
         ItemArray.map(e => {
-        return (<>
-            <CartItem value={e} />
+            return (<>
+            <br/>
+                <CartItem value={e} token={userToken} />
         </>);
     });
  
