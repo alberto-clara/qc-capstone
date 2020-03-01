@@ -20,6 +20,7 @@ const NavTitle = (props)=> {
                     
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
+                
 
                 });
                 setStateNave(user);
@@ -37,7 +38,7 @@ const NavTitle = (props)=> {
         }
         await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
             setCountItem(res.data.offerings.length);
-        });
+        }).catch((e)=>{ console.log(e);});
     }
 
     if (stateNav != null || state.user.hasOwnProperty("user")) {
