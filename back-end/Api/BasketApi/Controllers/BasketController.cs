@@ -76,20 +76,32 @@ namespace UserInfoApi.Controllers
                 }
 
                 Basket userDoc = doc.Value;
-                //                userDoc.Offerings.Add(newBasketItem.Offerings[0]);
+
+                Console.WriteLine($"doc = {doc.ToString()}");
+                Console.WriteLine($"userDoc.Offerings[ = {doc.ToString()}");
+                Console.WriteLine($"newBasketItem.Offerings[0].Offering_key = {newBasketItem.Offerings[0].Offering_key}");
                 // find if the product offering already exists, if it does replace it with the new one
-                var userOffering = userDoc.Offerings.First(i => i.Offering_key == newBasketItem.Offerings[0].Offering_key);
 
-                // get the index of duplicate item currently stored in the basket doc if it eists
-                var index = userDoc.Offerings.IndexOf(userOffering);
+                if (userDoc.Offerings.Exists(i => i.Offering_key == newBasketItem.Offerings[0].Offering_key))
+                {
+                    Offerings userOffering = userDoc.Offerings.Find(i => i.Offering_key == newBasketItem.Offerings[0].Offering_key);
+                    Console.WriteLine($"userOffering.Offering_key = {userOffering.Offering_key}");
 
-                // if there is a duplicate item add the quantities together
-                if (index != -1)
-                    userDoc.Offerings[index].Quantity += newBasketItem.Offerings[0].Quantity;
+                    // get the index of duplicate item currently stored in the basket doc if it eists
+                    var index = userDoc.Offerings.IndexOf(userOffering, 0);
 
-                // if there isn't a duplicate item insert the new item being added at the beginning of the list
-                else
-                    userDoc.Offerings.Prepend(newBasketItem.Offerings[0]);
+                    Console.WriteLine($"index = {index}");
+                    // if there is a duplicate item add the quantities together
+                    if (index != -1)
+                        userDoc.Offerings[index].Quantity += newBasketItem.Offerings[0].Quantity;
+                }
+                else // if there isn't a duplicate item insert the new item being added at the beginning of the list
+                {
+                    Console.WriteLine("NOT FOUND");
+                    Console.WriteLine($"userDoc.Offerings.Count() = {userDoc.Offerings.Count()}");
+                    userDoc.Offerings = userDoc.Offerings.Prepend(newBasketItem.Offerings[0]).ToList();
+                    Console.WriteLine($"userDoc.Offerings.Count() = {userDoc.Offerings.Count()}");
+                }
 
                 // update the total count of the number of offerings stored in the document
                 userDoc.total_items = userDoc.Offerings.Count();
@@ -158,7 +170,10 @@ namespace UserInfoApi.Controllers
 
         /*
          * Route to use when a user adds or removes an item from an already existing basket.
-         * PUT /api/basket/update
+         * PUT /api/basket/update/{offeringId}/{quant}
+         * if the quantity is > 0 the quantity of the offering matching {offeringId}
+         * will be updated with {quant}. If the {quant} is 0 the offering matching
+         * {offeringId} will be removed from the list of Offerings
          */
         [HttpPut, Route("update/{offeringId}/{quant}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -174,25 +189,38 @@ namespace UserInfoApi.Controllers
 
             var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
 
+            // get the current docutment for the user from the database
             var result = await _bucket.GetAsync<Basket>(ID);
             if (!result.Success)
                 return NotFound();
 
+            // assign the value of the docuemnt returned to a type Basket
             Basket doc = result.Value;
+
+            // find the offering in the Basket.Offerings list that matches offeringId
             var userOffering = doc.Offerings.First(i => i.Offering_key == offeringId);
+            // get the index of offering that matches
             var index = doc.Offerings.IndexOf(userOffering);
 
+            // if the index was found
             if (index != -1)
             {
+                // if the quant > 0 set the quantity to quant
                 if (quant > 0) doc.Offerings[index].Quantity = quant;
+                // if quant = 0 remove that offering from Basket.Offerings
                 else doc.Offerings.Remove(userOffering);
 
+                // upsert the updated document into the database
                 var upsertResult = await _bucket.UpsertAsync(ID, doc);
+                // if upsert fails return BadRequest (need to think of a different status code for this)
                 if (!result.Success)
                     return NotFound();
 
+                // return 200 OK if everything works
                 return Ok();
             }
+
+
             else
                 return NotFound(offeringId);
         }
