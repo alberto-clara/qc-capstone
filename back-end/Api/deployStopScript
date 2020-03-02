@@ -1,0 +1,3 @@
+#!/bin/bash
+
+az container stop --name QCContainerGroup --resource-group qcapp

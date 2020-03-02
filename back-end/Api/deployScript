@@ -1,0 +1,4 @@
+#!/bin/bash
+
+az container delete --name QCContainerGroup --resource-group qcapp -y
+az container create --resource-group qcapp --file deploy-acl.yaml
