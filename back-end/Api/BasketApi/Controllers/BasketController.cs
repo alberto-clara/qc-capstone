@@ -70,7 +70,7 @@ namespace UserInfoApi.Controllers
                     if (!response.Success)
                         return BadRequest(newBasketItem);
                     // otherwise return 200 OK
-                    return Ok(newBasketItem);
+                    return Ok(response.ToString());
                 }
 
                 Basket userDoc = doc.Value;
@@ -126,7 +126,7 @@ namespace UserInfoApi.Controllers
         [HttpGet, Route("find")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> LookupDoc()
-        {
+         {
             var currentUser = HttpContext.User;
 
             if (!currentUser.HasClaim(c => c.Type == "user_id"))
@@ -137,7 +137,7 @@ namespace UserInfoApi.Controllers
             var result = await _bucket.GetAsync<Basket>(ID);
 
             if (!result.Success)
-                return NotFound(new NotFoundError("Document not found or failed to connect to database."));
+                return NotFound();
 
             return Ok(result.Value);
         }

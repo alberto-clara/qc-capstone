@@ -129,6 +129,7 @@ namespace CatalogApi.Controllers
                             from rt2 in temp.DefaultIfEmpty()
                             where pt.Id == productId
                             where pt.Active_date < currentUnixTimestamp
+                            orderby ot.Unit_retail
                             select new
                             {
                                 pt.Id,
@@ -143,7 +144,6 @@ namespace CatalogApi.Controllers
                             });
 
             var items = await newTable
-                                .OrderBy(p => p.Unit_retail)
                                 .ToListAsync();
 
             if (items.Count != 0) return Ok(items);
@@ -215,6 +215,7 @@ namespace CatalogApi.Controllers
                                            st.supplier_name
                                        })
                                        .Take(15)
+                                       .OrderBy(i => i.Unit_retail)
                                        .ToListAsync();
 
             if (randomResults.Count > 0) return Ok(randomResults);

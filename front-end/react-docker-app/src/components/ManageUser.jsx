@@ -40,7 +40,7 @@ export const ManagePage = (props) => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                    // console.log(idToken);
+                    console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
                     mongoFetch(user.uid, idToken); 
 
