@@ -6,14 +6,14 @@ import { Home } from './components/Home'
 import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
-import { PostUserInfo } from './components/PostUserInfo';
+
 import { Product } from './components/Product';
 import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
 import { Vendors } from './components/Vendors';
 import { Cart } from './components/Cart2';
-
+import { CheckOut } from './components/CheckOutPage';
 export default () => (
     <Layout>
         <Switch>
@@ -23,9 +23,10 @@ export default () => (
             <Route path='/manageuser' component={ManagePage} />
             <Route path='/forgotemail' component={ForgotEmail} />
             <Route path='/forgotpassword' component={ForgotPassword} />
-            <Route path='/user/:id' component={PostUserInfo} />
+           
             <Route path="/vendors/:idv" component={Vendors} />
             <Route path='/browsing' component={BrowsingList} />
+            <Route path='/checkout' component={CheckOut} />
             <Route path='/cart' component={Cart} />
             <Route path='/signinpage' component={SignIn_SignUp} />
             <Route path="/product/:id" component={Product} />

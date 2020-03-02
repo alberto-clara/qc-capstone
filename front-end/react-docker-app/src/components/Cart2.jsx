@@ -4,6 +4,7 @@ import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 import { CartItem } from './CartItem';
 
+
 export const Cart = (props) => {
     const [UserUID, setUserUID] = useState("");
   
@@ -59,8 +60,12 @@ export const Cart = (props) => {
                 <div>
                     {ListItem}
                 </div>
+                <br />
+                <div className="w-full justify-center flex">
+                    <button onClick={() => { window.location.href ='/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
+                </div>
+                <br />
             </div>
-            
             : null
         }
         </>);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import display_image from './PicArray';
+
 
 export const CartItem = (props) => {
     const [count, setCount] = useState(props.value.quantity);
@@ -9,8 +9,7 @@ export const CartItem = (props) => {
     const [removeItem, setRemoveItem] = useState(false);
 
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
-    const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)
-    const presentUpdate = (<button className="hidden">Update Cart</button>)              
+    const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)             
     const changeUpdate = (<button onClick={() => UpdateCart()}className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)              
      
     const counters = (
@@ -60,7 +59,7 @@ export const CartItem = (props) => {
             }
         }
         var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + count
-        await axios.put(link, {}, config).then((res) => { console.log("Update data");  });
+        await axios.put(link, {}, config).then((res) => { console.log("Update data");   });
         window.location.href = '/cart';
     }
     const linktoProduct = () => {
@@ -83,13 +82,13 @@ export const CartItem = (props) => {
                 </div>
                 <div className="hidden md:block md:w-1/4 justify-center ">
                     {counters}
-                    {count === props.value.quantity ? presentUpdate : changeUpdate}
+                    {count === props.value.quantity ? null : changeUpdate}
                     <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                 </div>
             </div>
         </div>
     </div> )
-
+    
     return (<>
         {container}  
     </>);
