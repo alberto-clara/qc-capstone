@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import FireBaseSetup from '../FireBaseSetup';
+
 import display_image from './PicArray';
 
 export const CartItem = (props) => {
-    const [count, setCount] = useState(1);
- 
+    const [count, setCount] = useState(props.value.quantity);
 
+    const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
+    const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)
+    const presentUpdate = (<button className="hidden">Update Cart</button>)              
+    const changeUpdate = (<button onClick={() => UpdateCart()}className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)              
+     
     const counters = (
         <div className="justify-center m-20 rounded h-11 border-2 border-orange-500">
             <div className="flex font-semibold hover:text-black focus:text-black text-gray-700" >
-                <button onClick={() => {
-                    setCount(count - 1);
-                    if (count === 1) { setCount(1) }
-                }} className=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
+                <button onClick={() => minusItem()}className=" flex justify-center rounded text-gray-600 hover:text-gray-700 hover:bg-orange-400 h-full w-1/3 border-r-2 border-orange-500">
                     <div className="mx-20 flex items-center text-2xl h-10">-</div>
                 </button>
+                {count === props.value.quantity ? presentCounter : changeCounter }
 
-                <div type="number" className="h-10 font-semibold flex justify-center text-gray-700 w-1/3 items-center text-2xl" >
-                    {props.value.quantity}
-                </div>
-
-                <button onClick={() => setCount(count + 1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
+                <button onClick={() => setCount(count+1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
                     <div className="flex items-center text-2xl h-10">+</div>
                 </button>
             </div>
@@ -36,10 +34,35 @@ export const CartItem = (props) => {
             </div>
         </div>
     );
-    const removeItem = ()=>{
-
+    const minusItem = ()=>{
+        setCount(count - 1);
+        if (count === 1) { setCount(1) } 
     }
-    console.log(props);
+
+    const removeCartItem = async() => {
+        const Auth = 'Bearer '.concat(props.token);
+        var config = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
+        var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + 0
+        await axios.put(link, {}, config).then((res) => { console.log("Remove data"); });
+        window.location.href = '/cart';
+    }
+    const UpdateCart = async () => {
+        const Auth = 'Bearer '.concat(props.token);
+        var config = {
+            headers: {
+                'Authorization': Auth
+            }
+        }
+        var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + count
+        await axios.put(link, {}, config).then((res) => { console.log("Update data"); });
+        window.location.href = '/cart';
+    }
+
+
     return (<>
    
             <div>
@@ -58,9 +81,9 @@ export const CartItem = (props) => {
                             
                         </div>
                         <div className="hidden md:block md:w-1/4 justify-center ">
-                            {counters}
-                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
-                        <button  className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Itemt</button>
+                        {counters}
+                        {count === props.value.quantity ? presentUpdate : changeUpdate}
+                        <button onClick={()=>removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Itemt</button>
                         </div>
                     </div>
                 </div>

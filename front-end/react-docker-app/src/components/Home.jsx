@@ -58,101 +58,115 @@ export const Home = (props) => {
     const swiping = (
      
         <div><SwipeableViews enableMouseEvents>
-            <div className="flex w-full">
-                <div onClick={() => linktoItem(AdItems[0].id)} className="w-1/2 md:w-1/5 ">
+            <div className="flex w-full  ">
+                <div  className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
-                <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[0].id)}>
+                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
+                </div>
             </div>
-                <div onClick={() => linktoItem(AdItems[1].id)} className="w-1/2 md:w-1/5 ">
+                <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[1].id)}>
+                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
+                </div>
             </div>
-                <div onClick={() => linktoItem(AdItems[2].id)} className="hidden md:block md:w-1/5 ">
+            <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[2].price)}</div>
-                <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[2].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[2].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
+                </div>
             </div>
-                <div onClick={() => linktoItem(AdItems[3].id)} className="hidden md:block md:w-1/5 ">
+            <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[3].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[3].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[3].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
+                </div>
             </div>
-                <div onClick={() => linktoItem(AdItems[4].id)} className="hidden md:block md:w-1/5 ">
+                <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[4].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[4].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[4].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
+                </div>
             </div>
         </div>
         <div className="flex w-full">
-                <div onClick={() => linktoItem(AdItems[5].id)} className="w-1/2 md:w-1/5 ">
+                <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
 
-                <div className="flex h-48 md:h-56  justify-center items-center"> {display_image()} </div>
-                <div className="flex justify-center pt-12 md:pt-4 items-center ">{load === false ? null : AdItems[5].product_name}</div>
-                <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
-
-            </div>
-              <div onClick={() => linktoItem(AdItems[6].id)}  className="w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[6].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[5].id)}>
+                    <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
+                    <div className="flex justify-center pt-12 md:pt-4 items-center ">{load === false ? null : AdItems[5].product_name}</div>
+                </div>
             </div>
-            <div onClick={() => linktoItem(AdItems[7].id)}  className="hidden ti:block md:w-1/5 ">
+                <div className="hover:bg-orange-200  w-1/2 md:w-1/5 ">
+                <div> {display_image()} </div>
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[6].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[6].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
+                </div>
+            </div>
+                <div className="hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
                 <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
 
             </div>
-            <div onClick={() => linktoItem(AdItems[8].id)}  className="hidden md:block md:w-1/5 ">
+                <div className=" hover:bg-orange-200 hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[8].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[8].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[8].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
+                </div>
             </div>
-            <div onClick={() => linktoItem(AdItems[9].id)}  className="hidden md:block md:w-1/5 ">
+                <div className="  hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[9].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[9].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[9].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
+                </div>
             </div>
         </div>
         <div className="flex w-full">
-            <div onClick={() => linktoItem(AdItems[10].id)}  className="w-1/2 md:w-1/5 ">
+                <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[10].price)}</div>
-                <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[10].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[10].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
+                </div>
             </div>
-            <div  onClick={() => linktoItem(AdItems[11].id)} className="w-1/2 md:w-1/5 ">
+                <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[11].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[11].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[11].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
+                </div>
             </div>
-            <div  onClick={() => linktoItem(AdItems[12].id)} className="hidden ti:block md:w-1/5 ">
+                <div  className=" hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[12].price)}</div>
-                <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[12].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[12].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
+                </div>
             </div>
-            <div  onClick={() => linktoItem(AdItems[13].id)} className="hidden md:block md:w-1/5 ">
+                <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[13].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[13].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[13].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
+                </div>
             </div>
-            <div  onClick={() => linktoItem(AdItems[14].id)} className="hidden md:block md:w-1/5 ">
+                <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[14].price)}</div>
-                <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[14].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[14].price)}</div>
+                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
+                </div>
             </div>
         </div>
     </SwipeableViews>    </div>);

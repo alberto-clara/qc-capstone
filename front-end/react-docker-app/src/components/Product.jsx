@@ -56,7 +56,7 @@ export  const Product = (props) => {
     const fetching = async (ProductID) => {
 
         await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-            console.log(res);
+           // console.log(res);
             setOfferingKey(res.data[0].offering_key);
             setProductKey(id);
             setProductName(res.data[0].product_name);
@@ -169,7 +169,7 @@ export  const Product = (props) => {
         </div>
     );
     const AddCartButton = async () => {
-       
+
         //console.log(UserUID, offeringKey, productKey, productName, supplierKey, vendor, unitcost, uom, quantity, Date());
         var items = [{
 
@@ -188,20 +188,16 @@ export  const Product = (props) => {
                 'Authorization': 'Bearer '.concat(userToken)
             }
         }
-       /* const config = {
-            method: 'post',
-            url: 'http://localhost:7000/basket-api/basket/add',
-            headers:
-        }*/
-        axios.post('http://localhost:7000/basket-api/basket/add', {
-            //  header: { 'Authorization': 'Bearer '.concat(userToken)},
+   
+       await axios.post('http://localhost:7000/basket-api/basket/add', {
+          
             uid: null,
             date: Date(),
             total_items: 0,
             offerings: items
         }, myHeader);
-       // axios.post(config);
-       // window.location.href = '/product/' + id;
+        
+       window.location.href = '/product/' + id;
     }
 
 /*    const AddCartButton = async () => {
