@@ -12641,6 +12641,41 @@ video {
   }
 }
 
+.fade-in {
+  animation: fadeIn ease 5s;
+  -webkit-animation: fadeIn ease 5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* The style below is just for the appearance of the example div */
+
+.style {
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: #ed8936;
+  border-width: 2px;
+  border-color: #fff;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;
@@ -71351,3 +71386,4 @@ video {
   }
 }
 
+  

@@ -4,6 +4,7 @@ import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 import { CartItem } from './CartItem';
 
+
 export const Cart = (props) => {
     const [UserUID, setUserUID] = useState("");
   
@@ -16,8 +17,7 @@ export const Cart = (props) => {
         document.title = `Home Depot - Cart`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-                user.getIdToken().then(function (idToken) {  // <------ Check this line
-                     //console.log(idToken);
+                user.getIdToken().then(function (idToken) {  // <------ Check this line 
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
 
@@ -26,8 +26,7 @@ export const Cart = (props) => {
                 setLoad(true);
             }
         });
-      
-        /*console.log(counterArray);*/
+
     }, []);
     const fetching = async (idToken) => {
         const Auth = 'Bearer '.concat(idToken);
@@ -61,6 +60,11 @@ export const Cart = (props) => {
                 <div>
                     {ListItem}
                 </div>
+                <br />
+                <div className="w-full justify-center flex">
+                    <button onClick={() => { window.location.href ='/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
+                </div>
+                <br />
             </div>
             : null
         }
