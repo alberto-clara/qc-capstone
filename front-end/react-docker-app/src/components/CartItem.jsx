@@ -6,6 +6,8 @@ import display_image from './PicArray';
 export const CartItem = (props) => {
     const [count, setCount] = useState(props.value.quantity);
 
+    const [removeItem, setRemoveItem] = useState(false);
+
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
     const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)
     const presentUpdate = (<button className="hidden">Update Cart</button>)              
@@ -47,7 +49,7 @@ export const CartItem = (props) => {
             }
         }
         var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + 0
-        await axios.put(link, {}, config).then((res) => { console.log("Remove data"); });
+        await axios.put(link, {}, config).then((res) => { console.log("Remove data"); setRemoveItem(true);});
         window.location.href = '/cart';
     }
     const UpdateCart = async () => {
@@ -58,35 +60,37 @@ export const CartItem = (props) => {
             }
         }
         var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + count
-        await axios.put(link, {}, config).then((res) => { console.log("Update data"); });
+        await axios.put(link, {}, config).then((res) => { console.log("Update data");  });
         window.location.href = '/cart';
     }
+    const linktoProduct = () => {
+        window.location.assign("/product/" + props.value.product_key);
+    }
+    const container = (<div>
+        <div className="flex w-full /*bg-yellow-400*/">
+            <div className="flex border border-orange-300 w-full">
+                <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
+                <div className="block text-lg w-full">
+                    <div onClick={() => linktoProduct()} className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.product_name}</div>
+                    <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
+                    <div className="pl-4 pt-2">{props.value.supplier_name}</div>
+                    <div className="pl-4">{rate}</div>
+                    <div className="md:hidden"> {counters}
+                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
+                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
+                    </div>
 
+                </div>
+                <div className="hidden md:block md:w-1/4 justify-center ">
+                    {counters}
+                    {count === props.value.quantity ? presentUpdate : changeUpdate}
+                    <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
+                </div>
+            </div>
+        </div>
+    </div> )
 
     return (<>
-   
-            <div>
-                <div className="flex w-full /*bg-yellow-400*/">
-                    <div className="flex border border-orange-300 w-full">
-                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
-                        <div className="block text-lg w-full">
-                        <div className="m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.product_name}</div>
-                        <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                         <div className="pl-4 pt-2">{props.value.supplier_name}</div>
-                            <div className="pl-4">{rate}</div>
-                            <div className="md:hidden"> {counters}
-                                <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
-                                 <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
-                            </div>
-                            
-                        </div>
-                        <div className="hidden md:block md:w-1/4 justify-center ">
-                        {counters}
-                        {count === props.value.quantity ? presentUpdate : changeUpdate}
-                        <button onClick={()=>removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Itemt</button>
-                        </div>
-                    </div>
-                </div>
-            </div> 
+        {container}  
     </>);
 }

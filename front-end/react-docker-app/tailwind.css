@@ -164,3 +164,41 @@
     }
 }
 
+
+.fade-in {
+    animation: fadeIn ease 5s;
+    -webkit-animation: fadeIn ease 5s;
+  
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+/* The style below is just for the appearance of the example div */
+
+.style {
+    @apply h-10 w-10 bg-orange-500 border-2 border-white;
+}
+
+  

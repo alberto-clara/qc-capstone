@@ -16,8 +16,7 @@ export const Cart = (props) => {
         document.title = `Home Depot - Cart`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-                user.getIdToken().then(function (idToken) {  // <------ Check this line
-                     //console.log(idToken);
+                user.getIdToken().then(function (idToken) {  // <------ Check this line 
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
 
@@ -26,8 +25,7 @@ export const Cart = (props) => {
                 setLoad(true);
             }
         });
-      
-        /*console.log(counterArray);*/
+
     }, []);
     const fetching = async (idToken) => {
         const Auth = 'Bearer '.concat(idToken);
@@ -62,6 +60,7 @@ export const Cart = (props) => {
                     {ListItem}
                 </div>
             </div>
+            
             : null
         }
         </>);
