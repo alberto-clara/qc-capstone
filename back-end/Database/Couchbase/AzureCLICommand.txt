@@ -1,0 +1,1 @@
+az container create --resource-group qcapp --name couchbase --image qcshop.azurecr.io/couchbase:latest --dns-name-label qccouchbase --ports 8091 8092 8093 8094 8095 8096 11210 11211 --memory 8 --registry-login-server qcshop.azurecr.io --registry-username qcshop --registry-password P4t7HyT/WyKVuSfPraqKB3utrBBUcT4K
