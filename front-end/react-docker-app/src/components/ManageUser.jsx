@@ -579,6 +579,7 @@ export const ManagePage = (props) => {
     const backButton = (<> <br/>
         <button className="justify-center w-full rounded border-2 h-full border-orange-500" onClick={() => setPage("default")}> BackButton</button>
         </>);
+        
     return (
         <> 
             {/* <div>Token:{userToken} </div>*/}
@@ -622,4 +623,5 @@ export const ManagePage = (props) => {
         </div>
         </>)
 }
+
 
