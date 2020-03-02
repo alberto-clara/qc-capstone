@@ -11,7 +11,8 @@ export const CartItem = (props) => {
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
     const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)             
     const changeUpdate = (<button onClick={() => UpdateCart()}className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)              
-     
+    const changeUpdateMobile = (<button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)
+
     const counters = (
         <div className="justify-center m-20 rounded h-11 border-2 border-orange-500">
             <div className="flex font-semibold hover:text-black focus:text-black text-gray-700" >
@@ -75,8 +76,8 @@ export const CartItem = (props) => {
                     <div className="pl-4 pt-2">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                     <div className="md:hidden"> {counters}
-                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>
-                        <button className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
+                        {count === props.value.quantity ? null : changeUpdateMobile}
+                        <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                     </div>
 
                 </div>

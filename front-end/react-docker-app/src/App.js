@@ -30,6 +30,7 @@ export default () => (
             <Route path='/cart' component={Cart} />
             <Route path='/signinpage' component={SignIn_SignUp} />
             <Route path="/product/:id" component={Product} />
+            
        </Switch>
     </Layout>
     );

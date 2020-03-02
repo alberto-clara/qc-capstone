@@ -31,7 +31,8 @@ export const Home = (props) => {
                     initValue.push({ id: res.data[i].product_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail});
                 }
                 setAdItems(initValue);
-                setLoad(true);
+               setLoad(true);
+               
             })
         }
         tryFetch();
@@ -53,6 +54,7 @@ export const Home = (props) => {
     );
     //console.log(AdItems[0]);
     const linktoItem = (itemId) => {
+        console.log(AdItems[0]);
         window.location.assign("/product/" + itemId);
     }
     const swiping = (
@@ -60,7 +62,7 @@ export const Home = (props) => {
         <div><SwipeableViews enableMouseEvents>
             <div className="flex w-full  ">
                 <div  className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
-                <div> {display_image()} </div>
+                    <div onClick={() => { console.log(AdItems[0]);}}> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[0].id)}>
                     <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>

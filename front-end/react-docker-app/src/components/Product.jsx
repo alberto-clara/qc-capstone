@@ -276,7 +276,7 @@ export  const Product = (props) => {
                         </Collapsible>
                     </div>
                 </div>
-
+                <div className="h-24" />
                 {/* Reviews */}
                 <div className="flex px-5 lg:px-0">
                     <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
