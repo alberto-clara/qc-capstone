@@ -36,7 +36,9 @@ export  const Product = (props) => {
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenS, setIsOpenS] = useState(false);
+    const [isOpenR, setIsOpenR] = useState(false);
+    const [isOpenQ, setIsOpenQ] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
         FireBaseSetup.isInitialized().then(user => {
@@ -269,38 +271,43 @@ export  const Product = (props) => {
         
         
                 {/* specifications */}
-                <div className="flex px-5 lg:px-0">
-                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
-                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Specifications">
-                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
-                        </Collapsible>
+                <div className=" px-5 lg:px-0">
+                    <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                       Specification
                     </div>
-                </div>
-                <div className="h-24" />
-                {/* Reviews */}
-                <div className="flex px-5 lg:px-0">
-                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
-                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Reviews">
-                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
-                        </Collapsible>
-                    </div>
-                </div>
-                {/* <div className="flex px-5 lg:px-0" onClick={()=>setIsOpen(!isOpen)} >
-                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
-                        <Collapse className="h-10 text-lg pt-2 pl-5" isOpened={isOpen}>
-                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
+                    <div className=" w-full pt-1">     
+                        <Collapse isOpened={isOpenS}>
+                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
                         </Collapse>
                     </div>
-                </div> */}
+                </div>
 
-                {/* QA */}
-                <div className="flex px-5 lg:px-0 pb-8">
-                    <div className="rounded w-full border-2 border-orange-500 bg-white text-lg" >
-                        <Collapsible className="h-10 text-lg pt-2 pl-5" trigger="Questions & Answers">
-                            <div className="border-t-2 border-orange-500 text-lg"> {description} </div>
-                        </Collapsible>
+                <div className="h-4" />
+                {/* Reviews */}
+                <div className=" px-5 lg:px-0">
+                    <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                        Review
+                    </div>
+                    <div className=" w-full pt-1">
+                        <Collapse isOpened={isOpenR}>
+                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                        </Collapse>
                     </div>
                 </div>
+
+                <div className="h-4" />
+                {/* QA */}
+                <div className=" px-5 lg:px-0">
+                    <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                        Q/A
+                    </div>
+                    <div className=" w-full pt-1">
+                        <Collapse isOpened={isOpenQ}>
+                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                        </Collapse>
+                    </div>
+                </div>
+
             </div>
         </div>
     )
