@@ -66,7 +66,8 @@ namespace CatalogApi.Controllers
         public async Task<IActionResult> Items(string sort, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
-            if (pageSize == 0) return BadRequest();
+            if (pageSize == 0)
+                return BadRequest();
 
             // return in alphabetical order by default
             var totalItems = await _catalogContext.products.LongCountAsync();
@@ -83,13 +84,16 @@ namespace CatalogApi.Controllers
                         });
 
             // if the optional route parameter equals 'ascending' sort results in ascending price
-            if (sort == "ascending") newT = newT.OrderBy(p => p.Unit_retail);
+            if (sort == "ascending")
+                newT = newT.OrderBy(p => p.Unit_retail);
 
             // if the optional route parameter equals 'descending' sort results in descending price
-            else if (sort == "descending") newT = newT.OrderByDescending(p => p.Unit_retail);
+            else if (sort == "descending")
+                newT = newT.OrderByDescending(p => p.Unit_retail);
 
             // if the optional route parameter equals 'reverse' sort results in reverse alphabetical order
-            else if (sort == "reverse") newT = newT.OrderByDescending(p => p.Product_name);
+            else if (sort == "reverse")
+                newT = newT.OrderByDescending(p => p.Product_name);
 
             var itemsOnPage = await newT
                                    .GroupBy(p => p.Product_name)
@@ -225,30 +229,47 @@ namespace CatalogApi.Controllers
 
         [HttpGet, Route("supplier/{supplierID}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> supplierOfferings(string supplierId)
+        [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> supplierOfferings(string supplierId, [FromQuery]int pageSize = 10,
+                                               [FromQuery]int pageIndex = 0)
         {
-            if (supplierId == null) return BadRequest();
+            if (supplierId == null)
+                return NotFound();
 
-            var result = await (from st in _catalogContext.suppliers
+            if (pageSize == 0)
+                return BadRequest();
+
+            var result = (from st in _catalogContext.suppliers
                                 join ot in _catalogContext.offerings on st.Id equals ot.Supplier_key
                                 join pt in _catalogContext.products on ot.Product_key equals pt.Id
                                 into temp
                                 from rt2 in temp.DefaultIfEmpty()
                                 where st.Id == supplierId
                                 orderby rt2.Product_name
-                                select new
+                                select new SupplierView
                                 {
-                                    rt2.Product_name,
-                                    rt2.Long_description,
-                                    ot.Product_key,
+                                    Product_name = rt2.Product_name,
+                                    Long_description = rt2.Long_description,
+                                    Product_key = ot.Product_key,
                                     Offering_key = ot.Id,
-                                    Unit_retail = Math.Round(ot.Unit_retail, 2),
-                                    Unit_cost = Math.Round(ot.Unit_cost, 2),
-                                    st.supplier_name,
-                                    st.Id
-                                }).ToListAsync();
+                                    Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
+                                    Unit_cost = Math.Round(ot.Unit_cost, 2).ToString(),
+                                    Supplier_name = st.supplier_name,
+                                    Supplier_key = st.Id
+                                });
 
-            return Ok(result);
+            var totalItems = result.Count();
+
+            var itemsOnPage = await result
+                                   .Skip(pageSize * pageIndex)
+                                   .Take(pageSize)
+                                   .ToListAsync();
+
+            var model = new PaginatedItemsViewModel<SupplierView>(
+                    pageIndex, pageSize, totalItems, itemsOnPage);
+
+            return 
+                Ok(model);
         }
 
 
