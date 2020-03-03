@@ -222,5 +222,60 @@ namespace CatalogApi.Controllers
 
             return NotFound();
         }
+
+        [HttpGet, Route("supplier/{supplierID}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> supplierOfferings(string supplierId)
+        {
+            if (supplierId == null) return BadRequest();
+
+            var result = await (from st in _catalogContext.suppliers
+                                join ot in _catalogContext.offerings on st.Id equals ot.Supplier_key
+                                join pt in _catalogContext.products on ot.Product_key equals pt.Id
+                                into temp
+                                from rt2 in temp.DefaultIfEmpty()
+                                where st.Id == supplierId
+                                orderby rt2.Product_name
+                                select new
+                                {
+                                    rt2.Product_name,
+                                    rt2.Long_description,
+                                    ot.Product_key,
+                                    Offering_key = ot.Id,
+                                    Unit_retail = Math.Round(ot.Unit_retail, 2),
+                                    Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                    st.supplier_name,
+                                    st.Id
+                                }).ToListAsync();
+
+            return Ok(result);
+        }
+
+
+        [HttpGet, Route("discounts/{offeringId}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        public async Task<IActionResult> offeringsWithDiscounts(string offeringId)
+        {
+            if (offeringId == null)
+                return NotFound();
+
+
+            var results = await (from d in _catalogContext.disc
+                           where d.Product_key == offeringId
+                           select new
+                           {
+                               d.Product_key,
+                               d.Product_name,
+                               d.Long_description,
+                               d.Supplier_key,
+                               d.Supplier_name,
+                               d.Uom,
+                               d.Offering_key,
+                               d.tiers,
+                               d.Type
+                           }).ToListAsync();
+
+            return Ok(results);
+        }
     }
 }
