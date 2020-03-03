@@ -101,11 +101,13 @@
     @apply bg-green-500;
 }
 .ReactCollapse--collapse {
-    max-width: 800px;
-  
-    transition: height 2000ms;
+    transition: height 1000ms;
+    @apply w-full;
 }
-
+ReactCollapse--content {
+    border-radius: 10px;
+    @apply w-full bg-gray-100 border-2 border-orange-500 p-2;
+}
 
 @screen lg {
     .product_id {

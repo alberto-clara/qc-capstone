@@ -12562,9 +12562,18 @@ video {
 }
 
 .ReactCollapse--collapse {
-  max-width: 800px;
-  -webkit-transition: height 2000ms;
-  transition: height 2000ms;
+  -webkit-transition: height 1000ms;
+  transition: height 1000ms;
+  width: 100%;
+}
+
+ReactCollapse--content {
+  border-radius: 10px;
+  width: 100%;
+  background-color: #f7fafc;
+  border-width: 2px;
+  border-color: #ed8936;
+  padding: 0.5rem;
 }
 
 @media (min-width: 1024px) {

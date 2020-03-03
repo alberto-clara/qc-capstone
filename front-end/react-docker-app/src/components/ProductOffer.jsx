@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Markup } from 'interweave';
 import { ModalProvider } from "react-modal-hook";
 import { Collapse } from 'react-collapse';
@@ -16,8 +16,8 @@ import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 /* eslint no-useless-concat: 0 */
 
-export  const Product = (props) => {
-    let { id } = useParams();
+export  const ProductOffer = (props) => {
+    let { offerid } = useParams();
     const [UserUID, setUserUID] = useState("");
     const [offeringKey, setOfferingKey] = useState('');
     const [productKey, setProductKey] = useState('');
@@ -36,8 +36,8 @@ export  const Product = (props) => {
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
-    const [isOpenS, setIsOpenS] = useState(false);
     const [isOpenR, setIsOpenR] = useState(false);
+    const [isOpenS, setIsOpenS] = useState(false);
     const [isOpenQ, setIsOpenQ] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - Product`;
@@ -49,18 +49,19 @@ export  const Product = (props) => {
                 });
                 setUserUID(user.uid);
             }
+            console.log(offerid);
         });
 
-        fetching(id); 
+        fetching(offerid); 
 
     },[]);
 
-    const fetching = async (ProductID) => {
+    const fetching = async (offerID) => {
 
-        await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-           // console.log(res);
+        await axios.get("http://localhost:7000/catalog-api/products/offerings/single/" + offerID).then((res) => {
+            console.log(res.data);
             setOfferingKey(res.data[0].offering_key);
-            setProductKey(id);
+            setProductKey(res.data[0].product_key);
             setProductName(res.data[0].product_name);
             setSupplierKey(res.data[0].supplier_key);
             setVender(res.data[0].supplier_name);
@@ -199,7 +200,7 @@ export  const Product = (props) => {
             offerings: items
         }, myHeader);
         
-       window.location.href = '/product/' + id;
+     //  window.location.href = '/product/' + id;
     }
 
 /*    const AddCartButton = async () => {
@@ -221,18 +222,10 @@ export  const Product = (props) => {
     const vendor_name = (
         <div className="mx-20 block">
             <div className="flex pr-2 font-bold text-lg">{vendor}</div>
-            <div className="flex lg:hidden">
-                <Link to={'/vendors/' + id}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
+            <div className="flex ">
+                <Link to={'/vendors/' + productKey}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
             </div>
-            <div className="lg:flex hidden">
-
-                {load ? <div className="hidden ">{helloLoop(totalVendor)}</div> : null}
-                <VendorProvider value={load ? <Markup content={document.getElementById("container").innerHTML} /> : null}>
-                    <ModalProvider>
-                        <ModalInProductPage/>
-                    </ModalProvider>
-                </VendorProvider>
-            </div>
+   
         </div>
     );
    
@@ -266,16 +259,14 @@ export  const Product = (props) => {
                             </div>
                     </div>
                 </div>
-            
 
-        
-        
+
                 {/* specifications */}
                 <div className=" px-5 lg:px-0">
                     <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
-                       Specification
+                        Specification
                     </div>
-                    <div className=" w-full pt-1">     
+                    <div className=" w-full pt-1">
                         <Collapse isOpened={isOpenS}>
                             <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
                         </Collapse>
@@ -307,7 +298,6 @@ export  const Product = (props) => {
                         </Collapse>
                     </div>
                 </div>
-
             </div>
         </div>
     )
