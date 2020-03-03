@@ -21,7 +21,7 @@ export const Vendors=  () => {
     const fetching = async (ProductID) => {
 
          await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-             console.log(res.data);
+            
              setTotalVendor(res.data.length);
           
              for (var i = 0; i < res.data.length; i++) {
@@ -69,8 +69,10 @@ export const Vendors=  () => {
 
      return (<>
          <div>
+             <br/>
              <div> {load ? loopfetching(totalVendor) : null} </div>
              <div id="container"></div>
+             <br/>
          </div>
       </>);
 }
