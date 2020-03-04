@@ -98,7 +98,7 @@
     @apply bg-green-500;
 }
 .ReactCollapse--collapse {
-    transition: height 1000ms;
+    transition: height 400ms;
     @apply w-full pt-2;
 }
 

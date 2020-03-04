@@ -12562,8 +12562,8 @@ video {
 }
 
 .ReactCollapse--collapse {
-  -webkit-transition: height 1000ms;
-  transition: height 1000ms;
+  -webkit-transition: height 400ms;
+  transition: height 400ms;
   width: 100%;
   padding-top: 0.5rem;
 }

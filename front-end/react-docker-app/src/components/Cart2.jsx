@@ -36,7 +36,7 @@ export const Cart = (props) => {
             }
         }
         await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
-            console.log(res.data.offerings);
+            console.log(res.data);
             setItemArray(res.data.offerings);
 
         });

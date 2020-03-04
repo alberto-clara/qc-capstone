@@ -36,9 +36,9 @@ export  const Product = (props) => {
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
-    const [isOpenS, setIsOpenS] = useState(false);
-    const [isOpenR, setIsOpenR] = useState(false);
-    const [isOpenQ, setIsOpenQ] = useState(false);
+    const [isOpenS, setIsOpenS] = useState(true);
+    const [isOpenR, setIsOpenR] = useState(true);
+    const [isOpenQ, setIsOpenQ] = useState(true);
     useEffect(() => {
         document.title = `Home Depot - Product`;
         FireBaseSetup.isInitialized().then(user => {
@@ -301,7 +301,7 @@ export  const Product = (props) => {
                     <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
                         Q/A
                     </div>
-                    <div className=" w-full pt-1">
+                    <div className=" w-full ">
                         <Collapse isOpened={isOpenQ}>
                             <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
                         </Collapse>
