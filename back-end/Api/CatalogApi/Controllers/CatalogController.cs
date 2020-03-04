@@ -78,9 +78,10 @@ namespace CatalogApi.Controllers
                         orderby pt.Product_name
                         select new PageView
                         {
-                            Id = pt.Id,
+                            Id = pt.Id, // in future change to product_key
                             Product_name = pt.Product_name,
-                            Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2)
+                            Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2),
+                            Offering_key = rt.Id
                         });
 
             // if the optional route parameter equals 'ascending' sort results in ascending price

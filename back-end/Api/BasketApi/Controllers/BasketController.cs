@@ -280,8 +280,8 @@ namespace UserInfoApi.Controllers
                     // if the quant > 0 set the quantity to quant
                     if (quant > 0)
                     {
-                        doc.Offerings[index].Quantity = quant;
-                        doc.total_cost -= doc.Offerings[index].totalOfferingCost;
+                        doc.total_cost -= doc.Offerings[index].Unit_retail * doc.Offerings[index].Quantity;
+                        doc.Offerings[index].Quantity = quant;                        
                         doc.Offerings[index].totalOfferingCost = doc.Offerings[index].Unit_retail * doc.Offerings[index].Quantity;
                         doc.total_cost += doc.Offerings[index].totalOfferingCost;
                     }
@@ -292,7 +292,7 @@ namespace UserInfoApi.Controllers
                         doc.total_items = doc.Offerings.Count();
                     }
 
-                    if (doc.total_items > 1)
+                    if (doc.total_items >= 1)
                     {
                         // upsert the updated document into the database
                         var upsertResult = await _bucket.UpsertAsync(ID, doc);
