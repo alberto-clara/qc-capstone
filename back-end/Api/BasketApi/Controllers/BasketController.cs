@@ -98,6 +98,7 @@ namespace UserInfoApi.Controllers
                 else // if there isn't a duplicate item insert the new item being added at the beginning of the list
                 {
                     userDoc.total_cost += newBasketItem.Offerings[0].Unit_retail * newBasketItem.Offerings[0].Quantity;
+                    newBasketItem.Offerings[0].totalOfferingCost = newBasketItem.Offerings[0].Unit_retail * newBasketItem.Offerings[0].Quantity;
                     userDoc.Offerings = userDoc.Offerings.Prepend(newBasketItem.Offerings[0]).ToList();
                 }
 
