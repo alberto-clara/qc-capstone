@@ -230,7 +230,7 @@ namespace CatalogApi.Controllers
 
         [HttpGet, Route("supplier/{supplierID}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PaginatedItemsViewModel<SupplierView>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> supplierOfferings(string supplierId, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
@@ -284,18 +284,30 @@ namespace CatalogApi.Controllers
 
             var results = await (from d in _catalogContext.disc
                            where d.Product_key == offeringId
-                           select new
+                           select new Disc
                            {
-                               d.Product_key,
-                               d.Product_name,
-                               d.Long_description,
-                               d.Supplier_key,
-                               d.Supplier_name,
-                               d.Uom,
-                               d.Offering_key,
-                               d.tiers,
-                               d.Type
+                               Product_key = d.Product_key,
+                               Product_name = d.Product_name,
+                               Long_description = d.Long_description,
+                               Supplier_key = d.Supplier_key,
+                               Supplier_name = d.Supplier_name,
+                               Uom = d.Uom,
+                               Offering_key = d.Offering_key,
+                               Discount_key = d.Discount_key,
+                               Unit_retail = d.Unit_retail,
+                               tiers = d.tiers,
+                               Type = d.Type,
+                               Discount_price = 0
                            }).ToListAsync();
+
+            for (int ii = 0; ii < results.Count(); ii++)
+            {
+                if (((results[ii].Type == "SUPPLIER_DISCOUNT") || (results[ii].Type == "PRODUCT_DISCOUNT")) && (results[ii].tiers[0].MinQty == 1))
+                {
+                    results[ii].Discount_price = results[ii].Unit_retail * (1 - results[ii].tiers[0].DiscountPercentage);
+                    Console.WriteLine($"results[{ii}].Discount_price = {results[ii].Discount_price}");
+                }
+            }
 
             return Ok(results);
         }
