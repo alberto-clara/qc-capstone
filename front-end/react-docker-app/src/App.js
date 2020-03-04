@@ -14,6 +14,7 @@ import { BrowsingList } from './components/BrowsingList';
 import { Vendors } from './components/Vendors';
 import { Cart } from './components/Cart2';
 import { CheckOut } from './components/CheckOutPage';
+import { SupplierPage } from './components/SupplierPage';
 export default () => (
     <Layout>
         <Switch>
@@ -23,7 +24,7 @@ export default () => (
             <Route path='/manageuser' component={ManagePage} />
             <Route path='/forgotemail' component={ForgotEmail} />
             <Route path='/forgotpassword' component={ForgotPassword} />
-           
+            <Route path="/supplier/:ids" component={SupplierPage} />
             <Route path="/vendors/:idv" component={Vendors} />
             <Route path='/browsing' component={BrowsingList} />
             <Route path='/checkout' component={CheckOut} />

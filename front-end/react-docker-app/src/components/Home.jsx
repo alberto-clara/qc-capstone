@@ -115,9 +115,10 @@ export const Home = (props) => {
             </div>
                 <div className="hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
-                <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
-
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[6].id)}>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
+                </div>
             </div>
                 <div className=" hover:bg-orange-200 hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>

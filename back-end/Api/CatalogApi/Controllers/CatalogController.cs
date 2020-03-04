@@ -182,6 +182,7 @@ namespace CatalogApi.Controllers
                                     Offering_key = ot.Id,
                                     Unit_retail = Math.Round(ot.Unit_retail, 2),
                                     Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                    ot.Supplier_key,
                                     rt2.supplier_name
                                 }).ToListAsync();
 
