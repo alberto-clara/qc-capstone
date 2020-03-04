@@ -66,6 +66,7 @@ namespace UserInfoApi.Controllers
                     newBasketItem.total_items = newBasketItem.Offerings.Count();
 
                     newBasketItem.total_cost = newBasketItem.Offerings[0].Unit_retail * newBasketItem.Offerings[0].Quantity;
+                    newBasketItem.Offerings[0].totalOfferingCost = newBasketItem.total_cost;
                     // attempt to insert the new document
                     var response = await _bucket.UpsertAsync(ID, newBasketItem);
                     // return a BadReuqest if this fails
@@ -91,6 +92,7 @@ namespace UserInfoApi.Controllers
                     {
                         userDoc.total_cost += newBasketItem.Offerings[0].Unit_retail * newBasketItem.Offerings[0].Quantity;
                         userDoc.Offerings[index].Quantity += newBasketItem.Offerings[0].Quantity;
+                        userDoc.Offerings[index].totalOfferingCost = newBasketItem.Offerings[0].Unit_retail * userDoc.Offerings[index].Quantity;
                     }
                 }
                 else // if there isn't a duplicate item insert the new item being added at the beginning of the list
@@ -276,7 +278,13 @@ namespace UserInfoApi.Controllers
                 if (index != -1)
                 {
                     // if the quant > 0 set the quantity to quant
-                    if (quant > 0) doc.Offerings[index].Quantity = quant;
+                    if (quant > 0)
+                    {
+                        doc.Offerings[index].Quantity = quant;
+                        doc.total_cost -= doc.Offerings[index].totalOfferingCost;
+                        doc.Offerings[index].totalOfferingCost = doc.Offerings[index].Unit_retail * doc.Offerings[index].Quantity;
+                        doc.total_cost += doc.Offerings[index].totalOfferingCost;
+                    }
                     // if quant = 0 remove that offering from Basket.Offerings
                     else
                     {

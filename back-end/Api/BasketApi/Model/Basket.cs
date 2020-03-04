@@ -28,5 +28,6 @@ namespace BasketApi.Model
         public decimal Unit_retail { get; set; }
         public string Uom { get; set; }
         public int Quantity { get; set; }
+        public decimal totalOfferingCost { get; set; }
     }
 }
