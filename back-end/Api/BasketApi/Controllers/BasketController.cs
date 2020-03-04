@@ -288,6 +288,7 @@ namespace UserInfoApi.Controllers
                     // if quant = 0 remove that offering from Basket.Offerings
                     else
                     {
+                        doc.total_cost -= userOffering.totalOfferingCost;
                         doc.Offerings.Remove(userOffering);
                         doc.total_items = doc.Offerings.Count();
                     }
