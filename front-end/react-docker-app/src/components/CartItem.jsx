@@ -27,7 +27,7 @@ export const CartItem = (props) => {
             </div>
         </div>
     );
-
+    
     const rate = (
         <div className="block">
             <div className="flex">
@@ -40,7 +40,7 @@ export const CartItem = (props) => {
         setCount(count - 1);
         if (count === 1) { setCount(1) } 
     }
-
+    console.log(props.value.totalOfferingCost);
     const removeCartItem = async() => {
         const Auth = 'Bearer '.concat(props.token);
         var config = {
@@ -86,7 +86,9 @@ export const CartItem = (props) => {
                     {count === props.value.quantity ? null : changeUpdate}
                     <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                 </div>
+                {props.value.totalOfferingCost}
             </div>
+
         </div>
     </div> )
     

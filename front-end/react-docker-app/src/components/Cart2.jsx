@@ -10,7 +10,7 @@ export const Cart = (props) => {
   
     const [ItemArray, setItemArray] = useState([]);
     const [load, setLoad] = useState(false);
-
+    const [totalcost, setTotalCost] = useState(0);
     const [userToken, setUserToken] = useState("");
    
     useEffect(() => {
@@ -36,7 +36,8 @@ export const Cart = (props) => {
             }
         }
         await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
-            console.log(res.data);
+            console.log(res);
+            setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
 
         });
@@ -65,6 +66,7 @@ export const Cart = (props) => {
                     <button onClick={() => { window.location.href ='/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
                 </div>
                 <br />
+                <div>Total Price: ${totalcost}</div>
             </div>
             : null
         }
