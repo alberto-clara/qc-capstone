@@ -11,6 +11,7 @@ namespace BasketApi.Model
         public Guid? Uid { get; set; }
         public string Date { get; set; }
         public int total_items { get; set; }
+        public decimal total_cost { get; set; }
         public List<Offerings> Offerings { get; set; }
         
         
