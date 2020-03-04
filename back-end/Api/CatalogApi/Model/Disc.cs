@@ -19,6 +19,7 @@ namespace CatalogApi.Model
         public string Uom { get; set; }
         public string Discount_key { get; set; }
         public string Type { get; set; }
+        public decimal? Discount_price { get; set; }
         internal string _Tiers { get; set; }
 //        [NotMapped]
         public List<Tiers> tiers
