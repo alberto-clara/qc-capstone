@@ -1,6 +1,6 @@
 apiVersion: 2018-10-01
 location: westus
-name: QCContainerGroup
+name: QCmain
 properties:
   containers:
   - name: apigatewayc
@@ -15,7 +15,7 @@ properties:
       - port: 7000
       environmentVariables:
       - name: ASPNETCORE_ENVIRONMENT
-        value: Development
+        value: Staging
       - name: ASPNETCORE_URLS
         value: http://+:443;http://+:80;http://+:7000
   - name: catalogapic
@@ -29,7 +29,7 @@ properties:
       - port: 7001
       environmentVariables:
       - name: ASPNETCORE_ENVIRONMENT
-        value: Development
+        value: Staging
       - name: ASPNETCORE_URLS
         value: http://+:7001
   - name: catalogdbc
@@ -44,22 +44,6 @@ properties:
       environmentVariables:
       - name: MYSQL_ROOT_PASSWORD
         value: password
-  - name: couchbase
-    properties:
-      image: qcshop.azurecr.io/couchbase:latest
-      resources:
-        requests:
-          cpu: 1
-          memoryInGb: 2.5
-      ports:
-      - port: 8091
-      - port: 8092
-      - port: 8093
-      - port: 8094
-      - port: 8095
-      - port: 8096
-      - port: 11210
-      - port: 11211
   imageRegistryCredentials:
   - server: qcshop.azurecr.io
     username: qcshop
@@ -76,22 +60,6 @@ properties:
       port: '7001'
     - protocol: tcp
       port: '3306'
-    - protocol: tcp
-      port: '8091'
-    - protocol: tcp
-      port: '8092'
-    - protocol: tcp
-      port: '8093'
-    - protocol: tcp
-      port: '8094'
-    - protocol: tcp
-      port: '8095'
-    - protocol: tcp
-      port: '8096'
-    - protocol: tcp
-      port: '11210'
-    - protocol: tcp
-      port: '11211'
-    dnsNameLabel: qc-eshop
+    dnsNameLabel: qc-main
 tags: null
 type: Microsoft.ContainerInstance/containerGroups

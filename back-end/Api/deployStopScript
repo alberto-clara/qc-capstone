@@ -1,3 +1,4 @@
 #!/bin/bash
 
-az container stop --name QCContainerGroup --resource-group qcapp
+az container stop --name QCmain --resource-group qcapp
+az container stop --name QCBasket_Services --resource-group qcapp

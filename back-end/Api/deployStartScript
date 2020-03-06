@@ -1,0 +1,4 @@
+#!/bin/bash
+
+az container start --name QCmain --resource-group qcapp
+az container start --name QCBasket_Services --resource-group qcapp

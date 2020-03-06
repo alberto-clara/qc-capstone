@@ -1,11 +1,19 @@
-﻿FROM mcr.microsoft.com/dotnet/core/sdk:2.2
-WORKDIR /BasketApi
-COPY ["BasketApi.csproj", "BasketApi/"]
-RUN dotnet restore "BasketApi/BasketApi.csproj"
-COPY . .
-WORKDIR "/BasketApi"
-RUN dotnet build "BasketApi.csproj" -c Release -o /rel
-RUN dotnet publish "BasketApi.csproj" -c Release -o /app
-EXPOSE 80:7003
+﻿FROM microsoft/dotnet:2.2-aspnetcore-runtime AS base
 WORKDIR /app
+EXPOSE 7003
+
+FROM microsoft/dotnet:2.2-sdk AS build
+WORKDIR /src
+COPY BasketApi/BasketApi.csproj BasketApi/
+RUN dotnet restore BasketApi/BasketApi.csproj
+COPY . .
+WORKDIR /src/BasketApi
+RUN dotnet build BasketApi.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish BasketApi.csproj -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "BasketApi.dll"]

@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalogapic",
+          "Host": "localhost",
           "Port": 7001
         }
       ],
@@ -27,7 +27,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "qc-basket-services.westus.azurecontainer.io",
           "Port": 7003
         }
       ],
