@@ -73,16 +73,14 @@ namespace CatalogApi.Controllers
             var totalItems = await _catalogContext.products.LongCountAsync();
             var newT = (from pt in _catalogContext.products
                         join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
-                        into newTable
-                        from rt in newTable.DefaultIfEmpty()
-                        orderby pt.Product_name
+                        orderby ot.Unit_retail ascending
                         select new PageView
                         {
                             Id = pt.Id, // in future change to product_key
                             Product_name = pt.Product_name,
-                            Unit_retail = Math.Round(newTable.Min(a => a.Unit_retail), 2),
-                            Offering_key = rt.Id
-                        });
+                            Unit_retail = Math.Round(ot.Unit_retail, 2),
+                            Offering_key = ot.Id
+                        }).OrderBy(p => p.Product_name);
 
             // if the optional route parameter equals 'ascending' sort results in ascending price
             if (sort == "ascending")

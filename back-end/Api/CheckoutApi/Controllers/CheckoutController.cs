@@ -10,7 +10,6 @@ using Couchbase;
 using Couchbase.IO;
 using Couchbase.N1QL;
 using Couchbase.Extensions.DependencyInjection;
-using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
@@ -157,8 +156,6 @@ namespace CheckoutApi.Controllers
 
                 var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
                 var result = await _userInfoBucket.UpsertAsync(ID, newUserInfo);
-
-//                Console.WriteLine($"newUserInfo = {newUserInfo.}");
 
                 if (!result.Success)
                     return BadRequest();
