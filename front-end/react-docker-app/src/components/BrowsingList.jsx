@@ -41,9 +41,10 @@ export const BrowsingList = (props) => {
             setTotalItem(res.data.count);
            //limit = (res.data.count / pageNumber) - 1;
         })
-        await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location-1)).then((res) => {
+        await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
+            console.log(res.data.data);
             for (var i = 0; i < number; i++) {
-                initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+                initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
             setItems(initValue)
             setLoad(true);
@@ -55,7 +56,7 @@ export const BrowsingList = (props) => {
        //     console.log(totalItem);
             await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
-                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
                 setRestItem(rest);
                 setTotalRest(totalItem - startingRest);
@@ -73,7 +74,7 @@ export const BrowsingList = (props) => {
         await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
            // console.log(res.data);
             for (var i = 0; i < number; i++) {
-                initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+                initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
             setItems(initValue)
             setLoad(true);
@@ -81,7 +82,7 @@ export const BrowsingList = (props) => {
             var startingRest = (number * (countPage - 1));
             await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
-                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail });
+                    rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
                 setRestItem(rest);
                 setTotalRest(totalItem - startingRest);
@@ -107,7 +108,7 @@ export const BrowsingList = (props) => {
                     `<a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
                     `</div>` +
                     `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
-                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + restItem[i].id + `">` + restItem[i].product_name + `</a>` +
+                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="offering/` + restItem[i].offerings + `">` + restItem[i].product_name + `</a>` +
                     `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + restItem[i].unit_retail + `</div>` +
 
                     `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
@@ -131,7 +132,7 @@ export const BrowsingList = (props) => {
                     `<a target="_blank"><img class="rounded-lg" src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>` +
                     `</div>` +
                     `<div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">` +
-                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="product/` + items[i].id + `">` + items[i].product_name + `</a>` +
+                    `<a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="offering/` + items[i].offerings + `">` + items[i].product_name + `</a>` +
                     `<div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">` + 'Cost: $' + items[i].unit_retail + `</div>` +
 
                     `<div class="text-xs lg:text-md flex-wrap">` + `Delivers Today.` + `</div>` +
