@@ -71,45 +71,15 @@ export const CheckOut = () => {
         </div>
         <div className="text-lg pl-2 pt-4 md:text-2xl w-1/2">Order Review</div>
         <hr className="m-2 pb-1 px-4 bg-orange-500"/>
-            {/*   <div className="flex w-full *//*bg-yellow-400*//*">
-                    <div className="flex border border-orange-300 w-full m-2">
-                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
-                        <div className="block text-lg w-full">
-                            <div className="m-4 text-md md:text-2xl font-extrabold *//*bg-purple-500*//*">Heavy Ducimus Bucket</div>
-                                <div className="m-4 text-2xl font-extrabold pt-2">$143.21</div>
-                                <div className="pl-4 pt-2">ErrorIpsa CO.</div>
-                                <div className="pl-4 pt-2">Quantity: 5</div>
-                        </div>
-                    </div>
-                </div>
-        <div className="flex w-full *//*bg-yellow-400*//*">
-                    <div className="flex border border-orange-300 w-full m-2">
-                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
-                        <div className="block text-lg w-full">
-                            <div className="m-4 text-md md:text-2xl font-extrabold *//*bg-purple-500*//*">Heavy Ducimus Bucket</div>
-                                <div className="m-4 text-2xl font-extrabold pt-2">$143.21</div>
-                                <div className="pl-4 pt-2">ErrorIpsa CO.</div>
-                                <div className="pl-4 pt-2">Quantity: 5</div>
-                        </div>
-                    </div>
-                </div>
-        <div className="flex w-full *//*bg-yellow-400*//*">
-                    <div className="flex border border-orange-300 w-full m-2">
-                        <div className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
-                        <div className="block text-lg w-full">
-                            <div className="m-4 text-md md:text-2xl font-extrabold *//*bg-purple-500*//*">Heavy Ducimus Bucket</div>
-                                <div className="m-4 text-2xl font-extrabold pt-2">$143.21</div>
-                                <div className="pl-4 pt-2">ErrorIpsa CO.</div>
-                                <div className="pl-4 pt-2">Quantity: 5</div>
-                        </div>
-                    </div>
-                </div>*/}
+          
             {load ? ListItem : null}
             <hr /><hr />
             <div className="text-2xl">
                 Total cost: {totalcost}
             </div>
-    </div> 
+        </div>
+        <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Back to Cart</button>
+
         <button className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Place Order</button>
          
         </>)
