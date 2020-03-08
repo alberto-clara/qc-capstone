@@ -200,7 +200,7 @@ export  const ProductOffer = (props) => {
             offerings: items
         }, myHeader);
         
-     //  window.location.href = '/product/' + id;
+        window.location.href = '/offering/' + offerid;
     }
 
 /*    const AddCartButton = async () => {

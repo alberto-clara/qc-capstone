@@ -186,7 +186,6 @@ namespace UserInfoApi.Controllers
             }
 
             return Conflict();
-
         }
 
         /*
