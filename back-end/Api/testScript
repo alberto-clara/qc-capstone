@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build -t qcshop.azurecr.io/basketapi:latest -f "BasketApi/Dockerfile" .

@@ -5,7 +5,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "qc-catalog-services.westus.azurecontainer.io",
           "Port": 7001
         }
       ],

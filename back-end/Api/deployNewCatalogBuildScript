@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker build -t qcshop.azurecr.io/catalogapi:latest -f "CatalogApi/Dockerfile" .
+
+docker push qcshop.azurecr.io/catalogapi:latest
+
+az container delete --name QCCatalog_Services --resource-group qcapp -y
+az container create --resource-group qcapp --file deploy-catalog_services.yaml
