@@ -13,6 +13,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using CatalogApi.Infrastructure;
 using Swashbuckle.AspNetCore.Swagger;
+using Couchbase.Extensions.DependencyInjection;
+using CatalogApi.Infrastructure.Services;
 
 namespace CatalogApi
 {
@@ -30,7 +32,12 @@ namespace CatalogApi
         {
             services.AddDbContext<CatalogContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ICatalogQueries, CatalogQueries>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services
+                .AddCouchbase(Configuration.GetSection("Couchbase"))
+                .AddCouchbaseBucket<DiscountsContext>("Discounts");
 
             services.AddSwaggerGen(c =>
             {
