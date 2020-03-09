@@ -88,6 +88,7 @@ namespace CatalogApi.Controllers
 
             return Ok(offerings);
         }
+        /*
 
         [HttpGet, Route("singleOffering/{offeringID")]
         public async Task<IActionResult> SingleOfferingDisc(string offeringID)
@@ -101,5 +102,6 @@ namespace CatalogApi.Controllers
 
             return Ok();
         }
+        */
     }
 }
