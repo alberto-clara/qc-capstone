@@ -2,7 +2,7 @@
 import { Markup } from 'interweave';
 import { ModalProvider } from "react-modal-hook";
 import { Collapse } from 'react-collapse';
-import Collapsible from 'react-collapsible';
+
 import { searchbar } from '../components/Home';
 import { useParams, Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";

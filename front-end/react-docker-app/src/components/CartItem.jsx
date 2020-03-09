@@ -71,9 +71,9 @@ export const CartItem = (props) => {
             <div className="flex border border-orange-300 w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
-                    <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.product_name}</div>
+                    <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold hover:text-orange-500 hover:underline">{props.value.product_name}</div>
                     <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                    <div className="pl-4 pt-2">{props.value.supplier_name}</div>
+                    <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                     <div className="md:hidden"> {counters}
                         {count === props.value.quantity ? null : changeUpdateMobile}
@@ -98,18 +98,15 @@ export const CartItem = (props) => {
 }
 
 export const CartItemCheckOut = (props) => {
-    const [count, setCount] = useState(props.value.quantity);
-
-    const [removeItem, setRemoveItem] = useState(false);
-
     const rate = (
         <div className="block">
             <div className="flex">
-                <div>Rating</div>
+                <div>Rating:</div>
                 <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             </div>
         </div>
     );
+    console.log(props)
     const linktoProduct = () => {
         window.location.assign("/product/" + props.value.product_key);
     }
@@ -118,9 +115,9 @@ export const CartItemCheckOut = (props) => {
             <div className="flex border border-orange-300 w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
-                    <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold /*bg-purple-500*/">{props.value.product_name}</div>
+                    <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold  hover:text-orange-500 hover:underline">{props.value.product_name}</div>
                     <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                    <div className="pl-4 pt-2">{props.value.supplier_name}</div>
+                    <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                 </div>
 
@@ -133,8 +130,7 @@ export const CartItemCheckOut = (props) => {
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div> 
     </div>)
 
     return (<>

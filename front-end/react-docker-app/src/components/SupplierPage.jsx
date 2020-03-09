@@ -19,11 +19,11 @@ export const SupplierPage = () => {
     }, []);
 
     const fetching = async(ids) => {
-        console.log(ids);
+        
         await axios.get("http://localhost:7000/catalog-api/products/supplier/" + ids).then((res) => {
             console.log(res.data.data);});
     }
     return (<>
-    hi
+        hi {ids}
     </>)
 }

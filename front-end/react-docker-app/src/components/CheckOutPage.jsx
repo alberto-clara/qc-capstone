@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Collapse } from 'react-collapse';
 import display_image from './PicArray';
 import FireBaseSetup from '../FireBaseSetup';
 import { CartItemCheckOut } from './CartItem';
 export const CheckOut = () => {
+
     const [ItemArray, setItemArray] = useState([]);
     const [load, setLoad] = useState(false);
     const [totalcost, setTotalCost] = useState(0);
     const [UserUID, setUserUID] = useState("");
     const [userToken, setUserToken] = useState("");
+    const [isOpenS, setIsOpenS] = useState(true);
     useEffect(() => {
         document.title = `Home Depot - CheckOut`;
         FireBaseSetup.isInitialized().then(user => {
@@ -59,7 +62,7 @@ export const CheckOut = () => {
         <hr className="m-2 pb-1 px-4 bg-orange-500"/>
         <div className="text-lg pl-2 md:text-2xl w-1/2">Payment Method</div>
         <hr className="m-2 pb-1 px-4 bg-orange-500"/>
-        <div className="w-full">
+        <div >
             <div className="text-base md:text-xl pt-4 pl-2">Name on the Card</div>
             <input id="cardname" className="m-2 rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-70 md:w-1/3" type="search" name="search"></input>
             <div className="text-base md:text-xl pt-4 pl-2">Card Number</div>
@@ -69,15 +72,17 @@ export const CheckOut = () => {
             <div className="text-base md:text-xl pt-4 pl-2 block md:flex">CSV</div>
             <input id="cardname" className="m-2 block md:flex rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-70 md:w-1/3" type="search" name="search"></input>
         </div>
-        <div className="text-lg pl-2 pt-4 md:text-2xl w-1/2">Order Review</div>
-        <hr className="m-2 pb-1 px-4 bg-orange-500"/>
-          
-            {load ? ListItem : null}
-            <hr /><hr />
-            <div className="text-2xl">
+        <div onClick={() => setIsOpenS(!isOpenS)}  className="text-lg pl-2 pt-4 md:text-2xl w-1/2 cursor-pointer hover:text-orange-500">Order Review</div>
+            <hr className="m-2 pb-1 px-4 bg-orange-500" />
+            <Collapse isOpened={isOpenS}>
+                {load ? ListItem : null}
+                <hr /><hr />
+               
+            </Collapse>
+            <div className="text-2xl text-center">
                 Total cost: {totalcost}
             </div>
-        </div>
+    </div>
         <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Back to Cart</button>
 
         <button className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Place Order</button>

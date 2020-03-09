@@ -49,17 +49,13 @@ export  const ProductOffer = (props) => {
                 });
                 setUserUID(user.uid);
             }
-            console.log(offerid);
         });
-
         fetching(offerid); 
-
     },[]);
 
     const fetching = async (offerID) => {
-
         await axios.get("http://localhost:7000/catalog-api/products/offerings/single/" + offerID).then((res) => {
-            console.log(res.data);
+         
             setOfferingKey(res.data[0].offering_key);
             setProductKey(res.data[0].product_key);
             setProductName(res.data[0].product_name);
@@ -79,7 +75,7 @@ export  const ProductOffer = (props) => {
       
     }
     
-    const helloLoop = (totalVendor) => {
+   /* const helloLoop = (totalVendor) => {
         var htmlElements = "";
         var loopElements = '';
         var colorchange = '';
@@ -112,7 +108,7 @@ export  const ProductOffer = (props) => {
             ;
         document.getElementById("container").innerHTML = htmlElements;
         return (htmlElements);
-    }
+    }*/
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Product View </div>
@@ -149,8 +145,6 @@ export  const ProductOffer = (props) => {
                     {/* {display_image()} */}
                     <img src={kitty1} alt="kitty1"/>
                     <img src={kitty2} alt="kitty2"/>
-                    {/* <img src="http://lorempixel.com/output/cats-q-c-640-480-1.jpg" />
-                    <img src="http://lorempixel.com/output/cats-q-c-640-480-3.jpg" /> */}
                 </Carousel>
             </div>  
          
@@ -172,10 +166,7 @@ export  const ProductOffer = (props) => {
         </div>
     );
     const AddCartButton = async () => {
-
-        //console.log(UserUID, offeringKey, productKey, productName, supplierKey, vendor, unitcost, uom, quantity, Date());
         var items = [{
-
             offering_key: offeringKey,
             product_key: productKey,
             product_name: productName,
@@ -185,120 +176,102 @@ export  const ProductOffer = (props) => {
             uom: uom,
             quantity: count
         }];
-        //console.log(items);
         const myHeader = {
             headers: {
                 'Authorization': 'Bearer '.concat(userToken)
             }
         }
-   
        await axios.post('http://localhost:7000/basket-api/basket/add', {
           
             uid: null,
             date: Date(),
             total_items: 0,
             offerings: items
-        }, myHeader);
-        
+        }, myHeader);    
         window.location.href = '/offering/' + offerid;
     }
 
-/*    const AddCartButton = async () => {
-        console.log(productName, unitcost, id, UserUID);
-         axios.post('http://localhost:3001/cart', {
-            user_id: UserUID,
-            product_id: id,
-            product_name: productName,
-            unit_cost: unitcost
-         }).then((res) => {
-             console.log("well", res);
-            if (res.data !== null) {
-                console.log("well",res);
-              
-            };
-        })
-        window.location.href = '/product/' + id;
-    }*/
     const vendor_name = (
         <div className="mx-20 block">
-            <div className="flex pr-2 font-bold text-lg">{vendor}</div>
+            <div onClick={() => window.location.assign("/supplier/" + supplierKey)} className="flex pr-2 font-bold text-lg cursor-pointer hover:bg-gray-300">{vendor}</div>
             <div className="flex ">
                 <Link to={'/vendors/' + productKey}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
             </div>
    
         </div>
     );
-   
-    return (
-        <div>
-            {searchbar}
-            <div id="container" className="hidden "></div>
-            {page_title}
+
+    const containAll = (<div>
+        {searchbar}
+        <div id="container" className="hidden "></div>
+        {page_title}    
         <div className="w-full">
-                <div className=" lg:flex pt-10">
-                        <div className="xl:w-1/2">
-                            {side_pic}  
+            <div className=" lg:flex pt-10">
+                <div className="xl:w-1/2">
+                    {side_pic}
+                </div>
+                <div className="lg:w-1/2">
+                    <div className="flex">{prodc_name}</div>
+                    <div className="flex">
+                        <div className="w-2/3">
+                            {rate}
+                            <div className="flex pt-2">{vendor_name} </div>
                         </div>
-                        <div className="lg:w-1/2">
-                            <div className="flex">{prodc_name}</div>
-                            <div className="flex">
-                                <div className="w-2/3"> 
-                                {rate}
-                                <div className="flex pt-2">{vendor_name}</div>
-                                </div>
-                                <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitcost}</div>
-                            </div>
-                        
-                            <div className="flex">
-                                <div id="quantity" className="w-1/2 justify-center">
-                                    {counters}
-                                </div>
-                                <div className="flex justify-center w-1/2 lg:w-3/5">
-                                <button onClick={AddCartButton} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
-                                </div>
-                            </div>
+                        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitcost}</div>
                     </div>
-                </div>
 
-
-                {/* specifications */}
-                <div className=" px-5 lg:px-0">
-                    <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
-                        Specification
-                    </div>
-                    <div className=" w-full pt-1">
-                        <Collapse isOpened={isOpenS}>
-                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
-                        </Collapse>
-                    </div>
-                </div>
-
-                <div className="h-4" />
-                {/* Reviews */}
-                <div className=" px-5 lg:px-0">
-                    <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
-                        Review
-                    </div>
-                    <div className=" w-full pt-1">
-                        <Collapse isOpened={isOpenR}>
-                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
-                        </Collapse>
-                    </div>
-                </div>
-
-                <div className="h-4" />
-                {/* QA */}
-                <div className=" px-5 lg:px-0">
-                    <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
-                        Q/A
-                    </div>
-                    <div className=" w-full pt-1">
-                        <Collapse isOpened={isOpenQ}>
-                            <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
-                        </Collapse>
+                    <div className="flex">
+                        <div id="quantity" className="w-1/2 justify-center">
+                            {counters}
+                        </div>
+                        <div className="flex justify-center w-1/2 lg:w-3/5">
+                            <button onClick={AddCartButton} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Add to Cart</button>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+            {/* specifications */}
+            <div className=" px-5 lg:px-0">
+                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                    Specification
+                    </div>
+                <div className=" w-full pt-1">
+                    <Collapse isOpened={isOpenS}>
+                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                    </Collapse>
+                </div>
+            </div>
+
+            <div className="h-4" />
+            {/* Reviews */}
+            <div className=" px-5 lg:px-0">
+                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                    Review
+                    </div>
+                <div className=" w-full pt-1">
+                    <Collapse isOpened={isOpenR}>
+                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                    </Collapse>
+                </div>
+            </div>
+
+            <div className="h-4" />
+            {/* QA */}
+            <div className=" px-5 lg:px-0">
+                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                    Q/A
+                    </div>
+                <div className=" w-full pt-1">
+                    <Collapse isOpened={isOpenQ}>
+                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                    </Collapse>
+                </div>
+            </div>
         </div>
+    </div>)
+    return (
+        <> {containAll}</>
     )
 }

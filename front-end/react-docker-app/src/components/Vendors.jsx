@@ -20,7 +20,6 @@ export const Vendors=  () => {
     const fetching = async (ProductID) => {
 
          await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-             console.log(res);
              setTotalVendor(res.data.length);
           
              for (var i = 0; i < res.data.length; i++) {
@@ -28,7 +27,6 @@ export const Vendors=  () => {
              }
              setSupplier(initValue);
              
-             console.log(initValue);
          })
         setLoad(true);
     }
@@ -39,12 +37,12 @@ export const Vendors=  () => {
             </>);
         });
     const container = (<div>
-        <table class="table-auto border-2 border-orange-500">
+        <table className="table-auto border-2 border-orange-500">
                     <thead> 
                         <tr> 
-                            <th class="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl"> Vendor </th> 
-                            <th class="p-4 border-r-2 border-orange-500 underline text-xl"> Unit Cost  </th> 
-                            <th class="p-4 border-r-2 border-orange-500 underline text-xl">  "Unit Retail"  </th> 
+                            <th className="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl"> Vendor </th> 
+                            <th className="p-4 border-r-2 border-orange-500 underline text-xl"> Unit Cost  </th> 
+                            <th className="p-4 border-r-2 border-orange-500 underline text-xl">  "Unit Retail"  </th> 
                         </tr>
                     </thead> 
                     <tbody>
@@ -65,15 +63,14 @@ export const Vendors=  () => {
 }
 
 const VendorEach = (props) => {
-    
-   // console.log(props.vendorkey);
+   
     const grayline = (<>
-        <td className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
+        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
         <td className="p-2 border-2 border-orange-500 text-right bg-gray-300" > {props.value.unit_cost}</td>      
         <td className="p-2 border-2 border-orange-500 text-right bg-gray-300"  >{props.value.unit_retail}</td>        
     </>)
     const whiteline = (<>
-        <td className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
+        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
         <td className="p-2 border-2 border-orange-500 text-right bg-white" > {props.value.unit_cost}</td>
         <td className="p-2 border-2 border-orange-500 text-right bg-white" >{props.value.unit_retail}</td>
     </>)
