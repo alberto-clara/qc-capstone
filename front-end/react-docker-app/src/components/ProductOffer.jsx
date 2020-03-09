@@ -36,9 +36,9 @@ export  const ProductOffer = (props) => {
     const VendorValue = [];
     const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
-    const [isOpenR, setIsOpenR] = useState(false);
-    const [isOpenS, setIsOpenS] = useState(false);
-    const [isOpenQ, setIsOpenQ] = useState(false);
+    const [isOpenR, setIsOpenR] = useState(true);
+    const [isOpenS, setIsOpenS] = useState(true);
+    const [isOpenQ, setIsOpenQ] = useState(true);
     useEffect(() => {
         document.title = `Home Depot - Product`;
         FireBaseSetup.isInitialized().then(user => {

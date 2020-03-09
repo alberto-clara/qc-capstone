@@ -14,65 +14,72 @@ export const Vendors=  () => {
      useEffect(() => {
          document.title = `Home Depot - Vendor`;
          fetching(idv);
-         setLoad(false);
     
           // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [load]);
     const fetching = async (ProductID) => {
 
          await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
-            
+             console.log(res);
              setTotalVendor(res.data.length);
           
              for (var i = 0; i < res.data.length; i++) {
-                 initValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail });
+                 initValue.push({ supplier: res.data[i].supplier_name, supplier_key: res.data[i].supplier_key, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail });
              }
              setSupplier(initValue);
-             setLoad(true);
+             
+             console.log(initValue);
          })
-     }
-     const loopfetching =  (totalVendor) => {
-         var htmlElements = '';
-         var loopElements = '';
-         var colorchange = '';
-         for (var i = 0; i < totalVendor; i++) { 
-             (i % 2 === 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
-             loopElements += `
-            <tr>`+
-                 `<td class="p-2 border-2 border-orange-500 text-center ` + colorchange+`">` + supplier[i].supplier +
-                 `</td>` +
-                 `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange +`">` + supplier[i].unit_cost +
-                 `</td>` +
-                 `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange +`">`+ supplier[i].unit_retail +
-                 `</td>` +
-            `</tr>`
-         }
-             htmlElements += `      
-                <table class="table-auto">`+
-                    `<thead>` +
-                        `<tr>` +
-                            `<th class="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl">` + "Vendor" + `</th>` +
-                            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Cost" + `</th>` +
-                            `<th class="p-4 border-r-2 border-orange-500 underline text-xl">` + "Unit Retail" + `</th>` +
-                        `</tr>`+
-                    `<thead>` +
-                    `<tbody>` +
-                        loopElements +
-                    `</tbody>`+
-                `</table>`
-                ;
-         
-         var container = document.getElementById("container");
-         container.innerHTML = htmlElements;
-         setLoad(false);
-     }
-
+        setLoad(true);
+    }
+    const ListVendor =
+        supplier.map((e,i) => {
+            return (<>
+                <VendorEach value={e} index={i}/>
+            </>);
+        });
+    const container = (<div>
+        <table class="table-auto border-2 border-orange-500">
+                    <thead> 
+                        <tr> 
+                            <th class="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl"> Vendor </th> 
+                            <th class="p-4 border-r-2 border-orange-500 underline text-xl"> Unit Cost  </th> 
+                            <th class="p-4 border-r-2 border-orange-500 underline text-xl">  "Unit Retail"  </th> 
+                        </tr>
+                    </thead> 
+                    <tbody>
+                        {ListVendor}
+                    </tbody>
+        </table>
+         </div>
+        )
      return (<>
          <div>
              <br/>
-             <div> {load ? loopfetching(totalVendor) : null} </div>
-             <div id="container"></div>
+             
+             <div> {load ? container:null}</div>
+         
              <br/>
          </div>
       </>);
+}
+
+const VendorEach = (props) => {
+    
+   // console.log(props.vendorkey);
+    const grayline = (<>
+        <td className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
+        <td className="p-2 border-2 border-orange-500 text-right bg-gray-300" > {props.value.unit_cost}</td>      
+        <td className="p-2 border-2 border-orange-500 text-right bg-gray-300"  >{props.value.unit_retail}</td>        
+    </>)
+    const whiteline = (<>
+        <td className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
+        <td className="p-2 border-2 border-orange-500 text-right bg-white" > {props.value.unit_cost}</td>
+        <td className="p-2 border-2 border-orange-500 text-right bg-white" >{props.value.unit_retail}</td>
+    </>)
+    
+    return (
+        <tr>{(props.index % 2 === 0) ? grayline : whiteline}
+        </tr>
+        )
 }

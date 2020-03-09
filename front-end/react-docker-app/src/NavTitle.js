@@ -14,14 +14,9 @@ const NavTitle = (props)=> {
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-
-                // tryFetch(user.uid);
-                user.getIdToken().then(function (idToken) {  // <------ Check this line
-                    
+                user.getIdToken().then(function (idToken) {  // <------ Check this line      
                     setUserToken(idToken); // It shows the Firebase token now
                     fetching(idToken);
-                
-
                 });
                 setStateNave(user);
             }

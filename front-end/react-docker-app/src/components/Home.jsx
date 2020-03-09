@@ -3,7 +3,6 @@ import '../css/mainTailwind.css';
 //import { autoPlay } from 'react-swipeable-views-utils';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
-// import { Slider } from './AdSlide';
 import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
@@ -102,8 +101,8 @@ export const Home = (props) => {
 
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[5].id)}>
-                    <div className="flex justify-center pt-4 md:pt-8 items-center">${load === false ? null : roundDigit(AdItems[5].price)}</div>
-                    <div className="flex justify-center pt-12 md:pt-4 items-center ">{load === false ? null : AdItems[5].product_name}</div>
+                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[5].price)}</div>
+                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[5].product_name}</div>
                 </div>
             </div>
                 <div className="hover:bg-orange-200  w-1/2 md:w-1/5 ">
@@ -115,7 +114,7 @@ export const Home = (props) => {
             </div>
                 <div className="hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[6].id)}>
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[7].id)}>
                     <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
                 </div>
