@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Markup } from 'interweave';
-import { ModalProvider } from "react-modal-hook";
 import { Collapse } from 'react-collapse';
-import Collapsible from 'react-collapsible';
 import { searchbar } from '../components/Home';
 import { useParams, Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
-import { ModalInProductPage } from './ModalVendor';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
-import { VendorProvider } from './VendorsContext'
 import FireBaseSetup from '../FireBaseSetup';
-import display_image from './PicArray';
+
 /* eslint no-useless-concat: 0 */
 
 export  const ProductOffer = (props) => {
@@ -75,40 +70,6 @@ export  const ProductOffer = (props) => {
       
     }
     
-   /* const helloLoop = (totalVendor) => {
-        var htmlElements = "";
-        var loopElements = '';
-        var colorchange = '';
-        for (var i = 0; i < totalVendor; i++) {
-            (i % 2 === 0) ? colorchange = 'bg-gray-300' : colorchange = 'bg-white';
-            loopElements += `
-            <tr>`+
-                `<td class="p-2 border-2 border-orange-500 text-center ` + colorchange + `">` + VendorArray[i].supplier +
-                `</td>` +
-                `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange + `">` + VendorArray[i].unit_cost +
-                `</td>` +
-                `<td class="p-2 border-2 border-orange-500 text-right ` + colorchange + `">` + VendorArray[i].unit_retail +
-                `</td>` +
-                `</tr>`
-        }
-
-        htmlElements += `      
-                <table class="table-auto">`+
-            `<thead>` +
-            `<tr>` +
-            `<th class="p-4 border-r-2  border-t-2 border-l-2 border-orange-500 underline text-xl">` + "Vendor" + `</th>` +
-            `<th class="p-4 border-r-2 border-t-2 border-orange-500 underline text-xl">` + "Unit Cost" + `</th>` +
-            `<th class="p-4 border-r-2  border-t-2 border-orange-500 underline text-xl">` + "Unit Retail" + `</th>` +
-            `</tr>` +
-            `<thead>` +
-            `<tbody>` +
-            loopElements +
-            `</tbody>` +
-            `</table>`
-            ;
-        document.getElementById("container").innerHTML = htmlElements;
-        return (htmlElements);
-    }*/
     const page_title = (
         <div className="mt-4 justify-center w-full h-auto md:h-auto">
             <div className=" titlePage py-2 lg:text-3xl"> Product View </div>
@@ -142,7 +103,6 @@ export  const ProductOffer = (props) => {
         <div>
             <div className="justify-center flex px-5 lg:px-0">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                    {/* {display_image()} */}
                     <img src={kitty1} alt="kitty1"/>
                     <img src={kitty2} alt="kitty2"/>
                 </Carousel>
@@ -234,38 +194,36 @@ export  const ProductOffer = (props) => {
 
             {/* specifications */}
             <div className=" px-5 lg:px-0">
-                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Specification
-                    </div>
+                </div>
                 <div className=" w-full pt-1">
                     <Collapse isOpened={isOpenS}>
-                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
                     </Collapse>
                 </div>
             </div>
-
-            <div className="h-4" />
+      
             {/* Reviews */}
-            <div className=" px-5 lg:px-0">
-                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+            <div className=" px-5 lg:px-0 pt-2">
+                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Review
                     </div>
                 <div className=" w-full pt-1">
                     <Collapse isOpened={isOpenR}>
-                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
                     </Collapse>
                 </div>
             </div>
 
-            <div className="h-4" />
             {/* QA */}
-            <div className=" px-5 lg:px-0">
-                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer hover:bg-orange-300" >
+            <div className=" px-5 lg:px-0 pt-2 pb-4">
+                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Q/A
                     </div>
                 <div className=" w-full pt-1">
                     <Collapse isOpened={isOpenQ}>
-                        <div className="p-2 bg-gray-100 border-r-2 border-orange-500 border-2"> {description} </div>
+                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
                     </Collapse>
                 </div>
             </div>
