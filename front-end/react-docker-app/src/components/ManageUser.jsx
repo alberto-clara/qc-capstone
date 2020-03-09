@@ -93,38 +93,35 @@ export const ManagePage = (props) => {
                     ext2: res.data[i].phone_number.secondary_phone.ext
                 });
             }
-            console.log(res);
+            console.log("res print statement: ", res);
+
+            console.log("first_name", res.data.full_name.first_name);
             initValue.forEach(element => {
            
                 if (element.uid === uidValue) {
                     found = true;
-                    console.log(element);
-       
-                    setObjFirstName(element.first_name);
-                    setObjMiddleName(element.middle_name);
-                    setObjLastName(element.last_name);
-                    setObjStreet1(element.street1);
-                    setObjStreet2(element.street2);
-                    setObjApt1(element.apt1);
-                    setObjApt2(element.apt2);
-                    setObjCity1(element.city1);
-                    setObjCity2(element.city2);
-                    setObjState1(element.state1);
-                    setObjState2(element.state2);
-                    setObjZipCode1(element.zipcode1);
-                    setObjZipCode2(element.zipcode2);
-                    setObjPhone1(element.phone1);
-                    setObjPhone2(element.phone2);
-                    setObjExt1(element.ext1);
-                    setObjExt2(element.ext2);
-                   
+                    console.log("element: ", element);
+                    setObjFirstName(res.data.full_name.first_name);
+                    setObjMiddleName(res.data.full_name.middle_name);
+                    setObjLastName(res.data.full_name.last_name);
+                    setObjStreet1(res.data.first_address.street);
+                    setObjStreet2(res.data.second_address.street);
+                    setObjApt1(res.data.first_address.apt);
+                    setObjApt2(res.data.second_address.apt);
+                    setObjCity1(res.data.first_address.city);
+                    setObjCity2(res.data.second_address.city);
+                    setObjState1(res.data.first_address.state);
+                    setObjState2(res.data.second_address.state);
+                    setObjZipCode1(res.data.first_address.zip_code);
+                    setObjZipCode2(res.data.second_address.zip_code);
+                    setObjPhone1(res.data.phone_number.primary_phone.phone);
+                    setObjPhone2(res.data.phone_number.secondary_phone.phone);
+                    setObjExt1(res.data.phone_number.primary_phone.ext);
+                    setObjExt2(res.data.phone_number.secondary_phone.ext);
                 }
             });
             // if (found === false) {               
-            //      axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', config, {
-            //         id: uidInsert,
-            //         email: emailInser,
-            //      }).then((res) => {
+            //      axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', config).then((res) => {
             //          window.location.href = '/manageuser';
             //     })
             // }
@@ -143,7 +140,6 @@ export const ManagePage = (props) => {
         var firstnameTyping = document.getElementById('firstname_input');
         var middlenameTyping = document.getElementById('middlename_input');
         var lastnameTyping = document.getElementById('lastname_input');
-        //var emailTyping = document.getElementById('email_input');
         var street1Typing = document.getElementById('street1_input');
         var apt1Typing = document.getElementById('apt1_input');
         var city1Typing = document.getElementById('city1_input');
@@ -152,7 +148,6 @@ export const ManagePage = (props) => {
         var street2Typing = document.getElementById('street2_input');
         var apt2Typing = document.getElementById('apt2_input');
         var city2Typing = document.getElementById('city2_input');
-        //var state2Typing = document.getElementById('state2_input');
         var zipcode2Typing = document.getElementById('zipcode2_input');
         var phone1Typing = document.getElementById('phone1_input');
         var ext1Typing = document.getElementById('ext1_input');
@@ -168,28 +163,7 @@ export const ManagePage = (props) => {
         }
         console.log("POST HEADER USERIDTOKE = ", config2);
         console.log("Name: ", firstnameTyping.value);
-        // await axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', {headers: {'Authorization': Auth}}, {
-        //     id: uid,
-           
-        //     objFirstName: firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
-        //     objMiddleName: middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
-        //     objLastName: lastnameTyping.value === '' ? lastnameTyping.placeholder : lastnameTyping.value,
-        //     objStreet1: street1Typing.value === '' ? street1Typing.placeholder : street1Typing.value,
-        //     objStreet2: street2Typing.value === '' ? street2Typing.placeholder : street2Typing.value,
-        //     objapt1: apt1Typing.value === '' ? apt1Typing.placeholder : apt1Typing.value,
-        //     objapt2: apt2Typing.value === '' ? apt2Typing.placeholder : apt2Typing.value,
-        //     objCity1: city1Typing.value === '' ? city1Typing.placeholder : city1Typing.value,
-        //     objCity2: city2Typing.value === '' ? city2Typing.placeholder : city2Typing.value,
-        //     objState1: objState1,
-        //     objState2: objState2,
-        //     objZipcode1: zipcode1Typing.value === '' ? zipcode1Typing.placeholder : zipcode1Typing.value,
-        //     objZipcode2: zipcode2Typing.value === '' ? zipcode2Typing.placeholder : zipcode2Typing.value,
-        //     objPhone1: phone1Typing.value === '' ? phone1Typing.placeholder : phone1Typing.value,
-        //     objPhone2: phone2Typing.value === '' ? phone2Typing.placeholder : phone2Typing.value,
-        //     objExt1: ext1Typing.value === '' ? ext1Typing.placeholder : ext1Typing.value,
-        //     objExt2: ext2Typing.value === '' ? ext2Typing.placeholder : ext2Typing.value
-        // }).then((res)=>{
-            
+                    
         var submit_obj = {
             "Uid": null,
             "Email": 'test@test.com',
