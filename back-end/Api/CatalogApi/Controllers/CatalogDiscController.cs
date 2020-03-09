@@ -98,6 +98,8 @@ namespace CatalogApi.Controllers
 
             if (offering.Count() == 0)
                 return NotFound();
+
+            return Ok();
         }
     }
 }
