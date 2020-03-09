@@ -60,8 +60,8 @@ namespace UserInfoApi.Controllers
                 if (!doc.Success) // if the user doesn't already have a basket document make a new one
                 {
                     // check to see if the GUID is set or not
-                    if (!newBasketItem.Uid.HasValue)
-                        newBasketItem.Uid = Guid.NewGuid();
+                    if (newBasketItem.Uid == null)
+                        newBasketItem.Uid = ID;
                     // update the total number of offerings count in the document
                     newBasketItem.total_items = newBasketItem.Offerings.Count();
 

@@ -6,12 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Couchbase.Extensions.DependencyInjection;
 using Couchbase.Core;
 using Couchbase.N1QL;
-using CatalogApi.Infrastructure;
-using CatalogApi.Model;
 using CatalogApi.ViewModel;
+using CatalogApi.Model;
 using CatalogApi.Infrastructure.Services;
-using Newtonsoft.Json;
-using Couchbase.Linq;
 
 namespace CatalogApi.Controllers
 {
@@ -20,7 +17,6 @@ namespace CatalogApi.Controllers
     public class CatalogDiscController : Controller
     {
         private IBucket _discounts;
-//        private CatalogContext _catalogContext;
         private readonly ICatalogQueries _catalogQueries;
 
         public CatalogDiscController(IBucketProvider bucketProvider, ICatalogQueries catalogQueries)
@@ -36,12 +32,42 @@ namespace CatalogApi.Controllers
         {
             var pageView = await _catalogQueries.GetProducts(sort, pageSize, pageIndex);
 
-            /*
-            var queryRequest = new QueryRequest()
-                .Statement("select * from Discounts where product_key = $id")
-                .AddNamedParameter("$id", prodID);
-            var result = await _discounts.QueryAsync<dynamic>(queryRequest);
-            */
+            
+            foreach (PageView page in pageView.Data)
+            {
+                var queryRequest = new QueryRequest()
+                    .Statement("select * from Discounts where product_key = $id")
+                    .AddNamedParameter("$id", page.Id);
+                var result = await _discounts.QueryAsync<Discounts>(queryRequest);
+
+                if (result.Success)
+                {
+                    page.NumProductDiscounts = result.ToList().Count();
+                }
+
+                var queryRequest2 = new QueryRequest()
+                    .Statement("select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies k = $id end")
+                    .AddNamedParameter("$id", page.Offering_key);
+                var result2 = await _discounts.QueryAsync<Discounts>(queryRequest2);
+                if (result2.Success)
+                {
+                    foreach (Discounts discounts in result2)
+                    {
+                        if (discounts.Offering_keys.Contains(page.Offering_key))
+                        {
+                            if (discounts.Type == "PRODUCT_DISCOUNT")
+                            {
+                                page.Discount_price = (page.Unit_retail * (1 - discounts.tiers[0].DiscountPercentage));
+                            }
+                            else if (discounts.Type == "SUPPLIER_DISCOUNT")
+                            {
+                                int index = discounts.Offering_keys.IndexOf(page.Offering_key, 0);
+                                page.Discount_price = (page.Unit_retail * (1 - discounts.tiers[index].DiscountPercentage));
+                            }
+                        }
+                    }
+                }
+            }           
 
             return Ok(pageView);
         }
@@ -49,24 +75,35 @@ namespace CatalogApi.Controllers
         [HttpGet, Route("offerings/{productId}")]
         public async Task<IActionResult> OfferingsDisc(string productID)
         {
+            if (productID == null)
+                return BadRequest();
+
             var offerings = await _catalogQueries.GetOfferings(productID);
+
+            string statement = "select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies";
 
             for (int ii = 0; ii < offerings.Count(); ii++)
             {
-                
-                var queryRequest = new QueryRequest()
-                    .Statement("select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies k = $id end")
-                    .AddNamedParameter("$id", offerings[ii].Offering_key);
-                    
-                var result = _discounts.Query<Discounts>(queryRequest);
+                if (ii == 0)
+                    statement += " k = '" + offerings[ii].Offering_key + "'";
+                else 
+                    statement += " or k = '" + offerings[ii].Offering_key + "'";
+            }
+            statement += " end";
 
+            var queryRequest = new QueryRequest()
+                .Statement(statement);
+
+            var result = _discounts.Query<Discounts>(queryRequest);
+
+            for (int ii = 0; ii < offerings.Count(); ii++)
+            {
                 foreach (Discounts discounts in result)
                 {
                     if (discounts.Offering_keys.Contains(offerings[ii].Offering_key))
                     {
                         offerings[ii].Discount_key = discounts.Id;
                         offerings[ii].Type = discounts.Type;
-                        Console.WriteLine($"offerings[{ii}].Type = {offerings[ii].Type}");
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
                             offerings[ii].tiers = discounts.tiers;
@@ -77,10 +114,9 @@ namespace CatalogApi.Controllers
                         else
                         {
                             int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
-                            Console.WriteLine($"index = {index}");
                             offerings[ii].tiers = new List<ViewModel.Tiers>();
                             offerings[ii].tiers.Add(discounts.tiers[index]);
-                            offerings[ii].Discount_price = (Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+                            offerings[ii].Discount_price = (Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - offerings[ii].tiers[0].DiscountPercentage)).ToString();
                         }
                     }
                 }
@@ -88,20 +124,54 @@ namespace CatalogApi.Controllers
 
             return Ok(offerings);
         }
-        /*
-
-        [HttpGet, Route("singleOffering/{offeringID")]
+        
+        [HttpGet, Route("singleOffering/{offeringID}")]
         public async Task<IActionResult> SingleOfferingDisc(string offeringID)
         {
-            if (offeringID == null) return BadRequest();
+            if (offeringID == null)
+                return BadRequest();
 
             var offering = await _catalogQueries.GetSingleOffering(offeringID);
 
             if (offering.Count() == 0)
                 return NotFound();
 
-            return Ok();
-        }
-        */
+            var queryRequest = new QueryRequest()
+                    .Statement("select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies k = $id end")
+                    .AddNamedParameter("$id", offering[0].Offering_key);
+            var result = _discounts.Query<Discounts>(queryRequest);
+
+            if (result.Success)
+            {
+                foreach (Discounts discounts in result)
+                {
+                    if (discounts.Offering_keys.Contains(offering[0].Offering_key))
+                    {
+                        offering[0].Discount_key = discounts.Id;
+                        offering[0].Type = discounts.Type;
+                        Console.WriteLine($"offering[{0}].Type = {offering[0].Type}");
+                        if (discounts.Type == "PRODUCT_DISCOUNT")
+                        {
+                            offering[0].tiers = discounts.tiers;
+                            offering[0].Discount_price = (Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+                        }
+                        else if (discounts.Type == "BULK_DISCOUNT")
+                            offering[0].tiers = discounts.tiers;
+                        else
+                        {
+                            int index = discounts.Offering_keys.IndexOf(offering[0].Offering_key, 0);
+                            offering[0].tiers = new List<ViewModel.Tiers>();
+                            offering[0].tiers.Add(discounts.tiers[index]);
+                            offering[0].Discount_price = (Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+                        }
+                    }
+                }
+
+                return Ok(offering);
+            }
+            else
+                return Ok(offering);
+            
+        }        
     }
 }

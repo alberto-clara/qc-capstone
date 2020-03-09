@@ -9,7 +9,9 @@ namespace CatalogApi.Model
     {
         public string Id { get; set; }
         public string Product_name { get; set; }
+        public int NumProductDiscounts { get; set; }
         public decimal Unit_retail { get; set; }
+        public decimal Discount_price { get; set; }
         public string Offering_key { get; set; }
 
         public PageView() { }

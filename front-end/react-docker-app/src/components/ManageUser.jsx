@@ -96,30 +96,25 @@ export const ManagePage = (props) => {
             console.log("res print statement: ", res);
 
             console.log("first_name", res.data.full_name.first_name);
-            initValue.forEach(element => {
-           
-                if (element.uid === uidValue) {
-                    found = true;
-                    console.log("element: ", element);
-                    setObjFirstName(res.data.full_name.first_name);
-                    setObjMiddleName(res.data.full_name.middle_name);
-                    setObjLastName(res.data.full_name.last_name);
-                    setObjStreet1(res.data.first_address.street);
-                    setObjStreet2(res.data.second_address.street);
-                    setObjApt1(res.data.first_address.apt);
-                    setObjApt2(res.data.second_address.apt);
-                    setObjCity1(res.data.first_address.city);
-                    setObjCity2(res.data.second_address.city);
-                    setObjState1(res.data.first_address.state);
-                    setObjState2(res.data.second_address.state);
-                    setObjZipCode1(res.data.first_address.zip_code);
-                    setObjZipCode2(res.data.second_address.zip_code);
-                    setObjPhone1(res.data.phone_number.primary_phone.phone);
-                    setObjPhone2(res.data.phone_number.secondary_phone.phone);
-                    setObjExt1(res.data.phone_number.primary_phone.ext);
-                    setObjExt2(res.data.phone_number.secondary_phone.ext);
-                }
-            });
+            found = true;
+            setObjFirstName(res.data.full_name.first_name);
+            setObjMiddleName(res.data.full_name.middle_name);
+            setObjLastName(res.data.full_name.last_name);
+            setObjStreet1(res.data.first_address.street);
+            setObjStreet2(res.data.second_address.street);
+            setObjApt1(res.data.first_address.apt);
+            setObjApt2(res.data.second_address.apt);
+            setObjCity1(res.data.first_address.city);
+            setObjCity2(res.data.second_address.city);
+            setObjState1(res.data.first_address.state);
+            setObjState2(res.data.second_address.state);
+            setObjZipCode1(res.data.first_address.zip_code);
+            setObjZipCode2(res.data.second_address.zip_code);
+            setObjPhone1(res.data.phone_number.primary_phone.phone);
+            setObjPhone2(res.data.phone_number.secondary_phone.phone);
+            setObjExt1(res.data.phone_number.primary_phone.ext);
+            setObjExt2(res.data.phone_number.secondary_phone.ext);
+
             // if (found === false) {               
             //      axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', config).then((res) => {
             //          window.location.href = '/manageuser';

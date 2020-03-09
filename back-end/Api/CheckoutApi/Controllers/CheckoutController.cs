@@ -155,6 +155,9 @@ namespace CheckoutApi.Controllers
                     return BadRequest();
 
                 var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+
+                if (newUserInfo.Uid == null)
+                    newUserInfo.Uid = ID;
                 var result = await _userInfoBucket.UpsertAsync(ID, newUserInfo);
 
                 if (!result.Success)
