@@ -79,13 +79,11 @@ export const CheckOut = () => {
                 <hr /><hr />
                
             </Collapse>
-            <div className="text-2xl text-center">
-                Total cost: {totalcost}
-            </div>
+            <div className="text-base text-xl font-extrabold text-right py-4">Your Total Price: ${totalcost}</div>
     </div>
-        <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Back to Cart</button>
-
-        <button className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-black border-2 text-base" >Place Order</button>
-         
+        {/* <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-orange-400 border-2 text-base" >Back to Cart</button> */}
+    <div className="pb-4 float-right">
+        <button className=" rounded border h-12 w-70 md:h-12 md:w-64 border-black text-base" >Place Order</button>
+        </div>
         </>)
 }

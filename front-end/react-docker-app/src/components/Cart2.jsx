@@ -47,17 +47,17 @@ export const Cart = (props) => {
     });
     const container = (<div>
             <div className="mt-4 justify-center w-full /*bg-blue-400*/">
-                <div className=" titlePage pt-2 pb-4 lg:text-3xl"> My Cart </div>
+                <div className="titlePage py-2 lg:text-3xl"> My Cart </div>
             </div>
             <div>
                 {ListItem}
             </div>
             <br />
+            <div className="text-xl font-extrabold text-right">Your Total Price: ${totalcost}</div>
             <div className="w-full justify-center flex">
                 <button onClick={() => { window.location.href = '/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
             </div>
             <br />
-            <div>Total Price: ${totalcost}</div>
         </div>);
       
     return (<>

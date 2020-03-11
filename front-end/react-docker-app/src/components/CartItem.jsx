@@ -9,7 +9,7 @@ export const CartItem = (props) => {
     const [removeItem, setRemoveItem] = useState(false);
 
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
-    const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" >   {count}</div>)             
+    const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" > {count} </div>)             
     const changeUpdate = (<button onClick={() => UpdateCart()}className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)              
     const changeUpdateMobile = (<button onClick={() => UpdateCart()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)
 
@@ -68,11 +68,12 @@ export const CartItem = (props) => {
     }
     const container = (<div>
         <div className="flex w-full /*bg-yellow-400*/">
-            <div className="flex border border-orange-300 w-full">
+            <div className="flex rounded border border-orange-300 w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
                     <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold hover:text-orange-500 hover:underline">{props.value.product_name}</div>
-                    <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
+                    {/* <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div> */}
+                    <div className="m-4 text-2xl font-extrabold pt-2">${props.value.totalOfferingCost}</div>
                     <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                     <div className="md:hidden"> {counters}
@@ -86,7 +87,8 @@ export const CartItem = (props) => {
                     {count === props.value.quantity ? null : changeUpdate}
                     <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                 </div>
-                {props.value.totalOfferingCost}
+             {/* <div> Total Price: {props.value.totalOfferingCost} </div> */}
+             {/* <div> Total Price: {props.value.unit_retail} </div>  */}
             </div>
 
         </div>
@@ -112,7 +114,7 @@ export const CartItemCheckOut = (props) => {
     }
     const container = (<div>
         <div className="flex w-full /*bg-yellow-400*/">
-            <div className="flex border border-orange-300 w-full">
+            <div className="flex rounded border border-black w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
                     <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold  hover:text-orange-500 hover:underline">{props.value.product_name}</div>
@@ -122,11 +124,11 @@ export const CartItemCheckOut = (props) => {
                 </div>
 
                 <div className="flex-none">
-                    <div>
-                        quantity:{props.value.quantity}
+                    <div className="text-base md:text-xl font-bold text-right pt-4 pr-2">
+                        Quantity: {props.value.quantity}
                     </div>
-                    <div>
-                        cost:{props.value.totalOfferingCost}
+                    <div className="text-base md:text-xl font-bold text-right pt-4 pr-2">
+                       Total Cost: ${props.value.totalOfferingCost}
                     </div>
                 </div>
             </div>
