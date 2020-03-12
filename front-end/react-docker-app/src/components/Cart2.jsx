@@ -11,7 +11,7 @@ export const Cart = (props) => {
     const [load, setLoad] = useState(false);
     const [totalcost, setTotalCost] = useState(0);
     const [userToken, setUserToken] = useState("");
-   
+    var tempTotalCost = 0;
     useEffect(() => {
         document.title = `Home Depot - Cart`;
         FireBaseSetup.isInitialized().then(user => {
@@ -23,6 +23,7 @@ export const Cart = (props) => {
                 setUserUID(user.uid);
                 setLoad(true);
             }
+            
         });
     }, []);
     const fetching = async (idToken) => {
@@ -32,10 +33,11 @@ export const Cart = (props) => {
                 'Authorization': Auth
             }
         }
-        await axios.get("http://localhost:7000/basket-api/basket/find",config).then((res) => {
-            console.log(res);
+        await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+            tempTotalCost = res.data.total_cost;
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
+            console.log(tempTotalCost);
         });
     }
     const ListItem =
@@ -52,8 +54,8 @@ export const Cart = (props) => {
             <div>
                 {ListItem}
             </div>
-            <br />
-            <div className="text-xl font-extrabold text-right">Your Total Price: ${totalcost}</div>
+        <br />
+        <div className="text-xl font-extrabold text-right">Your Total Price: ${totalcost}</div>
             <div className="w-full justify-center flex">
                 <button onClick={() => { window.location.href = '/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
             </div>

@@ -201,10 +201,10 @@ export const ManagePage = (props) => {
             // if (res.data !== null) {
               
             //     console.log(res);
-            //     window.location.href = '/manageuser';
+                 window.location.href = '/manageuser';
             // };
         })
-
+        setPage("bold_address");
     }
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
    
