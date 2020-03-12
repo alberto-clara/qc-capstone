@@ -66,6 +66,9 @@ export const CartItem = (props) => {
     const linktoProduct = () => {
         window.location.assign("/product/" + props.value.product_key);
     }
+    var multi2 = (a, b) => {
+        return (a * b).toFixed(2);
+    }
     const container = (<div>
         <div className="flex w-full /*bg-yellow-400*/">
             <div className="flex rounded border border-orange-300 w-full">
@@ -76,9 +79,15 @@ export const CartItem = (props) => {
                     <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                     <div className="md:hidden"> {counters}
-                        {count === props.value.quantity ? null : changeUpdateMobile}
-                        <hr className=" bg-orange-500 h-1" />
-                        <div className="font-bold text-center"> Total: ${props.value.totalOfferingCost} </div>
+                        {count === props.value.quantity ? <>  <hr className=" bg-orange-500 h-1" />
+                            <div className="font-bold text-center text-gray-500"> Total: ${props.value.totalOfferingCost} </div> </> :
+                            <>
+                                <hr className=" bg-orange-500 h-1" />
+                                <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div>
+                                <div>{changeUpdateMobile}</div>
+                            </>
+                        }
+                      
                         <button onClick={() => removeCartItem()} className="flex justify-center mx-20 my-10 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                         
                     </div>
@@ -86,9 +95,15 @@ export const CartItem = (props) => {
                 </div>
                 <div className="hidden md:block md:w-1/4 justify-center ">
                     {counters}
-                    {count === props.value.quantity ? null : changeUpdate}
-                    <hr className=" bg-orange-500 h-1" />
-                    <div className= "font-bold text-center"> Total: ${props.value.totalOfferingCost} </div> 
+                    {count === props.value.quantity ? <>  <hr className=" bg-orange-500 h-1" />
+                        <div className="font-bold text-center text-gray-500"> Total: ${props.value.totalOfferingCost} </div> </> :
+                        <>
+                            <hr className=" bg-orange-500 h-1" />
+                            <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div>
+                            <div>{changeUpdate}</div>
+                                </>
+                            }
+             
                     <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
                     
                 </div>
