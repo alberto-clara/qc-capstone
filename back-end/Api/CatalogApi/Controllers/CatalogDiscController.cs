@@ -9,6 +9,8 @@ using Couchbase.N1QL;
 using CatalogApi.ViewModel;
 using CatalogApi.Model;
 using CatalogApi.Infrastructure.Services;
+using System.Net;
+using Newtonsoft.Json;
 
 namespace CatalogApi.Controllers
 {
@@ -106,17 +108,24 @@ namespace CatalogApi.Controllers
                         offerings[ii].Type = discounts.Type;
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
-                            offerings[ii].tiers = discounts.tiers;
-                            offerings[ii].Discount_price = (Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+ //                           offerings[ii].tiers = discounts.tiers;
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            break;
                         }
                         else if (discounts.Type == "BULK_DISCOUNT")
-                            offerings[ii].tiers = discounts.tiers;
-                        else
+                        {
+//                            offerings[ii].tiers = discounts.tiers;
+                            break;
+                        }
+                        else if (discounts.Type == "SUPPLIER_DSICOUNT")
                         {
                             int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
-                            offerings[ii].tiers = new List<ViewModel.Tiers>();
-                            offerings[ii].tiers.Add(discounts.tiers[index]);
-                            offerings[ii].Discount_price = (Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - offerings[ii].tiers[0].DiscountPercentage)).ToString();
+//                            offerings[ii].tiers = new List<ViewModel.Tiers>();
+//                            offerings[ii].tiers.Add(discounts.tiers[index]);
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            break;
                         }
                     }
                 }
@@ -152,26 +161,68 @@ namespace CatalogApi.Controllers
                         Console.WriteLine($"offering[{0}].Type = {offering[0].Type}");
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
-                            offering[0].tiers = discounts.tiers;
-                            offering[0].Discount_price = (Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+//                            offering[0].tiers = discounts.tiers;
+                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offering[0].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
                         }
-                        else if (discounts.Type == "BULK_DISCOUNT")
-                            offering[0].tiers = discounts.tiers;
-                        else
+//                        else if (discounts.Type == "BULK_DISCOUNT")
+//                            offering[0].tiers = discounts.tiers;
+                        else if (discounts.Type == "SUPPLIER_DISCOUNT")
                         {
                             int index = discounts.Offering_keys.IndexOf(offering[0].Offering_key, 0);
-                            offering[0].tiers = new List<ViewModel.Tiers>();
-                            offering[0].tiers.Add(discounts.tiers[index]);
-                            offering[0].Discount_price = (Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage)).ToString();
+//                            offering[0].tiers = new List<ViewModel.Tiers>();
+//                            offering[0].tiers.Add(discounts.tiers[index]);
+                            offering[0].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
+                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
                         }
                     }
                 }
 
-                return Ok(offering);
+                return 
+                    Ok(offering);
             }
             else
-                return Ok(offering);
-            
-        }        
+                return Ok(offering);            
+        }
+        
+        [HttpGet, Route("getDiscounts")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetDiscounts([FromBody] List<string> discountList)
+        {
+            if (discountList.Count() == 0)
+                return BadRequest();
+
+            string statement = "SELECT tiers FROM Discounts where ";
+
+            for (int ii = 0; ii < discountList.Count(); ii++)
+            {
+                if (ii == 0)
+                    statement += " id = '" + discountList[0] + "'";
+                else
+                    statement += " or id = '" + discountList[ii] + "'";
+            }
+
+            statement += " and type  = 'BULK_DISCOUNT'";
+
+            var query = new QueryRequest()
+                .Statement(statement);
+
+            var request = await _discounts.QueryAsync<dynamic>(query);
+
+            List<List<Model.Tiers>> tiers = new List<List<Model.Tiers>>();
+
+            foreach (var t in request)
+            {
+                tiers.Add(JsonConvert.DeserializeObject<List<Model.Tiers>>(t.tiers.ToString()));
+            }
+
+            /*
+            if (request.Count() != discountList.Count())
+                return BadRequest();
+                */
+
+            return Ok(tiers);
+
+        }
     }
 }

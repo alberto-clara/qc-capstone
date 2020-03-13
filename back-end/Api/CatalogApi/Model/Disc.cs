@@ -32,6 +32,7 @@ namespace CatalogApi.Model
 
     }
 
+    /*
     public class Tiers
     {
         public decimal DiscountPercentage { get; set; }
@@ -39,4 +40,6 @@ namespace CatalogApi.Model
         public int MinQty { get; set; }
         public int MaxQty { get; set; }
     }
+    */
 }
+
