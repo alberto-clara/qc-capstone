@@ -37,11 +37,11 @@ export const BrowsingList = (props) => {
     }, [load]);
 
     const fetching = async (number, location) => {
-        await axios.get("http://localhost:7000/catalog-api/products/page?").then((res) => {
+        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?").then((res) => {
             setTotalItem(res.data.count);
            //limit = (res.data.count / pageNumber) - 1;
         })
-        await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
+        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
             console.log(res.data.data);
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
@@ -54,7 +54,7 @@ export const BrowsingList = (props) => {
             var startingRest = (number * (countPage - 1));
         //    console.log(startingRest);
        //     console.log(totalItem);
-            await axios.get("http://localhost:7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+            await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
@@ -71,7 +71,7 @@ export const BrowsingList = (props) => {
     }
 
     const sortFetching = async (number, location, sortPrice) => {
-        await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
+        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
            // console.log(res.data);
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
@@ -80,7 +80,7 @@ export const BrowsingList = (props) => {
             setLoad(true);
         }).catch(async function (e) {
             var startingRest = (number * (countPage - 1));
-            await axios.get("http://localhost:7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+            await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }

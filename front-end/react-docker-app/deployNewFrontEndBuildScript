@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+docker build -t qcshop.azurecr.io/front-end:latest .
+
+docker push qcshop.azurecr.io/front-end:latest
+
+az container delete --name QCFrontEnd --resource-group qcapp -y
+az container create --resource-group qcapp --file deploy-front-end.yaml

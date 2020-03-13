@@ -1,17 +1,8 @@
 apiVersion: 2018-10-01
 location: westus
-name: QCmain
+name: QCApi
 properties:
   containers:
-  - name: front-end-con
-    properties:
-      image: qcshop.azurecr.io/front-end:latest
-      resources:
-        requests:
-          cpu: 1
-          memoryInGb: 1.5
-      ports:
-      - port: 3000
   - name: apigatewayc
     properties:
       image: qcshop.azurecr.io/apigateway:latest
@@ -35,9 +26,7 @@ properties:
     type: Public
     ports:
     - protocol: tcp
-      port: '3000'
-    - protocol: tcp
       port: '7000'
-    dnsNameLabel: qc-main
+    dnsNameLabel: qc-api
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
