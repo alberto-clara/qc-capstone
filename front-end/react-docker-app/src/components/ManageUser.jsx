@@ -4,6 +4,7 @@ import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
+import { GetUserInfo, PostUserInfo, TokenHeader } from '../ListOfLinks';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -12,7 +13,6 @@ export const ManagePage = (props) => {
     const [objFirstName, setObjFirstName] = useState("");
     const [objMiddleName, setObjMiddleName] = useState("");
     const [objLastName, setObjLastName] = useState("");
-  
 
     const [objStreet1, setObjStreet1] = useState("");
     const [objStreet2, setObjStreet2] = useState("");
@@ -43,9 +43,7 @@ export const ManagePage = (props) => {
                     console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
                     mongoFetch(user.uid, idToken); 
-
-                });
-                  
+                });               
                 setUID(user.uid);
                 uidInsert = user.uid;
                 emailInser = user.email;
@@ -59,17 +57,8 @@ export const ManagePage = (props) => {
     const mongoFetch = async (uidValue, idToken) => {
         var initValue = [];
         var found = false;
-        const Auth = 'Bearer '.concat(idToken);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-
-        // console.log("My Header: ", config);
-        // console.log("usertoken: ", idToken);
-
-        await axios.get('http://localhost:7000/checkout-api/checkout/getUserInfo', config).then((res) => {
+     
+        await axios.get(GetUserInfo, TokenHeader(idToken)).then((res) => {
            for (var i = 0; i < res.data.length; i++) {
                 initValue.push({ 
                     uid: res.data[i].uid,
@@ -93,9 +82,8 @@ export const ManagePage = (props) => {
                     ext2: res.data[i].phone_number.secondary_phone.ext
                 });
             }
-            console.log("res print statement: ", res);
-
-            console.log("first_name", res.data.full_name.first_name);
+     /*       console.log("res print statement: ", res);
+            console.log("first_name", res.data.full_name.first_name);*/
             found = true;
             setObjFirstName(res.data.full_name.first_name);
             setObjMiddleName(res.data.full_name.middle_name);
@@ -115,11 +103,7 @@ export const ManagePage = (props) => {
             setObjExt1(res.data.phone_number.primary_phone.ext);
             setObjExt2(res.data.phone_number.secondary_phone.ext);
 
-            // if (found === false) {               
-            //      axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', config).then((res) => {
-            //          window.location.href = '/manageuser';
-            //     })
-            // }
+
         })
         
     };
@@ -131,7 +115,6 @@ export const ManagePage = (props) => {
     );     
  
     const EditInfoButton = async () => {
-
         var firstnameTyping = document.getElementById('firstname_input');
         var middlenameTyping = document.getElementById('middlename_input');
         var lastnameTyping = document.getElementById('lastname_input');
@@ -150,15 +133,7 @@ export const ManagePage = (props) => {
         var ext2Typing = document.getElementById('ext2_input');
 
 
-        const Auth = 'Bearer '.concat(userToken);
-        var config2 = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-        console.log("POST HEADER USERIDTOKE = ", config2);
-        console.log("Name: ", firstnameTyping.value);
-                    
+  
         var submit_obj = {
             "Uid": null,
             "Email": 'test@test.com',
@@ -193,16 +168,11 @@ export const ManagePage = (props) => {
             }
         }
 
-        console.log("body : ", submit_obj);
-        await axios.post('http://localhost:7000/checkout-api/checkout/addUserInfo', 
+     //   console.log("body : ", submit_obj);
+        await axios.post(PostUserInfo, 
         {...submit_obj},
-        config2).then((res)=>{
-            console.log(res);
-            // if (res.data !== null) {
-              
-            //     console.log(res);
+        TokenHeader(userToken)).then((res)=>{
                  window.location.href = '/manageuser';
-            // };
         })
         setPage("bold_address");
     }
@@ -551,7 +521,7 @@ export const ManagePage = (props) => {
         
     return (
         <> 
-            {/* <div>Token:{userToken} </div>*/}
+        
         {page_title}
         {/* web */}
         <div className="hidden block justify-center w-full sm:flex md:flex">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../css/mainTailwind.css';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-/* eslint no-useless-concat: 0 */
+import { GetVendors } from '../ListOfLinks';
 
 export const Vendors=  () => {
      let { idv } = useParams();
@@ -18,8 +18,7 @@ export const Vendors=  () => {
           // eslint-disable-next-line react-hooks/exhaustive-deps
      }, [load]);
     const fetching = async (ProductID) => {
-
-         await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
+        await axios.get(GetVendors(ProductID)).then((res) => {
              setTotalVendor(res.data.length);
           
              for (var i = 0; i < res.data.length; i++) {

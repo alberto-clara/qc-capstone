@@ -4,6 +4,7 @@ import { Collapse } from 'react-collapse';
 import display_image from './PicArray';
 import FireBaseSetup from '../FireBaseSetup';
 import { CartItemCheckOut } from './CartItem';
+import { GetCart, TokenHeader } from '../ListOfLinks';
 export const CheckOut = () => {
 
     const [ItemArray, setItemArray] = useState([]);
@@ -16,8 +17,8 @@ export const CheckOut = () => {
         document.title = `Home Depot - CheckOut`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-                user.getIdToken().then(function (idToken) {  // <------ Check this line 
-                    setUserToken(idToken); // It shows the Firebase token now
+                user.getIdToken().then(function (idToken) { 
+                    setUserToken(idToken); 
                     fetching(idToken);
 
                 });
@@ -25,16 +26,9 @@ export const CheckOut = () => {
                 setLoad(true);
             }
         });
-
     }, [])
     const fetching = async (idToken) => {
-        const Auth = 'Bearer '.concat(idToken);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-        await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+        await axios.get(GetCart, TokenHeader(idToken)).then((res) => {
             console.log(res);
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);

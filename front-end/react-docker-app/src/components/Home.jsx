@@ -7,6 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
 import display_image from './PicArray';
+import { GetHomeRandom } from '../ListOfLinks';
 
 export const searchbar = (
     <div className="  mt-4 justify-center flex text-gray-600 w-full">
@@ -22,16 +23,14 @@ export const Home = (props) => {
     const [load, setLoad] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - HomePage`;
-      //  tryFetch();
+
         const tryFetch = async () => {
-           await axios.get("http://localhost:7000/catalog-api/products/home").then((res) => {
-               //console.log(res);
+            await axios.get(GetHomeRandom).then((res) => {
                 for (var i = 0; i < res.data.length; i++) {
                     initValue.push({ id: res.data[i].offering_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail});
                 }
                 setAdItems(initValue);
                setLoad(true);
-               
             })
         }
         tryFetch();
@@ -51,9 +50,7 @@ export const Home = (props) => {
             </div>
         </div>
     );
-    //console.log(AdItems[0]);
     const linktoItem = (itemId) => {
-        console.log(AdItems[0]);
         window.location.assign("/offering/" + itemId);
     }
     const swiping = (
@@ -173,10 +170,6 @@ export const Home = (props) => {
         </div>
     </SwipeableViews>    </div>);
 
-/*  const footr = (
-      <div className="w-full bg-gray-500">footer/need to implement</div>
-  );
-*/
     return (
         <div  >
             {searchbar}

@@ -14,6 +14,7 @@ import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import { VendorProvider } from './VendorsContext'
 import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
+import { GetProduct } from '../ListOfLinks';
 /* eslint no-useless-concat: 0 */
 
 export  const Product = (props) => {
@@ -57,7 +58,7 @@ export  const Product = (props) => {
 
     const fetching = async (ProductID) => {
 
-        await axios.get("http://localhost:7000/catalog-api/products/offerings/" + ProductID).then((res) => {
+        await axios.get(GetProduct(ProductID)).then((res) => {
            // console.log(res);
             setOfferingKey(res.data[0].offering_key);
             setProductKey(id);
@@ -74,8 +75,7 @@ export  const Product = (props) => {
             setTotalVendor(res.data.length);
             setVendorArray(VendorValue);
             setLoad(!load);
-        })
-      
+        })   
     }
     
     const helloLoop = (totalVendor) => {

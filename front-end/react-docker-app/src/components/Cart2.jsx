@@ -3,6 +3,7 @@ import axios from 'axios';
 import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 import { CartItem } from './CartItem';
+import { GetCart, TokenHeader } from '../ListOfLinks';
 
 
 export const Cart = (props) => {
@@ -11,13 +12,13 @@ export const Cart = (props) => {
     const [load, setLoad] = useState(false);
     const [totalcost, setTotalCost] = useState(0);
     const [userToken, setUserToken] = useState("");
-    var tempTotalCost = 0;
+
     useEffect(() => {
         document.title = `Home Depot - Cart`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-                user.getIdToken().then(function (idToken) {  // <------ Check this line 
-                    setUserToken(idToken); // It shows the Firebase token now
+                user.getIdToken().then(function (idToken) { 
+                    setUserToken(idToken); 
                     fetching(idToken);
                 });
                 setUserUID(user.uid);
@@ -27,17 +28,12 @@ export const Cart = (props) => {
         });
     }, []);
     const fetching = async (idToken) => {
-        const Auth = 'Bearer '.concat(idToken);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-        await axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
-            tempTotalCost = res.data.total_cost;
+
+        await axios.get(GetCart, TokenHeader(idToken)).then((res) => {
+            var tempTotalCost = res.data.total_cost;
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
-            console.log(tempTotalCost);
+         
         });
     }
     const ListItem =

@@ -8,8 +8,8 @@ import axios from 'axios';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import FireBaseSetup from '../FireBaseSetup';
+import { GetProduct, PostProduct, TokenHeader } from '../ListOfLinks';
 
-/* eslint no-useless-concat: 0 */
 
 export  const ProductOffer = (props) => {
     let { offerid } = useParams();
@@ -49,8 +49,7 @@ export  const ProductOffer = (props) => {
     },[]);
 
     const fetching = async (offerID) => {
-        await axios.get("http://localhost:7000/catalog-api/products/offerings/single/" + offerID).then((res) => {
-         
+        await axios.get(GetProduct(offerID)).then((res) => {
             setOfferingKey(res.data[0].offering_key);
             setProductKey(res.data[0].product_key);
             setProductName(res.data[0].product_name);
@@ -136,18 +135,12 @@ export  const ProductOffer = (props) => {
             uom: uom,
             quantity: count
         }];
-        const myHeader = {
-            headers: {
-                'Authorization': 'Bearer '.concat(userToken)
-            }
-        }
-       await axios.post('http://localhost:7000/basket-api/basket/add', {
-          
+        await axios.post(PostProduct, {
             uid: null,
             date: Date(),
             total_items: 0,
             offerings: items
-        }, myHeader);    
+        }, TokenHeader(userToken));    
         window.location.href = '/offering/' + offerid;
     }
 

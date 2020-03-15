@@ -5,6 +5,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { Pagination } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
+import { GetBrowsingTotal, GetBrowsing1, GetBrowsing2 } from '../ListOfLinks';
 /* eslint no-useless-concat: 0 */
 
 export const BrowsingList = (props) => {
@@ -37,12 +38,11 @@ export const BrowsingList = (props) => {
     }, [load]);
 
     const fetching = async (number, location) => {
-        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?").then((res) => {
+        await axios.get(GetBrowsingTotal).then((res) => {
             setTotalItem(res.data.count);
-           //limit = (res.data.count / pageNumber) - 1;
         })
-        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
-            console.log(res.data.data);
+            await axios.get(GetBrowsing1(number, location-1)).then((res) => {
+         
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
@@ -52,16 +52,13 @@ export const BrowsingList = (props) => {
         ).catch(async function (e) {
             
             var startingRest = (number * (countPage - 1));
-        //    console.log(startingRest);
-       //     console.log(totalItem);
-            await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+            await axios.get(GetBrowsing1(totalItem,0)).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
                 setRestItem(rest);
                 setTotalRest(totalItem - startingRest);
-        //        console.log("rest");             
-        //        console.log(rest);
+
                 setRestLoad(true);
                 setLoad(true);
             });
@@ -71,8 +68,8 @@ export const BrowsingList = (props) => {
     }
 
     const sortFetching = async (number, location, sortPrice) => {
-        await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location - 1)).then((res) => {
            // console.log(res.data);
+        await axios.get(GetBrowsing2(sortPrice, number,location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
@@ -80,7 +77,7 @@ export const BrowsingList = (props) => {
             setLoad(true);
         }).catch(async function (e) {
             var startingRest = (number * (countPage - 1));
-            await axios.get(process.env.REACT_APP_API_URL + ":7000/catalog-api/products/page/" + sortPrice + "?pageSize=" + totalItem + "&pageIndex=" + 0).then((res) => {
+            await axios.get(GetBrowsing2(sortPrice, number, 0)).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
@@ -181,7 +178,6 @@ export const BrowsingList = (props) => {
                     <div className="flex lg:pt-2 px-8 font-bold justify-center lg:justify-start">
                         Sort by:
                     </div>
-                    {/* <div className="flex flex-no-wrap justify-center lg:justify-start"> */}
                         <div className="flex flex-wrap justify-center lg:justify-start">
                             <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Lowest Cost</button>
                             <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Highest Cost</button>
@@ -189,7 +185,6 @@ export const BrowsingList = (props) => {
                             <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
                           
                         </div>
-                    {/* </div> */}
                     
                     <div className="lg:block px-8 py-4">
                         <div className="flex justify-center lg:justify-start font-bold">

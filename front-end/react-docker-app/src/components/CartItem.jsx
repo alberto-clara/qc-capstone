@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import display_image from './PicArray';
+import { PutCartUpdate, TokenHeader } from '../ListOfLinks';
 
 
 export const CartItem = (props) => {
@@ -42,25 +43,11 @@ export const CartItem = (props) => {
     }
     
     const removeCartItem = async() => {
-        const Auth = 'Bearer '.concat(props.token);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-        var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + 0
-        await axios.put(link, {}, config).then((res) => { console.log("Remove data"); setRemoveItem(true);});
+        await axios.put(PutCartUpdate(props.value.offering_key, 0), {}, TokenHeader(props.token)).then((res) => { console.log("Remove data"); setRemoveItem(true); });
         window.location.href = '/cart';
     }
     const UpdateCart = async () => {
-        const Auth = 'Bearer '.concat(props.token);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-        var link = "http://localhost:7000/basket-api/basket/update/" + props.value.offering_key + "/" + count
-        await axios.put(link, {}, config).then((res) => { console.log("Update data");   });
+        await axios.put(PutCartUpdate(props.value.offering_key, count), {}, TokenHeader(props.token)).then((res) => { console.log("Update data");   });
         window.location.href = '/cart';
     }
     const linktoProduct = () => {

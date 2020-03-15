@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { TokenHeader } from '../ListOfLinks';
 
 export function Api_Request(api_url) {
     const [isError, setError] = useState();
@@ -8,13 +9,13 @@ export function Api_Request(api_url) {
 
     useEffect(() => {
         const token = process.env.REACT_APP_API_KEY_LABSTATS;
-        const Auth = 'Bearer '.concat(token);
+    /*    const Auth = 'Bearer '.concat(token);
         var config = {
             headers: {
                 'Authorization': Auth
             }
-        }
-        Axios.get(api_url, config).then(
+        }*/
+        Axios.get(api_url, TokenHeader(token)).then(
             result => {
                 setLoading('true');
                 setItem(result.data);

@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
 import axios from 'axios';
+import { GetCart, TokenHeader } from './ListOfLinks';
 
 const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);
@@ -14,8 +15,8 @@ const NavTitle = (props)=> {
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
-                user.getIdToken().then(function (idToken) {  // <------ Check this line      
-                    setUserToken(idToken); // It shows the Firebase token now
+                user.getIdToken().then(function (idToken) {      
+                    setUserToken(idToken); 
                     fetching(idToken);
                 });
                 setStateNave(user);
@@ -25,14 +26,7 @@ const NavTitle = (props)=> {
         
     }, []);
     const fetching =(idToken) => {
-        const Auth = 'Bearer '.concat(idToken);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }
-  
-        axios.get("http://localhost:7000/basket-api/basket/find", config).then((res) => {
+        axios.get(GetCart, TokenHeader(idToken)).then((res) => {
   
             setCountItem(res.data.offerings.length);
         }).catch((e) => { setCountItem(0); });
