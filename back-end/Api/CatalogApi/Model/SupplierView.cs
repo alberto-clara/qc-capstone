@@ -12,6 +12,7 @@ namespace CatalogApi.Model
         public string Unit_cost { get; set; }
         public string Supplier_name { get; set; }
         public string Supplier_key { get; set; }
+        public string Uom { get; set; }
         public SupplierView() { }
     }
 }

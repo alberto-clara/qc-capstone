@@ -140,7 +140,6 @@ namespace CatalogApi.Controllers
                                 pt.Product_name,
                                 Offering_key = ot.Id,
                                 Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
-                                Unit_cost = Math.Round(ot.Unit_cost, 2).ToString(),
                                 ot.Uom,
                                 ot.Supplier_key,
                                 rt2.supplier_name
@@ -180,7 +179,7 @@ namespace CatalogApi.Controllers
                                     ot.Product_key,
                                     Offering_key = ot.Id,
                                     Unit_retail = Math.Round(ot.Unit_retail, 2),
-                                    Unit_cost = Math.Round(ot.Unit_cost, 2),
+                                    ot.Uom,
                                     ot.Supplier_key,
                                     rt2.supplier_name
                                 }).ToListAsync();
@@ -253,7 +252,7 @@ namespace CatalogApi.Controllers
                                     Product_key = ot.Product_key,
                                     Offering_key = ot.Id,
                                     Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
-                                    Unit_cost = Math.Round(ot.Unit_cost, 2).ToString(),
+                                    Uom = ot.Uom,
                                     Supplier_name = st.supplier_name,
                                     Supplier_key = st.Id
                                 });
