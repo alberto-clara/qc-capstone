@@ -51,9 +51,9 @@ export const Cart = (props) => {
                 {ListItem}
             </div>
         <br />
-        <div className="text-xl font-extrabold text-right">Your Total Price: ${totalcost}</div>
+        <div className="text-xl font-extrabold text-right m-4">Your Total Price: ${totalcost}</div>
             <div className="w-full justify-center flex">
-                <button onClick={() => { window.location.href = '/checkout' }} className="text-center text-2xl text-white w-1/3 bg-orange-500 border-orange-500 border-2">Check Out</button>
+                <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Check Out</button>
             </div>
             <br />
         </div>);
