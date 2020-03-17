@@ -40,7 +40,7 @@ export const ManagePage = (props) => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                    console.log(idToken);
+                //    console.log(idToken);
                     setUserToken(idToken); // It shows the Firebase token now
                     mongoFetch(user.uid, idToken); 
                 });               
@@ -168,14 +168,15 @@ export const ManagePage = (props) => {
             }
         }
 
-     //   console.log("body : ", submit_obj);
+        // console.log("body : ", submit_obj);
+        console.log("input" + document.getElementById('firstname_input').placeholder);
         await axios.post(PostUserInfo, 
         {...submit_obj},
         TokenHeader(userToken)).then((res)=>{
-                 window.location.href = '/manageuser';
+        //       window.location.href = '/';
         })
-        window.location.href = '/manageuser';
         setPage("bold_address");
+      
     }
     const states = ["AL","AK","AZ","AR","CA","CO","CT","DE","DC","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY"];
    
@@ -185,8 +186,8 @@ export const ManagePage = (props) => {
             <div className="block md:flex w-full">
                 <div className="block w-full md:w-1/2">
                     <div className="px-4 pt-4 text-xl">First Name</div>
-                        <div className="justify-center flex text-gray-600 px-4 w-full">
-                            <input id="firstname_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objFirstName}></input>
+                    <div className="justify-center flex text-gray-600 px-4 w-full">
+                        <input id="firstname_input" className=" rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full" type="search" name="search" placeholder={objFirstName}></input>
                         </div>
                 </div>
                 <div className="block w-full md:w-1/6">
@@ -518,49 +519,49 @@ export const ManagePage = (props) => {
   
     const backButton = (<> <br/>
         <button className="justify-center w-full rounded border-2 h-full border-orange-500" onClick={() => setPage("default")}> BackButton</button>
-        </>);
-        
+    </>);
+  
+
+    const web = (<div className="hidden block justify-center w-full sm:flex md:flex">
+        <div className="w-full md:w-1/4 hidden sm:block md:pr-2 ">{left_menu_web}</div>
+        <div className="w-full text-left sm:block md:w-3/4">
+            {(() => {
+                switch (Page) {
+                    case "bold_address": return bold_address;
+                    case "editPage": return my_address;
+                    case "passwordPage": return PasswordPage;
+                    case "orderPage": return OrderPage;
+                    case "wishlistPage": return WishListPage;
+                    case "helpPage": return HelpPage;
+                    default: return bold_address;
+                }
+            })()}
+        </div>
+
+    </div>)
+
+    const mobile = (<div className="block justify-center w-full sm:flex md:flex md:hidden lg:hidden">
+        <div className="w-full md:w-1/4 hidden sm:block md:pr-2">{left_menu_mobile}</div>
+        <div className="w-full text-left sm:block md:w-3/4">
+            {(() => {
+                switch (Page) {
+                    case "bold_address": return bold_address;
+                    case "editPage": return my_address;
+                    case "passwordPage": return PasswordPage;
+                    case "orderPage": return OrderPage;
+                    case "wishlistPage": return WishListPage;
+                    case "helpPage": return HelpPage;
+                    default: return left_menu_mobile;
+                }
+            })()}
+        </div>
+        {Page == "default" ? null : backButton}
+
+    </div>)
     return (
         <> 
-        
         {page_title}
-        {/* web */}
-        <div className="hidden block justify-center w-full sm:flex md:flex">
-                <div className="w-full md:w-1/4 hidden sm:block md:pr-2 ">{left_menu_web}</div>
-                <div className="w-full text-left sm:block md:w-3/4">
-                    {(() => {
-                        switch (Page) {
-                            case "bold_address": return bold_address;
-                            case "editPage": return my_address;
-                            case "passwordPage": return PasswordPage;
-                            case "orderPage": return OrderPage;
-                            case "wishlistPage": return WishListPage;
-                            case "helpPage": return HelpPage;
-                            default: return bold_address;
-                        }
-                    })()}
-                </div>
-                
-        </div>
-        {/* mobile */}
-        <div className="block justify-center w-full sm:flex md:flex md:hidden lg:hidden">
-                <div className="w-full md:w-1/4 hidden sm:block md:pr-2">{left_menu_mobile}</div>
-                <div className="w-full text-left sm:block md:w-3/4">
-                    {(() => {
-                        switch (Page) {
-                            case "bold_address": return bold_address;
-                            case "editPage": return my_address;
-                            case "passwordPage": return PasswordPage;
-                            case "orderPage": return OrderPage;
-                            case "wishlistPage": return WishListPage;
-                            case "helpPage": return HelpPage;
-                            default: return left_menu_mobile;
-                        }
-                    })()}
-                </div>
-                {Page == "default" ? null : backButton}
-            
-        </div>
+        {window.screen.width < 450?mobile:web}
         </>)
 }
 
