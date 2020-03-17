@@ -27,8 +27,8 @@ export const CartItem = (props) => {
                     <div className="mx-20 flex items-center text-2xl h-10">-</div>
                 </button>
                 {count === props.value.quantity ? presentCounter : changeCounter }
-                <button onClick={() => setCount(count+1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
-                   <div className="flex items-center text-2xl h-10" >+</div>
+                <button onClick={() => setCount(count + 1)} className="flex justify-center rounded text-gray-700 hover:text-gray-700 hover:bg-orange-400 h-full text-right w-1/3 border-l-2 border-orange-500">
+                    <div className="flex items-center text-2xl h-10" >+</div>
                 </button>
             </div>
         </div>
@@ -53,15 +53,15 @@ export const CartItem = (props) => {
     }
 
     const linktoProduct = () => {
-        window.location.assign("/product/" + props.value.product_key);
+        window.location.assign("/offering/" + props.value.offering_key);
     }
     var multi2 = (a, b) => {
         return (a * b).toFixed(2);
     }
     const container = (<div>
-        <div className="flex w-full /*bg-yellow-400*/">
+        <div className="flex w-full bg-yellow-400">
             <div className="w-full">
-                <div className="flex rounded border border-orange-300 w-full md:w-2/3">
+                <div className="flex rounded border border-orange-300 w-full">
                     <div className="w-1/2 md:w-1/4">
                         <div onClick={() => linktoProduct()} className="flex m-2 h-32 md:h-56">{display_image()}</div>
                         <div className="md:hidden"> 
@@ -100,10 +100,11 @@ export const CartItem = (props) => {
                         
                     </div>
                 </div>
-                <div className="w-1/3 bg-gray-500">{Cart} I CAN'T, HELP!</div>
+               
             </div>
-
-        </div>
+           
+        </div> 
+     
     </div> )
     
     return (<>
@@ -125,8 +126,8 @@ export const CartItemCheckOut = (props) => {
         window.location.assign("/product/" + props.value.product_key);
     }
     const container = (<div>
-        <div className="flex w-full /*bg-yellow-400*/">
-            <div className="flex rounded border border-black w-full">
+        <div className="flex w-full ">
+            <div className="flex rounded border border-black  w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
                     <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold  hover:text-orange-500 hover:underline">{props.value.product_name}</div>
@@ -134,7 +135,7 @@ export const CartItemCheckOut = (props) => {
                     <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                     <div className="pl-4">{rate}</div>
                 </div>
-
+              
                 <div className="flex-none">
                     <div className="text-base md:text-xl font-bold text-right pt-4 pr-2">
                         Quantity: {props.value.quantity}

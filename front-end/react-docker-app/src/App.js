@@ -7,7 +7,7 @@ import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
 import { ProductOffer } from './components/ProductOffer';
-import { Product } from './components/Product';
+
 import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
@@ -30,7 +30,7 @@ export default () => (
             <Route path='/checkout' component={CheckOut} />
             <Route path='/cart' component={Cart} />
             <Route path='/signinpage' component={SignIn_SignUp} />
-            <Route path="/product/:id" component={Product} />
+
             <Route path="/offering/:offerid" component={ProductOffer} />
        </Switch>
     </Layout>
