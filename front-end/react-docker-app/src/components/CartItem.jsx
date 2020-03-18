@@ -17,7 +17,7 @@ export const CartItem = (props) => {
   
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
     const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" > {count} </div>)             
-    const changeUpdate = (<button onClick={() => UpdateCart()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)              
+    const changeUpdate = (<button onClick={() => UpdateCart()} className="flex justify-center text-base rounded border-2 border-orange-500 px-8 mr-2 font-bold">Update Cart</button>)              
     const changeUpdateMobile = (<button onClick={() => UpdateCart()} className="justify-center mx-20 my-4 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)
 
     const counters = (
@@ -59,7 +59,7 @@ export const CartItem = (props) => {
         return (a * b).toFixed(2);
     }
     const container = (<div>
-        <div className="flex w-full bg-yellow-400">
+        <div className="flex w-full">
             <div className="w-full">
                 <div className="flex rounded border border-orange-300 w-full">
                     <div className="w-1/2 md:w-1/4">
@@ -69,7 +69,7 @@ export const CartItem = (props) => {
                             {count === props.value.quantity ? <> 
                                 <div className="font-bold text-center text-gray-500"> Total: ${props.value.totalOfferingCost} </div> </> :
                                 <>
-                                    <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div>
+                                    {/* <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div> */}
                                     <div>{changeUpdateMobile}</div>
                                 </>
                             }   
@@ -81,22 +81,22 @@ export const CartItem = (props) => {
                         <div className="m-4 text-md md:text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
                         {/* <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
                         <div className="pl-4">{rate}</div> */}
-                        <button onClick={() => removeCartItem()} className="flex justify-center m-20 h-12 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold md:hidden">Remove Item</button>                    
+                        <button onClick={() => removeCartItem()} className="flex justify-center text-base m-20 h-12 rounded border-2 border-orange-500 px-5 font-bold md:hidden">Remove Item</button>                    
 
                     
 
                     </div>
                     <div className="hidden md:block md:w-1/4 justify-center ">
-                        {counters}
+                        <div className="m-0 md:mr-2">{counters}</div>
                         {count === props.value.quantity ? <> 
-                            <div className="font-bold text-center text-gray-500"> Total: ${props.value.totalOfferingCost} </div> </> :
+                            <div className="font-bold text-center text-gray-500 md:mr-4 md:pb-2"> Total: ${props.value.totalOfferingCost} </div> </> :
                             <>
-                                <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div>
-                                <div>{changeUpdate}</div>
+                                {/* <div className="font-bold text-center"> Total: ${multi2(props.value.unit_retail, count)}</div> */}
+                                <div className="my-2">{changeUpdate}</div>
                                     </>
                                 }
                 
-                        <button onClick={() => removeCartItem()} className="flex justify-center m-20 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Remove Item</button>
+                        <button onClick={() => removeCartItem()} className="flex justify-center text-base rounded border-2 border-orange-500 px-8 mr-12 lg:mr-4 font-bold">Remove Item</button>
                         
                     </div>
                 </div>
@@ -127,13 +127,13 @@ export const CartItemCheckOut = (props) => {
     }
     const container = (<div>
         <div className="flex w-full ">
-            <div className="flex rounded border border-black  w-full">
+            <div className="flex rounded border border-orange-300 w-full">
                 <div onClick={() => linktoProduct()} className="flex w-full h-48 md:w-1/4 md:h-56">{display_image()}</div>
                 <div className="block text-lg w-full">
                     <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold  hover:text-orange-500 hover:underline">{props.value.product_name}</div>
                     <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                    <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
-                    <div className="pl-4">{rate}</div>
+                    {/* <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div> */}
+                    {/* <div className="pl-4">{rate}</div> */}
                 </div>
               
                 <div className="flex-none">

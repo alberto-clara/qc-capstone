@@ -45,20 +45,22 @@ export const Cart = (props) => {
         });
     const container = (
         <div>
-            <div className="mt-4 justify-center w-full /*bg-blue-400*/">
+            <div className="mt-4 justify-center w-full">
                 <div className="titlePage py-2 lg:text-3xl"> My Cart </div>
             </div>
-            <div className="flex">
-                <div className=" w-3/4 bg-blue-300">
+            <div className="md:hidden w-full justify-center flex">
+                            <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full border rounded border-orange-500 px-5 font-bold">Go To Check Out</button>
+                        </div>
+            <div className="block md:flex">
+                <div className=" w-full md:w-2/3">
                     {ListItem}
                </div>
-        
-           
-                <div className="bg-pink-200">
-                    <div className="border rounded mx-2 my-8 border-black">
-                        <div className="text-xl font-extrabold m-4">Your Total Price: ${totalcost}</div>
+                <div className="w-full md:w-1/3">
+                    <div className=" mx-2 my-8 ">
+                        <div className="text-xl font-extrabold m-4 text-center">Your Total Price: ${totalcost}</div>
                         <div className="w-full justify-center flex">
-                            <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full rounded bg-orange-500 text-white px-5 font-bold">Check Out</button>
+                            <button onClick={() => { window.location.href = '/checkout' }} className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold">Check Out</button>
+                            {/* <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full rounded bg-orange-500 text-white px-5 font-bold">Check Out</button> */}
                         </div>
                     </div>
                 </div>
