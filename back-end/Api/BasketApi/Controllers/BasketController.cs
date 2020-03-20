@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Couchbase;
 using Couchbase.Core;
 using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Model;
 using System.Net;
-using Couchbase.N1QL;
 using Microsoft.AspNetCore.Authorization;
 using BasketApi.BasketApiErrors;
 

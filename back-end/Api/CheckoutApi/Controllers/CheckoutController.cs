@@ -13,7 +13,6 @@ using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
-using Newtonsoft.Json;
 
 namespace CheckoutApi.Controllers
 {
@@ -51,9 +50,6 @@ namespace CheckoutApi.Controllers
                 return BadRequest();
 
             var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-            Console.WriteLine();
-            Console.WriteLine($"ID = {ID}");
-            Console.WriteLine();
 
             var result = await _checkoutBucket.GetAsync<Checkout>(ID);
 
@@ -71,8 +67,7 @@ namespace CheckoutApi.Controllers
          * for the user does exist, retrieve that document then need to set
          * the OrderId for the new order with a new Guid and add the new order
          * to the array of orders for the users doc retrieved from the DB.
-         */ 
-//        [Authorize]
+          
         [HttpPost, Route("addOrder")]
 //        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
 //        [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -138,7 +133,7 @@ namespace CheckoutApi.Controllers
             }
             return BadRequest();
         }
-
+*/
 
         [HttpGet, Route("add")]
         public async Task<IActionResult> add([FromHeader] string authorization)
