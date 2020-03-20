@@ -61,7 +61,7 @@ namespace UserInfoApi.Controllers
                 {
                     // check to see if the GUID is set or not
                     if (newBasketItem.Uid == null)
-                        newBasketItem.Uid = ID;
+                        newBasketItem.Uid = Guid.NewGuid();
                     // update the total number of offerings count in the document
                     newBasketItem.total_items = newBasketItem.Offerings.Count();
 

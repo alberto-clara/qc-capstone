@@ -12,6 +12,8 @@ using Couchbase.N1QL;
 using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace CheckoutApi.Controllers
 {
@@ -135,6 +137,78 @@ namespace CheckoutApi.Controllers
                 }
             }
             return BadRequest();
+        }
+
+
+        [HttpGet, Route("add")]
+        public async Task<IActionResult> add([FromHeader] string authorization)
+        {
+            
+            var currentUser = HttpContext.User;
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+            {
+                return BadRequest();
+            }
+            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+            string[] auth = authorization.Split(' ');
+
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:7000/basket-api/basket/find");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth[1]);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage httpResponse = await client.GetAsync(client.BaseAddress);
+
+            if (!httpResponse.IsSuccessStatusCode)
+                return BadRequest(httpResponse.StatusCode);
+
+            var userDoc = await _checkoutBucket.GetAsync<Checkout>(ID);
+
+            var userInfoDoc = await _userInfoBucket.GetAsync<UserInfo>(ID);
+
+            if (!userInfoDoc.Success)
+                return BadRequest();
+
+            Order order = await httpResponse.Content.ReadAsAsync<Order>();
+
+            order.date = DateTime.Now;
+            order.OrderId = Guid.NewGuid();
+            order.Shipping = userInfoDoc.Value;
+//            order.Shipping = new ShippingInfo();
+//            order.Shipping = order.ShippingInfo();
+            Checkout checkout = null;
+            if (!userDoc.Success)
+            {
+                checkout = new Checkout();
+                checkout.Orders = new List<Order>();
+                checkout.Orders.Add(order);
+
+                var result = await _checkoutBucket.UpsertAsync(ID, checkout);
+
+                if (!result.Success)
+                    return NotFound();
+            }
+            else
+            {
+
+                checkout = userDoc.Value;
+                checkout.Orders = checkout.Orders.Prepend(order).ToList();
+
+                var res = await _checkoutBucket.UpsertAsync(ID, checkout);
+
+                if (!res.Success)
+                    return NotFound();
+            }
+
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:7000/basket-api/basket/delete");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth[1]);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpResponse = await client.DeleteAsync(client.BaseAddress);
+
+            if (!httpResponse.IsSuccessStatusCode)
+                return BadRequest(httpResponse.StatusCode);
+
+            return Ok(checkout);
         }
 
         /*

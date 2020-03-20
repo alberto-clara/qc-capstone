@@ -137,7 +137,7 @@ export  const ProductOffer = (props) => {
         }];
         await axios.post(PostProduct, {
             uid: null,
-            date: Date(),
+//            date: Date(),
             total_items: 0,
             offerings: items
         }, TokenHeader(userToken));    
