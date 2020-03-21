@@ -36,9 +36,6 @@ namespace CheckoutApi.Controllers
          * GET /api/checkout/getOrderHistory
          * Route that will be user to retrieve a users order history in the
          * future. I haven't been able to test it yet. 
-         *              NOTE TO SELF
-         * will probably need to deserialize the JSON doc back to the 
-         * checkout model before the response to the frontend is sent.
          */
         [HttpGet, Route("getOrderHistory")]
         public async Task<IActionResult> retrieveOrderHist()
@@ -178,7 +175,7 @@ namespace CheckoutApi.Controllers
                 var result = await _checkoutBucket.UpsertAsync(ID, checkout);
 
                 if (!result.Success)
-                    return NotFound();
+                    return NotFound("!userDoc.Success");
             }
             else
             {
@@ -188,7 +185,7 @@ namespace CheckoutApi.Controllers
                 var res = await _checkoutBucket.UpsertAsync(ID, checkout);
 
                 if (!res.Success)
-                    return NotFound();
+                    return NotFound("!res.Success");
             }
 
             client = new HttpClient();
