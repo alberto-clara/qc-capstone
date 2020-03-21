@@ -26,11 +26,24 @@ namespace CheckoutApi
         }
 
         public IConfiguration Configuration { get; }
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                });
+            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -71,6 +84,7 @@ namespace CheckoutApi
             }
 
             //            app.UseHttpsRedirection();
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger()
