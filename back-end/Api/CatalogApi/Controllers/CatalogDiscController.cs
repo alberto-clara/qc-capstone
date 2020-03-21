@@ -33,7 +33,6 @@ namespace CatalogApi.Controllers
                                                [FromQuery]int pageIndex = 0)
         {
             var pageView = await _catalogQueries.GetProducts(sort, pageSize, pageIndex);
-
             
             foreach (PageView page in pageView.Data)
             {
@@ -216,13 +215,64 @@ namespace CatalogApi.Controllers
                 tiers.Add(JsonConvert.DeserializeObject<List<Model.Tiers>>(t.tiers.ToString()));
             }
 
-            /*
-            if (request.Count() != discountList.Count())
-                return BadRequest();
-                */
-
             return Ok(tiers);
+        }
 
+        [HttpGet, Route("homeDisc")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetRandomOfferings()
+        {
+            var offerings = await _catalogQueries.RandomOfferings();
+
+            if (offerings.Count() == 0)
+                return NotFound();
+
+            string statement = "select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies";
+
+            for (int ii = 0; ii < offerings.Count(); ii++)
+            {
+                if (ii == 0)
+                    statement += " k = '" + offerings[ii].Offering_key + "'";
+                else
+                    statement += " or k = '" + offerings[ii].Offering_key + "'";
+            }
+            statement += " end";
+
+            var queryRequest = new QueryRequest()
+                .Statement(statement);
+
+            var result = _discounts.Query<Discounts>(queryRequest);
+
+            for (int ii = 0; ii < offerings.Count(); ii++)
+            {
+                foreach (Discounts discounts in result)
+                {
+                    if (discounts.Offering_keys.Contains(offerings[ii].Offering_key))
+                    {
+                        offerings[ii].Discount_key = discounts.Id;
+                        offerings[ii].Type = discounts.Type;
+                        if (discounts.Type == "PRODUCT_DISCOUNT")
+                        {
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            break;
+                        }
+                        else if (discounts.Type == "BULK_DISCOUNT")
+                        {
+                            break;
+                        }
+                        else if (discounts.Type == "SUPPLIER_DSICOUNT")
+                        {
+                            int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return Ok(offerings);
         }
     }
 }

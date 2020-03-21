@@ -22,17 +22,6 @@ namespace CatalogApi.Controllers
             _catalogContext = context;
         }
 
-        /*
-         * shouldn't be used this was to test at the very beginning
-        // GET api/products
-        [HttpGet]
-        public IActionResult Index()
-        {
-
-            return Ok(_catalogContext.products.ToArray());
-        }
-        */
-
         // GET api/products/{id}
         [HttpGet]
         [Route("{id}")]
@@ -108,7 +97,6 @@ namespace CatalogApi.Controllers
             return Ok(model);
         }
 
-
         /*
          * This returns a list of all the offerings for a single product based on the product ID in the route.
          * If information is needed about a specific offering of a product this route should not be used.
@@ -152,7 +140,6 @@ namespace CatalogApi.Controllers
 
             return NotFound();
         }
-
 
         /*
          * use this route if you want to get the information about a single offering of a product
@@ -221,7 +208,8 @@ namespace CatalogApi.Controllers
                                        .OrderBy(i => i.Unit_retail)
                                        .ToListAsync();
 
-            if (randomResults.Count > 0) return Ok(randomResults);
+            if (randomResults.Count > 0)
+                return Ok(randomResults);
 
             return NotFound();
         }
@@ -270,7 +258,6 @@ namespace CatalogApi.Controllers
             return 
                 Ok(model);
         }
-
 
         [HttpGet, Route("discounts/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]

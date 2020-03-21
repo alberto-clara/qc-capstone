@@ -109,5 +109,30 @@ namespace CatalogApi.Infrastructure.Services
 
             return result;
         }
+
+        public async Task<List<OfferingDiscModel>> RandomOfferings()
+        {
+            Random rnd = new Random();
+            var randomResults = await (from pt in _catalogContext.products
+                                       join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
+                                       join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
+                                       orderby rnd.Next()
+                                       select new OfferingDiscModel
+                                       {
+                                           Product_name = pt.Product_name,
+                                           Long_description = pt.Long_description,
+                                           Offering_key = ot.Id,
+                                           Id = ot.Product_key,
+                                           Supplier_key = ot.Supplier_key,
+                                           Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
+                                           Uom = ot.Uom,
+                                           Supplier_name = st.supplier_name
+                                       })
+                                       .Take(15)
+                                       .OrderBy(i => i.Unit_retail)
+                                       .ToListAsync();
+
+            return randomResults;
+        }
     }
 }

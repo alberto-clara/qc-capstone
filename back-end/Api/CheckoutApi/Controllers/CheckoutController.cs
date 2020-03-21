@@ -20,8 +20,7 @@ namespace CheckoutApi.Controllers
     [Route("api/checkout")]
     [ApiController]
     public class CheckoutController : ControllerBase
-    {
-        
+    {        
         private IBucket _checkoutBucket;
         private IBucket _userInfoBucket;
 
@@ -184,7 +183,6 @@ namespace CheckoutApi.Controllers
             }
             else
             {
-
                 checkout = userDoc.Value;
                 checkout.Orders = checkout.Orders.Prepend(order).ToList();
 

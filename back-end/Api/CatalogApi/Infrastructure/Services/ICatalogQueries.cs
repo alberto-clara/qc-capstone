@@ -13,5 +13,6 @@ namespace CatalogApi.Infrastructure.Services
         Task<PaginatedItemsViewModel<PageView>> GetProducts(string sort, int pageSize, int pageIndex);
         Task<List<OfferingDiscModel>> GetOfferings(string productID);
         Task<List<OfferingDiscModel>> GetSingleOffering(string offeringID);
+        Task<List<OfferingDiscModel>> RandomOfferings();
     }
 }
