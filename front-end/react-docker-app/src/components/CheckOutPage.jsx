@@ -4,7 +4,8 @@ import { Collapse } from 'react-collapse';
 import display_image from './PicArray';
 import FireBaseSetup from '../FireBaseSetup';
 import { CartItemCheckOut } from './CartItem';
-import { GetCart, TokenHeader } from '../ListOfLinks';
+import { GetCart, PlaceOrder, TokenHeader } from '../ListOfLinks';
+import { auth } from 'firebase';
 
 export const CheckOut = () => {
 
@@ -28,6 +29,8 @@ export const CheckOut = () => {
             }
         });
     }, [])
+
+    // Why is idToken called in line 34? Compare to what i did in line 43
     const fetching = async (idToken) => {
         await axios.get(GetCart, TokenHeader(idToken)).then((res) => {
             console.log(res);
@@ -37,14 +40,18 @@ export const CheckOut = () => {
         });
     }
 
-    const ListItem =
-        ItemArray.map(e => {
-            return (<>
-                <br />
-                <CartItemCheckOut value={e} token={userToken} />
-            </>);
-        });
+    const PlaceOrderApi = async () => {
+        console.log("Placing Loader", userToken);
+        await axios.put(PlaceOrder, {}, TokenHeader(userToken)).then((res) => {});
+    }
 
+    const ListItem =
+    ItemArray.map(e => {
+        return (<>
+            <br />
+            <CartItemCheckOut value={e} token={userToken} />
+        </>);
+    });
 
     return (<>
     <div className="w-full block">
@@ -53,7 +60,7 @@ export const CheckOut = () => {
             <div className="text-md md:text-xl font-extrabold text-center md:text-right py-4">Your Total Price: ${totalcost}</div>
             {/* <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-orange-400 border-2 text-base" >Back to Cart</button> */}
             <div className="pb-4 m-2 md:m-0 md:float-right">
-                <button className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
+    <button onClick={PlaceOrderApi} className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
             </div>
             <hr className="md:hidden m-2 pb-1 px-4 bg-orange-500"/>
         </div>

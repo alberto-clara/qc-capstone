@@ -3,6 +3,7 @@ const APIport = 7000;
 const env = process.env.REACT_APP_API_URL + ':' + APIport;
 
 export const GetCart = env + "/basket-api/basket/find";
+export const PlaceOrder = env + "/checkout-api/checkout/add";
 export const PutCartUpdate = (offer, num) => { return env + "/basket-api/basket/update/" + offer + "/" + num; }
 
 export const GetBrowsingTotal = env + "/catalog-api/products/page?"; 
