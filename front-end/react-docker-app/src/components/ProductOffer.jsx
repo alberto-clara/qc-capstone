@@ -19,7 +19,8 @@ export  const ProductOffer = (props) => {
     const [productName, setProductName] = useState('');
     const [supplierKey, setSupplierKey] = useState('');
     const [vendor, setVender] = useState('');
-    const [unitcost, setUnitCost] = useState('');
+    const [unitRetail, setunitRetail] = useState('');
+    const [unitofmeasure, setUnitofMeasure] = useState('');
     const [uom, setUOM] = useState('');
     
     const [userToken, setUserToken] = useState("");
@@ -55,12 +56,14 @@ export  const ProductOffer = (props) => {
             setProductName(res.data[0].product_name);
             setSupplierKey(res.data[0].supplier_key);
             setVender(res.data[0].supplier_name);
-            setUnitCost(res.data[0].unit_retail);
+            setunitRetail(res.data[0].unit_retail);
             setUOM(res.data[0].uom);
+            setUnitofMeasure(res.data[0].unit_cost)
+            console.log(res.data[0]);
             
             setDescription(res.data[0].long_description);
             for (var i = 0; i < res.data.length; i++) {
-                VendorValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail })
+                VendorValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail, unit_cost: res.data[i].unit_cost })
             }
             setTotalVendor(res.data.length);
             setVendorArray(VendorValue);
@@ -116,12 +119,13 @@ export  const ProductOffer = (props) => {
         </div>
     );
 
-    const rate = (
+    const rate_and_uom = (
         <div className="mx-20 block">
             <div className="flex">
                 <div className="pr-2">Rating</div>
                 <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
             </div>
+            <div className="flex pr-2">Unit of Measure: {uom}</div>
         </div>
     );
     const AddCartButton = async () => {
@@ -131,7 +135,8 @@ export  const ProductOffer = (props) => {
             product_name: productName,
             supplier_key: supplierKey,
             supplier_name: vendor,
-            unit_retail: unitcost,
+            unit_retail: unitRetail,
+            unit_cost: unitofmeasure,
             uom: uom,
             quantity: count
         }];
@@ -167,12 +172,12 @@ export  const ProductOffer = (props) => {
                     <div className="flex">{prodc_name}</div>
                     <div className="flex">
                         <div className="w-2/3">
-                            {rate}
+                            {rate_and_uom}
                             <div className="flex pt-2">{vendor_name} </div>
                         </div>
-                        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitcost}</div>
+                        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
+                        
                     </div>
-
                     <div className="flex">
                         <div id="quantity" className="w-1/2 justify-center">
                             {counters}

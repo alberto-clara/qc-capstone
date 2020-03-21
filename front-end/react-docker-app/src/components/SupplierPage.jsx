@@ -15,8 +15,7 @@ export const SupplierPage = () => {
     useEffect(() => {
         document.title = `Home Depot - Supplier`;
         FireBaseSetup.isInitialized().then(user => {
-            if (user) {
-             
+            if (user) {  
                 setUserUID(user.uid);
             }
         });
@@ -30,10 +29,15 @@ export const SupplierPage = () => {
             console.log("info", info)
             return(
                 <div key={info.offering_key}>
-                    <div>
-                        <div className="text-center">
+                    <div className="">
+                        <div className="bg-blue-200 py-2">
                             { console.log("pr name: ", info['product_name']) }
-                            {info['product_name']}
+                            <div className="text-center bg-green-200 m-2">
+                                {info['product_name']}
+                            </div>
+                            <div className="bg-red-200 m-2">
+                                ${info['unit_cost']}
+                            </div>
                         </div>
                     </div>
                 </div>
