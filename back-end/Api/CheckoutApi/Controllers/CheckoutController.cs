@@ -134,10 +134,9 @@ namespace CheckoutApi.Controllers
         }
 */
 
-        [HttpGet, Route("add")]
+        [HttpPut, Route("add")]
         public async Task<IActionResult> add([FromHeader] string authorization)
-        {
-            
+        {           
             var currentUser = HttpContext.User;
             if (!currentUser.HasClaim(c => c.Type == "user_id"))
             {
@@ -213,7 +212,6 @@ namespace CheckoutApi.Controllers
         [HttpPost, Route("addUserInfo")]
         public async Task<IActionResult> AddUserInfo([FromBody] UserInfo newUserInfo)
         {
-            Console.WriteLine("WE GOT HERE");
             if (ModelState.IsValid)
             {
                 var currentUser = HttpContext.User;

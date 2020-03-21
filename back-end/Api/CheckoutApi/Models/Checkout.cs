@@ -21,7 +21,6 @@ namespace CheckoutApi.Models
 //        public ShippingInfo Shipping { get; set; }
 
         /*
-
         public ShippingInfo ShippingInfo()
         {
             Console.WriteLine("ShippingInfo()");
