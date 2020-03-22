@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import FireBaseSetup from '../FireBaseSetup';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
-import { GetUserInfo, PostUserInfo, TokenHeader } from '../ListOfLinks';
+import { GetUserInfo, PostUserInfo, TokenHeader, OrderHistoryLink } from '../ListOfLinks';
+import { OrderHistory } from './OrderHistory';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
-   
+    const [load, setLoad] = useState(false);
     const [uid, setUID] = useState("");
     const [objFirstName, setObjFirstName] = useState("");
     const [objMiddleName, setObjMiddleName] = useState("");
@@ -29,9 +30,9 @@ export const ManagePage = (props) => {
     const [objPhone2, setObjPhone2] = useState("");
     const [objExt1, setObjExt1] = useState("");
     const [objExt2, setObjExt2] = useState("");
+    const [historyItem, setHistoryItem] = useState([]);
 
     const [userToken, setUserToken] = useState("");
-    var emailInser, uidInsert;
 
     const [Page, setPage] = useState("default");
 
@@ -40,29 +41,27 @@ export const ManagePage = (props) => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {  // <------ Check this line
-                //    console.log(idToken);
+
                     setUserToken(idToken); // It shows the Firebase token now
-                    mongoFetch(user.uid, idToken); 
-                });               
+                    mongoFetch(user.uid, idToken);
+                });
                 setUID(user.uid);
-                uidInsert = user.uid;
-                emailInser = user.email;
-                setEmail(user.email);      
+                setEmail(user.email);
             }
         });
 
-    
+       
     }, [Page]);
 
     const mongoFetch = async (uidValue, idToken) => {
         var initValue = [];
         var found = false;
-     
+
         await axios.get(GetUserInfo, TokenHeader(idToken)).then((res) => {
-           for (var i = 0; i < res.data.length; i++) {
-                initValue.push({ 
+            for (var i = 0; i < res.data.length; i++) {
+                initValue.push({
                     uid: res.data[i].uid,
-         //           email: res.data[i].email,
+                    //           email: res.data[i].email,
                     first_name: res.data[i].full_name.first_name,
                     middle_name: res.data[i].full_name.middle_name,
                     last_name: res.data[i].full_name.last_name,
@@ -82,8 +81,8 @@ export const ManagePage = (props) => {
                     ext2: res.data[i].phone_number.secondary_phone.ext
                 });
             }
-     /*       console.log("res print statement: ", res);
-            console.log("first_name", res.data.full_name.first_name);*/
+            /*       console.log("res print statement: ", res);
+                   console.log("first_name", res.data.full_name.first_name);*/
             found = true;
             setObjFirstName(res.data.full_name.first_name);
             setObjMiddleName(res.data.full_name.middle_name);
@@ -105,7 +104,12 @@ export const ManagePage = (props) => {
 
 
         })
-        
+
+        await axios.get(OrderHistoryLink, TokenHeader(idToken)).then((res) => {
+            setHistoryItem(res.data.orders);
+            setLoad(true);
+        }).catch((err) => { });
+
     };
      
     const page_title = (
@@ -425,11 +429,22 @@ export const ManagePage = (props) => {
         </div>
         </>
     )
-    const OrderPage= (
-        <>
-            Hi OrderPage
-        </>
-    )
+ 
+    const OrderPage = () => {  
+        const ListItem =
+            historyItem.map(e => {
+                return (<>
+                    <br />
+                    <OrderHistory value={e}/>
+                </>);
+            });
+        return (<div className="border-orange-500 border-2 p-2"> 
+            {load?ListItem:null}
+        </div>
+        )
+    }
+
+
     const WishListPage = (
         <>
             Hi WishListPage
@@ -530,7 +545,7 @@ export const ManagePage = (props) => {
                     case "bold_address": return bold_address;
                     case "editPage": return my_address;
                     case "passwordPage": return PasswordPage;
-                    case "orderPage": return OrderPage;
+                    case "orderPage": return <OrderPage/>;
                     case "wishlistPage": return WishListPage;
                     case "helpPage": return HelpPage;
                     default: return bold_address;
@@ -559,8 +574,10 @@ export const ManagePage = (props) => {
 
     </div>)
     return (
-        <> 
-        {page_title}
+        <>  
+       
+            {page_title}
+           
         {window.screen.width < 450?mobile:web}
         </>)
 }

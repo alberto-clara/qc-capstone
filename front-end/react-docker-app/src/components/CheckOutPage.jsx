@@ -37,13 +37,15 @@ export const CheckOut = () => {
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
 
-        });
+        }).catch((err) => { });
     }
 
     const PlaceOrderApi = async () => {
         console.log("Placing Loader", userToken);
         await axios.put(PlaceOrder, {}, TokenHeader(userToken)).then((res) => {});
+        window.location.href = '/';
     }
+    
 
     const ListItem =
     ItemArray.map(e => {
