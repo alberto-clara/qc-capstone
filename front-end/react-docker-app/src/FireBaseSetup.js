@@ -25,7 +25,9 @@ class FireBaseSetup {
     async logout() {
         return await this.auth.signOut();
     }
-
+    async changePassword(newPass) {
+        return await this.auth.currentUser.updatePassword(newPass).catch(err => { return err.message });
+    }
     async register(email, password) {
         const userRegister = await this.auth.createUserWithEmailAndPassword(email, password).catch(err => { return err.message })
         return userRegister;

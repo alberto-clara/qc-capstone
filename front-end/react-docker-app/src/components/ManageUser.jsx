@@ -403,33 +403,56 @@ export const ManagePage = (props) => {
         FireBaseSetup.logout();
         window.location.href = '/';
     }
-    const PasswordPage = (
-        <>
-        <div className="justify-center w-full rounded border-2 border-orange-500">
-        <div className="px-4 py-4 text-2xl"> Change Password</div>
-            <div className="block w-full px-4">
-                <div className="pt-4 text-xl">Old Password</div>
+    const PasswordChange = () => {
+        var newPass = document.getElementById('newPass').value;
+        var confirmPass = document.getElementById('confirmPass').value;
+        if (newPass === confirmPass)
+        {
+            FireBaseSetup.changePassword(newPass);
+            window.location.href = '/manageuser';
+        }
+        else
+            alert("New Password and Confirm Password need to be the same");
+     
+    }
+    const PasswordPage = () => {
+        const [show, setShow] = useState(false);
+        const [show2, setShow2] = useState(false);
+        return (
+            <>
+                <div className="justify-center w-full rounded border-2 border-orange-500">
+                    <div className="px-4 py-4 text-2xl text-center"> Change Password</div>
+                    <div className="block w-full px-4">
+                        {/*<div className="pt-4 text-xl">Old Password</div>
                 <div className="justify-center flex text-gray-600 w-full">
-                    <input className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full"></input>
-                </div>
-                <div className="pt-4 text-xl">New Password</div>
-                <div className="justify-center flex text-gray-600 w-full">
-                    <input className="h-10 rounded border border-gray-600 bg-white w-full"></input>
-                </div>
-                <div className="pt-4 text-xl">Confirm New Password</div>
-                <div className="justify-center flex text-gray-600 w-full">
-                    <input className="h-10 rounded border border-gray-600 bg-white w-full"></input>
-                </div>
-                <div className="justify-center flex text-gray-600 w-full p-4">
-                <button className="px-4 py-2 border rounded text-white border-orange-500 bg-orange-500 hover:border-orange-500">
-                    Submit 
+                    <input id="oldPass" className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full"></input>
+                </div>*/}
+                        <div className="flex">
+                            <div className="pt-4 text-xl w-4/5">New Password</div>
+                            <div onClick={() => setShow(!show) } className = "pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
+                        </div>
+                        <div className="justify-center flex text-gray-600 w-full pt-2">
+                            <input type={!show ? "password" : null} id="newPass" className="h-10 rounded border border-gray-600 bg-white w-full"></input>
+                        </div>
+
+                        <div className="flex">
+                            <div className="pt-4 text-xl w-4/5">Confirm Password</div>
+                            <div onClick={() => setShow2(!show)} className="pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
+                        </div>
+                        <div className="justify-center flex text-gray-600 w-full pt-2">
+                            <input type={!show2 ? "password" : null} id="confirmPass" className="h-10 rounded border border-gray-600 bg-white w-full"></input>
+                        </div>
+
+                        <div className="justify-center flex text-gray-600 w-full p-4">
+                            <button onClick={PasswordChange} className="px-4 py-2 border rounded text-white border-orange-500 bg-orange-500 hover:border-orange-500">
+                                Submit
                 </button>
-            </div>   
-            </div>
-        </div>
-        </>
-    )
- 
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
     const OrderPage = () => {  
         const ListItem =
             historyItem.map(e => {
@@ -544,7 +567,7 @@ export const ManagePage = (props) => {
                 switch (Page) {
                     case "bold_address": return bold_address;
                     case "editPage": return my_address;
-                    case "passwordPage": return PasswordPage;
+                    case "passwordPage": return <PasswordPage/>;
                     case "orderPage": return <OrderPage/>;
                     case "wishlistPage": return WishListPage;
                     case "helpPage": return HelpPage;
@@ -562,8 +585,8 @@ export const ManagePage = (props) => {
                 switch (Page) {
                     case "bold_address": return bold_address;
                     case "editPage": return my_address;
-                    case "passwordPage": return PasswordPage;
-                    case "orderPage": return OrderPage;
+                    case "passwordPage": return <PasswordPage/>;
+                    case "orderPage": return <OrderPage/>;
                     case "wishlistPage": return WishListPage;
                     case "helpPage": return HelpPage;
                     default: return left_menu_mobile;
