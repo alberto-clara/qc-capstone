@@ -61,7 +61,7 @@ export const ManagePage = (props) => {
             for (var i = 0; i < res.data.length; i++) {
                 initValue.push({
                     uid: res.data[i].uid,
-                    //           email: res.data[i].email,
+                    email: res.data[i].email,
                     first_name: res.data[i].full_name.first_name,
                     middle_name: res.data[i].full_name.middle_name,
                     last_name: res.data[i].full_name.last_name,

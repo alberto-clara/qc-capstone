@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using MimeKit;
 using CheckoutApi.Services;
+using MimeKit.Utils;
 
 namespace CheckoutApi.Controllers
 {
@@ -205,7 +206,7 @@ namespace CheckoutApi.Controllers
             if (!httpResponse.IsSuccessStatusCode)
                 return BadRequest(httpResponse.StatusCode);
 
-            await SendEmail(ID, checkout.Orders[0]);
+            SendEmail(ID, checkout.Orders[0]);
 
             return Ok(checkout);
         }
@@ -274,6 +275,8 @@ namespace CheckoutApi.Controllers
                 var subject = "qc-capstone Order Confirmation";
 
                 var builder = new BodyBuilder();
+
+
                 using (StreamReader reader = System.IO.File.OpenText(fp))
                 {
                     builder.HtmlBody = reader.ReadToEnd();
@@ -281,34 +284,40 @@ namespace CheckoutApi.Controllers
 
                 string orders = null;
                 string name = order.Shipping.Full_name.First_name + " " + order.Shipping.Full_name.Last_name;
+                var image = builder.LinkedResources.Add("Template/Email_Templatehtml_files/right.gif");
+                image.ContentId = MimeUtils.GenerateMessageId();
                 foreach (Offerings offering in order.Offerings)
                 {
-                    orders += "<tr> < td style = 'padding: 20px 0 20px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" +
-                                                    "align = 'left' >" +
-                                                    "< table width = '100%' cellspacing = '0' cellpadding = '0' border = '0' >" +   
-                                                               "< tbody >" +
-                                                                   "< tr >" +
-                                                                       "< td >" +       
-                                                                           "< img src = 'Email_Templatehtml_files/right.gif' alt = ''" +
-                                                                        "style = 'display: block;' width = '' height = '100' >" +    
-                                                                    "</ td >" +   
-                                                                    "< td >" + offering.Product_name + "</ td >" +
-                                                                       "< td style = 'padding: 0px 20px 0px 20px;' >" +
-                                                                            offering.Quantity +
-                                                                        "</ td >" +
-                                                                        "< td > $" + offering.Unit_retail + "</ td >" +
-                                                                      "</ tr >" +
-                                                                  "</ tbody >" +
-                                                              "</ table >" +
-                                                          "</ td >" +
-                                                      "</ tr >";
+                    orders += $@"<tr>
+                                     <td style=""padding: 20px 0 20px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;""
+                                        align = ""left"">
+                                        <table width = ""100%"" cellspacing = ""0"" cellpadding = ""0"" border = ""0"">      
+                                            <tbody>       
+                                                <tr>
+                                                    <td>
+                                                    <img src=""cid:{image.ContentId}""
+                                                        style = ""display: block;"" width = """" height = ""100"">    
+                                                    </td>    
+                                                    <td> {offering.Product_name} </td>       
+                                                    <td style = ""padding: 0px 20px 0px 20px;"">
+                                                        x{offering.Quantity}
+                                                    </td>        
+                                                    <td>${offering.Unit_retail} </td>          
+                                                 </tr>          
+                                            </tbody>          
+                                         </table>          
+                                      </td>          
+                                  </tr> ";
                 }
 
+                Console.WriteLine(orders);
                 string messageBody = string.Format(builder.HtmlBody,
                     name,
                     order.OrderId,
                     orders
                     );
+
+                Console.WriteLine(messageBody);
 
                 await _emailSender.SendEmailAsync(order.Shipping.Email, subject, messageBody, name);
             }

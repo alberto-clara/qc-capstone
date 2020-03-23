@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MimeKit;
+using MimeKit.Text;
 
 namespace CheckoutApi.Services
 {
@@ -31,7 +32,7 @@ namespace CheckoutApi.Services
                     ToAddress
                     ));
                 mimeMessage.Subject = Subject;
-                mimeMessage.Body = new TextPart("html")
+                mimeMessage.Body = new TextPart(TextFormat.Html)
                 {
                     Text = Body
                 };
@@ -39,7 +40,8 @@ namespace CheckoutApi.Services
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("qc.capstone@gmail.com", "qc-capstone1!");
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate("qc.capstone@gmail.com", "kylevoos");
                     await client.SendAsync(mimeMessage);
                     await client.DisconnectAsync(true);
                 }
