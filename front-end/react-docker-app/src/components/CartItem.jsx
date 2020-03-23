@@ -17,7 +17,7 @@ export const CartItem = (props) => {
   
     const presentCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-500 w-1/3 items-center text-2xl" > {count} </div>) 
     const changeCounter = (<div type="number" className="h-10 font-semibold flex justify-center text-gray-800 w-1/3 items-center text-2xl" > {count} </div>)             
-    const changeUpdate = (<button onClick={() => UpdateCart()} className="flex justify-center text-base rounded border-2 border-orange-500 px-8 mr-2 font-bold">Update Cart</button>)              
+    const changeUpdate = (<button onClick={() => UpdateCart()} className="flex justify-center text-base rounded border-2 border-orange-500 px-6 mr-4 font-bold">Update Cart</button>)              
     const changeUpdateMobile = (<button onClick={() => UpdateCart()} className="justify-center mx-20 my-4 rounded hover:bg-orange-400 border-2 border-orange-500 px-5 font-bold">Update Cart</button>)
 
     const counters = (
@@ -96,7 +96,7 @@ export const CartItem = (props) => {
                                     </>
                                 }
                 
-                        <button onClick={() => removeCartItem()} className="flex justify-center text-base rounded border-2 border-orange-500 px-8 mr-12 lg:mr-4 font-bold">Remove Item</button>
+                        <button onClick={() => removeCartItem()} className="flex justify-center text-base rounded border-2 border-orange-500 px-6 mr-12 md:mr-4 font-bold">Remove Item</button>
                         
                     </div>
                 </div>

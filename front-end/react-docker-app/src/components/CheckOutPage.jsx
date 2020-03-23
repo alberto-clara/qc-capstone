@@ -15,8 +15,9 @@ export const CheckOut = () => {
     const [UserUID, setUserUID] = useState("");
     const [userToken, setUserToken] = useState("");
     const [isOpenS, setIsOpenS] = useState(true);
+    
     useEffect(() => {
-        document.title = `Home Depot - CheckOut`;
+        document.title = `CheckOut`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) { 

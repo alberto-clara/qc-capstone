@@ -429,19 +429,29 @@ export const ManagePage = (props) => {
                 </div>*/}
                         <div className="flex">
                             <div className="pt-4 text-xl w-4/5">New Password</div>
-                            <div onClick={() => setShow(!show) } className = "pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
+                            <div onClick={() => setShow(!show) } className = "pt-4 text-xl hover:font-bold cursor-pointer md:hidden">Show</div>
                         </div>
-                        <div className="justify-center flex text-gray-600 w-full pt-2">
-                            <input type={!show ? "password" : null} id="newPass" className="h-10 rounded border border-gray-600 bg-white w-full"></input>
+                        <div className="flex w-full pt-2">
+                            <input type={!show ? "password" : null} id="newPass" className="text-gray-600 h-10 rounded border border-gray-600 bg-white w-full md:mr-4"></input>
+                            <div onClick={() => setShow(!show) } className = "hidden md:flex text-xl hover:font-bold cursor-pointer pt-2">Show</div>
                         </div>
-
+                        
                         <div className="flex">
                             <div className="pt-4 text-xl w-4/5">Confirm Password</div>
-                            <div onClick={() => setShow2(!show)} className="pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
+                            <div onClick={() => setShow2(!show2)} className="pt-4 text-xl hover:font-bold cursor-pointer md:hidden">Show</div>
+                        </div>
+                        <div className="flex w-full pt-2">
+                            <input type={!show2 ? "password" : null} id="confirmPass" className="text-gray-600 h-10 rounded border border-gray-600 bg-white w-full md:mr-4"></input>
+                            <div onClick={() => setShow(!show2) } className = "hidden md:flex text-xl hover:font-bold cursor-pointer pt-2">Show</div>
+                        </div>
+{/* 
+                        <div className="flex">
+                            <div className="pt-4 text-xl w-4/5">Confirm Password</div>
+                            <div onClick={() => setShow2(!show2)} className="pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
                         </div>
                         <div className="justify-center flex text-gray-600 w-full pt-2">
                             <input type={!show2 ? "password" : null} id="confirmPass" className="h-10 rounded border border-gray-600 bg-white w-full"></input>
-                        </div>
+                        </div> */}
 
                         <div className="justify-center flex text-gray-600 w-full p-4">
                             <button onClick={PasswordChange} className="px-4 py-2 border rounded text-white border-orange-500 bg-orange-500 hover:border-orange-500">
