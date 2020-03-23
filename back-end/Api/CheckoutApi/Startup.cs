@@ -15,6 +15,7 @@ using Couchbase.Extensions.DependencyInjection;
 using CheckoutApi.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using CheckoutApi.Services;
 
 namespace CheckoutApi
 {
@@ -63,6 +64,8 @@ namespace CheckoutApi
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
                 .AddCouchbaseBucket<UserInfoContext>("UserInfo")
                 .AddCouchbaseBucket<IMyBucketProvider>("Checkout");
+
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddSwaggerGen(c =>
             {

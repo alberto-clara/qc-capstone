@@ -13,6 +13,10 @@ using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using MimeKit;
+using CheckoutApi.Services;
 
 namespace CheckoutApi.Controllers
 {
@@ -23,12 +27,16 @@ namespace CheckoutApi.Controllers
     {        
         private IBucket _checkoutBucket;
         private IBucket _userInfoBucket;
+        private IHostingEnvironment _env;
+        private readonly IEmailSender _emailSender;
 
-        public CheckoutController(IBucketProvider bucketProvider)
+        public CheckoutController(IBucketProvider bucketProvider, IHostingEnvironment env, IEmailSender emailSender)
         {
             // singleton that is the DB bucket similar to MySQL
             _checkoutBucket = bucketProvider.GetBucket("Checkout");
             _userInfoBucket = bucketProvider.GetBucket("UserInfo");
+            _env = env;
+            _emailSender = emailSender;
         }
         
         /*
@@ -197,6 +205,8 @@ namespace CheckoutApi.Controllers
             if (!httpResponse.IsSuccessStatusCode)
                 return BadRequest(httpResponse.StatusCode);
 
+            await SendEmail(ID, checkout.Orders[0]);
+
             return Ok(checkout);
         }
 
@@ -231,34 +241,6 @@ namespace CheckoutApi.Controllers
                 return BadRequest();
         }
 
-        /*
-         * Route to update a users information. Also not finished yet.
-         * PUT /api/checkout/updateUserInfo
-         * 
-         *              NOTE TO SELF
-         * Once it has been finished checking if the doc for the user exists or not
-         * depending on what all the frontend is sending a new document may have to 
-         * be created where the META().id of the new doc is set.
-         */
-         /*
-        [HttpPut, Route("/updateUserInfo")]
-        public async Task<IActionResult> UpdateUserInfo([FromBody] UserInfo userInfo)
-        {
-            var uid = Request.Headers["Authorization"].ToString();
-
-            var queryRequest = new QueryRequest()
-                .Statement("SELECT * FROM UserInfo WHERE META().id = $uid")
-                .AddNamedParameter("$uid", uid);
-
-            var result = await _userInfoBucket.QueryAsync<dynamic>(queryRequest);
-
-            if (!result.Success) return NotFound();
-            
-            else return Ok();
-
-        }
-        */
-
         /* WORKING!!!!!
          * Should be finished and working correctly
          * Route to get user info and send it to the frontend
@@ -279,6 +261,57 @@ namespace CheckoutApi.Controllers
                 return NotFound();
 
             return Ok(result.Value);
+        }
+
+        private async Task SendEmail(string ID, Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                var fp = "Template"
+                    + Path.DirectorySeparatorChar.ToString()
+                    + "ConfirmOrder.html";
+
+                var subject = "qc-capstone Order Confirmation";
+
+                var builder = new BodyBuilder();
+                using (StreamReader reader = System.IO.File.OpenText(fp))
+                {
+                    builder.HtmlBody = reader.ReadToEnd();
+                }
+
+                string orders = null;
+                string name = order.Shipping.Full_name.First_name + " " + order.Shipping.Full_name.Last_name;
+                foreach (Offerings offering in order.Offerings)
+                {
+                    orders += "<tr> < td style = 'padding: 20px 0 20px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" +
+                                                    "align = 'left' >" +
+                                                    "< table width = '100%' cellspacing = '0' cellpadding = '0' border = '0' >" +   
+                                                               "< tbody >" +
+                                                                   "< tr >" +
+                                                                       "< td >" +       
+                                                                           "< img src = 'Email_Templatehtml_files/right.gif' alt = ''" +
+                                                                        "style = 'display: block;' width = '' height = '100' >" +    
+                                                                    "</ td >" +   
+                                                                    "< td >" + offering.Product_name + "</ td >" +
+                                                                       "< td style = 'padding: 0px 20px 0px 20px;' >" +
+                                                                            offering.Quantity +
+                                                                        "</ td >" +
+                                                                        "< td > $" + offering.Unit_retail + "</ td >" +
+                                                                      "</ tr >" +
+                                                                  "</ tbody >" +
+                                                              "</ table >" +
+                                                          "</ td >" +
+                                                      "</ tr >";
+                }
+
+                string messageBody = string.Format(builder.HtmlBody,
+                    name,
+                    order.OrderId,
+                    orders
+                    );
+
+                await _emailSender.SendEmailAsync(order.Shipping.Email, subject, messageBody, name);
+            }
         }
     }
 }
