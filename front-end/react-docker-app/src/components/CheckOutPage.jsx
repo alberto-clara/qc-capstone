@@ -96,7 +96,7 @@ export const CheckOut = () => {
             <div className="text-md md:text-xl font-extrabold text-center md:text-right py-4">Your Total Price: ${totalcost}</div>
             {/* <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-orange-400 border-2 text-base" >Back to Cart</button> */}
             <div className="pb-4 m-2 md:m-0 md:float-right">
-                <button className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
+                <button onClick={PlaceOrderApi} className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
             </div>
         </div>
 

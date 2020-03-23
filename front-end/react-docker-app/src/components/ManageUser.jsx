@@ -442,7 +442,7 @@ export const ManagePage = (props) => {
                         </div>
                         <div className="flex w-full pt-2">
                             <input type={!show2 ? "password" : null} id="confirmPass" className="text-gray-600 h-10 rounded border border-gray-600 bg-white w-full md:mr-4"></input>
-                            <div onClick={() => setShow(!show2) } className = "hidden md:flex text-xl hover:font-bold cursor-pointer pt-2">Show</div>
+                            <div onClick={() => setShow2(!show2) } className = "hidden md:flex text-xl hover:font-bold cursor-pointer pt-2">Show</div>
                         </div>
 {/* 
                         <div className="flex">
