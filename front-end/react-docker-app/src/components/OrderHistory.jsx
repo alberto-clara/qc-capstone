@@ -12,7 +12,7 @@ export const OrderHistory = (props) => {
             <br />
         </Collapse >
         <div className="bg-red-200">Price: ${props.value.total_cost}</div>
-        <div className="bg-blue-600">Date: ${props.value.date}</div>
+
         </>
     );
 }
