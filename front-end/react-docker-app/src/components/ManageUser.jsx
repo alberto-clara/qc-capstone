@@ -140,7 +140,7 @@ export const ManagePage = (props) => {
   
         var submit_obj = {
             "Uid": null,
-            "Email": 'test@test.com',
+            "Email": email,
             "Full_name": {
                 "First_name": firstnameTyping.value === '' ? firstnameTyping.placeholder : firstnameTyping.value,
                 "Middle_name": middlenameTyping.value === '' ? middlenameTyping.placeholder : middlenameTyping.value,
