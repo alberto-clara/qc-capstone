@@ -69,7 +69,7 @@ export const CartItem = (props) => {
                             {count === props.value.quantity ? <> 
                                 <div className="font-bold text-center text-gray-500"> Total: ${props.value.totalOfferingCost} </div> </> :
                                 <>
-                                    {/* <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div> */}
+                                    <div className="font-bold text-center "> Total: ${multi2(props.value.unit_retail, count)}</div>
                                     <div>{changeUpdateMobile}</div>
                                 </>
                             }   
@@ -91,7 +91,7 @@ export const CartItem = (props) => {
                         {count === props.value.quantity ? <> 
                             <div className="font-bold text-center text-gray-500 md:mr-4 md:pb-2"> Total: ${props.value.totalOfferingCost} </div> </> :
                             <>
-                                {/* <div className="font-bold text-center"> Total: ${multi2(props.value.unit_retail, count)}</div> */}
+                                <div className="font-bold text-center"> Total: ${multi2(props.value.unit_retail, count)}</div> 
                                 <div className="my-2">{changeUpdate}</div>
                                     </>
                                 }
@@ -121,7 +121,7 @@ export const CartItemCheckOut = (props) => {
             </div>
         </div>
     );
-    console.log(props)
+  //  console.log(props)
     const linktoProduct = () => {
         window.location.assign("/product/" + props.value.product_key);
     }

@@ -465,10 +465,10 @@ export const ManagePage = (props) => {
     }
     const OrderPage = () => {  
         const ListItem =
-            historyItem.map(e => {
+            historyItem.map((e,i) => {
                 return (<>
                     <br />
-                    <OrderHistory value={e}/>
+                    <OrderHistory value={e} index={i}/>
                 </>);
             });
         return (<div className="border-orange-500 border-2 p-2"> 
