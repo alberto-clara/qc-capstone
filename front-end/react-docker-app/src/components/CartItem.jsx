@@ -62,7 +62,7 @@ export const CartItem = (props) => {
         <div className="flex w-full">
             <div className="w-full">
                 <div className="flex rounded border border-orange-300 w-full">
-                    <div className="w-1/2 md:w-1/4">
+                    <div className="w-1/2 md:w-1/3">
                         <div onClick={() => linktoProduct()} className="flex m-2 h-32 md:h-56">{display_image()}</div>
                         <div className="md:hidden"> 
                         {counters}

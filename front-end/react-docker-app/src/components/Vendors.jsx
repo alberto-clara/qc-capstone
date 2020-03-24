@@ -40,7 +40,6 @@ export const Vendors=  () => {
                     <thead> 
                         <tr> 
                             <th className="p-4 border-r-2 border-l-2 border-orange-500 underline text-xl"> Vendor </th> 
-                            <th className="p-4 border-r-2 border-orange-500 underline text-xl"> Unit Cost  </th> 
                             <th className="p-4 border-r-2 border-orange-500 underline text-xl">  "Unit Retail"  </th> 
                         </tr>
                     </thead> 
@@ -65,12 +64,10 @@ const VendorEach = (props) => {
    
     const grayline = (<>
         <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
-        <td className="p-2 border-2 border-orange-500 text-right bg-gray-300" > {props.value.unit_cost}</td>      
         <td className="p-2 border-2 border-orange-500 text-right bg-gray-300"  >{props.value.unit_retail}</td>        
     </>)
     const whiteline = (<>
         <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
-        <td className="p-2 border-2 border-orange-500 text-right bg-white" > {props.value.unit_cost}</td>
         <td className="p-2 border-2 border-orange-500 text-right bg-white" >{props.value.unit_retail}</td>
     </>)
     

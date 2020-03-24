@@ -5,7 +5,6 @@ import { searchbar } from '../components/Home';
 import display_image from './PicArray';
 import { Api_Request } from './SupplierPageHelper';
 
-
 export const SupplierPage = () => {
     let { ids } = useParams();
     const [UserUID, setUserUID] = useState("");
@@ -25,25 +24,21 @@ export const SupplierPage = () => {
     function Test (items) {
         var nest = items.data
         console.log("????: ", nest)
-        const alberto = nest.map(info => {
-            console.log("info", info)
+        const dis = nest.map(info => {
+            // console.log("info", info)
             return(
                 <div key={info.offering_key}>
-                    <div className="">
-                        <div className="bg-blue-200 py-2">
-                            { console.log("pr name: ", info['product_name']) }
-                            <div className="text-center bg-green-200 m-2">
-                                {info['product_name']}
-                            </div>
-                            <div className="bg-red-200 m-2">
-                                ${info['unit_cost']}
-                            </div>
+                    <div className="border rounded border-gray-300 flex w-full">
+                        <div className="block w-1/2 h-auto md:h-48 m-2 md:w-1/6 md:h-48">{display_image()}</div>
+                        <div className="h-auto md:h-48 m-2">          
+                            <div className="text-lg md:text-2xl font-extrabold">{info['product_name']}</div>
+                            <div className="text-base pt-4 md:text-2xl">${info['unit_retail']} </div>  
                         </div>
                     </div>
                 </div>
             );
         })
-        return (alberto);
+        return (dis);
     }
 
 
@@ -69,19 +64,18 @@ export const SupplierPage = () => {
     
             const page_title = (
                 <div className="mt-4 justify-center w-full h-auto md:h-auto">
-                    <div className=" titlePage py-2 lg:text-3xl"> Products By {items.data[0].supplier_name} </div>
+                    <div className=" titlePage py-4 lg:text-3xl"> Products By {items.data[0].supplier_name} </div>
                 </div>
             );  
+            const linktoItem = (itemId) => {
+                window.location.assign("/offering/" + itemId);
+            }
     
             return (<>
                 {searchbar}
                 {page_title}
-                <div className="flex w-full ">
-                    {/* <div  className="bg-gray-500 hover:bg-orange-200 w-1/2 md:w-1/5 "> */}
-                        {/* <div>{display_image()}</div> */}
-                        {/* {prodc_name} */}
-                    {/* </div> */}
-                    {Test(items)}
+                <div className="flex w-full">
+                   <div>{Test(items)}</div> 
                 </div>
                 
                 </>);
