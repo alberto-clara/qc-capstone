@@ -19,9 +19,6 @@ namespace CheckoutApi.Services
                 string Subject = subject;
                 string Body = message;
 
-                string SmtpServer = "smtp.gmail.com";
-                int SmtpPort = 465;
-
                 var mimeMessage = new MimeMessage();
                 mimeMessage.From.Add(new MailboxAddress(
                     FromAddressTitle,
@@ -39,8 +36,9 @@ namespace CheckoutApi.Services
 
                 using (var client = new SmtpClient())
                 {
-                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Connect("smtp.gmail.com", 587);
                     client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.SslProtocols |= System.Security.Authentication.SslProtocols.Tls;
                     client.Authenticate("qc.capstone@gmail.com", "kylevoos");
                     await client.SendAsync(mimeMessage);
                     await client.DisconnectAsync(true);
