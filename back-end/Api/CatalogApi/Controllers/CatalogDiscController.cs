@@ -278,8 +278,8 @@ namespace CatalogApi.Controllers
                         offerings[ii].Type = discounts.Type;
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
-                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+          //                  offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * ((100 - discounts.tiers[0].DiscountPercentage) / 100), 2).ToString();
                             break;
                         }
                         else if (discounts.Type == "BULK_DISCOUNT")

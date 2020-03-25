@@ -147,16 +147,23 @@ namespace BasketApi.Controllers
             else if (offer.Type == "BULK_DISCOUNT")
             {
                 Console.WriteLine("offer.type = BULK_DSCOUNT");
-                for (int ii = offer.Tiers.Count() - 1; ii > 0; ii--)
+                for (int ii = offer.Tiers.Count() - 1; ii >= 0; ii--)
                 {
                     Console.WriteLine($"offer.tiers.Count() - 1 = {offer.Tiers.Count() - 1}");
-                    if (offer.Quantity < offer.Tiers[ii].MaxQty && offer.Quantity > offer.Tiers[ii].MinQty)
+                    if (offer.Quantity <= offer.Tiers[ii].MaxQty && offer.Quantity >= offer.Tiers[ii].MinQty)
                     {
-                        offer.discount_price = (Math.Round(Convert.ToDecimal(offer.unit_retail) * (1 - offer.Tiers[ii].DiscountPercentage), 2)).ToString();
+                        Console.WriteLine("offer.Quantity <= offer.Tiers[ii].MaxQty && offer.Quantity >= offer.Tiers[ii].MinQty");
+                        offer.discount_price = (Math.Round(Convert.ToDecimal(offer.unit_retail) * (1 - (offer.Tiers[ii].DiscountPercentage / 100)), 2)).ToString();
                         offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.discount_price) * offer.Quantity, 2)).ToString();
+                        break;
+                    }
+                    else if (offer.Quantity >= offer.Tiers[ii].MaxQty && ii == 0)
+                    {
+                        offer.discount_price = null;
+                        offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.unit_retail) * offer.Quantity, 2)).ToString();
                     }
                 }
-                if (offer.totalOfferingCost == null)
+                if (offer.discount_price == null)
                 {
                     offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.unit_retail) * offer.Quantity, 2)).ToString();
                 }
