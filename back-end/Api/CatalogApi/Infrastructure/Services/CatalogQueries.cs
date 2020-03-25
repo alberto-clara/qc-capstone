@@ -71,12 +71,11 @@ namespace CatalogApi.Infrastructure.Services
                             orderby ot.Unit_retail
                             select new OfferingDiscModel
                             {
-                                Id = pt.Id,
+                                Product_key = pt.Id,
                                 Long_description = pt.Long_description,
                                 Product_name = pt.Product_name,
                                 Offering_key = ot.Id,
                                 Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
-//                                Unit_cost = Math.Round(ot.Unit_cost, 2).ToString(),
                                 Uom = ot.Uom,
                                 Supplier_key = ot.Supplier_key,
                                 Supplier_name = rt2.supplier_name
@@ -100,9 +99,10 @@ namespace CatalogApi.Infrastructure.Services
                                 {
                                     Product_name = pt.Product_name,
                                     Long_description = pt.Long_description,
-                                    Id = ot.Product_key,
+                                    Product_key = ot.Product_key,
                                     Offering_key = ot.Id,
                                     Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
+                                    Uom = ot.Uom,
                                     Supplier_key = ot.Supplier_key,
                                     Supplier_name = rt2.supplier_name
                                 }).ToListAsync();
@@ -122,7 +122,7 @@ namespace CatalogApi.Infrastructure.Services
                                            Product_name = pt.Product_name,
                                            Long_description = pt.Long_description,
                                            Offering_key = ot.Id,
-                                           Id = ot.Product_key,
+                                           Product_key = ot.Product_key,
                                            Supplier_key = ot.Supplier_key,
                                            Unit_retail = Math.Round(ot.Unit_retail, 2).ToString(),
                                            Uom = ot.Uom,
