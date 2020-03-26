@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../css/mainTailwind.css';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
-import { GetVendors } from '../ListOfLinks';
+import { GetVendors, loader } from '../ListOfLinks';
 
 export const Vendors=  () => {
      let { idv } = useParams();
@@ -52,8 +52,8 @@ export const Vendors=  () => {
      return (<>
          <div>
              <br/>
-             
-             <div> {load ? container:null}</div>
+
+             <div> {load ? container : loader}</div>
          
              <br/>
          </div>

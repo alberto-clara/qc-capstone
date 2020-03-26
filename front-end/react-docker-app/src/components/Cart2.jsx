@@ -3,7 +3,7 @@ import axios from 'axios';
 import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 import { CartItem } from './CartItem';
-import { GetCart, TokenHeader } from '../ListOfLinks';
+import { GetCart, TokenHeader, loader } from '../ListOfLinks';
 
 
 export const Cart = (props) => {
@@ -66,6 +66,6 @@ export const Cart = (props) => {
         </div>);
       
     return (<>
-        {load ? container : null}
+        {load ? container : loader}
         </>);
         }

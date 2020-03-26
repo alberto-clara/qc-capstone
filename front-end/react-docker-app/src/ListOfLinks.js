@@ -1,4 +1,5 @@
 import React from 'react';
+import './css/loader/three-dot.css';
 const APIport = 7000;
 const env = process.env.REACT_APP_API_URL + ':' + APIport;
 
@@ -30,3 +31,5 @@ export const TokenHeader = (tokenID) => {
     }
     return config;
 }
+
+export const loader = (<><div className="dot-spin" /></>)

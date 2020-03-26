@@ -8,7 +8,7 @@ import axios from 'axios';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import FireBaseSetup from '../FireBaseSetup';
-import { GetProduct, PostProduct, TokenHeader } from '../ListOfLinks';
+import { GetProduct, PostProduct, TokenHeader, loader } from '../ListOfLinks';
 
 
 export  const ProductOffer = (props) => {
@@ -228,6 +228,6 @@ export  const ProductOffer = (props) => {
         </div>
     </div>)
     return (
-        <> {containAll}</>
+        <> {load ? containAll : loader}</>
     )
 }

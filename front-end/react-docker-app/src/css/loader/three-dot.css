@@ -1,0 +1,57 @@
+﻿
+/*!
+ * three-dots - v0.2.0
+ * CSS loading animation made by single element.
+ * https://nzbin.github.io/three-dots/
+ *
+ * Copyright (c) 2018 nzbin
+ * Released under MIT License
+ */
+@charset "UTF-8";
+
+.dot-spin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 100px;
+    background-color: #ed8936;
+    color: #dd6b20;
+    box-shadow: 0 -18px 0 0 #dd6b20, 12.72984px -12.72984px 0 0 #dd6b20, 18px 0 0 0 #dd6b20, 12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), 0 18px 0 0 rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 rgba(152, 128, 255, 0), -18px 0 0 0 rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 rgba(152, 128, 255, 0);
+    animation: dot-spin 1s infinite linear;
+}
+
+@keyframes dot-spin {
+    0%, 100% {
+        box-shadow: 0 -18px 0 0 #dd6b20, 12.72984px -12.72984px 0 0 #dd6b20, 18px 0 0 0 #dd6b20, 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+
+    12.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 0 #dd6b20, 18px 0 0 0 #dd6b20, 12.72984px 12.72984px 0 0 #dd6b20, 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+
+    25% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 0 #dd6b20, 12.72984px 12.72984px 0 0 #dd6b20, 0 18px 0 0 #dd6b20, -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+
+    37.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 0 #dd6b20, 0 18px 0 0 #dd6b20, -12.72984px 12.72984px 0 0 #dd6b20, -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+
+    50% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 0 #dd6b20, -12.72984px 12.72984px 0 0 #dd6b20, -18px 0 0 0 #dd6b20, -12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0);
+    }
+
+    62.5% {
+        box-shadow: 0 -18px 0 -5px rgba(152, 128, 255, 0), 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 0 #dd6b20, -18px 0 0 0 #dd6b20, -12.72984px -12.72984px 0 0 #dd6b20;
+    }
+
+    75% {
+        box-shadow: 0 -18px 0 0 #dd6b20, 12.72984px -12.72984px 0 -5px rgba(152, 128, 255, 0), 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 0 #dd6b20, -12.72984px -12.72984px 0 0 #dd6b20;
+    }
+
+    87.5% {
+        box-shadow: 0 -18px 0 0 #dd6b20, 12.72984px -12.72984px 0 0 #dd6b20, 18px 0 0 -5px rgba(152, 128, 255, 0), 12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), 0 18px 0 -5px rgba(152, 128, 255, 0), -12.72984px 12.72984px 0 -5px rgba(152, 128, 255, 0), -18px 0 0 -5px rgba(152, 128, 255, 0), -12.72984px -12.72984px 0 0 #dd6b20;
+    }
+}

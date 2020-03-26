@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import '../css/mainTailwind.css';
+
 //import { autoPlay } from 'react-swipeable-views-utils';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
@@ -7,7 +7,7 @@ import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
 import display_image from './PicArray';
-import { GetHomeRandom } from '../ListOfLinks';
+import { GetHomeRandom, loader } from '../ListOfLinks';
 
 export const searchbar = (
     <div className="  mt-4 justify-center flex text-gray-600 w-full">
@@ -53,6 +53,7 @@ export const Home = (props) => {
     const linktoItem = (itemId) => {
         window.location.assign("/offering/" + itemId);
     }
+
     const swiping = (
      
         <div><SwipeableViews enableMouseEvents>
@@ -60,7 +61,7 @@ export const Home = (props) => {
                 <div  className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[0].id)}>
-                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[0].price)}</div>
+                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? loader : roundDigit(AdItems[0].price)}</div>
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
                 </div>
             </div>
@@ -171,7 +172,8 @@ export const Home = (props) => {
     </SwipeableViews>    </div>);
 
     return (
-        <div  >
+        <div>
+         
             {searchbar}
             <br/>
             {carousel_slide}

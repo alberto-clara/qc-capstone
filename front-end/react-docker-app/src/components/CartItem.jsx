@@ -123,7 +123,7 @@ export const CartItemCheckOut = (props) => {
     );
   //  console.log(props)
     const linktoProduct = () => {
-        window.location.assign("/product/" + props.value.product_key);
+        window.location.assign("/offering/" + props.value.offering_key);
     }
     const container = (<div>
         <div className="flex w-full ">

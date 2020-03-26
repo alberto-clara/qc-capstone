@@ -4,6 +4,7 @@ import FireBaseSetup from '../FireBaseSetup';
 import { searchbar } from '../components/Home';
 import display_image from './PicArray';
 import { Api_Request } from './SupplierPageHelper';
+import { loader } from '../ListOfLinks';
 
 export const SupplierPage = () => {
     let { ids } = useParams();
@@ -81,7 +82,8 @@ export const SupplierPage = () => {
                 </>);
         } else {
             return(
-                <div className="cntainer">Loading</div>
+                <div className="cntainer">{loader}</div>
+                
             );
         }
     }

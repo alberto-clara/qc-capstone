@@ -24,7 +24,8 @@
     "react-swipeable-views": "^0.13.3",
     "react-swipeable-views-utils": "^0.13.3",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.88.1"
+    "semantic-ui-react": "^0.88.1",
+    "three-dots": "^0.2.0"
   },
   "scripts": {
     "removetw": "node src/scriptnode/removeTW.js src/css/mainTailwind.css tailwind.css",

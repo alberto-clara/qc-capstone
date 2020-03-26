@@ -4,7 +4,7 @@ import { Collapse } from 'react-collapse';
 import display_image from './PicArray';
 import FireBaseSetup from '../FireBaseSetup';
 import { CartItemCheckOut } from './CartItem';
-import { GetCart, PlaceOrder, TokenHeader } from '../ListOfLinks';
+import { GetCart, PlaceOrder, TokenHeader, loader } from '../ListOfLinks';
 import { auth } from 'firebase';
 
 export const CheckOut = () => {
@@ -89,7 +89,7 @@ export const CheckOut = () => {
         <div onClick={() => setIsOpenS(!isOpenS)}  className="text-lg pl-2 pt-4 md:text-2xl w-1/2 cursor-pointer hover:text-orange-500">Order Review</div>
             <hr className="m-2 pb-1 px-4 bg-orange-500" />
             <Collapse isOpened={isOpenS}>
-                {load ? ListItem : null}
+                {load ? ListItem : loader}
                 <hr /><hr />
                
             </Collapse>

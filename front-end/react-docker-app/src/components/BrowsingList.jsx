@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/mainTailwind.css';
+import '../css/loader/three-dot.css';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -23,7 +24,7 @@ export const BrowsingList = (props) => {
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
     const [restload, setRestLoad] = useState(false);
-    
+    const loader = (<div className="dot-spin" />);
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
        
@@ -35,7 +36,7 @@ export const BrowsingList = (props) => {
         setLoad(false);
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [load]);
+    }, []);
 
     const fetching = async (number, location) => {
         await axios.get(GetBrowsingTotal).then((res) => {
@@ -160,6 +161,7 @@ export const BrowsingList = (props) => {
     }
 
     return (<>
+     
         <div className="mt-4 justify-center w-full">
             <div className=" titlePage pt-2 pb-4 lg:text-3xl"> Browsing View </div>
         </div>

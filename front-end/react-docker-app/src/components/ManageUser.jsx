@@ -4,8 +4,8 @@ import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
-import { GetUserInfo, PostUserInfo, TokenHeader, OrderHistoryLink } from '../ListOfLinks';
-import { OrderHistory } from './OrderHistory';
+import { GetUserInfo, PostUserInfo, TokenHeader, OrderHistoryLink,loader } from '../ListOfLinks';
+import { OrderHistory} from './OrderHistory';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
@@ -609,7 +609,7 @@ export const ManagePage = (props) => {
     return (
         <>
 
-            {page_title}
+            {load?page_title:loader}
 
         {window.screen.width < 450?mobile:web}
         </>)
