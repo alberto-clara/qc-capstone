@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Couchbase.Core;
+using Couchbase.IO;
 using Couchbase.Extensions.DependencyInjection;
 using BasketApi.Model;
 using System.Net;
@@ -205,7 +206,12 @@ namespace UserInfoApi.Controllers
             var result = await _bucket.GetAsync<Basket>(ID);
 
             if (!result.Success)
-                return NotFound();
+            {
+                if (result.Status == ResponseStatus.KeyNotFound)
+                    return NotFound(new NotFoundError($"No document exists for {ID}"));
+                else
+                    return NotFound();
+            }
 
             return Ok(result.Value);
         }
