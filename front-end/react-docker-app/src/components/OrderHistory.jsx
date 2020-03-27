@@ -8,13 +8,13 @@ export const OrderHistory = (props) => {
  //   console.log(props.value);
     return (<>
         {/* <hr/> */}
-        <div className="border m-2 ">
+        <div className="border ">
             <div className="bg-gray-400 cursor-pointer">
                 <div onClick={() => setIsOpen(!isOpen)} className="ml-2 pt-2 text-md md:text-lg " >Date: {props.value.date}</div>
-                <div onClick={() => setIsOpen(!isOpen)} className="ml-2 items-right text-sm font-underline" > Order#: {props.value.orderId}</div>  
+                <div onClick={() => setIsOpen(!isOpen)} className="ml-2 items-right text-sm" > Order#: {props.value.orderId}</div>  
             </div>
             <Collapse isOpened={!isOpen}>  
-            <hr/>  
+            {/* <hr/>   */}
                 <EachOffer orderID={props.value.orderId} offerings={offerArray} />
                 <br/>
                 <div className="mr-2 text-right">Total Items: {props.value.total_items}</div>

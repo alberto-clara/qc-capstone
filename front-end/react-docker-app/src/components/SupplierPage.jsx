@@ -22,6 +22,10 @@ export const SupplierPage = () => {
 
     }, []);
 
+    const linktoItem = (itemId) => {
+        window.location.assign("/offering/" + itemId);
+    }
+
     function Test (items) {
         var nest = items.data
         console.log("????: ", nest)
@@ -31,8 +35,10 @@ export const SupplierPage = () => {
                 <div key={info.offering_key}>
                     <div className="border rounded border-gray-300 flex w-full">
                         <div className="block w-1/2 h-auto md:h-48 m-2 md:w-1/6 md:h-48">{display_image()}</div>
-                        <div className="h-auto md:h-48 m-2">          
+                        <div className="h-auto md:h-48 m-2">      
+                        <div onClick={() => linktoItem(info.offering_key)} className="cursor-pointer hover:font-bold">  
                             <div className="text-lg md:text-2xl font-extrabold">{info['product_name']}</div>
+                            </div>
                             <div className="text-base pt-4 md:text-2xl">${info['unit_retail']} </div>  
                         </div>
                     </div>
