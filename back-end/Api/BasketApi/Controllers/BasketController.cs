@@ -216,18 +216,41 @@ namespace UserInfoApi.Controllers
             return Ok(result.Value);
         }
 
+        [HttpGet, Route("count")]
+        public async Task<IActionResult> TotalItemBasket()
+        {
+            var ID = GetID();
+
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
+
+            var result = await _bucket.GetAsync<Basket>(ID);
+
+            if (!result.Success)
+            {
+                if (result.Status == ResponseStatus.KeyNotFound)
+                    return Ok(0);
+                else
+                    return NotFound();
+            }
+
+            return Ok(result.Value.total_items);
+        }
+
         /*
          * Route to be used when a user finalizes a purchase or when they remove
          * the last item from the basket.
+         * UPDATE - changed to keep the document persistent and solve the 404 NotFound
+         * on frontend when trying to update basket item count. Not technically following
+         * RESTful API standards and should be changed in the future
          * DELETE /api/basket/delete
          */
         [HttpDelete, Route("delete")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteDoc()
         {
+            /*
             var currentUser = HttpContext.User;
-
-            Console.WriteLine("IN DELETE");
 
             if (!currentUser.HasClaim(c => c.Type == "user_id"))
                 return BadRequest();
@@ -238,8 +261,34 @@ namespace UserInfoApi.Controllers
 
             if (!result.Success)
                 return StatusCode(503, new ServiceUnavailableError("Unable to add document to database."));
+                */
 
-            return Ok("DELETED DOC");
+            var ID = GetID();
+
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
+
+            var doc = await _bucket.GetAsync<Basket>(ID);
+
+            if (!doc.Success)
+            {
+                if (doc.Status == ResponseStatus.KeyNotFound)
+                    return NotFound(new NotFoundError($"No document exists for {ID}"));
+                else
+                    return NotFound();
+            }
+
+            doc.Value.Offerings.RemoveRange(0, doc.Value.total_items);
+            doc.Value.total_items = 0;            
+            doc.Value.total_cost = 0;
+            
+
+            var result = await _bucket.ReplaceAsync(ID, doc.Value);
+
+            if (!result.Success)
+                return NotFound(new NotFoundError($"Unable to replace document for {ID}"));
+
+            return Ok(doc.Value);
         }
 
         /*
@@ -319,6 +368,16 @@ namespace UserInfoApi.Controllers
             }
             else
                 return NotFound(offeringId);
+        }
+
+        private string GetID()
+        {
+            var currentUser = HttpContext.User;
+
+            if (!currentUser.HasClaim(c => c.Type == "user_id"))
+                return null;
+
+            return currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
         }
     }
 }
