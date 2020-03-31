@@ -58,12 +58,12 @@ namespace CatalogApi.Controllers
                         {
                             if (discounts.Type == "PRODUCT_DISCOUNT")
                             {
-                                page.Discount_price = (page.Unit_retail * (1 - discounts.tiers[0].DiscountPercentage));
+                                page.Discount_price = Math.Round((page.Unit_retail * (1 - (discounts.tiers[0].DiscountPercentage / 100))), 2).ToString();
                             }
                             else if (discounts.Type == "SUPPLIER_DISCOUNT")
                             {
                                 int index = discounts.Offering_keys.IndexOf(page.Offering_key, 0);
-                                page.Discount_price = (page.Unit_retail * (1 - discounts.tiers[index].DiscountPercentage));
+                                page.Discount_price = Math.Round((page.Unit_retail * (1 - (discounts.tiers[0].DiscountPercentage / 100))), 2).ToString();
                             }
                         }
                     }
@@ -162,8 +162,8 @@ namespace CatalogApi.Controllers
                         {
                             //                            offering[0].tiers = discounts.tiers;
                             offering[0].MaxQty = discounts.tiers[0].MaxQty;
-                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
-                            offering[0].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
+                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
+                            offering[0].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage), 2).ToString();
                         }
                         else if (discounts.Type == "SUPPLIER_DISCOUNT")
                         {
@@ -171,8 +171,8 @@ namespace CatalogApi.Controllers
                             //                            offering[0].tiers = new List<ViewModel.Tiers>();
                             //                            offering[0].tiers.Add(discounts.tiers[index]);
                             offering[0].MaxQty = discounts.tiers[index].MaxQty;
-                            offering[0].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
-                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offering[0].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
+                            offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                         }
                     }
                 }

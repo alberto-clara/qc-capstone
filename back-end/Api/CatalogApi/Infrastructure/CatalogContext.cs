@@ -9,7 +9,6 @@
 
     public class CatalogContext : DbContext
     {
-
         public CatalogContext(DbContextOptions<CatalogContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

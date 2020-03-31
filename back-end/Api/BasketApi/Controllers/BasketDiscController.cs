@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Couchbase.Core;
 using Couchbase.Extensions.DependencyInjection;
+using Couchbase.IO;
+using Couchbase.Views;
 using BasketApi.Model;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using BasketApi.BasketApiErrors;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using BasketApi.ViewModel;
 
 namespace BasketApi.Controllers
 {
@@ -26,7 +28,7 @@ namespace BasketApi.Controllers
             _bucket = bucketProvider.GetBucket("Basket");
         }
 
-        [HttpGet, Route("add/{offeringID}")]
+        [HttpPost, Route("add/{offeringID}")]
         public async Task<IActionResult> AddToBasket(string offeringID, [FromHeader] string authorization, [FromQuery] int qty = 0)
         {
             if (offeringID == null)
@@ -48,6 +50,10 @@ namespace BasketApi.Controllers
             if (doc.Success)
             {
                 userDoc = doc.Value;
+
+                if (userDoc.total_items == 0)
+                    userDoc.Date = DateTimeOffset.Now.ToUnixTimeSeconds();
+
                 if (userDoc.OfferingsDisc.Exists(i => i.Offering_key == offeringID))
                 {
                     OfferingsDisc offer = userDoc.OfferingsDisc.Find(i => i.Offering_key == offeringID);
@@ -117,6 +123,56 @@ namespace BasketApi.Controllers
                 return BadRequest(new BadRequestError("Failed to add userDoc to database"));
 
             return Ok(userDoc);
+        }
+
+        [HttpGet, Route("find")]
+        public async Task<IActionResult> FindBasket()
+        {
+            var ID = GetID();
+
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
+
+            var doc = await _bucket.GetAsync<BasketView>(ID);
+
+            if (!doc.Success)
+            {
+                if (doc.Status == ResponseStatus.KeyNotFound)
+                    return NotFound(new NotFoundError($"No document exists for {ID}"));
+                else
+                    return NotFound(doc);
+            }
+
+            return Ok(doc.Value);
+        }
+
+        [HttpPost, Route("update/{offeringID}")]
+        public async Task<IActionResult> UpdateQuant(string offeringID, [FromQuery] int qty)
+        {
+            var ID = GetID();
+
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
+
+            var query = new ViewQuery().From("dev_BasketDisc", "by_id").Key(new List<string> { ID, offeringID });
+            Console.WriteLine(query);
+            var res = await _bucket.QueryAsync<dynamic>(query);
+            if (!res.Success || res.Rows.Count() == 0)
+                return NotFound(res);
+
+            var info = res.Rows.First().Value();
+
+            
+
+            return Ok(res);
+            /*
+
+            var res = await _bucket.GetAsync<BasketDisc>(ID);
+
+            if (!res.Success)
+                return NotFound(new NotFoundError($"No document exists for {ID}"));
+                */
+
         }
 
         private async Task<HttpResponseMessage> GetOffering(string auth, string path)

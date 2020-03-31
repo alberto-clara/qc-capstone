@@ -15,6 +15,7 @@ export const GetBrowsing2 = (sortPrice, number, location) => {
     return env + "/catalog-api/products/page/" + sortPrice + "?pageSize=" + number + "&pageIndex=" + (location);}
 
 export const GetProduct = (offerID) => { return env + "/catalog-api/products/offerings/single/" + offerID }
+export const GetDiscOffer = (offerID) => { return env + "/catalog-api/products/disc/singleOffering/" + offerID }
 export const PostProduct = env + "/basket-api/basket/add";
 export const GetVendors = (offerID) => { return env + "/catalog-api/products/offerings/" + offerID }
 
