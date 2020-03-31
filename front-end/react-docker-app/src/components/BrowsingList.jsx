@@ -7,6 +7,7 @@ import 'react-dropdown/style.css';
 import { Pagination } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import { GetBrowsingTotal, GetBrowsing1, GetBrowsing2 } from '../ListOfLinks';
+import { GetDiscBrowsingTotal, GetDiscBrowsing1, GetDiscBrowsing2 } from '../ListOfLinks';
 /* eslint no-useless-concat: 0 */
 
 export const BrowsingList = (props) => {
@@ -39,10 +40,10 @@ export const BrowsingList = (props) => {
     }, []);
 
     const fetching = async (number, location) => {
-        await axios.get(GetBrowsingTotal).then((res) => {
+        await axios.get(GetDiscBrowsingTotal).then((res) => {
             setTotalItem(res.data.count);
         })
-            await axios.get(GetBrowsing1(number, location-1)).then((res) => {
+            await axios.get(GetDiscBrowsing1(number, location-1)).then((res) => {
          
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
@@ -53,7 +54,7 @@ export const BrowsingList = (props) => {
         ).catch(async function (e) {
             
             var startingRest = (number * (countPage - 1));
-            await axios.get(GetBrowsing1(totalItem,0)).then((res) => {
+            await axios.get(GetDiscBrowsing1(totalItem,0)).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
@@ -70,7 +71,7 @@ export const BrowsingList = (props) => {
 
     const sortFetching = async (number, location, sortPrice) => {
            // console.log(res.data);
-        await axios.get(GetBrowsing2(sortPrice, number,location-1)).then((res) => {
+        await axios.get(GetDiscBrowsing2(sortPrice, number,location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
@@ -78,7 +79,7 @@ export const BrowsingList = (props) => {
             setLoad(true);
         }).catch(async function (e) {
             var startingRest = (number * (countPage - 1));
-            await axios.get(GetBrowsing2(sortPrice, number, 0)).then((res) => {
+            await axios.get(GetDiscBrowsing2(sortPrice, number, 0)).then((res) => {
                 for (var i = startingRest; i < totalItem; i++) {
                     rest.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
                 }
