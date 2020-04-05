@@ -8,7 +8,7 @@ import axios from 'axios';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import FireBaseSetup from '../FireBaseSetup';
-import { GetProduct, PostProduct, TokenHeader, loader } from '../ListOfLinks';
+import { GetProduct, GetDiscOffer, PostProduct, TokenHeader, loader } from '../ListOfLinks';
 
 
 export  const ProductOffer = (props) => {
@@ -30,7 +30,6 @@ export  const ProductOffer = (props) => {
 
     const [totalVendor, setTotalVendor] = useState(0);
     const VendorValue = [];
-    const [VendorArray, setVendorArray] = useState([]);
     const [load, setLoad] = useState(false);
     const [isOpenR, setIsOpenR] = useState(true);
     const [isOpenS, setIsOpenS] = useState(true);
@@ -50,26 +49,23 @@ export  const ProductOffer = (props) => {
     },[]);
 
     const fetching = async (offerID) => {
-        await axios.get(GetProduct(offerID)).then((res) => {
-            setOfferingKey(res.data[0].offering_key);
-            setProductKey(res.data[0].product_key);
-            setProductName(res.data[0].product_name);
-            setSupplierKey(res.data[0].supplier_key);
-            setVender(res.data[0].supplier_name);
-            setunitRetail(res.data[0].unit_retail);
-            setUOM(res.data[0].uom);
-            setUnitofMeasure(res.data[0].unit_cost)
-            console.log(res.data[0]);
+        // you can change this to GetProduct and it will stop using the routes for discounts
+        await axios.get(GetDiscOffer(offerID)).then((res) => {
+            // if you aren't using GetDiscOffer change everything to res.data[0]
+            setOfferingKey(res.data.offering_key);
+            setProductKey(res.data.product_key);
+            setProductName(res.data.product_name);
+            setSupplierKey(res.data.supplier_key);
+            setVender(res.data.supplier_name);
+            setunitRetail(res.data.unit_retail);
+            setUOM(res.data.uom);
+            setUnitofMeasure(res.data.unit_cost)
+            console.log(res.data);
             
-            setDescription(res.data[0].long_description);
-            for (var i = 0; i < res.data.length; i++) {
-                VendorValue.push({ supplier: res.data[i].supplier_name, unit_cost: res.data[i].unit_cost, unit_retail: res.data[i].unit_retail, unit_cost: res.data[i].unit_cost })
-            }
+            setDescription(res.data.long_description);
             setTotalVendor(res.data.length);
-            setVendorArray(VendorValue);
             setLoad(!load);
-        })
-      
+        })      
     }
     
     const page_title = (
