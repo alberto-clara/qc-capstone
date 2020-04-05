@@ -13,6 +13,7 @@ using BasketApi.BasketApiErrors;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using BasketApi.ViewModel;
+using Newtonsoft.Json;
 
 namespace BasketApi.Controllers
 {
@@ -146,33 +147,58 @@ namespace BasketApi.Controllers
             return Ok(doc.Value);
         }
 
-        [HttpPost, Route("update/{offeringID}")]
-        public async Task<IActionResult> UpdateQuant(string offeringID, [FromQuery] int qty)
+        [HttpPost, Route("update/{offeringID}/{qty}")]
+        public async Task<IActionResult> UpdateQuant(string offeringID, int qty = 0)
         {
             var ID = GetID();
 
             if (ID == null)
                 return BadRequest(new BadRequestError("user_id not found."));
 
+            if (qty < 0)
+                return BadRequest(new BadRequestError("Invalid quantity."));
+
             var query = new ViewQuery().From("dev_BasketDisc", "by_id").Key(new List<string> { ID, offeringID });
             Console.WriteLine(query);
             var res = await _bucket.QueryAsync<dynamic>(query);
+
             if (!res.Success || res.Rows.Count() == 0)
                 return NotFound(res);
 
-            var info = res.Rows.First().Value();
+            Console.WriteLine("IM HERE");
 
-            
+            var info = res.Rows.ToList().First().Value;
+            int index = info[0];
+            OfferingsDisc offering = JsonConvert.DeserializeObject<OfferingsDisc>(info[3].ToString());
+            decimal total_cost = Convert.ToDecimal(info[1]) - Convert.ToDecimal(offering.totalOfferingCost);
 
-            return Ok(res);
-            /*
+            if (qty == 0)
+            {
+                var response = _bucket.MutateIn<BasketDisc>(ID)
+                    .Upsert("total_cost", total_cost.ToString())
+                    .Upsert("total_items", info[2] - 1)
+                    .ArrayRemove($"offeringsDisc[{index}]")
+                    .Execute();
 
-            var res = await _bucket.GetAsync<BasketDisc>(ID);
+                if (!response.Success)
+                    return NotFound(new NotFoundError(response.Message));
 
-            if (!res.Success)
-                return NotFound(new NotFoundError($"No document exists for {ID}"));
-                */
+                return Ok(response);
+            }
 
+            offering.Quantity = qty;
+            offering = CalcOfferingCost(offering);
+            total_cost += Convert.ToDecimal(offering.totalOfferingCost);
+
+            var update_res = await _bucket.MutateIn<BasketDisc>(ID)
+                .Upsert("total_cost", total_cost.ToString())
+                .ArrayInsert($"offeringsDisc[{index}]", offering)
+                .ExecuteAsync();
+
+            if (!update_res.Success)
+                return NotFound(new NotFoundError(update_res.Message));
+
+            return Ok(update_res);
         }
 
         private async Task<HttpResponseMessage> GetOffering(string auth, string path)
