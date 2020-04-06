@@ -1,0 +1,67 @@
+apiVersion: 2018-10-01
+location: westus
+name: qcMicro1
+properties:
+  containers:
+  - name: apigatewayc
+    properties:
+      image: qcshop.azurecr.io/apigateway:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 7000
+      environmentVariables:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - name: ASPNETCORE_URLS
+        value: http://+:7000
+  - name: catalogapic
+    properties:
+      image: qcshop.azurecr.io/catalogapi:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 7001
+      environmentVariables:
+      - name: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - name: ASPNETCORE_URLS
+        value: http://+:7001
+  - name: nginx-with-ssl
+    properties:
+      image: nginx
+      ports:
+      - port: 443
+        protocol: TCP
+      - port: 80
+        protocol: TCP
+      resources:
+        requests:
+          cpu: 1.0
+          memoryInGB: 1.5
+      volumeMounts:
+      - name: nginx-config
+        mountPath: /etc/nginx
+  volumes:
+  - secret:
+      ssl.crt: <base64-ssl.crt>
+      ssl.key: <base64-ssl.key>
+      nginx.conf: <base64-nginx.conf>
+    name: nginx-config
+  imageRegistryCredentials:
+  - server: qcshop.azurecr.io
+    username: qcshop
+    password: hB6KA/uH2VLPYEkCZjsfXh4Au4zUz=8b
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: tcp
+      port: '7000'
+    dnsNameLabel: qc-micro1
+tags: null
+type: Microsoft.ContainerInstance/containerGroups

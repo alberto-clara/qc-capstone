@@ -1,0 +1,30 @@
+apiVersion: 2018-10-01
+location: westus
+name: qcDatabase
+properties:
+  containers:
+  - name: catalogdbc
+    properties:
+      image: qcshop.azurecr.io/dbcatalog:latest
+      resources:
+        requests:
+          cpu: 1
+          memoryInGb: 1.5
+      ports:
+      - port: 3306
+      environmentVariables:
+      - name: MYSQL_ROOT_PASSWORD
+        value: password
+  imageRegistryCredentials:
+  - server: qcshop.azurecr.io
+    username: qcshop
+    password: hB6KA/uH2VLPYEkCZjsfXh4Au4zUz=8b
+  osType: Linux
+  ipAddress:
+    type: Public
+    ports:
+    - protocol: tcp
+      port: '3306'
+    dnsNameLabel: qc-database
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
