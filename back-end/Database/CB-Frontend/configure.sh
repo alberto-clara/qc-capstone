@@ -72,4 +72,6 @@ cbq -e localhost -u admin -p password --script="CREATE INDEX pKey on Discounts(p
 
 cbq -e localhost -u admin -p password --script="CREATE INDEX sKey ON Discounts(supplier_key)" -q
 
+cbq -e localhost -u admin -p password --scripts="CREATE INDEX discID ON Discounts(id)" -q
+
 fg 1
