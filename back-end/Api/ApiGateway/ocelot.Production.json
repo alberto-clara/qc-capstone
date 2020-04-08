@@ -27,7 +27,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "qc-basket-services.westus.azurecontainer.io",
+          "Host": "qc-micro2.westus2.azurecontainer.io",
           "Port": 7003
         }
       ],
@@ -38,7 +38,7 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
+          "Host": "qc-micro2.westus2.azurecontainer.io",
           "Port": 7004
         }
       ],
@@ -46,6 +46,6 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:7000"
+    "BaseUrl": "http://localhost:8000"
   }
 }
