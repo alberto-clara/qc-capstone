@@ -5,5 +5,5 @@ docker build -t qcshop.azurecr.io/apigateway:latest -f "ApiGateway/Dockerfile" .
 
 docker push qcshop.azurecr.io/apigateway:latest
 
-az container delete --name QCApi --resource-group qcapp -y
-az container create --resource-group qcapp --file deploy-api.yaml
+# az container delete --name QCApi --resource-group qcapp -y
+# az container create --resource-group qcapp --file deploy-api.yaml
