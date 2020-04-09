@@ -18,7 +18,7 @@ curl -v -X POST http://127.0.0.1:8091/pools/default \
 curl -v -X POST http://127.0.0.1:8091/node/controller/setupServices \
 	-d services=kv%2Cn1ql%2Cindex%2Cfts
 
-curl -v -X POST http:// 127.0.0.1:8091/settings/web \
+curl -v -X POST http://127.0.0.1:8091/settings/web \
 	-d port=SAME \
 	-d username=admin \
 	-d password=password
@@ -50,14 +50,14 @@ curl -v -u admin:password -X POST http://127.0.0.1:8091/pools/default/buckets \
 curl -v -u admin:password -X POST http://127.0.0.1:8091/pools/default/buckets \
 	-d name=Discounts \
 	-d bucketType=couchbase \
-	-d ramQuotaMB=1024 \
+	-d ramQuotaMB=512 \
 	-d authType=sasl \
 	-d saslPassword=password
 
-sleep 5
+sleep 15
 
 cbimport json -c couchbase://127.0.0.1 -u admin -p password \
-	-b Discounts --d file:///opt/couchbase/discounts.json -f lines -g key::%id% 
+	-b Discounts --d file:///opt/couchbase/discounts.json -f lines -g key::%id%
 
 cbq -e localhost -u admin -p password --script="CREATE INDEX baskInd ON Basket(Meta().id)" -q
 
@@ -66,12 +66,12 @@ cbq -e localhost -u admin -p password --script="CREATE INDEX userInd ON UserInfo
 cbq -e localhost -u admin -p password --script="CREATE INDEX chkInd ON Checkout(Meta().id)" -q
 
 cbq -e localhost -u admin -p password \
-       	--script="CREATE INDEX offKeys on Discounts(distinct array k for k in offering_keys end);"
+	--script="CREATE INDEX offkeys ON Discounts(distinct array k for k in offering_keys end);" -q
 
-cbq -e localhost -u admin -p password --script="CREATE INDEX pKey on Discounts(product_key)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX pKey ON Discounts(product_key)" -q
 
 cbq -e localhost -u admin -p password --script="CREATE INDEX sKey ON Discounts(supplier_key)" -q
 
-cbq -e localhost -u admin -p password --scripts="CREATE INDEX discID ON Discounts(id)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX discID ON Discounts(id)"
 
 fg 1
