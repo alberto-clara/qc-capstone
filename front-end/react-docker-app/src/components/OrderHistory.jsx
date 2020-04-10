@@ -17,8 +17,8 @@ export const OrderHistory = (props) => {
             {/* <hr/>   */}
                 <EachOffer orderID={props.value.orderId} offerings={offerArray} />
                 <br/>
-                <div className="mr-2 text-right">Total Items: {props.value.total_items}</div>
-                <div className="mr-2 text-right">Total Price: ${props.value.total_cost}</div>
+                <div className="mr-2 text-right font-bold">Total Items: {props.value.total_items}</div>
+                <div className="mr-2 text-right font-bold">Total Price: ${props.value.total_cost}</div>
             </Collapse >
             </div>
         {/* <hr/>        */}

@@ -44,12 +44,11 @@ export const CheckOut = () => {
     const PlaceOrderApi = async () => {
         console.log("Placing Loader", userToken);
         await axios.put(PlaceOrder, {}, TokenHeader(userToken)).then((res) => {
-
-            console.log(res);
-            console.log(res.request.response);
-
+        //    console.log(res);
+        //    console.log(res.request.response);
+        window.location.href = '/confirmation';
         });
-        //window.location.href = '/confirmation';
+        
     }
     
 
