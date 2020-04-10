@@ -31,11 +31,13 @@ namespace CatalogApi.Controllers
         public async Task<ActionResult<Products>> ItemByIdAsync(string id)
         {
 
-            if (id == null) return BadRequest();
+            if (id == null)
+                return BadRequest();
 
             var item = await _catalogContext.products.SingleOrDefaultAsync(a => a.Id == id);
 
-            if (item != null) return Ok(item);
+            if (item != null)
+                return Ok(item);
 
             return NotFound();
         }

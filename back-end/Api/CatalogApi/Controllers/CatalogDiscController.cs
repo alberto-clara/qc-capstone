@@ -12,6 +12,12 @@ using CatalogApi.Infrastructure.Services;
 using System.Net;
 using Newtonsoft.Json;
 
+/*
+ * This is a replacement for the original CatalogController that includes discount information.
+ * It is using the same SQL database and tables as the original controller but it is also using 
+ * a Couchbase bucket 
+ */
+
 namespace CatalogApi.Controllers
 {
     [Route("api/products/disc")]
