@@ -12,6 +12,7 @@ using Couchbase.N1QL;
 using Couchbase.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
@@ -25,19 +26,22 @@ namespace CheckoutApi.Controllers
     [Route("api/checkout")]
     [ApiController]
     public class CheckoutController : ControllerBase
-    {        
+    {       
+        
         private IBucket _checkoutBucket;
         private IBucket _userInfoBucket;
         private IHostingEnvironment _env;
         private readonly IEmailSender _emailSender;
+        private Configuration configuration { get; set; }
 
-        public CheckoutController(IBucketProvider bucketProvider, IHostingEnvironment env, IEmailSender emailSender)
+        public CheckoutController(IBucketProvider bucketProvider, IHostingEnvironment env, IEmailSender emailSender, Configuration configuration)
         {
             // singleton that is the DB bucket similar to MySQL
             _checkoutBucket = bucketProvider.GetBucket("Checkout");
             _userInfoBucket = bucketProvider.GetBucket("UserInfo");
             _env = env;
             _emailSender = emailSender;
+            this.configuration = configuration;
         }
         
         /*
@@ -64,82 +68,6 @@ namespace CheckoutApi.Controllers
             return Ok(result.Value);
         }
 
-        /* 
-         *                    ---- NOTE TO MYSELF ----
-         * need to eventually first check to see if a Checkout doc for the
-         * user exists. If a document does not exist set OrderId with a new
-         * Guid and make a new doc while setting the Id of the doc. If a doc
-         * for the user does exist, retrieve that document then need to set
-         * the OrderId for the new order with a new Guid and add the new order
-         * to the array of orders for the users doc retrieved from the DB.
-          
-        [HttpPost, Route("addOrder")]
-//        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-//        [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> AddOrder([FromBody] Checkout checkoutDoc)
-        {
-            // check to make sure the Checkout model was bound correctly
-            if (ModelState.IsValid)
-            {
-                var currentUser = HttpContext.User;
-                if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                {
-                    return BadRequest();
-                }
-                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-                Console.WriteLine();
-                Console.WriteLine($"ID = {ID}");
-                Console.WriteLine();
-
-                var userDoc = await _checkoutBucket.GetAsync<Checkout>(ID);
-
-                if (!userDoc.Success)
-                {
-                    if (checkoutDoc.Orders[0].OrderId == null)
-                    {
-                        // set the OrderId with a new Guid
-                        checkoutDoc.Orders[0].OrderId = Guid.NewGuid();
-                        Console.WriteLine();
-                        Console.WriteLine($"checkoutDoc.Orders[0].OrderId = {checkoutDoc.Orders[0].OrderId.ToString()}");
-                        Console.WriteLine();
-                    }
-                    var result = await _checkoutBucket.InsertAsync(ID, checkoutDoc);
-
-                    if (result.Success)
-                        return Ok(checkoutDoc);
-                    return Conflict();
-                }
-                else
-                {
-                    if (checkoutDoc.Orders[0].OrderId == null)
-                    {
-                        // set the OrderId with a new Guid
-                        checkoutDoc.Orders[0].OrderId = Guid.NewGuid();
-                        Console.WriteLine();
-                        Console.WriteLine($"checkoutDoc.Orders[0].OrderId = {checkoutDoc.Orders[0].OrderId.ToString()}");
-                        Console.WriteLine();
-                        Checkout doc = userDoc.Value;
-                        Console.WriteLine();
-                        Console.WriteLine($"checkoutDoc.Orders.Count() = {checkoutDoc.Orders.Count().ToString()}");
-                        Console.WriteLine();
-                        doc.Orders.Add(checkoutDoc.Orders[0]);
-                        Console.WriteLine();
-                        Console.WriteLine($"checkoutDoc.Orders.Count() = {checkoutDoc.Orders.Count().ToString()}");
-                        Console.WriteLine();
-
-                        var result = await _checkoutBucket.UpsertAsync(ID, doc);
-
-                        if (!result.Success)
-                            return BadRequest();
-
-                        return BadRequest();
-                    }
-                }
-            }
-            return BadRequest();
-        }
-*/
-
         [HttpPut, Route("add")]
         public async Task<IActionResult> add([FromHeader] string authorization)
         {           
@@ -152,7 +80,7 @@ namespace CheckoutApi.Controllers
             string[] auth = authorization.Split(' ');
 
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:7000/basket-api/basket/find");
+            client.BaseAddress = new Uri($"{configuration.APIGATEWAYURL}/basket-api/basket/find");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth[1]);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage httpResponse = await client.GetAsync(client.BaseAddress);
@@ -165,7 +93,10 @@ namespace CheckoutApi.Controllers
             var userInfoDoc = await _userInfoBucket.GetAsync<UserInfo>(ID);
 
             if (!userInfoDoc.Success)
-                return BadRequest();
+            {
+                if (userInfoDoc.Status != ResponseStatus.KeyNotFound)
+                    return NotFound(userInfoDoc.Message);
+            }
 
             Order order = await httpResponse.Content.ReadAsAsync<Order>();
 
@@ -198,7 +129,7 @@ namespace CheckoutApi.Controllers
             }
 
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:7000/basket-api/basket/delete");
+            client.BaseAddress = new Uri($"{configuration.APIGATEWAYURL}/basket-api/basket/delete");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", auth[1]);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpResponse = await client.DeleteAsync(client.BaseAddress);
@@ -206,7 +137,10 @@ namespace CheckoutApi.Controllers
             if (!httpResponse.IsSuccessStatusCode)
                 return BadRequest(httpResponse.StatusCode);
 
-            SendEmail(ID, checkout.Orders[0]);
+            if (userInfoDoc.Success)
+            {
+                SendEmail(ID, checkout.Orders[0]);
+            }
 
             return Ok(checkout);
         }
@@ -259,7 +193,7 @@ namespace CheckoutApi.Controllers
             var result = await _userInfoBucket.GetAsync<UserInfo>(ID);
 
             if (!result.Success)
-                return NotFound();
+                return NotFound(result.Message);
 
             return Ok(result.Value);
         }
