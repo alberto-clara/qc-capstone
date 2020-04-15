@@ -216,6 +216,13 @@ namespace UserInfoApi.Controllers
             return Ok(result.Value);
         }
 
+        /*
+         * This is a route that the frontend wanted so they would not have to retrieve
+         * the entire document when updating the number next to the basket icon. The
+         * route only returns a single integer which is the total # of items in the users basket
+         * GET (BasketAPI) - http://localhost:7003/api/basket/count
+         * GET (through APIGateway) - http://localhost:7000/basket-api/basket/count
+         */
         [HttpGet, Route("count")]
         public async Task<IActionResult> TotalItemBasket()
         {
@@ -249,42 +256,44 @@ namespace UserInfoApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> DeleteDoc()
         {
-            /*
-            var currentUser = HttpContext.User;
-
-            if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                return BadRequest();
-
-            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
-
-            var result = await _bucket.RemoveAsync(ID);
-
-            if (!result.Success)
-                return StatusCode(503, new ServiceUnavailableError("Unable to add document to database."));
-                */
-
+            // get the users ID from the HttpContext
             var ID = GetID();
 
+            // The ID should never be NULL because they wouldn't have been authorized but checking anyways
             if (ID == null)
                 return BadRequest(new BadRequestError("user_id not found."));
 
+            // Get the users Basket document from the Couchbase bucket if it exists
             var doc = await _bucket.GetAsync<Basket>(ID);
 
+            // check if the document was successfully retrieved
             if (!doc.Success)
             {
+                /*
+                 * Check specifically for the case if the document could not be found
+                 * for that user, this will happen if a document has not been created
+                 * yet for the user.
+                 */
                 if (doc.Status == ResponseStatus.KeyNotFound)
                     return NotFound(new NotFoundError($"No document exists for {ID}"));
                 else
                     return NotFound();
             }
 
+            /*
+             * To help solve the 404 responses on the frontend the document was made to be
+             * persistent. Once a user checks out or removes all the items from their basket
+             * the document will still exist, but the array of offering objects will be empty
+             * and the total # of item and total cost of the basket is set to zero.
+             */
             doc.Value.Offerings.RemoveRange(0, doc.Value.total_items);
             doc.Value.total_items = 0;            
             doc.Value.total_cost = 0;
             
-
+            // replace the document in the database with the updated version
             var result = await _bucket.ReplaceAsync(ID, doc.Value);
 
+            // check if the replacement was done successfully or not
             if (!result.Success)
                 return NotFound(new NotFoundError($"Unable to replace document for {ID}"));
 

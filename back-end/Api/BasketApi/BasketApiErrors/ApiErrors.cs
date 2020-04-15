@@ -1,5 +1,12 @@
 ﻿using System.Net;
 
+/*
+ * Class that allows for sending more customized error messages to the frontend.
+ * For the different HTTP status codes that are returned more information can be added.
+ * This can easily be further customized if something more complex than just the status code
+ * and a message wants to be sent by making changes to the ApiError(int, string, string) and
+ * NotFoundError(string) constructors for example.
+ */
 namespace BasketApi.BasketApiErrors
 {
 	public class ApiError

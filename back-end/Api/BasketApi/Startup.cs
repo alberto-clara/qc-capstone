@@ -43,6 +43,14 @@ namespace UserInfoApi
                 });
             });
 
+            /*
+             * Dependency injection to add the ability to verify the JWT Firebase token
+             * that is sent in the Authorization field of the HTTP header with each
+             * request from the frontend. The JWT token contains information such as
+             * the users Firebase UID, expiration time and so on. If the JWT token is
+             * validated the request can proceed into the controller, otherwise
+             * a HTTP status code 401 (Unauthorized) is automatically returned.
+             */
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -58,10 +66,23 @@ namespace UserInfoApi
                 }
                 );
 
+            /*
+             * Dependency injection that adds the Couchbase cluster that will be connected to
+             * along with the bucket(s). The IMyBucketProvider is an interface for the Couchbase
+             * bucket. This is from BasketApi/Infrastructure/BasketContext.cs
+             */
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services
                 .AddCouchbase(Configuration.GetSection("Couchbase"))
                 .AddCouchbaseBucket<IMyBucketProvider>("Basket");
+
+            /*
+             * Adds the swagger documentation tool
+             * For the BasketApi this can be found at
+             * http://localhost:7003/swagger
+             * It allows for documentation of the API and testing
+             * similar to Postman.
+             */
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "BasketAPI" });
