@@ -15,6 +15,5 @@
         public int MaxQty { get; set; }                
         public string Discount_key { get; set; }
         public string Type { get; set; }
-//        public List<Tiers> tiers { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Couchbase.Linq.Filters;
 
@@ -33,14 +30,5 @@ namespace CatalogApi.ViewModel
         public int MinQty { get; set; }
         [JsonProperty("MaxQty")]
         public int MaxQty { get; set; }
-/*
-        public Tiers(Tiers tiers)
-        {
-            DiscountPercentage = tiers.DiscountPercentage;
-            MaxQty = tiers.MaxQty;
-            MinQty = tiers.MinQty;
-            UOM = tiers.UOM;
-        }
-        */
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CatalogApi.Model {
+﻿namespace CatalogApi.Model {
     public class Suppliers {
 
         public string Id { get; set; }

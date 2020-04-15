@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CheckoutApi.Models {
+﻿namespace CheckoutApi.Models {
 
     public class UserInfo {
         public string Uid { get; set; }

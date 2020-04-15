@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 
 namespace CatalogApi.Model
 {
@@ -22,25 +17,8 @@ namespace CatalogApi.Model
         public int MaxQty { get; set; }
         public decimal? Discount_price { get; set; }
         internal string _Tiers { get; set; }
-//        [NotMapped]
-        public List<Tiers> tiers
-        {
-            get; set;
-//            get { return _Tiers == null ? null : JsonConvert.DeserializeObject<List<Tiers>>(_Tiers); }
- //           set { _Tiers = JsonConvert.SerializeObject(value); }
-        }
+        public List<Tiers> tiers { get; set; }
         public Disc() { }
-
     }
-
-    /*
-    public class Tiers
-    {
-        public decimal DiscountPercentage { get; set; }
-        public string UOM { get; set; }
-        public int MinQty { get; set; }
-        public int MaxQty { get; set; }
-    }
-    */
 }
 

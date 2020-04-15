@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -45,14 +44,12 @@ namespace UserInfoApi.Controllers
             // check if the model binds correctly
             if (ModelState.IsValid)
             {
-                // get the information about the current user from the HTTP context
-                var currentUser = HttpContext.User;
+                // get the users ID from the HttpContext
+                var ID = GetID();
 
-                // check to make sure the current user has a user_id from the decrypted authorization token
-                if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                    return BadRequest(new BadRequestError("Unable to find users_id from token"));
-                
-                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value; // get the value of the user_id
+                // The ID should never be NULL because they wouldn't have been authorized but checking anyways
+                if (ID == null)
+                    return BadRequest(new BadRequestError("user_id not found."));
                
                 var doc = await _bucket.GetAsync<Basket>(ID);   // check to see if a document for the user exists or not
                
@@ -125,14 +122,12 @@ namespace UserInfoApi.Controllers
             // check if the model binds correctly
             if (ModelState.IsValid)
             {
-                // get the information about the current user from the HTTP context
-                var currentUser = HttpContext.User;
+                // get the users ID from the HttpContext
+                var ID = GetID();
 
-                // check to make sure the current user has a user_id from the decrypted authorization token
-                if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                    return BadRequest(new BadRequestError("Unable to find users_id from token"));
-
-                var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value; // get the value of the user_id
+                // The ID should never be NULL because they wouldn't have been authorized but checking anyways
+                if (ID == null)
+                    return BadRequest(new BadRequestError("user_id not found."));
 
                 var doc = await _bucket.GetAsync<BasketDisc>(ID);   // check to see if a document for the user exists or not
 
@@ -196,12 +191,12 @@ namespace UserInfoApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> LookupDoc()
          {
-            var currentUser = HttpContext.User;
+            // get the users ID from the HttpContext
+            var ID = GetID();
 
-            if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                return BadRequest();
-
-            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+            // The ID should never be NULL because they wouldn't have been authorized but checking anyways
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
 
             var result = await _bucket.GetAsync<Basket>(ID);
 
@@ -311,15 +306,12 @@ namespace UserInfoApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> UpdateDoc(string offeringId, int quant)
         {
-            if (offeringId == null)
-                return BadRequest(new BadRequestError("Request has missing offeringId in URI."));
+            // get the users ID from the HttpContext
+            var ID = GetID();
 
-            var currentUser = HttpContext.User;
-
-            if (!currentUser.HasClaim(c => c.Type == "user_id"))
-                return BadRequest();
-
-            var ID = currentUser.Claims.FirstOrDefault(c => c.Type == "user_id").Value;
+            // The ID should never be NULL because they wouldn't have been authorized but checking anyways
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
 
             // get the current docutment for the user from the database
             var result = await _bucket.GetAsync<Basket>(ID);
