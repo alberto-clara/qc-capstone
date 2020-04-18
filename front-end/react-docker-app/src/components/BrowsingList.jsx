@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/mainTailwind.css';
-import '../css/loader/three-dot.css';
+//import '../css/loader/three-dot.css';
 import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -25,7 +25,7 @@ export const BrowsingList = (props) => {
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
     const [restload, setRestLoad] = useState(false);
-    const loader = (<div className="dot-spin" />);
+    //const loader = (<div className="dot-spin" />);
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
        
@@ -37,10 +37,11 @@ export const BrowsingList = (props) => {
         setLoad(false);
         
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [load]);
 
     const fetching = async (number, location) => {
         await axios.get(GetDiscBrowsingTotal).then((res) => {
+            console.log(res);
             setTotalItem(res.data.count);
         })
             await axios.get(GetDiscBrowsing1(number, location-1)).then((res) => {

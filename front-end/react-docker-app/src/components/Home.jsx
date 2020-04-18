@@ -23,11 +23,12 @@ export const Home = (props) => {
     const [load, setLoad] = useState(false);
     useEffect(() => {
         document.title = `Home Depot - HomePage`;
-
+        
         const tryFetch = async () => {
             await axios.get(GetHomeRandom).then((res) => {
+                console.log(res);
                 for (var i = 0; i < res.data.length; i++) {
-                    initValue.push({ id: res.data[i].offering_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail});
+                    initValue.push({ id: res.data[i].offering_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail, discount: res.data[i].discount_price});
                 }
                 setAdItems(initValue);
                setLoad(true);
@@ -53,43 +54,51 @@ export const Home = (props) => {
     const linktoItem = (itemId) => {
         window.location.assign("/offering/" + itemId);
     }
+    const checkDiscount =(discount,normal) =>{
+        var re;
+    //    discount===null? re=normal: re=discount;
+        if(discount ===null)
+            return(<div>${normal}</div>);
+        else   
+            return (<div className="text-red-500 font-bold">${discount}</div>);
 
+    }
     const swiping = (
      
         <div><SwipeableViews enableMouseEvents>
             <div className="flex w-full  ">
                 <div  className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
-                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[0].id)}>
-                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? loader : roundDigit(AdItems[0].price)}</div>
+                <div className="cursor-pointer" onClick={() => linktoItem(AdItems[0].id)}>     
+                     <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[0].discount,AdItems[0].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
                 </div>
             </div>
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[1].id)}>
-                    <div className="pt-2 md:pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[1].price)}</div>
+                    <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[1].discount,AdItems[1].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
                 </div>
             </div>
             <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[2].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[2].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[2].discount,AdItems[2].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
                 </div>
             </div>
             <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[3].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[3].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[3].discount,AdItems[3].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
                 </div>
             </div>
                 <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[4].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[4].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[4].discount,AdItems[4].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
                 </div>
             </div>
@@ -99,35 +108,35 @@ export const Home = (props) => {
 
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[5].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[5].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[5].discount,AdItems[5].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[5].product_name}</div>
                 </div>
             </div>
                 <div className="hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[6].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[6].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[6].discount,AdItems[6].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
                 </div>
             </div>
                 <div className="hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[7].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[7].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[7].discount,AdItems[7].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
                 </div>
             </div>
                 <div className=" hover:bg-orange-200 hidden md:block md:w-1/5 ">
                 <div> {display_image()}  </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[8].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[8].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[8].discount,AdItems[8].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
                 </div>
             </div>
                 <div className="  hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[9].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[9].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[9].discount,AdItems[9].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
                 </div>
             </div>
@@ -136,35 +145,35 @@ export const Home = (props) => {
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[10].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[10].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[10].discount,AdItems[10].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
                 </div>
             </div>
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[11].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[11].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[11].discount,AdItems[11].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
                 </div>
             </div>
                 <div  className=" hover:bg-orange-200  hidden ti:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[12].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[12].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[12].discount,AdItems[12].price)}</div> 
                     <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
                 </div>
             </div>
                 <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[13].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[13].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[13].discount,AdItems[13].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
                 </div>
             </div>
                 <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
                 <div> {display_image()} </div>
                 <div className="cursor-pointer" onClick={() => linktoItem(AdItems[14].id)}>
-                    <div className="pt-4 pl-4 md:pt-8">${load === false ? null : roundDigit(AdItems[14].price)}</div>
+                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[14].discount,AdItems[14].price)}</div> 
                     <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
                 </div>
             </div>

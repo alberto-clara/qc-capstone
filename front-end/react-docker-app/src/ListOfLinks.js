@@ -30,8 +30,8 @@ export const GetVendors = (offerID) => { return env + "/catalog-api/products/off
 export const GetUserInfo = env + "/checkout-api/checkout/getUserInfo";
 export const PostUserInfo = env + "/checkout-api/checkout/addUserInfo";
 
-export const GetHomeRandom = env + "/catalog-api/products/home";
-
+//export const GetHomeRandom = env + "/catalog-api/products/home";
+export const GetHomeRandom = env + "/catalog-api/products/disc/homedisc";
 export const TokenHeader = (tokenID) => {
     var config = {
         headers: {

@@ -82,10 +82,7 @@ export const ConfirmationPage = () => {
                     <div className="ml-2 md:ml-0 underline text-sm mb-4">Order#:{productInfo.orderId}</div>            
                </div>
             </div>
-        </div>
-       
-       
-        
+        </div> 
     </div>
 
     </>

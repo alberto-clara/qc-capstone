@@ -609,7 +609,7 @@ export const ManagePage = (props) => {
     return (
         <>
 
-            {load?page_title:loader}
+            {load?page_title:''}
 
         {window.screen.width < 450?mobile:web}
         </>)

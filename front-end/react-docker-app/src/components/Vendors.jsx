@@ -72,14 +72,10 @@ export const Vendors=  () => {
         <div>{page_title}</div>
         
         <div className="block md:flex w-full md:m-4">
-            
-            <div className="w-full md:w-1/2 md:m-4"> 
-                <div className="mt-4 md:ml-4 lg:ml-0 underline">{prodc_name}</div>
-                <div>{side_pic}</div>
-            </div>
+          
 
-            <div className="flex justify-center md:block w-full md:w-1/2 md:m-4">
-                <table className=" table-auto border-2 border-orange-500">
+            <div className="flex md:block w-full md:w-1/3 md:m-4">
+                <table className="table-auto border-2 border-orange-500 float-right">
 
                     <thead> 
                         <tr> 
@@ -93,6 +89,11 @@ export const Vendors=  () => {
                     </tbody>
                     
                 </table>
+            </div>
+              
+            <div className="w-full md:w-1/2 md:m-4"> 
+                <div className="mt-4 lg:ml-0 underline">{prodc_name}</div>
+                <div>{side_pic}</div>
             </div>
         </div>
     </div>

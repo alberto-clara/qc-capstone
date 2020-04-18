@@ -22,6 +22,9 @@ export  const ProductOffer = (props) => {
     const [unitRetail, setunitRetail] = useState('');
     const [unitofmeasure, setUnitofMeasure] = useState('');
     const [uom, setUOM] = useState('');
+    const [discountType, setDiscountType] = useState('');
+    const [discountPrice, setDiscountPrice] = useState('');
+    var [discountexist, setDiscountExist] = ('false')
     
     const [userToken, setUserToken] = useState("");
 
@@ -60,6 +63,8 @@ export  const ProductOffer = (props) => {
             setunitRetail(res.data.unit_retail);
             setUOM(res.data.uom);
             setUnitofMeasure(res.data.unit_cost)
+            setDiscountType(res.data.type);
+            setDiscountPrice(res.data.discount_price);
             console.log(res.data);
             
             setDescription(res.data.long_description);
@@ -151,8 +156,17 @@ export  const ProductOffer = (props) => {
             <div className="flex ">
                 <Link to={'/vendors/' + productKey}> <div className="underline justify-center text-sm">Other Vendors</div></Link>
             </div>
-   
         </div>
+    );
+
+    const discount_component = (
+        <div className="mx-20 block">
+            <div className="flex pr-2">Discount Type: {discountType}</div>
+        </div>
+    );
+
+    const price_component = (
+        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
     );
 
     const containAll = (<div>
@@ -169,10 +183,13 @@ export  const ProductOffer = (props) => {
                     <div className="flex">
                         <div className="w-2/3">
                             {rate_and_uom}
+                            {discountType ? discount_component : ''}
                             <div className="flex pt-2">{vendor_name} </div>
+                            {/* <div className="flex pt-2">{discount_component} </div> */}
                         </div>
+                        { discountPrice ? price_component  : ''}
                         <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
-                        
+
                     </div>
                     <div className="flex">
                         <div id="quantity" className="w-1/2 justify-center">
