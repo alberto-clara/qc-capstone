@@ -15,9 +15,11 @@ using Newtonsoft.Json;
 /*
  * This is a replacement for the original CatalogController that includes discount information.
  * It is using the same SQL database and tables as the original controller but it is also using 
- * a Couchbase bucket 
+ * a Couchbase bucket that holds all of the discount information. The way the discounts are currently
+ * setup is that when an offering of a prodcut is needed the Couchbase database is also queried based
+ * on the Offering_key. If a discount is found for that offering than the necessary information is added
+ * to the model storing the original data from the SQL database.
  */
-
 namespace CatalogApi.Controllers
 {
     [Route("api/products/disc")]
@@ -34,6 +36,11 @@ namespace CatalogApi.Controllers
             _catalogQueries = catalogQueries ?? throw new ArgumentNullException(nameof(catalogQueries));
         }
 
+        /*
+         * This is a replacement for the page/{sort?} in the CatalogController.
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/page/{sort?}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/page/{sort?}
+         */
         [HttpGet, Route("page/{sort?}")]
         public async Task<IActionResult> ProductsWDisc(string sort, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
@@ -79,6 +86,10 @@ namespace CatalogApi.Controllers
             return Ok(pageView);
         }
 
+        /*
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/offerings/{productId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/offerings/{productId}
+         */
         [HttpGet, Route("offerings/{productId}")]
         public async Task<IActionResult> OfferingsDisc(string productID)
         {
@@ -114,8 +125,8 @@ namespace CatalogApi.Controllers
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
  //                           offerings[ii].tiers = discounts.tiers;
-                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             break;
                         }
                         else if (discounts.Type == "BULK_DISCOUNT")
@@ -128,8 +139,8 @@ namespace CatalogApi.Controllers
                             int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
 //                            offerings[ii].tiers = new List<ViewModel.Tiers>();
 //                            offerings[ii].tiers.Add(discounts.tiers[index]);
-                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             break;
                         }
                     }
@@ -138,7 +149,11 @@ namespace CatalogApi.Controllers
 
             return Ok(offerings);
         }
-        
+
+        /*
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/singleOffering/{offeringId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/singleOfferings/{offeringId}
+         */
         [HttpGet, Route("singleOffering/{offeringID}")]
         public async Task<IActionResult> SingleOfferingDisc(string offeringID)
         {
@@ -166,7 +181,6 @@ namespace CatalogApi.Controllers
                         Console.WriteLine($"offering[{0}].Type = {offering[0].Type}");
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
-                            //                            offering[0].tiers = discounts.tiers;
                             offering[0].MaxQty = discounts.tiers[0].MaxQty;
                             offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             offering[0].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage), 2).ToString();
@@ -174,8 +188,6 @@ namespace CatalogApi.Controllers
                         else if (discounts.Type == "SUPPLIER_DISCOUNT")
                         {
                             int index = discounts.Offering_keys.IndexOf(offering[0].Offering_key, 0);
-                            //                            offering[0].tiers = new List<ViewModel.Tiers>();
-                            //                            offering[0].tiers.Add(discounts.tiers[index]);
                             offering[0].MaxQty = discounts.tiers[index].MaxQty;
                             offering[0].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
                             offering[0].Discount_price = Math.Round(Convert.ToDecimal(offering[0].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
@@ -189,7 +201,11 @@ namespace CatalogApi.Controllers
             else
                 return Ok(offering[0]);            
         }
-        
+
+        /*
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/getDiscounts
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/getDiscounts
+         */
         [HttpGet, Route("getDiscounts")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetDiscounts([FromBody] List<string> discountList)
@@ -224,6 +240,10 @@ namespace CatalogApi.Controllers
             return Ok(tiers);
         }
 
+        /*
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/getDiscount/{discountId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/getDiscount/{discountId}
+         */
         [HttpGet, Route("getDiscount/{discountID}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetDiscount(string discountID)
@@ -249,6 +269,10 @@ namespace CatalogApi.Controllers
             return Ok(tiers);
         }
 
+        /*
+         * GET (CatalogApi) http://localhost:7001/api/products/disc/homeDisc
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/homeDisc
+         */
         [HttpGet, Route("homeDisc")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetRandomOfferings()
@@ -284,8 +308,8 @@ namespace CatalogApi.Controllers
                         offerings[ii].Type = discounts.Type;
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
-          //                  offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage * 100), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * ((100 - discounts.tiers[0].DiscountPercentage) / 100), 2).ToString();
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             break;
                         }
                         else if (discounts.Type == "BULK_DISCOUNT")
@@ -295,8 +319,8 @@ namespace CatalogApi.Controllers
                         else if (discounts.Type == "SUPPLIER_DSICOUNT")
                         {
                             int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
-                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage * 100), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - discounts.tiers[0].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             break;
                         }
                     }

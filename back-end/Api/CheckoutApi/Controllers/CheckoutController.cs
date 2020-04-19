@@ -41,11 +41,10 @@ namespace CheckoutApi.Controllers
             this.configuration = configuration;
         }
         
-        /*
-         * POSTMAN
-         * GET /api/checkout/getOrderHistory
-         * Route that will be user to retrieve a users order history in the
-         * future. I haven't been able to test it yet. 
+        /*         
+         * Route to retrieve a users order history.
+         * GET (CheckoutApi) http://localhost:7004/api/checkout/getOrderHistory
+         * GET (through APIGateway) http://localhost:7000/checkout-api/checkout/getOrderHistory
          */
         [HttpGet, Route("getOrderHistory")]
         public async Task<IActionResult> retrieveOrderHist()
@@ -65,6 +64,10 @@ namespace CheckoutApi.Controllers
             return Ok(result.Value);
         }
 
+        /*
+         * PUT (CheckoutApi) http://localhost:7004/api/checkout/add
+         * PUT (through APIGateway) http://localhost:7000/checkout-api/checkout/add
+         */
         [HttpPut, Route("add")]
         public async Task<IActionResult> add([FromHeader] string authorization)
         {           
@@ -100,8 +103,6 @@ namespace CheckoutApi.Controllers
             order.date = DateTime.Now;
             order.OrderId = Guid.NewGuid();
             order.Shipping = userInfoDoc.Value;
-//            order.Shipping = new ShippingInfo();
-//            order.Shipping = order.ShippingInfo();
             Checkout checkout = null;
             if (!userDoc.Success)
             {
@@ -147,6 +148,8 @@ namespace CheckoutApi.Controllers
          * POST /api/checkout/addUserInfo
          * also not entirely finished yet. I need to check if a doc for the user exists first
          * if one does not then set the Id and content of the new doc then add it to the DB.
+         * POST (CheckoutApi) http://localhost:7004/api/checkout/addUserInfo
+         * POST (through APIGateway) http://localhost:7000/checkout-api/checkout/addUserInfo
          */
         [HttpPost, Route("addUserInfo")]
         public async Task<IActionResult> AddUserInfo([FromBody] UserInfo newUserInfo)
@@ -173,10 +176,11 @@ namespace CheckoutApi.Controllers
                 return BadRequest();
         }
 
-        /* WORKING!!!!!
+        /* 
          * Should be finished and working correctly
          * Route to get user info and send it to the frontend
-         * GET /api/catalog/getUserInfo
+         * GET (CheckoutApi) http://localhost:7004/api/checkout/getUserInfo
+         * GET (through APIGateway) http://localhost:7000/checkout-api/checkout/getUserInfo
          */
         [HttpGet, Route("getUserInfo")]
         public async Task<IActionResult> GetUserInfo()

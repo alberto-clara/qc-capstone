@@ -33,10 +33,8 @@ namespace UserInfoApi.Controllers
         /*
          * Route should be used when user has an empty basket and adds
          * their first item
-         * POST /api/basket/add
-         * need to consider adding the same item from the prodcut page
-         * need to look at all of the offering ids in the document if it exists
-         * and replace it if it does
+         * POST (BasketAPI) - http://localhost:7003/api/basket/add
+         * POST (through APIGateway) - http://localhost:7000/basket-api/basket/add
          */
         [HttpPost, Route("add")]
         public async Task<IActionResult> AddDoc([FromBody] Basket newBasketItem)
@@ -185,7 +183,8 @@ namespace UserInfoApi.Controllers
         /*
          * Route to retrieve a users basket if one exists. If the user does not have
          * a basket document a HTTP status code 404 NOT FOUND will be returned.
-         * GET /api/basket/find
+         * GET (BasketAPI) - http://localhost:7003/api/basket/find
+         * GET (through APIGateway) - http://localhost:7000/basket-api/basket/find
          */
         [HttpGet, Route("find")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -245,7 +244,8 @@ namespace UserInfoApi.Controllers
          * UPDATE - changed to keep the document persistent and solve the 404 NotFound
          * on frontend when trying to update basket item count. Not technically following
          * RESTful API standards and should be changed in the future
-         * DELETE /api/basket/delete
+         * DELETE (BasketAPI) - http://localhost:7003/api/basket/delete
+         * DELETE (through APIGateway) - http://localhost:7000/basket-api/basket/delete
          */
         [HttpDelete, Route("delete")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -371,6 +371,11 @@ namespace UserInfoApi.Controllers
                 return NotFound(offeringId);
         }
 
+        /*
+         * This function gets the User_ID from the HttpContext. The information about the user
+         * is stored in the HttpContext when the Firebase JWT token is decrypted by the JWT
+         * middleware in the Startup.cs file.
+         */
         private string GetID()
         {
             var currentUser = HttpContext.User;

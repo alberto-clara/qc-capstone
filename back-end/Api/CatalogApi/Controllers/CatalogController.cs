@@ -49,8 +49,9 @@ namespace CatalogApi.Controllers
          * reverse = reverse alphabetical order for product names
          * needed way and if no sorting is needed this parameter can be omitted from the route
          * and it will be sorted based on the product name.
+         * GET (CatalogApi) http://localhost:7001/api/products/page/sort[?pageSize=3&pageIndex=10]
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/page/sort[?pageSize=3&pageIndex=10]
          */
-        // GET api/products/page/sort[?pageSize=3&pageIndex=10]
         [HttpGet, Route("page/{sort?}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<PageView>), (int)HttpStatusCode.OK)]
@@ -102,19 +103,32 @@ namespace CatalogApi.Controllers
         /*
          * This returns a list of all the offerings for a single product based on the product ID in the route.
          * If information is needed about a specific offering of a product this route should not be used.
+         * GET (CatalogApi) http://localhost:7001/api/products/offerings/{productId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/offerings/{productId}
          */
-        // GET api/products/offerings/{productId}
         [HttpGet, Route("offerings/{productId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> OfferingsByIdAsync(string productId)
         {
+            /*
+             * Not really ever used, this was just a test to see if when querying for products
+             * they could also be filtered by if the active_date was greater than the Unix 
+             * timestamp of the current time current 
+             */
             DateTime dateTime = DateTime.Now;
             DateTimeOffset dto = DateTimeOffset.Now;
             Int64 currentUnixTimestamp = dto.ToUnixTimeSeconds();
 
-            if (productId == null) return BadRequest();
+            // make sure that the product ID is received from the frontend in the URL
+            if (productId == null)
+                return BadRequest();
 
+            /*
+             * The SQL query, this can be optimized to use a view instead of joining all three tables.
+             * The query is joining the products table with the offerings table on the product_key
+             * and then joining the offerings table with the suppliers table on the supplier_key.
+             */
             var newTable = (from pt in _catalogContext.products
                             join ot in _catalogContext.offerings on pt.Id equals ot.Product_key
                             join st in _catalogContext.suppliers on ot.Supplier_key equals st.Id
@@ -138,7 +152,9 @@ namespace CatalogApi.Controllers
             var items = await newTable
                                 .ToListAsync();
 
-            if (items.Count != 0) return Ok(items);
+            // make sure that the number of elements in the array is not zero, indicates something went wrong.
+            if (items.Count != 0)
+                return Ok(items);
 
             return NotFound();
         }
@@ -146,8 +162,9 @@ namespace CatalogApi.Controllers
         /*
          * use this route if you want to get the information about a single offering of a product
          * the route needs to be passed the offering ID of what you want information about
+         * GET (CatalogApi) http://localhost:7001/api/products/offerings/single/{offeringId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/offerings/single/{offeringId}
          */
-        // GET /api/products/offerings/single/{offeringId}
         [HttpGet, Route("offerings/single/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
@@ -183,6 +200,8 @@ namespace CatalogApi.Controllers
         /*
          * Route for the homepage to grab 15 randomly selected products
          * from the database.
+         * GET (CatalogApi) http://localhost:7001/api/products/home
+         * GET (APIGateway) http://localhost:7000/catalog-api/home
          */
         // GET /api/products/home
         [HttpGet, Route("home")]
@@ -216,6 +235,12 @@ namespace CatalogApi.Controllers
             return NotFound();
         }
 
+        /*
+         * This route retrieves all of the offerings that a specific supplier has available.
+         * Does the lookup based on the Supplier_key
+         * GET (CatalogApi) http://localhost:7001/api/products/supplier/{supplierId}
+         * GET (APIGateway) http://localhost:7000/catalog-api/products/supplier/{supplierId}
+         */
         [HttpGet, Route("supplier/{supplierID}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(PaginatedItemsViewModel<SupplierView>), (int)HttpStatusCode.OK)]

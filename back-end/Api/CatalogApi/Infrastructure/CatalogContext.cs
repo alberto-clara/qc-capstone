@@ -1,9 +1,7 @@
 ﻿namespace CatalogApi.Infrastructure
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Model;
-    using Microsoft.EntityFrameworkCore.Design;
     using Newtonsoft.Json;
     using System.Collections.Generic;
 
