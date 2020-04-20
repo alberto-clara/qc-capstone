@@ -1,0 +1,4 @@
+#!/bin/bash
+
+az container delete --name qcDatabase --resource-group qcapp -y
+az container create --resource-group qcapp --file deploy-database.yaml
