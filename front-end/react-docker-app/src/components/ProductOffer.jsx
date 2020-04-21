@@ -24,6 +24,8 @@ export  const ProductOffer = (props) => {
     const [uom, setUOM] = useState('');
     const [discountType, setDiscountType] = useState('');
     const [discountPrice, setDiscountPrice] = useState('');
+    const [discountPercent, setDiscountPercent] = useState('');
+
     var [discountexist, setDiscountExist] = ('false')
     
     const [userToken, setUserToken] = useState("");
@@ -65,6 +67,7 @@ export  const ProductOffer = (props) => {
             setUnitofMeasure(res.data.unit_cost)
             setDiscountType(res.data.type);
             setDiscountPrice(res.data.discount_price);
+            setDiscountPercent(res.data.discount_percentage);
             console.log(res.data);
             
             setDescription(res.data.long_description);
@@ -130,13 +133,14 @@ export  const ProductOffer = (props) => {
         </div>
     );
     const AddCartButton = async () => {
+        
         var items = [{
             offering_key: offeringKey,
             product_key: productKey,
             product_name: productName,
             supplier_key: supplierKey,
             supplier_name: vendor,
-            unit_retail: unitRetail,
+            unit_retail: discountPrice? discountPrice :unitRetail,
             unit_cost: unitofmeasure,
             uom: uom,
             quantity: count
@@ -164,10 +168,16 @@ export  const ProductOffer = (props) => {
             <div className="flex pr-2">Discount Type: {discountType}</div>
         </div>
     );
+    {/*  DiscountComponent & NormalComponent : 1 for with and 1 for without discount. If discount % > 1, display it, else not display */ }
 
-    const price_component = (
-        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
+    const DisCountComponent = (<div className= "block">
+         <div className="flex justify-center text-gray-400 font-bold line-through items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
+        <div className="flex pt-2 justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${discountPrice}</div>
+    
+        <div className="flex pt-2 justify-center items-center w-1/3 text-xl text-red-500 font-extrabold pr-16 sm:pr-24">{discountPercent}% OFF</div>
+</div>
     );
+    const NormalComponent = (<div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>);
 
     const containAll = (<div>
         {searchbar}
@@ -187,8 +197,8 @@ export  const ProductOffer = (props) => {
                             <div className="flex pt-2">{vendor_name} </div>
                             {/* <div className="flex pt-2">{discount_component} </div> */}
                         </div>
-                        { discountPrice ? price_component  : ''}
-                        <div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
+                        { discountPrice ? DisCountComponent  : NormalComponent}
+                    
 
                     </div>
                     <div className="flex">
@@ -205,7 +215,7 @@ export  const ProductOffer = (props) => {
 
             {/* specifications */}
             <div className=" px-5 lg:px-0">
-                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
+                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Specification
                 </div>
                 <div className=" w-full pt-1">
@@ -217,7 +227,7 @@ export  const ProductOffer = (props) => {
       
             {/* Reviews */}
             <div className=" px-5 lg:px-0 pt-2">
-                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
+                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Review
                     </div>
                 <div className=" w-full pt-1">
@@ -229,7 +239,7 @@ export  const ProductOffer = (props) => {
 
             {/* QA */}
             <div className=" px-5 lg:px-0 pt-2 pb-4">
-                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
+                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
                     Q/A
                     </div>
                 <div className=" w-full pt-1">

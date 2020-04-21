@@ -13,7 +13,6 @@ import { GetDiscBrowsingTotal, GetDiscBrowsing1, GetDiscBrowsing2 } from '../Lis
 export const BrowsingList = (props) => {
     var initValue = [];
     var rest = [];
-    //var limit = 0;
     const [items, setItems] = useState([]);
     const [restItem, setRestItem] = useState([])
     const [totalRest, setTotalRest] = useState(0);
@@ -25,7 +24,6 @@ export const BrowsingList = (props) => {
     const [fetchsort, setFetchSort] = useState('');
     const [activePage, setActivePage] = useState(1);
     const [restload, setRestLoad] = useState(false);
-    //const loader = (<div className="dot-spin" />);
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
        
@@ -69,9 +67,12 @@ export const BrowsingList = (props) => {
         }
         )
     }
-
+    const displayRandom=()=>{
+            var rand=Math.floor(Math.random() * 100); 
+            var imgStr = "https://generative-placeholders.glitch.me/image?width=500&height=500&img=".concat(rand);
+        return (<><img src={imgStr} /></>);
+    }
     const sortFetching = async (number, location, sortPrice) => {
-           // console.log(res.data);
         await axios.get(GetDiscBrowsing2(sortPrice, number,location-1)).then((res) => {
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
@@ -95,8 +96,6 @@ export const BrowsingList = (props) => {
     const isInt = (n) => { return parseInt(n) === n  };
     const loopfetching = async (number, location) => {
         var htmlElements = '';
-      //  console.log(number);
-      //  console.log(location);
         var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
         if (!isInt(totalItem / pageNumber) && restload) {

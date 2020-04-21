@@ -79,8 +79,6 @@ export const CartItem = (props) => {
                     <div className="block text-lg w-2/3">
                         <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold hover:text-orange-500 underline">{props.value.product_name}</div>
                         <div className="m-4 text-md md:text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                        {/* <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div>
-                        <div className="pl-4">{rate}</div> */}
                         <button onClick={() => removeCartItem()} className="flex justify-center text-base m-20 h-12 rounded border-2 border-orange-500 px-5 font-bold md:hidden">Remove Item</button>                    
 
                     
@@ -121,7 +119,7 @@ export const CartItemCheckOut = (props) => {
             </div>
         </div>
     );
-  //  console.log(props)
+ 
     const linktoProduct = () => {
         window.location.assign("/offering/" + props.value.offering_key);
     }
@@ -132,8 +130,6 @@ export const CartItemCheckOut = (props) => {
                 <div className="block text-lg w-full">
                     <div onClick={() => linktoProduct()} className="cursor-pointer m-4 text-md md:text-2xl font-extrabold  hover:text-orange-500 hover:underline">{props.value.product_name}</div>
                     <div className="m-4 text-2xl font-extrabold pt-2">${props.value.unit_retail}</div>
-                    {/* <div onClick={() => window.location.assign("/supplier/" + props.value.supplier_key)} className="pl-4 pt-2 cursor-pointer hover:text-orange-500 hover:underline">{props.value.supplier_name}</div> */}
-                    {/* <div className="pl-4">{rate}</div> */}
                 </div>
               
                 <div className="flex-none">
