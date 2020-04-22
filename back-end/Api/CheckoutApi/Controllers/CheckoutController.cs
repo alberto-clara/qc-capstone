@@ -100,7 +100,7 @@ namespace CheckoutApi.Controllers
 
             Order order = await httpResponse.Content.ReadAsAsync<Order>();
 
-            order.date = DateTime.Now;
+            order.date = DateTime.Now.ToLocalTime().ToString("MM/dd/yyyy HH:mm tt");
             order.OrderId = Guid.NewGuid();
             order.Shipping = userInfoDoc.Value;
             Checkout checkout = null;

@@ -1,0 +1,7 @@
+{
+  "views": {
+    "by_id": {
+      "map": "function (doc, meta) {\n  if (doc.offeringsDisc) {\n  for (i=0; i < doc.offeringsDisc.length; i++) {\n  if (doc.offeringsDisc[i].offering_key && meta.id) {\n  emit([meta.id, doc.offeringsDisc[i].offering_key], [i, doc.total_cost, doc.total_items, doc.offeringsDisc[i]]);\n  }\n}\n  }\n  }"
+    }
+  }
+}

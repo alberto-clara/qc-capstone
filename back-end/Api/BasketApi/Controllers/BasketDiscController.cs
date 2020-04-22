@@ -147,7 +147,7 @@ namespace BasketApi.Controllers
             return Ok(doc.Value);
         }
 
-        [HttpPost, Route("update/{offeringID}/{qty}")]
+        [HttpPut, Route("update/{offeringID}/{qty}")]
         public async Task<IActionResult> UpdateQuant(string offeringID, int qty = 0)
         {
             var ID = GetID();
@@ -162,8 +162,11 @@ namespace BasketApi.Controllers
             Console.WriteLine(query);
             var res = await _bucket.QueryAsync<dynamic>(query);
 
+            Console.WriteLine($"res.Message = {res.Message}");
+            Console.WriteLine($"res.Count = {res.Rows.Count()}");
+
             if (!res.Success || res.Rows.Count() == 0)
-                return NotFound(res);
+                return NotFound(res.Message);
 
             Console.WriteLine("IM HERE");
 
@@ -172,13 +175,16 @@ namespace BasketApi.Controllers
             OfferingsDisc offering = JsonConvert.DeserializeObject<OfferingsDisc>(info[3].ToString());
             decimal total_cost = Convert.ToDecimal(info[1]) - Convert.ToDecimal(offering.totalOfferingCost);
 
+            Console.WriteLine($"index = {index}");
+            Console.WriteLine($"total_cost = {total_cost}");
+
             if (qty == 0)
             {
-                var response = _bucket.MutateIn<BasketDisc>(ID)
+                var response = await _bucket.MutateIn<BasketDisc>(ID)
                     .Upsert("total_cost", total_cost.ToString())
                     .Upsert("total_items", info[2] - 1)
-                    .ArrayRemove($"offeringsDisc[{index}]")
-                    .Execute();
+                    .Remove($"offeringsDisc[{index}]")
+                    .ExecuteAsync();
 
                 if (!response.Success)
                     return NotFound(new NotFoundError(response.Message));
@@ -192,13 +198,45 @@ namespace BasketApi.Controllers
 
             var update_res = await _bucket.MutateIn<BasketDisc>(ID)
                 .Upsert("total_cost", total_cost.ToString())
-                .ArrayInsert($"offeringsDisc[{index}]", offering)
+                .Replace($"offeringsDisc[{index}]", offering)
                 .ExecuteAsync();
 
             if (!update_res.Success)
                 return NotFound(new NotFoundError(update_res.Message));
 
             return Ok(update_res);
+        }
+
+        [HttpDelete, Route("delete")]
+        public async Task<IActionResult> EmptyDoc()
+        {
+            var ID = GetID();
+
+            if (ID == null)
+                return BadRequest(new BadRequestError("user_id not found."));
+
+            var doc = await _bucket.GetAsync<BasketDisc>(ID);
+
+            if (!doc.Success)
+            {
+                if (doc.Status == ResponseStatus.KeyNotFound)
+                    return NotFound(new NotFoundError($"No document exists for {ID}"));
+                else
+                    return NotFound();
+            }
+
+            doc.Value.OfferingsDisc.RemoveRange(0, doc.Value.total_items);
+            doc.Value.total_items = 0;
+            doc.Value.total_cost = "0";
+
+            // replace the document in the database with the updated version
+            var result = await _bucket.ReplaceAsync(ID, doc.Value);
+
+            // check if the replacement was done successfully or not
+            if (!result.Success)
+                return NotFound(new NotFoundError($"Unable to replace document for {ID}"));
+
+            return Ok(doc.Value);
         }
 
         private async Task<HttpResponseMessage> GetOffering(string auth, string path)

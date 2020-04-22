@@ -11,7 +11,7 @@ namespace CheckoutApi.Models
     public class Order
     {
         public Guid? OrderId { get; set; }
-        public DateTime? date { get; set; }
+        public string date { get; set; }
         public int total_items { get; set; }
         public decimal total_cost { get; set; }
         public List<Offerings> Offerings { get; set; }
@@ -26,6 +26,7 @@ namespace CheckoutApi.Models
         public string Supplier_key { get; set; }
         public string Supplier_name { get; set; }
         public decimal Unit_retail { get; set; }
+        public string Discount_price { get; set; }
         public string totalOfferingCost { get; set; }
         public string Uom { get; set; }
         public int Quantity { get; set; }
