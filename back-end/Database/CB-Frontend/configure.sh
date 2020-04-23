@@ -56,22 +56,23 @@ curl -v -u admin:password -X POST http://127.0.0.1:8091/pools/default/buckets \
 
 sleep 15
 
+curl -v -X PUT \
+	-u admin:password \
+	-H 'Content-Type: application/json' \
+	http://127.0.0.1:8092/Basket/_design/dev_BasketDisc \
+	-d @/opt/couchbase/by_id.ddoc
+
+
 cbimport json -c couchbase://127.0.0.1 -u admin -p password \
-	-b Discounts --d file:///opt/couchbase/discounts.json -f lines -g key::%id%
+	-b Discounts --d file:///opt/couchbase/discounts.json -f lines -g key%id%
 
-cbq -e localhost -u admin -p password --script="CREATE INDEX baskInd ON Basket(Meta().id)" -q
-
-cbq -e localhost -u admin -p password --script="CREATE INDEX userInd ON UserInfo(Meta().id)" -q
-
-cbq -e localhost -u admin -p password --script="CREATE INDEX chkInd ON Checkout(Meta().id)" -q
-
+cbq -e localhost -u admin -p password --script="CREATE INDEX baskind on Basket(Meta().id)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX usrind on UserInfo(Meta().id)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX chkind on Checkout(Meta().id)" -q
 cbq -e localhost -u admin -p password \
-	--script="CREATE INDEX offkeys ON Discounts(distinct array k for k in offering_keys end);" -q
-
-cbq -e localhost -u admin -p password --script="CREATE INDEX pKey ON Discounts(product_key)" -q
-
-cbq -e localhost -u admin -p password --script="CREATE INDEX sKey ON Discounts(supplier_key)" -q
-
-cbq -e localhost -u admin -p password --script="CREATE INDEX discID ON Discounts(id)"
+	--script="CREATE INDEX offkeys on Discounts(distinct array k for k in offering_keys end);" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX pkey on Discounts(product_key)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX skey on Discounts(supplier_key)" -q
+cbq -e localhost -u admin -p password --script="CREATE INDEX discID on Discounts(id)" -q
 
 fg 1
