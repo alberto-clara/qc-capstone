@@ -8,7 +8,7 @@ import 'react-dropdown/style.css';
 import { Pagination } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import { GetBrowsingTotal, GetBrowsing1, GetBrowsing2 } from '../ListOfLinks';
-import { GetDiscBrowsingTotal, GetDiscBrowsing1, GetDiscBrowsing2 } from '../ListOfLinks';
+import { GetDiscBrowsingTotal, GetDiscBrowsing1, GetDiscBrowsing2, loader } from '../ListOfLinks';
 /* eslint no-useless-concat: 0 */
 
 export const BrowsingList = (props) => {
@@ -96,32 +96,31 @@ export const BrowsingList = (props) => {
     const options = [5, 10, 15, 20, 25];
     const isInt = (n) => { return parseInt(n) === n  };
 
-    function itemBlock() {
-        return (
-            <div>
-                HELLO Skylar
-            </div>
-        );
-    }
-    function itemBlock2() {
-        return (
-            <div>
-                GREETINGS Alberto
-            </div>
-        );
-    }
-
-    function displayMap(number, location) {
+    function displayMap() {
         const box = items.map(info => (
-            <div key={info.id}>
-                TEST {items.unit_retail}
+            <div key={info}>
+                <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">
+                    <a target="_blank"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>
+                    <div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">
+                        <Link to ={load === true ? loader : '/offering/'+info.offerings}>   
+                            <a class="text-black text-sm lg:text-xl hover:bg-gray-200">{info.product_name}</a>
+                        </Link>
+                        <div class="text-xs lg:text-lg pb-4 lg:hidden unit_retail">Cost: ${info.unit_retail}</div>
+                        <div class="text-xs lg:text-md flex-wrap">Delivers Today</div>
+                        <div class="flex content-end">
+                            <div class="text-xs lg:text-md flex pt-12 lg:pt-24 hover:text-blue-600">Add to Favorites</div>
+                        </div>
+                    </div>
+                    <div class="hidden lg:flex px-4 py-2 lg:px-8 lg:py-4">
+                        <div class="text-lg unit_retail">Cost: {info.unit_retail}</div>
+                    </div>
+                </div>
             </div>
         ))
+
         return(
             <div>
-                Are you here?
                 {box}
-                {console.log("item is here: ", items)}
             </div>
         );
     }
@@ -131,11 +130,9 @@ export const BrowsingList = (props) => {
         var htmlElements = '';
         var stepup = Math.round(totalItem / pageNumber)
         setCountPage(stepup);
-        itemBlock()
         if (!isInt(totalItem / pageNumber) && restload) {
             for (var i = 0; i < totalRest; i++) {
                 console.log("rest");
-                itemBlock()
                 htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
                     `<div class="justify-start content-center>` +
@@ -160,7 +157,6 @@ export const BrowsingList = (props) => {
         }
         else {
             for (i = 0; i < number; i++) {
-                itemBlock();
                 htmlElements += `
              <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">` +
                     `<div class="justify-start content-center>` +
@@ -185,11 +181,6 @@ export const BrowsingList = (props) => {
          container.innerHTML = htmlElements;
         await setLoad(false);
 
-        // return(
-        //     <div>
-        //         {itemBlock()}
-        //     </div>
-        // );
     }
     const changeSize = (e) => {
         setActivePage(1);
@@ -206,8 +197,6 @@ export const BrowsingList = (props) => {
      
         <div className="mt-4 justify-center w-full">
             <div className=" titlePage pt-2 pb-4 lg:text-3xl"> Browsing View </div>
-            {itemBlock()}
-            {itemBlock2()}
         </div>
         <div className="h-auto /*bg-blue-400*/">
         <div className="lg:flex w-full">
@@ -245,7 +234,7 @@ export const BrowsingList = (props) => {
             </div>
             <div className="w-full /*bg-green-400*/">
                 <div>{displayMap(pageNumber, pageLocation)}  </div>
-                <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div>
+                {/* <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div> */}
 
                 <div id="container"> </div>
             </div>
