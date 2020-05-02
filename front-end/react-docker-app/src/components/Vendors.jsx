@@ -6,6 +6,7 @@ import { GetVendors, loader } from '../ListOfLinks';
 import kitty1 from '../images/cute-kitty-1.jpg';
 import kitty2 from '../images/kitty_sleep-compressor.jpg';
 import { Carousel } from "react-responsive-carousel";
+import { Link } from 'react-router-dom';
 
 export const Vendors=  () => {
      let { idv } = useParams();
@@ -118,17 +119,29 @@ const VendorEach = (props) => {
 
     var imgStr = "https://generative-placeholders.glitch.me/image?width=50&height=50&img=".concat(props.index);
     var imgStr2 = "https://generative-placeholders.glitch.me/image?width=50&height=50&img=".concat(100+props.index);
-   
+
     const grayline = (<>
-        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="pl-2 border-2 border-orange-500 cursor-pointer"> <img src={imgStr}/></td>
-        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
-        <td onClick={() => { window.location.href = '/offering/' + props.value.offering_key }} className="p-2 border-2 border-orange-500 text-right bg-gray-300 cursor-pointer hover:underline hover:font-bold"  >${props.value.unit_retail}</td>        
+        <td>{<Link to={'/supplier/' + props.value.supplier_key}> <div className="pl-2 border-2 border-orange-500 cursor-pointer"> <img src={imgStr}/></div></Link>}</td>
+        <td>{<Link to={'/supplier/' + props.value.supplier_key}> <div className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</div></Link>}</td>
+        <td>{<Link to={'/offering/' + props.value.offering_key}> <div className="p-2 border-2 border-orange-500 text-right bg-gray-300 cursor-pointer hover:underline hover:font-bold"  >${props.value.unit_retail}</div></Link>}</td>
     </>)
+
     const whiteline = (<>
-        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="pl-2 border-2 border-orange-500 cursor-pointer"><img src={imgStr2}/></td>
-        <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
-        <td onClick={() => { window.location.href = '/offering/' + props.value.offering_key }} className="p-2 border-2 border-orange-500 text-right bg-white cursor-pointer hover:underline hover:font-bold" >${props.value.unit_retail}</td>
+        <td>{<Link to={'/supplier/' + props.value.supplier_key}> <div className="pl-2 border-2 border-orange-500 cursor-pointer"> <img src={imgStr}/></div></Link>}</td>
+        <td>{<Link to={'/supplier/' + props.value.supplier_key}> <div className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</div></Link>}</td>
+        <td>{<Link to={'/offering/' + props.value.offering_key}> <div className="p-2 border-2 border-orange-500 text-right bg-gray-300 cursor-pointer hover:underline hover:font-bold"  >${props.value.unit_retail}</div></Link>}</td>
     </>)
+   
+    // const grayline = (<>
+    //     <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="pl-2 border-2 border-orange-500 cursor-pointer"> <img src={imgStr}/></td>
+    //     <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-gray-300" >{props.value.supplier}</td>
+    //     <td onClick={() => { window.location.href = '/offering/' + props.value.offering_key }} className="p-2 border-2 border-orange-500 text-right bg-gray-300 cursor-pointer hover:underline hover:font-bold"  >${props.value.unit_retail}</td>        
+    // </>)
+    // const whiteline = (<>
+    //     <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="pl-2 border-2 border-orange-500 cursor-pointer"><img src={imgStr2}/></td>
+    //     <td onClick={() => { window.location.href = '/supplier/' + props.value.supplier_key }} className="p-2 border-2 border-orange-500 text-center cursor-pointer hover:underline hover:font-bold bg-white" >{props.value.supplier}</td>
+    //     <td onClick={() => { window.location.href = '/offering/' + props.value.offering_key }} className="p-2 border-2 border-orange-500 text-right bg-white cursor-pointer hover:underline hover:font-bold" >${props.value.unit_retail}</td>
+    // </>)
     
     return (
         <tr>{(props.index % 2 === 0) ? grayline : whiteline}
