@@ -36,7 +36,7 @@
     "startall": "npm run appendfiles && npm run build:css && npm run start",
     "start": "react-scripts start",
     "build": "react-scripts build ",
-    "build-run": "serve build -l 3000",
+    "build-run": "serve build -l 3000 -s",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -30,7 +30,7 @@ properties:
       - name: ASPNETCORE_ENVIRONMENT
         value: Production
       - name: ASPNETCORE_URLS
-        value: http://+:7003
+        value: http://+:7004
   imageRegistryCredentials:
   - server: qcshop.azurecr.io
     username: qcshop
@@ -41,6 +41,8 @@ properties:
     ports:
     - protocol: tcp
       port: '7003'
+    - protocol: tcp
+      port: '7004'
     dnsNameLabel: qc-micro2
 tags: null
 type: Microsoft.ContainerInstance/containerGroups
