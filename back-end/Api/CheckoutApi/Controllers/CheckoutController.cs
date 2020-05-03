@@ -137,7 +137,7 @@ namespace CheckoutApi.Controllers
 
             if (userInfoDoc.Success)
             {
-                SendEmail(ID, checkout.Orders[0]);
+                await SendEmail(ID, checkout.Orders[0]);
             }
 
             return Ok(checkout);

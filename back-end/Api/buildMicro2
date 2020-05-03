@@ -4,8 +4,8 @@
 docker build -t qcshop.azurecr.io/basketapi:latest -f "BasketApi/Dockerfile" .
 docker build -t qcshop.azurecr.io/checkoutapi:latest -f "CheckoutApi/Dockerfile" .
 
-docker push qcshop.azurecr.io/checkoutapi:latest
 docker push qcshop.azurecr.io/basketapi:latest
+docker push qcshop.azurecr.io/checkoutapi:latest
 
 az container delete --name qcMicro2 --resource-group qcapp -y
 az container create --resource-group qcapp --file deploy-micro2.yaml
