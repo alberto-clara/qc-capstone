@@ -28,15 +28,20 @@ export const BrowsingList = (props) => {
     useEffect(() => {
         document.title = `Home Depot - Browsing`;
        
-        if (fetchsort === '')
-            fetching(pageNumber, pageLocation);
-        else {
-            sortFetching(pageNumber, pageLocation,fetchsort);
-        }
-        setLoad(false);
-        
+        refresh();
+       setLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [load]);
+        const refresh = () => { 
+          if (fetchsort === '')
+                    fetching(pageNumber, pageLocation);
+                else {
+                    sortFetching(pageNumber, pageLocation,fetchsort);
+                }
+    
+        }
+
+
 
     const fetching = async (number, location) => {
         await axios.get(GetDiscBrowsingTotal).then((res) => {
@@ -49,7 +54,7 @@ export const BrowsingList = (props) => {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
             setItems(initValue)
-            setLoad(true);
+       //     setLoad(true);
         }
         ).catch(async function (e) {
             
@@ -62,7 +67,7 @@ export const BrowsingList = (props) => {
                 setTotalRest(totalItem - startingRest);
 
                 setRestLoad(true);
-                setLoad(true);
+          //      setLoad(true);
             });
 
         }
@@ -79,7 +84,7 @@ export const BrowsingList = (props) => {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
             setItems(initValue)
-            setLoad(true);
+           // setLoad(true);
         }).catch(async function (e) {
             var startingRest = (number * (countPage - 1));
             await axios.get(GetDiscBrowsing2(sortPrice, number, 0)).then((res) => {
@@ -89,7 +94,7 @@ export const BrowsingList = (props) => {
                 setRestItem(rest);
                 setTotalRest(totalItem - startingRest);
                 setRestLoad(true);
-                setLoad(true);
+             //   setLoad(true);
             })
         })
     }
@@ -124,7 +129,6 @@ export const BrowsingList = (props) => {
             </div>
         );
     }
-
 
     const loopfetching = async (number, location) => {
         var htmlElements = '';
@@ -179,7 +183,7 @@ export const BrowsingList = (props) => {
         }
         var container = document.getElementById("container");
          container.innerHTML = htmlElements;
-        await setLoad(false);
+       // await setLoad(false);
 
     }
     const changeSize = (e) => {
@@ -214,10 +218,10 @@ export const BrowsingList = (props) => {
                         Sort by:
                     </div>
                         <div className="flex flex-wrap justify-center lg:justify-start">
-                            <button onClick={() => { setFetchSort('ascending'); changePage(1);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Lowest Cost</button>
-                            <button onClick={() => { setFetchSort('descending'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Highest Cost</button>
-                            <button onClick={() => { setFetchSort('reverse'); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Reverse </button>
-                            <button onClick={() => { setFetchSort(''); changePage(1); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
+                            <button onClick={() => { setFetchSort('ascending'); changePage(1); setLoad(true);}} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 hover active:font-bold active:bg-orange-500 w-48 border border-orange-500 lg:border-none rounded"> Lowest Cost</button>
+                            <button onClick={() => { setFetchSort('descending'); changePage(1);setLoad(true); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Highest Cost</button>
+                            <button onClick={() => { setFetchSort('reverse'); changePage(1);setLoad(true); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Reverse </button>
+                            <button onClick={() => { setFetchSort(''); changePage(1);setLoad(true); }} className="my-2 py-2 lg:my-0 lg:py-0 hover:text-blue-600 w-48 active:bg-orange-500 border border-orange-500 lg:border-none rounded">Alphabetical</button> 
                           
                         </div>
                     
@@ -233,7 +237,8 @@ export const BrowsingList = (props) => {
                 </div>
             </div>
             <div className="w-full /*bg-green-400*/">
-                <div>{displayMap(pageNumber, pageLocation)}  </div>
+                 <div>{displayMap(pageNumber, pageLocation)}  </div> 
+                    {/*<div>{load ? displayMap(pageNumber, pageLocation) : null}  </div>*/}
                 {/* <div>{load ? loopfetching(pageNumber, pageLocation)  : null}  </div> */}
 
                 <div id="container"> </div>

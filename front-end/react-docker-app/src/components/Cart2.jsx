@@ -4,6 +4,7 @@ import FireBaseSetup from '../FireBaseSetup';
 import display_image from './PicArray';
 import { CartItem } from './CartItem';
 import { GetCart, TokenHeader, loader } from '../ListOfLinks';
+import { Link } from 'react-router-dom';
 
 
 export const Cart = (props) => {
@@ -50,7 +51,7 @@ export const Cart = (props) => {
             </div>
             <div className="md:hidden w-full justify-center">
                 <div className="text-xl font-bold m-4 text-center">Your Total Price: ${totalcost}</div>  
-                <button onClick={() => { window.location.href = '/checkout' }} className="justify-center h-12 w-full border rounded border-orange-500 px-5 font-bold">Go To Check Out</button>
+                <button onClick={() => { Link = '/checkout' }} className="justify-center h-12 w-full border rounded border-orange-500 px-5 font-bold">Go To Check Out</button>
                 {/* <div className="text-xl font-extrabold m-4 text-center">Your Total Price: ${totalcost}</div>        */}
             </div>
             <div className="block md:flex">
@@ -59,7 +60,7 @@ export const Cart = (props) => {
                </div>
                 <div className="w-full md:w-1/3 md:mx-8 my-8 ">   
                         <div className="hidden md:flex text-xl font-bold text-center float-right">Your Total Price: ${totalcost}</div>
-                            <button onClick={() => { window.location.href = '/checkout' }} className="w-full float-right h-12 md:w-64 rounded border border-orange-500 text-base font-bold">Check Out</button>
+                            <button onClick={() => { Link = '/checkout' }} className="w-full float-right h-12 md:w-64 rounded border border-orange-500 text-base font-bold">Check Out</button>
                             {/* <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full rounded bg-orange-500 text-white px-5 font-bold">Check Out</button> */}             
                 </div>
             </div>
