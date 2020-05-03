@@ -1,0 +1,1 @@
+/home/renn/githug/qc-capstone/back-end/Api/obj/Debug/docker-compose.dcproj.CoreCompileInputs.cache
