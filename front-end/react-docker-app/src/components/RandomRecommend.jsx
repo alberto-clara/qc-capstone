@@ -1,9 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import '../css/mainTailwind.css';
-//import { autoPlay } from 'react-swipeable-views-utils';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
-// import { Slider } from './AdSlide';
 import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';

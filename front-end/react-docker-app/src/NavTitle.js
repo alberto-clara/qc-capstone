@@ -10,7 +10,7 @@ const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);
     const { state } = useContext(Auth);
     const [countItem, setCountItem] = useState();
-    const [userToken, setUserToken] = useState("");
+    const [/*userToken*/, setUserToken] = useState("");
     let buttonManage;
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {

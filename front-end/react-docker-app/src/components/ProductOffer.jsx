@@ -5,15 +5,15 @@ import { useParams, Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import axios from 'axios';
-import kitty1 from '../images/cute-kitty-1.jpg';
-import kitty2 from '../images/kitty_sleep-compressor.jpg';
+import pic1 from '../home_images/image1.jpg';
+import pic2 from '../home_images/image2.jpg';
 import FireBaseSetup from '../FireBaseSetup';
-import { GetProduct, GetDiscOffer, PostProduct, TokenHeader, loader } from '../ListOfLinks';
+import { GetDiscOffer, PostProduct, TokenHeader, loader } from '../ListOfLinks';
 
 
 export  const ProductOffer = (props) => {
     let { offerid } = useParams();
-    const [UserUID, setUserUID] = useState("");
+    const [/*UserUID*/, setUserUID] = useState("");
     const [offeringKey, setOfferingKey] = useState('');
     const [productKey, setProductKey] = useState('');
     const [productName, setProductName] = useState('');
@@ -25,38 +25,32 @@ export  const ProductOffer = (props) => {
     const [discountType, setDiscountType] = useState('');
     const [discountPrice, setDiscountPrice] = useState('');
     const [discountPercent, setDiscountPercent] = useState('');
-
-    var [discountexist, setDiscountExist] = ('false')
-    
     const [userToken, setUserToken] = useState("");
-
     const [description, setDescription] = useState('');
     const [count, setCount] = useState(1);
-
-    const [totalVendor, setTotalVendor] = useState(0);
-    const VendorValue = [];
+    const [/*totalVendor*/, setTotalVendor] = useState(0);
     const [load, setLoad] = useState(false);
-    const [isOpenR, setIsOpenR] = useState(true);
-    const [isOpenS, setIsOpenS] = useState(true);
-    const [isOpenQ, setIsOpenQ] = useState(true);
+    const [isOpenS, setIsOpenS] = useState(false);
+    const [isOpenR, setIsOpenR] = useState(false);
+    const [isOpenF, setIsOpenF] = useState(false);
+
     useEffect(() => {
         document.title = `Home Depot - Product`;
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
                 user.getIdToken().then(function (idToken) {
-                    //console.log(idToken);
                     setUserToken(idToken);
                 });
                 setUserUID(user.uid);
             }
         });
         fetching(offerid); 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const fetching = async (offerID) => {
         // you can change this to GetProduct and it will stop using the routes for discounts
         await axios.get(GetDiscOffer(offerID)).then((res) => {
-            // if you aren't using GetDiscOffer change everything to res.data[0]
             setOfferingKey(res.data.offering_key);
             setProductKey(res.data.product_key);
             setProductName(res.data.product_name);
@@ -68,8 +62,6 @@ export  const ProductOffer = (props) => {
             setDiscountType(res.data.type);
             setDiscountPrice(res.data.discount_price);
             setDiscountPercent(res.data.discount_percentage);
-            console.log(res.data);
-            
             setDescription(res.data.long_description);
             setTotalVendor(res.data.length);
             setLoad(!load);
@@ -109,8 +101,8 @@ export  const ProductOffer = (props) => {
         <div>
             <div className="justify-center flex px-5 lg:px-0">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                    <img src={kitty1} alt="kitty1"/>
-                    <img src={kitty2} alt="kitty2"/>
+                    <img src={pic1} alt="pic1"/>
+                    <img src={pic2} alt="pic2"/>
                 </Carousel>
             </div>  
          
@@ -147,7 +139,6 @@ export  const ProductOffer = (props) => {
         }];
         await axios.post(PostProduct, {
             uid: null,
-//            date: Date(),
             total_items: 0,
             offerings: items
         }, TokenHeader(userToken));    
@@ -168,7 +159,6 @@ export  const ProductOffer = (props) => {
             <div className="flex pr-2">Discount Type: {discountType}</div>
         </div>
     );
-    {/*  DiscountComponent & NormalComponent : 1 for with and 1 for without discount. If discount % > 1, display it, else not display */ }
 
     const DisCountComponent = (<div className= "block">
          <div className="flex justify-center text-gray-400 font-bold line-through items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
@@ -195,7 +185,6 @@ export  const ProductOffer = (props) => {
                             {rate_and_uom}
                             {discountType ? discount_component : ''}
                             <div className="flex pt-2">{vendor_name} </div>
-                            {/* <div className="flex pt-2">{discount_component} </div> */}
                         </div>
                         { discountPrice ? DisCountComponent  : NormalComponent}
                     
@@ -214,39 +203,36 @@ export  const ProductOffer = (props) => {
 
 
             {/* specifications */}
-            <div className=" px-5 lg:px-0">
-                <div onClick={() => setIsOpenS(!isOpenS)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
-                    Specification
+            <div className="rounded border-2 border-orange-500 bg-white text-sm w-full">
+                <div className="cursor-pointer">
+                    <div onClick={() => setIsOpenS(!isOpenS)} className="ml-2 pt-2 text-md md:text-lg " >Specifications</div>
                 </div>
-                <div className=" w-full pt-1">
-                    <Collapse isOpened={isOpenS}>
-                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
-                    </Collapse>
-                </div>
+                <Collapse className="" isOpened={!isOpenS}>  
+                <hr/>
+                    <div className="p-2"> {description} </div>
+                </Collapse >
             </div>
       
             {/* Reviews */}
-            <div className=" px-5 lg:px-0 pt-2">
-                <div onClick={() => setIsOpenR(!isOpenR)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
-                    Review
-                    </div>
-                <div className=" w-full pt-1">
-                    <Collapse isOpened={isOpenR}>
-                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
-                    </Collapse>
+            <div className="rounded border-2 border-orange-500 bg-white text-sm w-full">
+                <div className="cursor-pointer">
+                    <div onClick={() => setIsOpenR(!isOpenR)} className="ml-2 pt-2 text-md md:text-lg " >Reviews</div>
                 </div>
+                <Collapse className="" isOpened={!isOpenR}>  
+                <hr/>
+                    <div className="p-2"> {description} </div>
+                </Collapse >
             </div>
 
             {/* QA */}
-            <div className=" px-5 lg:px-0 pt-2 pb-4">
-                <div onClick={() => setIsOpenQ(!isOpenQ)} className="rounded w-full bg-gray-200 border-2 border-r-2 border-orange-500 bg-white text-lg p-2 bold cursor-pointer" >
-                    Q/A
-                    </div>
-                <div className=" w-full pt-1">
-                    <Collapse isOpened={isOpenQ}>
-                        <div className="p-2 border-r-2 border-orange-500 border-2"> {description} </div>
-                    </Collapse>
+            <div className="rounded border-2 border-orange-500 bg-white text-sm w-full mb-4">
+                <div className="cursor-pointer">
+                    <div onClick={() => setIsOpenF(!isOpenF)} className="ml-2 pt-2 text-md md:text-lg " >FAQ</div>
                 </div>
+                <Collapse className="" isOpened={!isOpenF}>  
+                <hr/>
+                    <div className="p-2"> {description} </div>
+                </Collapse >
             </div>
         </div>
     </div>)

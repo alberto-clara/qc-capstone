@@ -8,9 +8,7 @@ import { loader } from '../ListOfLinks';
 
 export const SupplierPage = () => {
     let { ids } = useParams();
-    const [UserUID, setUserUID] = useState("");
-    var [productName, setProductName] = useState('');
-    var [vendor, setVendor] = useState('');
+    const [/*UserUID*/, setUserUID] = useState("");
 
     useEffect(() => {
         document.title = `Home Depot - Supplier`;
@@ -28,9 +26,7 @@ export const SupplierPage = () => {
 
     function Test (items) {
         var nest = items.data
-        console.log("????: ", nest)
         const dis = nest.map(info => {
-            // console.log("info", info)
             return(
                 <div key={info.offering_key}>
                     <div className="border rounded border-gray-300 flex w-full">
@@ -56,9 +52,6 @@ export const SupplierPage = () => {
         const isLoaded = api_Call[1];
         const items = api_Call[2];
 
-        console.log("MY API CALL: ", api_Call, error, isLoaded, items)
-
-
         if (error) {
             return(
                 <div>
@@ -67,16 +60,11 @@ export const SupplierPage = () => {
             );
         } else if (isLoaded && items) {
     
-            console.log("Ourdata: ", items.data[0].product_name)
-    
             const page_title = (
                 <div className="mt-4 justify-center w-full h-auto md:h-auto">
                     <div className=" titlePage py-4 lg:text-3xl"> Products By {items.data[0].supplier_name} </div>
                 </div>
             );  
-            const linktoItem = (itemId) => {
-                window.location.assign("/offering/" + itemId);
-            }
     
             return (<>
                 {searchbar}

@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Collapse } from 'react-collapse';
-import display_image from './PicArray';
 import FireBaseSetup from '../FireBaseSetup';
 import { CartItemCheckOut } from './CartItem';
 import { GetCart, PlaceOrder, TokenHeader, loader } from '../ListOfLinks';
-import { auth } from 'firebase';
 
 export const CheckOut = () => {
 
     const [ItemArray, setItemArray] = useState([]);
     const [load, setLoad] = useState(false);
     const [totalcost, setTotalCost] = useState(0);
-    const [UserUID, setUserUID] = useState("");
+    const [/*UserUID*/, setUserUID] = useState("");
     const [userToken, setUserToken] = useState("");
     const [isOpenS, setIsOpenS] = useState(true);
     
@@ -31,10 +29,8 @@ export const CheckOut = () => {
         });
     }, [])
 
-    // Why is idToken called in line 34? Compare to what i did in line 43
     const fetching = async (idToken) => {
         await axios.get(GetCart, TokenHeader(idToken)).then((res) => {
-            console.log(res);
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
 
@@ -42,10 +38,7 @@ export const CheckOut = () => {
     }
 
     const PlaceOrderApi = async () => {
-        console.log("Placing Loader", userToken);
         await axios.put(PlaceOrder, {}, TokenHeader(userToken)).then((res) => {
-        //    console.log(res);
-        //    console.log(res.request.response);
         window.location.href = '/confirmation';
         });
         
@@ -65,7 +58,6 @@ export const CheckOut = () => {
         <div className=" titlePage pt-4 lg:text-3xl"> Check Out</div>
         <div className="w-full md:w-1/3 md:float-right ">
             <div className="text-md md:text-xl font-extrabold text-center md:text-right py-4">Your Total Price: ${totalcost}</div>
-            {/* <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-orange-400 border-2 text-base" >Back to Cart</button> */}
             <div className="pb-4 m-2 md:m-0 md:float-right">
     <button onClick={PlaceOrderApi} className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
             </div>
@@ -98,7 +90,6 @@ export const CheckOut = () => {
                
             </Collapse>
             <div className="text-md md:text-xl font-extrabold text-center md:text-right py-4">Your Total Price: ${totalcost}</div>
-            {/* <button onClick={() => { window.location.href = '/cart' }}  className="rounded h-12 w-70 md:h-12 m-2 md:w-64 bg-white border-orange-400 border-2 text-base" >Back to Cart</button> */}
             <div className="pb-4 m-2 md:m-0 md:float-right">
                 <button onClick={PlaceOrderApi} className="w-full h-12 md:w-64 rounded border border-orange-500 text-base font-bold" >Place Order</button>
             </div>

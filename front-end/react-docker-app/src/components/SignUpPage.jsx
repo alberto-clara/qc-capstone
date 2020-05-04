@@ -15,11 +15,6 @@ export const SignUpPage=(props) => {
     const { /*state,*/ dispatch } = useContext(Auth);
     const onRegister = async (e) => {
         e.preventDefault();
-        console.log(emailVerify);
-        console.log(passwordVerify);
-        console.log(confirmpasswordVerify );
-       
-        console.log(passwordSignUp);
         var notice = document.getElementById('noticeAll');
         if (emailVerify && passwordVerify && confirmpasswordVerify) {
             var response = await FireBaseSetup.register(emailSignUp, passwordSignUp);
@@ -38,7 +33,6 @@ export const SignUpPage=(props) => {
         }
         else {
             alert("The register is invalid");
-            //window.location.href = '/signuppage';
         }
         
 
@@ -59,7 +53,6 @@ export const SignUpPage=(props) => {
         // eslint-disable-next-line
         var filter = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var Email = event;
-        console.log(Email);
         var notice = document.getElementById('noticeEmail');
         if (ifEmpty(Email)) {
             notice.innerHTML = "The email is empty";

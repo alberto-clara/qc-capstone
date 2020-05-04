@@ -4,13 +4,13 @@ import axios from 'axios';
 import Dropdown from 'react-dropdown';
 import '../css/mainStyle.css';
 import './myStyle.css';
-import { GetUserInfo, PostUserInfo, TokenHeader, OrderHistoryLink,loader } from '../ListOfLinks';
+import { GetUserInfo, PostUserInfo, TokenHeader, OrderHistoryLink} from '../ListOfLinks';
 import { OrderHistory} from './OrderHistory';
 
 export const ManagePage = (props) => {
     const [email, setEmail] = useState("");
     const [load, setLoad] = useState(false);
-    const [uid, setUID] = useState("");
+    const [/*uid*/, setUID] = useState("");
     const [objFirstName, setObjFirstName] = useState("");
     const [objMiddleName, setObjMiddleName] = useState("");
     const [objLastName, setObjLastName] = useState("");
@@ -55,7 +55,6 @@ export const ManagePage = (props) => {
 
     const mongoFetch = async (uidValue, idToken) => {
         var initValue = [];
-        var found = false;
 
         await axios.get(GetUserInfo, TokenHeader(idToken)).then((res) => {
             for (var i = 0; i < res.data.length; i++) {
@@ -81,9 +80,7 @@ export const ManagePage = (props) => {
                     ext2: res.data[i].phone_number.secondary_phone.ext
                 });
             }
-            /*       console.log("res print statement: ", res);
-                   console.log("first_name", res.data.full_name.first_name);*/
-            found = true;
+
             setObjFirstName(res.data.full_name.first_name);
             setObjMiddleName(res.data.full_name.middle_name);
             setObjLastName(res.data.full_name.last_name);
@@ -101,8 +98,6 @@ export const ManagePage = (props) => {
             setObjPhone2(res.data.phone_number.secondary_phone.phone);
             setObjExt1(res.data.phone_number.primary_phone.ext);
             setObjExt2(res.data.phone_number.secondary_phone.ext);
-
-
         })
 
         await axios.get(OrderHistoryLink, TokenHeader(idToken)).then((res) => {
@@ -172,12 +167,9 @@ export const ManagePage = (props) => {
             }
         }
 
-        // console.log("body : ", submit_obj);
-        console.log("input" + document.getElementById('firstname_input').placeholder);
         await axios.post(PostUserInfo,
         {...submit_obj},
         TokenHeader(userToken)).then((res)=>{
-        //       window.location.href = '/';
         })
         setPage("bold_address");
 
@@ -423,10 +415,6 @@ export const ManagePage = (props) => {
                 <div className="justify-center w-full rounded border-2 border-orange-500">
                     <div className="px-4 py-4 text-2xl text-center"> Change Password</div>
                     <div className="block w-full px-4">
-                        {/*<div className="pt-4 text-xl">Old Password</div>
-                <div className="justify-center flex text-gray-600 w-full">
-                    <input id="oldPass" className="rounded border border-gray-600 h-10 px-5 pr-8 text-sm w-full"></input>
-                </div>*/}
                         <div className="flex">
                             <div className="pt-4 text-xl w-4/5">New Password</div>
                             <div onClick={() => setShow(!show) } className = "pt-4 text-xl hover:font-bold cursor-pointer md:hidden">Show</div>
@@ -444,14 +432,6 @@ export const ManagePage = (props) => {
                             <input type={!show2 ? "password" : null} id="confirmPass" className="text-gray-600 h-10 rounded border border-gray-600 bg-white w-full md:mr-4"></input>
                             <div onClick={() => setShow2(!show2) } className = "hidden md:flex text-xl hover:font-bold cursor-pointer pt-2">Show</div>
                         </div>
-{/*
-                        <div className="flex">
-                            <div className="pt-4 text-xl w-4/5">Confirm Password</div>
-                            <div onClick={() => setShow2(!show2)} className="pt-4 text-xl right hover:font-bold cursor-pointer" > Show</div>
-                        </div>
-                        <div className="justify-center flex text-gray-600 w-full pt-2">
-                            <input type={!show2 ? "password" : null} id="confirmPass" className="h-10 rounded border border-gray-600 bg-white w-full"></input>
-                        </div> */}
 
                         <div className="justify-center flex text-gray-600 w-full p-4">
                             <button onClick={PasswordChange} className="px-4 py-2 border rounded text-white border-orange-500 bg-orange-500 hover:border-orange-500">
@@ -603,7 +583,7 @@ export const ManagePage = (props) => {
                 }
             })()}
         </div>
-        {Page == "default" ? null : backButton}
+        {Page === "default" ? null : backButton}
 
     </div>)
     return (

@@ -1,12 +1,10 @@
-import React, { useState,useEffect } from 'react';
-import {Link} from 'react-router-dom';
-//import { autoPlay } from 'react-swipeable-views-utils';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
 import { Carousel } from "react-responsive-carousel";
 import mountain from '../images/mountain-826114_1280.jpg';
 import sky from '../images/wallpapers-wide-1.jpg';
-import display_image from './PicArray';
 import { GetHomeRandom, loader } from '../ListOfLinks';
 
 export const searchbar = (
@@ -21,197 +19,188 @@ export const Home = (props) => {
     var initValue = [];
     const [AdItems, setAdItems] = useState([]);
     const [load, setLoad] = useState(false);
-    console.log("daisjdoa");
-    console.log(props);
     useEffect(() => {
         document.title = `Home Depot - HomePage`;
-        
+
         const tryFetch = async () => {
             await axios.get(GetHomeRandom).then((res) => {
-                console.log(res);
                 for (var i = 0; i < res.data.length; i++) {
-                    initValue.push({ id: res.data[i].offering_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail, discount: res.data[i].discount_price});
+                    initValue.push({ id: res.data[i].offering_key, product_name: res.data[i].product_name, price: res.data[i].unit_retail, discount: res.data[i].discount_price });
                 }
                 setAdItems(initValue);
-               setLoad(true);
+                setLoad(true);
             })
         }
         tryFetch();
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const roundDigit = (value) => {
-        return (Math.round(value * 100) / 100).toFixed(2) ;
-    }
 
     const carousel_slide = (
         <div className="flex justify-center w-full">
-                <div className="justify-center flex">
-                    <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                        <img src={mountain} alt="mountain"/>
-                        <img src={sky} alt="sky"/>
-                    </Carousel>
+            <div className="justify-center flex">
+                <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
+                    <img src={mountain} alt="mountain" />
+                    <img src={sky} alt="sky" />
+                </Carousel>
             </div>
         </div>
     );
-    const linktoItem = (itemId) => {
-        window.location.assign("/offering/" + itemId);
-    }
-    const checkDiscount =(discount,normal) =>{
 
-        if(discount ===null)
-            return(<div>${normal}</div>);
-        else   
+    const checkDiscount = (discount, normal) => {
+
+        if (discount === null)
+            return (<div>${normal}</div>);
+        else
             return (
-            <div className ="block">
-                <div className="text-gray-400 font-bold line-through">${normal}</div>
-                <div className="text-black font-bold">${discount}</div>
-            </div>
+                <div className="block">
+                    <div className="text-gray-400 font-bold line-through">${normal}</div>
+                    <div className="text-black font-bold">${discount}</div>
+                </div>
             );
     }
-    
-    const displayRandom=()=>{
-            var rand=Math.floor(Math.random() * 100); 
-            var imgStr = "https://generative-placeholders.glitch.me/image?width=500&height=500&img=".concat(rand);
-        return (<><img src={imgStr} /></>);
+
+    const displayRandom = () => {
+        var rand = Math.floor(Math.random() * 100);
+        var imgStr = "https://generative-placeholders.glitch.me/image?width=500&height=500&img=".concat(rand);
+        return (<><img src={imgStr} alt="imgStr"/></>);
     }
     const swiping = (
-        
+
         <div><SwipeableViews enableMouseEvents>
             <div className="flex w-full  ">
-                <div  className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[0].id}>           
-                     <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[0].discount,AdItems[0].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
-                </Link>
-            </div>
+                <div className=" hover:bg-orange-200 w-1/2 md:w-1/5 ">
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[0].id}>
+                        <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[0].discount, AdItems[0].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[0].product_name}</div>
+                    </Link>
+                </div>
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[1].id}>   
-                    <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[1].discount,AdItems[1].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
-                </Link>
-            </div>
-            <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()}  </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[2].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[2].discount,AdItems[2].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
-               </Link>
-            </div>
-            <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()}  </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[3].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[3].discount,AdItems[3].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[1].id}>
+                        <div className="pt-2 md:pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[1].discount, AdItems[1].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[1].product_name}</div>
+                    </Link>
+                </div>
                 <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()}  </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[4].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[4].discount,AdItems[4].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
-                </Link>
+                    <div> {displayRandom()}  </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[2].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[2].discount, AdItems[2].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[2].product_name} </div>
+                    </Link>
+                </div>
+                <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
+                    <div> {displayRandom()}  </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[3].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[3].discount, AdItems[3].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[3].product_name} </div>
+                    </Link>
+                </div>
+                <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
+                    <div> {displayRandom()}  </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[4].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[4].discount, AdItems[4].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[4].product_name} </div>
+                    </Link>
+                </div>
             </div>
-        </div>
-        <div className="flex w-full">
+            <div className="flex w-full">
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
 
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[5].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[5].discount,AdItems[5].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[5].product_name}</div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[5].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[5].discount, AdItems[5].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[5].product_name}</div>
+                    </Link>
+                </div>
                 <div className="hover:bg-orange-200  w-1/2 md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[6].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[6].discount,AdItems[6].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[6].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[6].discount, AdItems[6].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[6].product_name}</div>
+                    </Link>
+                </div>
                 <div className="hover:bg-orange-200  hidden ti:block md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[7].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[7].discount,AdItems[7].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[7].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[7].discount, AdItems[7].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[7].product_name} </div>
+                    </Link>
+                </div>
                 <div className=" hover:bg-orange-200 hidden md:block md:w-1/5 ">
-                <div> {displayRandom()}  </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[8].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[8].discount,AdItems[8].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
-                </Link>
-            </div>
+                    <div> {displayRandom()}  </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[8].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[8].discount, AdItems[8].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[8].product_name} </div>
+                    </Link>
+                </div>
                 <div className="  hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[9].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[9].discount,AdItems[9].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
-                </Link>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[9].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[9].discount, AdItems[9].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[9].product_name} </div>
+                    </Link>
+                </div>
             </div>
-        </div>
-        <div className="flex w-full">
+            <div className="flex w-full">
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[10].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[10].discount,AdItems[10].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[10].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[10].discount, AdItems[10].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[10].product_name}</div>
+                    </Link>
+                </div>
                 <div className=" hover:bg-orange-200  w-1/2 md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[11].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[11].discount,AdItems[11].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
-                </Link>
-            </div>
-                <div  className=" hover:bg-orange-200  hidden ti:block md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[12].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[12].discount,AdItems[12].price)}</div> 
-                    <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[11].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[11].discount, AdItems[11].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[11].product_name}</div>
+                    </Link>
+                </div>
+                <div className=" hover:bg-orange-200  hidden ti:block md:w-1/5 ">
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[12].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[12].discount, AdItems[12].price)}</div>
+                        <div className="md:pt-4 pl-4">{load === false ? null : AdItems[12].product_name} </div>
+                    </Link>
+                </div>
                 <div className="hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[13].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[13].discount,AdItems[13].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
-                </Link>
-            </div>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[13].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[13].discount, AdItems[13].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[13].product_name} </div>
+                    </Link>
+                </div>
                 <div className=" hover:bg-orange-200  hidden md:block md:w-1/5 ">
-                <div> {displayRandom()} </div>
-                <Link to ={load === false ? loader : '/offering/'+AdItems[14].id}>   
-                    <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[14].discount,AdItems[14].price)}</div> 
-                    <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
-                </Link>
+                    <div> {displayRandom()} </div>
+                    <Link to={load === false ? loader : '/offering/' + AdItems[14].id}>
+                        <div className="pt-4 pl-4 md:pt-8 flex">{load === false ? loader : checkDiscount(AdItems[14].discount, AdItems[14].price)}</div>
+                        <div className="md:pt-4 pl-4"> {load === false ? null : AdItems[14].product_name} </div>
+                    </Link>
+                </div>
             </div>
-        </div>
-    </SwipeableViews> </div>);
+        </SwipeableViews> </div>);
 
     return (
         <div>
-         
+
             {searchbar}
-            <br/>
+            <br />
             {carousel_slide}
             <div className="w-full">
-    
+
                 <div className="font-extrabold text-xl">Trending Now</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
+                <hr className="m-1 pt-1 px-4 bg-gray-300" />
                 {swiping}
-                
+
                 <div className="font-extrabold text-xl md:pt-4">Deals</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
+                <hr className="m-1 pt-1 px-4 bg-gray-300" />
                 <div>{swiping}</div>
-              
+
                 <div className="font-extrabold text-xl md:pt-4">Popular</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300"/>
+                <hr className="m-1 pt-1 px-4 bg-gray-300" />
                 {swiping}
-                
+
                 <div className="md:py-4"></div>
             </div>
         </div>

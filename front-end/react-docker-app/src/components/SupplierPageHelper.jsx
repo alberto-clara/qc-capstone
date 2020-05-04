@@ -9,12 +9,6 @@ export function Api_Request(api_url) {
 
     useEffect(() => {
         const token = process.env.REACT_APP_API_KEY_LABSTATS;
-    /*    const Auth = 'Bearer '.concat(token);
-        var config = {
-            headers: {
-                'Authorization': Auth
-            }
-        }*/
         Axios.get(api_url, TokenHeader(token)).then(
             result => {
                 setLoading('true');

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-//import { Link, Redirect } from 'react-router-dom';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import '../css/mainTailwind.css';
 

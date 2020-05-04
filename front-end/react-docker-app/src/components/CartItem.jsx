@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, /*useEffect*/ } from 'react';
 import axios from 'axios';
 import display_image from './PicArray';
 import { PutCartUpdate, TokenHeader } from '../ListOfLinks';
-import { Cart } from '../components/Cart2'
-
 
 export const CartItem = (props) => {
     const [count, setCount] = useState(props.value.quantity);
 
-    const [removeItem, setRemoveItem] = useState(false);
+    const [/*removeItem*/, setRemoveItem] = useState(false);
 
     const UpdateCart = async () => {
-        await axios.put(PutCartUpdate(props.value.offering_key, count), {}, TokenHeader(props.token)).then((res) => { console.log("Update data");   });
+        await axios.put(PutCartUpdate(props.value.offering_key, count), {}, TokenHeader(props.token)).then((res) => {});
         window.location.href = '/cart';
     }
   
@@ -34,21 +32,13 @@ export const CartItem = (props) => {
         </div>
     );
     
-    const rate = (
-        <div className="block">
-            <div className="flex">
-                <div>Rating</div>
-                <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            </div>
-        </div>
-    );
     const minusItem = ()=>{
         setCount(count - 1);
         if (count === 1) { setCount(1) } 
     }
     
     const removeCartItem = async() => {
-        await axios.put(PutCartUpdate(props.value.offering_key, 0), {}, TokenHeader(props.token)).then((res) => { console.log("Remove data"); setRemoveItem(true); });
+        await axios.put(PutCartUpdate(props.value.offering_key, 0), {}, TokenHeader(props.token)).then((res) => { setRemoveItem(true); });
         window.location.href = '/cart';
     }
 
@@ -111,14 +101,6 @@ export const CartItem = (props) => {
 }
 
 export const CartItemCheckOut = (props) => {
-    const rate = (
-        <div className="block">
-            <div className="flex">
-                <div>Rating:</div>
-                <div >&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-            </div>
-        </div>
-    );
  
     const linktoProduct = () => {
         window.location.assign("/offering/" + props.value.offering_key);

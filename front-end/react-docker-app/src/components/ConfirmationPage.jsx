@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { OrderHistory} from './OrderHistory';
-import { TokenHeader, OrderHistoryLink,loader } from '../ListOfLinks';
+import { TokenHeader, OrderHistoryLink,/*loader*/ } from '../ListOfLinks';
 import FireBaseSetup from '../FireBaseSetup';
 import axios from 'axios';
 
@@ -8,9 +7,9 @@ export const ConfirmationPage = () => {
     const [productInfo, setProductInfo] = useState([]);
     const [offering, setOffering] = useState([]);
     const [email, setEmail] = useState("");
-    const [load, setLoad] = useState(false);
-    const [uid, setUID] = useState("");
-    const [userToken, setUserToken] = useState("");
+    const [/*load*/, setLoad] = useState(false);
+    const [/*uid*/, setUID] = useState("");
+    const [/*userToken*/, setUserToken] = useState("");
     useEffect(() => {
         FireBaseSetup.isInitialized().then(user => {
             if (user) {
@@ -22,8 +21,6 @@ export const ConfirmationPage = () => {
                 setUID(user.uid);
                 setEmail(user.email);
             }
-            // console.log("user");
-            // console.log(user.email);
         });
     }, []);
 
@@ -36,7 +33,6 @@ export const ConfirmationPage = () => {
     const fetch = async (idToken) => {
         await axios.get(OrderHistoryLink, TokenHeader(idToken)).then((res) => {
         
-            console.log(res.data.orders[0]);
             setProductInfo(res.data.orders[0]);
             setOffering(res.data.orders[0].offerings);
             setLoad(true);
@@ -45,10 +41,8 @@ export const ConfirmationPage = () => {
 
     const ListItem =
      offering.map(e => {
-         console.log(e);
          return (<>
            <br />
-             {/* <div>{e.offering_key}</div> */}
              <div className="block ml-2 md:flex justify-center">
                <div onClick={() => { window.location.href = '/offering/' + e.offering_key }} className="w-full md:w-1/3 font-extrabold cursor-pointer hover:underline hover:font-bold underline text-md">{e.product_name}</div>
                  <div className="w-full md:w-1/3 md:text-center" >Quantity: {e.quantity}</div>

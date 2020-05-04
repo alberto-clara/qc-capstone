@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FireBaseSetup from '../FireBaseSetup';
-import display_image from './PicArray';
 import { CartItem } from './CartItem';
 import { GetCart, TokenHeader, loader } from '../ListOfLinks';
-import { Link } from 'react-router-dom';
 
 
 export const Cart = (props) => {
-    const [UserUID, setUserUID] = useState("");
+    const [/*UserUID*/, setUserUID] = useState("");
     const [ItemArray, setItemArray] = useState([]);
     const [load, setLoad] = useState(false);
     const [totalcost, setTotalCost] = useState(0);
@@ -31,7 +29,6 @@ export const Cart = (props) => {
     const fetching = async (idToken) => {
 
         await axios.get(GetCart, TokenHeader(idToken)).then((res) => {
-            var tempTotalCost = res.data.total_cost;
             setTotalCost(res.data.total_cost);
             setItemArray(res.data.offerings);
          
@@ -51,8 +48,7 @@ export const Cart = (props) => {
             </div>
             <div className="md:hidden w-full justify-center">
                 <div className="text-xl font-bold m-4 text-center">Your Total Price: ${totalcost}</div>  
-                <button onClick={() => { Link = '/checkout' }} className="justify-center h-12 w-full border rounded border-orange-500 px-5 font-bold">Go To Check Out</button>
-                {/* <div className="text-xl font-extrabold m-4 text-center">Your Total Price: ${totalcost}</div>        */}
+                <button onClick={() => { window.location.href = '/checkout' }} className="justify-center h-12 w-full border rounded border-orange-500 px-5 font-bold">Go To Check Out</button>
             </div>
             <div className="block md:flex">
                 <div className=" w-full md:w-2/3">
@@ -60,8 +56,7 @@ export const Cart = (props) => {
                </div>
                 <div className="w-full md:w-1/3 md:mx-8 my-8 ">   
                         <div className="hidden md:flex text-xl font-bold text-center float-right">Your Total Price: ${totalcost}</div>
-                            <button onClick={() => { Link = '/checkout' }} className="w-full float-right h-12 md:w-64 rounded border border-orange-500 text-base font-bold">Check Out</button>
-                            {/* <button onClick={() => { window.location.href = '/checkout' }} className="flex justify-center h-12 w-full rounded bg-orange-500 text-white px-5 font-bold">Check Out</button> */}             
+                            <button onClick={() => { window.location.href = '/checkout' }} className="w-full float-right h-12 md:w-64 rounded border border-orange-500 text-base font-bold">Check Out</button>          
                 </div>
             </div>
         </div>);

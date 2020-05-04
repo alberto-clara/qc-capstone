@@ -44,7 +44,6 @@ export const SignInPage=(props)=> {
                             <br />
                             <button className="signInButton" onClick={loginHandle} type="submit">Sign In</button>
                             <br />
-                            {/* <div className=" flex justify-center text-xs lg:text-lg">Please sign in to your account to view <div className="pl-1 underline">more details</div> </div> */}
                             <br />
                             <div className="lg:hidden">
                                 <hr className=" bg-orange-600 h-1 " />
