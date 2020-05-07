@@ -31,8 +31,6 @@ namespace UserInfoApi.Controllers
         }
 
         /*
-         * Route should be used when user has an empty basket and adds
-         * their first item
          * POST (BasketAPI) - http://localhost:7003/api/basket/add
          * POST (through APIGateway) - http://localhost:7000/basket-api/basket/add
          */
@@ -113,6 +111,7 @@ namespace UserInfoApi.Controllers
             return Conflict();
         }
 
+        // this was an attempt to include the discount information into a basket route but was dropped for a more secure implementation in the other controller
         [HttpPost, Route("addWDisc")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> AddDocDiscount([FromBody] BasketDisc basket)

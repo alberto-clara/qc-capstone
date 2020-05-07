@@ -29,70 +29,96 @@ namespace BasketApi.Controllers
             _bucket = bucketProvider.GetBucket("Basket");
         }
 
+        /*
+         * This route does the same thing as the non discounts route to add an item to the shopping but it does
+         * so in a different way. To avoid problems with poor data validation vulnerabilities instead of
+         * accepting all of the information from the frontend this implementation instead uses interprocess communication
+         * POST (BasketAPI) - http://localhost:7003/api/basketDisc/add/{offeringID}
+         * POST (through APIGateway) - http://localhost:7000/basket-api/basketDisc/add/{offeringID}
+         */
         [HttpPost, Route("add/{offeringID}")]
         public async Task<IActionResult> AddToBasket(string offeringID, [FromHeader] string authorization, [FromQuery] int qty = 0)
         {
+            // make sure an offering_key was sent - can't do anything without it
             if (offeringID == null)
                 return BadRequest(new BadRequestError("no offering_key sent."));
 
-            if (qty == 0)
+            // make sure the quantity is greater than zero
+            if (qty <= 0)
                 return BadRequest(new BadRequestError("Quantity is zero"));
 
+            // get the user_id
             var ID = GetID();
 
             if (ID == null)
                 return BadRequest(new BadRequestError("user_id not found."));
 
+            // attempt to retreive the users Basket document
             var doc = await _bucket.GetAsync<BasketDisc>(ID);
             int newOffering = 0;
             BasketDisc userDoc = null;
 
+            // check to see if a document was retreived, need to create a new one if it wasn't
             if (doc.Success)
             {
                 userDoc = doc.Value;
 
+                // documents are persistent once they have been created so update the doc with the new time if total_items is zero
                 if (userDoc.total_items == 0)
                     userDoc.Date = DateTimeOffset.Now.ToUnixTimeSeconds();
 
+                // check to see if the offeringID sent in the route is already in the OfferingsDisc array
                 if (userDoc.OfferingsDisc.Exists(i => i.Offering_key == offeringID))
                 {
                     OfferingsDisc offer = userDoc.OfferingsDisc.Find(i => i.Offering_key == offeringID);
 
+                    // find the index of where the element with offeringID is located in the array
                     var index = userDoc.OfferingsDisc.IndexOf(offer, 0);
 
+                    // update all the information about the offering in the basket
                     userDoc.OfferingsDisc[index].Quantity += qty;
                     userDoc.total_cost = (Convert.ToDecimal(userDoc.total_cost) - Convert.ToDecimal(offer.totalOfferingCost)).ToString();
                     userDoc.OfferingsDisc[index] = CalcOfferingCost(userDoc.OfferingsDisc[index]);
                     userDoc.total_cost = (Convert.ToDecimal(userDoc.total_cost) + Convert.ToDecimal(offer.totalOfferingCost)).ToString();
                 }
-                else
+                else // if the offeringID isn't in the array set the newOffering flag (used later)
                     newOffering = 1;
             }
+            // if there isn't already a Basket document for the user or the newOffering flag is set
             if (!doc.Success || newOffering == 1)
             {
+                // split the authorization header string to remove 'Bearer' and isolate the JWT token
                 string[] auth = authorization.Split(' ');
+                // use the GetOffering() function to send the HTTP request to the CatalogApi to get the information about the offering being added
                 HttpResponseMessage httpResponse = await GetOffering(auth[1], "http://localhost:7000/catalog-api/products/disc/singleOffering/" + offeringID);
+                
+                // make sure the HTTP response from the CatalogApi was successful
                 if (!httpResponse.IsSuccessStatusCode)
                     return BadRequest(new BadRequestError(httpResponse.StatusCode.ToString() + " HttpRequest Failed."));
+
+                // read the response as a type OfferingsDisc (what we will be adding to the Basket document)
                 OfferingsDisc offering = await httpResponse.Content.ReadAsAsync<OfferingsDisc>();
                 offering.Quantity = qty;
                 BasketDisc basket = null;
 
+                // check to see if the discount type is a BULK_DISCOUNT, need to use interproces communication again to get the tiers information about it
                 if (offering.Type != "BULK_DISCOUNT")                
                     offering = CalcOfferingCost(offering);
                 else if (offering.Type == "BULK_DISCOUNT")
                 {
-                    Console.WriteLine("BULK_DISCOUNT");
+                    // get the BULK_DISCOUNT tiers information
                     httpResponse = await GetOffering(auth[1], "http://localhost:7000/catalog-api/products/disc/getDiscount/" + offering.Discount_key);
 
                     if (!httpResponse.IsSuccessStatusCode)
                         return BadRequest(new BadRequestError(httpResponse.StatusCode.ToString() + " HttpRequest Failed."));
 
+                    // use the tiers information to correctly calculate the cost of the offering being added
                     offering.Tiers = new List<Tiers>();
                     offering.Tiers = await httpResponse.Content.ReadAsAsync<List<Tiers>>();
                     offering = CalcOfferingCost(offering);                    
                 }
 
+                // if newOffering is 0 update all the information and insert the Basket document
                 if (newOffering == 0)
                 {
                     basket = new BasketDisc();
@@ -116,14 +142,21 @@ namespace BasketApi.Controllers
                 userDoc.total_items += 1;
             }
 
+            // insert the Basket document
             var result = await _bucket.UpsertAsync(ID, userDoc);
 
             if (!result.Success)
                 return BadRequest(new BadRequestError("Failed to add userDoc to database"));
 
+            // reutrn 200 OK, we don't need to return userDoc this was for testing
             return Ok(userDoc);
         }
 
+        /*
+         * Exactly the same as the non discount route in the BasketController
+         * GET (BasketAPI) - http://localhost:7003/api/basketDisc/find
+         * GET (through APIGateway) - http://localhost:7000/basket-api/basketDisc/find
+         */
         [HttpGet, Route("find")]
         public async Task<IActionResult> FindBasket()
         {
@@ -145,6 +178,13 @@ namespace BasketApi.Controllers
             return Ok(doc.Value);
         }
 
+        /*
+         * Works the same as the non discount route in the BasketController except there is more happening
+         * because discounts need to be accounted for. Also to not retreive the entire Basket document
+         * I experimented with using Couchbase subdocument queries through a view.
+         * PUT (BasketAPI) - http://localhost:7003/api/basketDisc/update/{offeringID}/{qty}
+         * PUT (through APIGateway) - http://localhost:7000/basket-api/basketDisc/update/{offeringID}/{qty}
+         */
         [HttpPut, Route("update/{offeringID}/{qty}")]
         public async Task<IActionResult> UpdateQuant(string offeringID, int qty = 0)
         {

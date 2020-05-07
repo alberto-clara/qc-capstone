@@ -1,0 +1,209 @@
+{
+	"info": {
+		"_postman_id": "d900b5b3-7d00-4015-8a13-50bff4ea95d1",
+		"name": "BasketApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BasketApi - add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"uid\": null,\n    \"date\": \"string\",\n    \"total_items\": 0,\n    \"offerings\": [\n        {\n            \"offering_key\": \"00108bd8f565423391cbc73a438fcf98\",\n            \"product_key\": \"1f53b7eecac941d2b71122e6f708dfe8\",\n            \"product_name\": \"Wooden Sint Fencing\",\n            \"supplier_key\": \"77dff980238c470dae9fac298b4a9bc8\",\n            \"supplier_name\": \"TotamNeque Inc.\",\n            \"unit_retail\": 228.3,\n            \"uom\": \"string\",\n            \"quantity\": 2\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7003/api/basket/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7003",
+					"path": [
+						"api",
+						"basket",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketAPI - find",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basket/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basket",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi - update/{off_key}/{quant}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basket/update/00108bd8f565423391cbc73a438fcf98/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basket",
+						"update",
+						"00108bd8f565423391cbc73a438fcf98",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi - count",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basket/count",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basket",
+						"count"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi - delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basket/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basket",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi (discount controller) - add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basketDisc/update/bf636e5b21ca479f8461b078dd512950",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basketDisc",
+						"update",
+						"bf636e5b21ca479f8461b078dd512950"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi (discount controller) - find",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basketDisc/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basketDisc",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BasketApi (discount controller) - update/{off_key)/{qty}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/basket-api/basketDisc/update/00108bd8f565423391cbc73a438fcf98/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"basket-api",
+						"basketDisc",
+						"update",
+						"00108bd8f565423391cbc73a438fcf98",
+						"5"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaG9tZWRlcG90Y3M0MjAiLCJhdWQiOiJob21lZGVwb3RjczQyMCIsImF1dGhfdGltZSI6MTU4NzMzMDE1NCwidXNlcl9pZCI6Im9ZeDRaU1B3aEpUc3ZhZG5iWDk3RFFiU0pncDEiLCJzdWIiOiJvWXg0WlNQd2hKVHN2YWRuYlg5N0RRYlNKZ3AxIiwiaWF0IjoxNTg4NjI3MzIyLCJleHAiOjE1ODg2MzA5MjIsImVtYWlsIjoia3lsZXZvb3NAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImt5bGV2b29zQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j1RDCAP4K3az0JALXrQ56eI1eSNunygFrbwX-GN69BriLgQGkBoJ364AgDmrbGunaEja4C2OAC-lyF2UUGVHvnal181mKIKT4utCI1TACwSQUMbV8_1EI6aL3MedKzuuOPfNsuohHQSOBUsJ8rZpcIybsbPMbgRVwZekkPCKjZ8PShcTV5UrLyJNjxN1umaUbFGGIALsS_zwkd7JqzLfQtQkQUXNzAsW9YUNNEbmyHGjXwI2c18p_lEWo20eu4hN6Ttt2_XCSWwPFfwpeAul1cYLGXY1bpimjl2H-Iq6eeHimwed5Gjtbt71QVyu3cABuKAi5LP0NXt9YTnK3TSyNg",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}
