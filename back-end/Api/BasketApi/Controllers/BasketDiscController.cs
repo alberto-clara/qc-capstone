@@ -47,7 +47,6 @@ namespace BasketApi.Controllers
             int newOffering = 0;
             BasketDisc userDoc = null;
 
-            Console.WriteLine($"offering_key = {offeringID}");
             if (doc.Success)
             {
                 userDoc = doc.Value;
@@ -71,7 +70,6 @@ namespace BasketApi.Controllers
             }
             if (!doc.Success || newOffering == 1)
             {
-                Console.WriteLine($"newOffering = {newOffering}");
                 string[] auth = authorization.Split(' ');
                 HttpResponseMessage httpResponse = await GetOffering(auth[1], "http://localhost:7000/catalog-api/products/disc/singleOffering/" + offeringID);
                 if (!httpResponse.IsSuccessStatusCode)
@@ -159,24 +157,15 @@ namespace BasketApi.Controllers
                 return BadRequest(new BadRequestError("Invalid quantity."));
 
             var query = new ViewQuery().From("dev_BasketDisc", "by_id").Key(new List<string> { ID, offeringID });
-            Console.WriteLine(query);
             var res = await _bucket.QueryAsync<dynamic>(query);
-
-            Console.WriteLine($"res.Message = {res.Message}");
-            Console.WriteLine($"res.Count = {res.Rows.Count()}");
 
             if (!res.Success || res.Rows.Count() == 0)
                 return NotFound(res.Message);
-
-            Console.WriteLine("IM HERE");
 
             var info = res.Rows.ToList().First().Value;
             int index = info[0];
             OfferingsDisc offering = JsonConvert.DeserializeObject<OfferingsDisc>(info[3].ToString());
             decimal total_cost = Convert.ToDecimal(info[1]) - Convert.ToDecimal(offering.totalOfferingCost);
-
-            Console.WriteLine($"index = {index}");
-            Console.WriteLine($"total_cost = {total_cost}");
 
             if (qty == 0)
             {
