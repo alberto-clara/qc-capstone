@@ -97,16 +97,13 @@ export  const ProductOffer = (props) => {
     );
 
     const side_pic = (
-        
-        <div>
             <div className="justify-center flex px-5 lg:px-0">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                    <img src={pic1} alt="pic1"/>
+                    <img className="" src={pic1} alt="pic1"/>
                     <img src={pic2} alt="pic2"/>
                 </Carousel>
             </div>  
-         
-        </div>
+
         );
 
     const prodc_name = (   
@@ -167,35 +164,33 @@ export  const ProductOffer = (props) => {
         </div>
     );
 
-    const DisCountComponent = (<div className= "block">
-         <div className="flex justify-center text-gray-400 font-bold line-through items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>
-        <div className="flex pt-2 justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${discountPrice}</div>
-    
-        <div className="flex pt-2 justify-center items-center w-1/3 text-xl text-red-500 font-extrabold pr-16 sm:pr-24">{discountPercent}% OFF</div>
-</div>
+    const DisCountComponent = (
+        <div className= "block">
+            <div className="flex justify-center text-gray-400 font-bold line-through items-center w-full mt-8 md:mt-12 text-xl md:text-3xl font-extrabold text-right"> ${unitRetail}</div>
+            <div className="flex pt-2 justify-center items-center w-full text-xl ml-0 md:w-full md:text-3xl font-extrabold "> ${discountPrice}</div>
+            <div className="flex pt-2 justify-center items-center w-full text-xl ml-0 md:w-full md:text-3xl text-red-500 font-bold ">{discountPercent}% OFF</div>
+        </div>
     );
-    const NormalComponent = (<div className="flex justify-center items-center w-1/3 text-3xl font-extrabold pr-16 sm:pr-24"> ${unitRetail}</div>);
+    const NormalComponent = (<div className="flex justify-center items-center w-1/3 text-3xl font-extrabold mt-8 md:ml-12 md:mt-12"> ${unitRetail}</div>);
 
     const containAll = (<div>
         {searchbar}
         <div id="container" className="hidden "></div>
         {page_title}    
         <div className="w-full">
-            <div className=" lg:flex pt-10">
-                <div className="xl:w-1/2">
+            <div className=" lg:flex pt-10 ">
+                <div className=" w-full lg:w-1/2">
                     {side_pic}
                 </div>
-                <div className="lg:w-1/2">
+                <div className="">
                     <div className="flex">{prodc_name}</div>
                     <div className="flex">
                         <div className="w-2/3">
                             {rate_and_uom}
-                            {discountType ? discount_component : ''}
+                            <div>{discountType ? discount_component : ''}</div>
                             <div className="flex pt-2">{vendor_name} </div>
                         </div>
-                        { discountPrice ? DisCountComponent  : NormalComponent}
-                    
-
+                        <div className="w-1/2 ">{ discountPrice ? DisCountComponent  : NormalComponent}</div>
                     </div>
                     <div className="flex">
                         <div id="quantity" className="w-1/2 justify-center">

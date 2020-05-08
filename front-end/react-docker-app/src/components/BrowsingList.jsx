@@ -30,13 +30,10 @@ export const BrowsingList = (props) => {
        setLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [load]);
-        const refresh = () => { 
-           
+        const refresh = () => {
             if (fetchsort === '') {
-                fetching(pageNumber, pageLocation);
-              
-            }
-            else {
+                fetching(pageNumber, pageLocation);  
+            }             else {
                 sortFetching(pageNumber, pageLocation,fetchsort);
             }
     
@@ -45,15 +42,14 @@ export const BrowsingList = (props) => {
     const fetching = async (number, location) => {
         await axios.get(GetDiscBrowsingTotal).then((res) => {
             setTotalItem(res.data.count);
-       setCountPage(Math.round(res.data.count / pageNumber));
-      
+            setCountPage(Math.round(res.data.count / pageNumber));
         })
             await axios.get(GetDiscBrowsing1(number, location-1)).then((res) => {
          
             for (var i = 0; i < number; i++) {
                 initValue.push({ id: res.data.data[i].id, product_name: res.data.data[i].product_name, unit_retail: res.data.data[i].unit_retail, offerings: res.data.data[i].offering_key });
             }
-            setItems(initValue)
+            setItems(initValue);
         }
         ).catch(async function (e) {
            
@@ -64,12 +60,9 @@ export const BrowsingList = (props) => {
                 }
                 setRestItem(rest);
                 setTotalRest(totalItem - startingRest);
-
                 setRestLoad(true);
             });
-
-        }
-        )
+        })
     }
 
     const sortFetching = async (number, location, sortPrice) => {
@@ -92,11 +85,20 @@ export const BrowsingList = (props) => {
     }
     const options = [5, 10, 15, 20, 25];
 
+    function displayRandom () {
+        var rand = Math.floor(Math.random() * 100);
+        var imgStr = "https://generative-placeholders.glitch.me/image?width=500&height=500&img=".concat(rand);
+        return (<><img src={imgStr} width="150" height="112" alt="imgStr"/></>);
+    }
+
     const displayMap = ()=> {
         const box = items.map(info => (
             <div key={info}>
                 <div class="flex rounded-lg border /*bg-green-100*/ mb-2 lg:mb-6">
-                    <a target="_blank" href="!#"><img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/></a>
+                    <a target="_blank" href="!#">
+                        {displayRandom()}
+                        {/* <img src="https://images.homedepot-static.com/productImages/8a89c543-1c72-4e6e-972f-0e5babb15a10/svn/husky-claw-hammers-n-s20shd-hn-64_400_compressed.jpg" width="150" height="112" alt="Hammer"/> */}
+                    </a>
                     <div class="inline-block flex-1 px-4 py-1 lg:px-8 lg:py-1 ">
                         <Link to ={load === true ? loader : '/offering/'+info.offerings}>    
                             <a class="text-black text-sm lg:text-xl hover:bg-gray-200" href="!#">{info.product_name}</a>
@@ -108,7 +110,7 @@ export const BrowsingList = (props) => {
                         </div>
                     </div>
                     <div class="hidden lg:flex px-4 py-2 lg:px-8 lg:py-4">
-                        <div class="text-lg unit_retail">Cost: {info.unit_retail}</div>
+                        <div class="text-lg unit_retail">Cost: ${info.unit_retail}</div>
                     </div>
                 </div>
             </div>

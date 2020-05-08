@@ -323,6 +323,7 @@ namespace CatalogApi.Controllers
                             offerings[ii].MaxQty = discounts.tiers[index].MaxQty;
                             offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
                             offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[index].DiscountPercentage / 100)), 2).ToString();
+                            offerings[ii].MaxQty = discounts.tiers[index].MaxQty;
                             break;
                         }
                     }

@@ -87,7 +87,6 @@ export const CheckOut = () => {
             <Collapse isOpened={isOpenS}>
                 {load ? ListItem : loader}
                 <hr /><hr />
-               
             </Collapse>
             <div className="text-md md:text-xl font-extrabold text-center md:text-right py-4">Your Total Price: ${totalcost}</div>
             <div className="pb-4 m-2 md:m-0 md:float-right">

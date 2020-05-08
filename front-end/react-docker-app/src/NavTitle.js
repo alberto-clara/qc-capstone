@@ -5,7 +5,6 @@ import { Auth } from '../src/authContext';
 import FireBaseSetup from './FireBaseSetup';
 import axios from 'axios';
 import { GetCart, TokenHeader } from './ListOfLinks';
-import { ReactComponent as Icon} from './Pics/cart.svg';
 
 const NavTitle = (props)=> {
     const [stateNav, setStateNave] = useState(null);

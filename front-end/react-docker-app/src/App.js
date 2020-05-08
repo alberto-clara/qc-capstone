@@ -7,7 +7,7 @@ import { SignUpPage } from './components/SignUpPage';
 import { ForgotEmail } from './components/ForgotEmail';
 import { ForgotPassword } from './components/ForgotPassword';
 import { ProductOffer } from './components/ProductOffer';
-
+import { ConfirmationPage } from './components/ConfirmationPage';
 import { ManagePage } from './components/ManageUser'
 import { SignIn_SignUp } from './components/SignIn_SignUp';
 import { BrowsingList } from './components/BrowsingList';
@@ -15,7 +15,7 @@ import { Vendors } from './components/Vendors';
 import { Cart } from './components/Cart2';
 import { CheckOut } from './components/CheckOutPage';
 import { SupplierPage } from './components/SupplierPage';
-import { ConfirmationPage } from './components/ConfirmationPage';
+import { ContactUsPage } from './components/ContactUsPage';
 export default () => (
     <Layout>
         <Switch>
@@ -31,6 +31,7 @@ export default () => (
             <Route path='/confirmation' component={ConfirmationPage} />
             <Route path='/checkout' component={CheckOut} />
             <Route path='/cart' component={Cart} />
+            <Route path='/contactus' component={ContactUsPage} />
             <Route path='/signinpage' component={SignIn_SignUp} />
 
             <Route path="/offering/:offerid" component={ProductOffer} />
