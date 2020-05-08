@@ -308,6 +308,7 @@ namespace CatalogApi.Controllers
                         offerings[ii].Type = discounts.Type;
                         if (discounts.Type == "PRODUCT_DISCOUNT")
                         {
+                            offerings[ii].MaxQty = discounts.tiers[0].MaxQty;
                             offerings[ii].Discount_percentage = Math.Round((discounts.tiers[0].DiscountPercentage), 2).ToString();
                             offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
                             break;
@@ -316,11 +317,12 @@ namespace CatalogApi.Controllers
                         {
                             break;
                         }
-                        else if (discounts.Type == "SUPPLIER_DSICOUNT")
+                        else if (discounts.Type == "SUPPLIER_DISCOUNT")
                         {
                             int index = discounts.Offering_keys.IndexOf(offerings[ii].Offering_key, 0);
+                            offerings[ii].MaxQty = discounts.tiers[index].MaxQty;
                             offerings[ii].Discount_percentage = Math.Round((discounts.tiers[index].DiscountPercentage), 2).ToString();
-                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[0].DiscountPercentage / 100)), 2).ToString();
+                            offerings[ii].Discount_price = Math.Round(Convert.ToDecimal(offerings[ii].Unit_retail) * (1 - (discounts.tiers[index].DiscountPercentage / 100)), 2).ToString();
                             break;
                         }
                     }
