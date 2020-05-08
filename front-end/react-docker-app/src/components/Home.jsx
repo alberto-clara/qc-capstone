@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import SwipeableViews from 'react-swipeable-views';
 import { Carousel } from "react-responsive-carousel";
-import mountain from '../images/mountain-826114_1280.jpg';
-import sky from '../images/wallpapers-wide-1.jpg';
+import tool1 from '../Pics/tool1.jpg';
+import tool2 from '../Pics/tool2.jpg';
 import { GetHomeRandom, loader } from '../ListOfLinks';
 
 export const searchbar = (
@@ -39,8 +39,8 @@ export const Home = (props) => {
         <div className="flex justify-center w-full">
             <div className="justify-center flex">
                 <Carousel axis="horizontal" showThumbs={true} showArrows={true} >
-                    <img src={mountain} alt="mountain" />
-                    <img src={sky} alt="sky" />
+                    <img src={tool1} alt="tool1" />
+                    <img src={tool2} alt="tool2" />
                 </Carousel>
             </div>
         </div>
@@ -190,15 +190,15 @@ export const Home = (props) => {
             <div className="w-full">
 
                 <div className="font-extrabold text-xl">Trending Now</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300" />
+                <hr className="m-1 pt-1 px-4 bg-orange-400" />
                 {swiping}
 
                 <div className="font-extrabold text-xl md:pt-4">Deals</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300" />
+                <hr className="m-1 pt-1 px-4 bg-orange-400" />
                 <div>{swiping}</div>
 
                 <div className="font-extrabold text-xl md:pt-4">Popular</div>
-                <hr className="m-1 pt-1 px-4 bg-gray-300" />
+                <hr className="m-1 pt-1 px-4 bg-orange-400" />
                 {swiping}
 
                 <div className="md:py-4"></div>

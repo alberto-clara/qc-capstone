@@ -6,14 +6,14 @@ export default props => (
     <>
         <div className="bg-orange-500 max-w-full">
             <div className="flex justify-center">
-                <div className="flex-1 bg-green-500 max-w-6xl">
+                <div className="flex-1 max-w-6xl">
                     <NavTitle />
                 </div>
             </div>
         </div>
         <div className="bg-orange-600 max-w-full">
             <div className="flex justify-center">
-                <div className="flex-1 bg-purple-400 max-w-6xl">
+                <div className="flex-1 max-w-6xl">
                     <NavMenu />
                 </div>
             </div>

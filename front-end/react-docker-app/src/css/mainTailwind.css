@@ -12506,35 +12506,24 @@ video {
   bottom: 0;
 }
 
-.NavTitle_Background {
-  display: -webkit-box;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: #ed8936;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
+/* .NavTitle_Background {
+    @apply flex flex-wrap bg-orange-500 py-2 px-5;
+} */
 
 .NavTitle_Icons {
-  padding: 0.5rem;
+  padding-top: 0.5rem;
   border-width: 1px;
   border-radius: 0.25rem;
   border-color: #ed8936;
 }
 
-.NavTitle_Icons:hover {
-  color: #fff;
-  border-color: #fff;
+/*.NavTitle_Icons:hover {
+    @apply text-white border-white;
 }
 
 .NavTitle_Icons_Boxed {
-  padding: 0.5rem;
-  border-width: 1px;
-  border-color: #fff;
-  border-radius: 0.25rem;
-}
+    @apply p-2 border border-white rounded;
+} */
 
 .NavMenu_Container {
   display: -webkit-box;
