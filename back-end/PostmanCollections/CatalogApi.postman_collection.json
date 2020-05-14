@@ -1,0 +1,232 @@
+{
+	"info": {
+		"_postman_id": "1f265d45-7493-4599-add5-143d31876d1f",
+		"name": "CatalogApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CatalogApi - get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/page/?pageSize=10&pageIndex=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"page",
+						""
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "pageIndex",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi (CatalogDisc) - get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/disc/page/?pageSize=10&pageIndex=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"disc",
+						"page",
+						""
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "pageIndex",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi - get offerings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/offerings/1f53b7eecac941d2b71122e6f708dfe8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"offerings",
+						"1f53b7eecac941d2b71122e6f708dfe8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi (CatalogDisc) - get offerings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/disc/offerings/1f53b7eecac941d2b71122e6f708dfe8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"disc",
+						"offerings",
+						"1f53b7eecac941d2b71122e6f708dfe8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi - single offering",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/offerings/single/00108bd8f565423391cbc73a438fcf98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"offerings",
+						"single",
+						"00108bd8f565423391cbc73a438fcf98"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi (CatalogDisc) - single offering",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/disc/offerings/00108bd8f565423391cbc73a438fcf98",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"disc",
+						"offerings",
+						"00108bd8f565423391cbc73a438fcf98"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi (CatalogDisc) - single discount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/disc/getDiscount/022937749cb24c1484f78679cccc9871",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"disc",
+						"getDiscount",
+						"022937749cb24c1484f78679cccc9871"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi - home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/home",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CatalogApi (CatalogDisc) - home",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/catalog-api/products/disc/homeDisc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"catalog-api",
+						"products",
+						"disc",
+						"homeDisc"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

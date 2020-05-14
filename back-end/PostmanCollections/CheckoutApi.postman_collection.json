@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "7cf39f3c-1110-4f8d-b369-db048c246ff3",
+		"name": "CheckoutApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CheckoutApi - getOrderHistory",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/checkout-api/checkout/getOrderHistory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"checkout-api",
+						"checkout",
+						"getOrderHistory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckoutApi - addUserInfo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\nuid : null,\r\nemail :\t\"asdf\",\r\nfull_name {\r\nfirst_name :\t\"Alberto\",\r\nmiddle_name :\t\"\",\r\nlast_name : \"Clara\"\r\n},\r\nfirst_address {\r\nstreet :\t\"string\",\r\napt :\t\"string\",\r\ncity :\t\"string\",\r\nstate :\t\"string\",\r\nzip_code: 98632\r\n},\r\nsecond_address {\r\nstreet :\t\"string\",\r\napt :\t\"string\",\r\ncity :\t\"string\",\r\nstate :\t\"string\",\r\nzip_code: 98632\r\n},\r\nphone_number {\r\nprimary_phone {\r\nphone :\t\"string\",\r\next :\t\"string\"\r\n},\r\nsecondary_phone\t{\r\nphone :\t\"string\",\r\next :\t\"string\"\r\n}\r\n}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7000/checkout-api/checkout/addUserInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"checkout-api",
+						"checkout",
+						"addUserInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckoutApi - add",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/checkout-api/checkout/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"checkout-api",
+						"checkout",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CheckoutApi - getUserInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7000/checkout-api/checkout/getUserInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"checkout-api",
+						"checkout",
+						"getUserInfo"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaG9tZWRlcG90Y3M0MjAiLCJhdWQiOiJob21lZGVwb3RjczQyMCIsImF1dGhfdGltZSI6MTU4NzMzMDE1NCwidXNlcl9pZCI6Im9ZeDRaU1B3aEpUc3ZhZG5iWDk3RFFiU0pncDEiLCJzdWIiOiJvWXg0WlNQd2hKVHN2YWRuYlg5N0RRYlNKZ3AxIiwiaWF0IjoxNTg4NjI3MzIyLCJleHAiOjE1ODg2MzA5MjIsImVtYWlsIjoia3lsZXZvb3NAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImt5bGV2b29zQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j1RDCAP4K3az0JALXrQ56eI1eSNunygFrbwX-GN69BriLgQGkBoJ364AgDmrbGunaEja4C2OAC-lyF2UUGVHvnal181mKIKT4utCI1TACwSQUMbV8_1EI6aL3MedKzuuOPfNsuohHQSOBUsJ8rZpcIybsbPMbgRVwZekkPCKjZ8PShcTV5UrLyJNjxN1umaUbFGGIALsS_zwkd7JqzLfQtQkQUXNzAsW9YUNNEbmyHGjXwI2c18p_lEWo20eu4hN6Ttt2_XCSWwPFfwpeAul1cYLGXY1bpimjl2H-Iq6eeHimwed5Gjtbt71QVyu3cABuKAi5LP0NXt9YTnK3TSyNg",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a2ceb1e2-2e5a-496e-9f57-a654d26be7d1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c36565d8-03c2-4de4-8ef7-c9b5abb0f5ee",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
