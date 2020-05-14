@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"uid\": null,\n    \"date\": \"string\",\n    \"total_items\": 0,\n    \"offerings\": [\n        {\n            \"offering_key\": \"00108bd8f565423391cbc73a438fcf98\",\n            \"product_key\": \"1f53b7eecac941d2b71122e6f708dfe8\",\n            \"product_name\": \"Wooden Sint Fencing\",\n            \"supplier_key\": \"77dff980238c470dae9fac298b4a9bc8\",\n            \"supplier_name\": \"TotamNeque Inc.\",\n            \"unit_retail\": 228.3,\n            \"uom\": \"string\",\n            \"quantity\": 2\n        }\n    ]\n}",
+					"raw": "{\n    \"uid\": null,\n    \"total_items\": 0,\n    \"offerings\": [\n        {\n            \"offering_key\": \"711b9e9dac134427a0bcec28f1036720\",\n            \"product_key\": \"4873696561a947a3ae5d1afe6a3f8ea0\",\n            \"product_name\": \"Heavy Ducimus Bucket\",\n            \"supplier_key\": \"650f43e12d0a4271b904015724c7685a\",\n            \"supplier_name\": \"ErrorIpsa CO.\",\n            \"unit_retail\": \"50\",\n            \"uom\": \"EA.\",\n            \"quantity\": 5\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -27,14 +27,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:7003/api/basket/add",
+					"raw": "http://localhost:7000/basket-api/basket/add",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "7003",
+					"port": "7000",
 					"path": [
-						"api",
+						"basket-api",
 						"basket",
 						"add"
 					]
@@ -134,7 +134,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:7000/basket-api/basketDisc/update/bf636e5b21ca479f8461b078dd512950",
+					"raw": "http://localhost:7000/basket-api/basketDisc/add/bf636e5b21ca479f8461b078dd512950?qty=1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -143,8 +143,14 @@
 					"path": [
 						"basket-api",
 						"basketDisc",
-						"update",
+						"add",
 						"bf636e5b21ca479f8461b078dd512950"
+					],
+					"query": [
+						{
+							"key": "qty",
+							"value": "1"
+						}
 					]
 				}
 			},
@@ -200,10 +206,32 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ODQ4YjVhZmYyZDUyMDEzMzFhNTQ3ZDE5MDZlNWFhZGY2NTEzYzgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaG9tZWRlcG90Y3M0MjAiLCJhdWQiOiJob21lZGVwb3RjczQyMCIsImF1dGhfdGltZSI6MTU4NzMzMDE1NCwidXNlcl9pZCI6Im9ZeDRaU1B3aEpUc3ZhZG5iWDk3RFFiU0pncDEiLCJzdWIiOiJvWXg0WlNQd2hKVHN2YWRuYlg5N0RRYlNKZ3AxIiwiaWF0IjoxNTg4NjI3MzIyLCJleHAiOjE1ODg2MzA5MjIsImVtYWlsIjoia3lsZXZvb3NAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImt5bGV2b29zQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.j1RDCAP4K3az0JALXrQ56eI1eSNunygFrbwX-GN69BriLgQGkBoJ364AgDmrbGunaEja4C2OAC-lyF2UUGVHvnal181mKIKT4utCI1TACwSQUMbV8_1EI6aL3MedKzuuOPfNsuohHQSOBUsJ8rZpcIybsbPMbgRVwZekkPCKjZ8PShcTV5UrLyJNjxN1umaUbFGGIALsS_zwkd7JqzLfQtQkQUXNzAsW9YUNNEbmyHGjXwI2c18p_lEWo20eu4hN6Ttt2_XCSWwPFfwpeAul1cYLGXY1bpimjl2H-Iq6eeHimwed5Gjtbt71QVyu3cABuKAi5LP0NXt9YTnK3TSyNg",
+				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImZjMmM4YmIyNmE3OGM0M2JkODYzNzA1YjNkNzkyMWI0ZTY0MjVkNTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vaG9tZWRlcG90Y3M0MjAiLCJhdWQiOiJob21lZGVwb3RjczQyMCIsImF1dGhfdGltZSI6MTU4NzMzMDE1NCwidXNlcl9pZCI6Im9ZeDRaU1B3aEpUc3ZhZG5iWDk3RFFiU0pncDEiLCJzdWIiOiJvWXg0WlNQd2hKVHN2YWRuYlg5N0RRYlNKZ3AxIiwiaWF0IjoxNTg4OTYwMzkyLCJleHAiOjE1ODg5NjM5OTIsImVtYWlsIjoia3lsZXZvb3NAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7ImVtYWlsIjpbImt5bGV2b29zQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.PN7ee4lGrSCccPTSzS1F9U_TRW7ULeLIp-iLQ4IKSjeRytw43FEM79aIoWTs_HopD0MZ2-mSutRq1pcsvWzR4OAnOBsg0U0EC7bwgG6G7CZRb9mQObhyuGHB3fhCjhSaSpCvDfmWN7y647bz1uKge-hQr94Jz7h-Vt8JajGQcOpwj1or6UxfJhQ3wnKyl5D7K6lPxB2i44PkcQiK1Km7QjyJKsAhPSIrNxKh0RETulq0El0H0cQCsjVB3JoedWBZSdqEQTijvckbBl_dU2rRd8FqppUt_h-1fOWAYGAzMg1xWgw5plOOLiZLQGAGGvRS_EMhvIopc9ogKu57gKMmBQ",
 				"type": "string"
 			}
 		]
 	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "5d0861e4-270a-4bf2-ac00-209dcacdb300",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b0dcc566-bff6-462f-912c-5462ca5ddcf9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"protocolProfileBehavior": {}
 }
