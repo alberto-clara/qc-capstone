@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+/*
+ * Basket document schema for the original BasketController where
+ * discounts are not included. The project was setup with two 
+ * different schemas to keep the original project and then the
+ * project with discounts as independant as possible.
+ */
 namespace BasketApi.Model
 {
     public class Basket

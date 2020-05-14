@@ -196,12 +196,15 @@ namespace BasketApi.Controllers
             if (qty < 0)
                 return BadRequest(new BadRequestError("Invalid quantity."));
 
+            // using a view to only get the information from the Basket document that we need
             var query = new ViewQuery().From("dev_BasketDisc", "by_id").Key(new List<string> { ID, offeringID });
             var res = await _bucket.QueryAsync<dynamic>(query);
 
+            // check to make sure the ViewQuery was successful and returned information
             if (!res.Success || res.Rows.Count() == 0)
                 return NotFound(res.Message);
 
+            // set the variables that will be needed from the info retrieved from the query
             var info = res.Rows.ToList().First().Value;
             int index = info[0];
             OfferingsDisc offering = JsonConvert.DeserializeObject<OfferingsDisc>(info[3].ToString());
@@ -209,6 +212,10 @@ namespace BasketApi.Controllers
 
             if (qty == 0)
             {
+                /*
+                 * If the qty is 0 we need to remove that item from the users Basket document
+                 * we also need to update the total_cost and the total_items
+                 */
                 var response = await _bucket.MutateIn<BasketDisc>(ID)
                     .Upsert("total_cost", total_cost.ToString())
                     .Upsert("total_items", info[2] - 1)
@@ -221,6 +228,7 @@ namespace BasketApi.Controllers
                 return Ok(response);
             }
 
+            // if qty > 0 update the users document
             offering.Quantity = qty;
             offering = CalcOfferingCost(offering);
             total_cost += Convert.ToDecimal(offering.totalOfferingCost);
@@ -268,6 +276,7 @@ namespace BasketApi.Controllers
             return Ok(doc.Value);
         }
 
+        // function to send the HTTP requests used for interprocess communication
         private async Task<HttpResponseMessage> GetOffering(string auth, string path)
         {
             HttpClient client = new HttpClient();
@@ -282,12 +291,19 @@ namespace BasketApi.Controllers
             return httpResponse;
         }
 
+        /*
+         * For calculating the offering cost when there could also be discount info involved.
+         * Where it gets more complicated is when there are BULK_DISCOUNTs because each of the
+         * tiers has both a maximum and minimum quantity that needs to be checked.
+         */
         private OfferingsDisc CalcOfferingCost(OfferingsDisc offer)
         {
+            // if the discount type is NULL the totalOfferingCost is just unit_retail * qty
             if (offer.Type == null)
                 offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.unit_retail) * offer.Quantity, 2)).ToString();
-            else if (offer.Type != "BULK_DISCOUNT")
+            else if (offer.Type != "BULK_DISCOUNT") // if the discount isn't NULL and isn't a BULK_DSICOUNT
             {
+                // check to max use the Quantity isn't > MaxQty otherwise the discount doesn't apply anymore
                 if (offer.Quantity < offer.MaxQty)
                     offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.discount_price) * offer.Quantity, 2)).ToString();
                 else
@@ -295,24 +311,23 @@ namespace BasketApi.Controllers
             }
             else if (offer.Type == "BULK_DISCOUNT")
             {
-                Console.WriteLine("offer.type = BULK_DSCOUNT");
+                // iterate through all of the Tiers in the BULK_DISCOUNT starting from the last one to ensure we're applying the largest discount possible
                 for (int ii = offer.Tiers.Count() - 1; ii >= 0; ii--)
                 {
-                    Console.WriteLine($"offer.tiers.Count() - 1 = {offer.Tiers.Count() - 1}");
+                    // check if Quantity falls within MinQty and MaxQty of the current Tier
                     if (offer.Quantity <= offer.Tiers[ii].MaxQty && offer.Quantity >= offer.Tiers[ii].MinQty)
                     {
-                        Console.WriteLine("offer.Quantity <= offer.Tiers[ii].MaxQty && offer.Quantity >= offer.Tiers[ii].MinQty");
                         offer.discount_price = (Math.Round(Convert.ToDecimal(offer.unit_retail) * (1 - (offer.Tiers[ii].DiscountPercentage / 100)), 2)).ToString();
                         offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.discount_price) * offer.Quantity, 2)).ToString();
                         break;
                     }
-                    else if (offer.Quantity >= offer.Tiers[ii].MaxQty && ii == 0)
+                    else if (offer.Quantity >= offer.Tiers[ii].MaxQty && ii == 0) // set discount_price to null is no discounts apply
                     {
                         offer.discount_price = null;
                         offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.unit_retail) * offer.Quantity, 2)).ToString();
                     }
                 }
-                if (offer.discount_price == null)
+                if (offer.discount_price == null) // update total offering cost when no BULK_DISCOUNTS apply
                 {
                     offer.totalOfferingCost = (Math.Round(Convert.ToDecimal(offer.unit_retail) * offer.Quantity, 2)).ToString();
                 }
@@ -321,6 +336,7 @@ namespace BasketApi.Controllers
             return offer;
         }
 
+        // function to get the user_id from the decrypted JWT token
         private string GetID()
         {
             var currentUser = HttpContext.User;

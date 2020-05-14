@@ -45,28 +45,35 @@ namespace CatalogApi.Controllers
         public async Task<IActionResult> ProductsWDisc(string sort, [FromQuery]int pageSize = 10,
                                                [FromQuery]int pageIndex = 0)
         {
+            // use the GetProducts function in the CatalogQueries interface to get the paginated products
             var pageView = await _catalogQueries.GetProducts(sort, pageSize, pageIndex);
             
+            // iterate through each of the PageView objects
             foreach (PageView page in pageView.Data)
             {
+                // build a new Couchbase query where we are looking for Discounts based on the product_key
                 var queryRequest = new QueryRequest()
                     .Statement("select * from Discounts where product_key = $id")
                     .AddNamedParameter("$id", page.Id);
                 var result = await _discounts.QueryAsync<Discounts>(queryRequest);
 
+                // make sure the query was successful
                 if (result.Success)
                 {
                     page.NumProductDiscounts = result.ToList().Count();
                 }
 
+                // build another Couchbase query where we lookup information based on the offering_key
                 var queryRequest2 = new QueryRequest()
                     .Statement("select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies k = $id end")
                     .AddNamedParameter("$id", page.Offering_key);
                 var result2 = await _discounts.QueryAsync<Discounts>(queryRequest2);
+
                 if (result2.Success)
                 {
-                    foreach (Discounts discounts in result2)
+                    foreach (Discounts discounts in result2) // iterate through each of the Discounts from the returned query
                     {
+                        // check to see if the result returned from the second Couchbase query containts the offering_key
                         if (discounts.Offering_keys.Contains(page.Offering_key))
                         {
                             if (discounts.Type == "PRODUCT_DISCOUNT")
@@ -75,6 +82,7 @@ namespace CatalogApi.Controllers
                             }
                             else if (discounts.Type == "SUPPLIER_DISCOUNT")
                             {
+                                // get the index of the offering_key, needed for the correct Tier
                                 int index = discounts.Offering_keys.IndexOf(page.Offering_key, 0);
                                 page.Discount_price = Math.Round((page.Unit_retail * (1 - (discounts.tiers[0].DiscountPercentage / 100))), 2).ToString();
                             }
@@ -87,6 +95,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
+         * This works the same as the route in CatalogController that gets all of the offerings for a single product
          * GET (CatalogApi) http://localhost:7001/api/products/disc/offerings/{productId}
          * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/offerings/{productId}
          */
@@ -98,8 +107,10 @@ namespace CatalogApi.Controllers
 
             var offerings = await _catalogQueries.GetOfferings(productID);
 
+            // build the Couchbase query string to get the discounts for each offering_key
             string statement = "select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies";
 
+            // we want to add all of the offering_keys to the query so we only need to do one instead of n individual queries
             for (int ii = 0; ii < offerings.Count(); ii++)
             {
                 if (ii == 0)
@@ -109,11 +120,14 @@ namespace CatalogApi.Controllers
             }
             statement += " end";
 
+            // add the query string as the QueryRequest statement
             var queryRequest = new QueryRequest()
                 .Statement(statement);
 
+            // send the query to the Couchbase Discounts bucket
             var result = _discounts.Query<Discounts>(queryRequest);
 
+            // iterate all of the different offerings returned by the SQL query to add the discount info if it exists
             for (int ii = 0; ii < offerings.Count(); ii++)
             {
                 foreach (Discounts discounts in result)
@@ -151,6 +165,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
+         * Get information about a single offering
          * GET (CatalogApi) http://localhost:7001/api/products/disc/singleOffering/{offeringId}
          * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/singleOfferings/{offeringId}
          */
@@ -165,6 +180,7 @@ namespace CatalogApi.Controllers
             if (offering.Count() == 0)
                 return NotFound();
 
+            // build our query string where we add in the offering_key as a parameter
             var queryRequest = new QueryRequest()
                     .Statement("select id, offering_keys, tiers, product_key, supplier_key, type from Discounts where any k in offering_keys satisfies k = $id end")
                     .AddNamedParameter("$id", offering[0].Offering_key);
@@ -172,6 +188,7 @@ namespace CatalogApi.Controllers
 
             if (result.Success)
             {
+                // foreach but only iterates once because there is only a single Discount returned
                 foreach (Discounts discounts in result)
                 {
                     if (discounts.Offering_keys.Contains(offering[0].Offering_key))
@@ -203,6 +220,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
+         * Don't believe we ended up using this but it enables retreiving Tiers info for multiple BULK_DISCOUNTs at once
          * GET (CatalogApi) http://localhost:7001/api/products/disc/getDiscounts
          * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/getDiscounts
          */
@@ -241,6 +259,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
+         * Used to get the discount info about a single BULK_DISCOUNT
          * GET (CatalogApi) http://localhost:7001/api/products/disc/getDiscount/{discountId}
          * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/getDiscount/{discountId}
          */
@@ -248,10 +267,10 @@ namespace CatalogApi.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetDiscount(string discountID)
         {
-            Console.WriteLine($"discountID = {discountID}");
             if (discountID == null)
                 return BadRequest();
 
+            // build the Couchbase query string
             string statement = $"SELECT tiers FROM Discounts where id = '{discountID}'";
 
             var query = new QueryRequest()
@@ -259,8 +278,10 @@ namespace CatalogApi.Controllers
 
             var request = await _discounts.QueryAsync<dynamic>(query);
 
+            // initialize a new list of Tiers
             List<Model.Tiers> tiers = new List<Model.Tiers>();
 
+            // iterate through all the results and deserialize the JSON object to the Tiers model
             foreach (var t in request)
             {
                 tiers = JsonConvert.DeserializeObject<List<Model.Tiers>>(t.tiers.ToString());
@@ -270,6 +291,7 @@ namespace CatalogApi.Controllers
         }
 
         /*
+         * Used by the HomePage to get random offerings but with discounts applied to the price if they exist
          * GET (CatalogApi) http://localhost:7001/api/products/disc/homeDisc
          * GET (APIGateway) http://localhost:7000/catalog-api/products/disc/homeDisc
          */

@@ -286,13 +286,17 @@ namespace CatalogApi.Controllers
                 Ok(model);
         }
 
+        /*
+         * This was a test when the discount information normalized and put into an SQL
+         * table. Just leaving it here as an example of another way the discount information
+         * could be handled if using a different NoSQL database for it is not wanted.
+         */
         [HttpGet, Route("discounts/{offeringId}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<IActionResult> offeringsWithDiscounts(string offeringId)
         {
             if (offeringId == null)
                 return NotFound();
-
 
             var results = await (from d in _catalogContext.disc
                            where d.Product_key == offeringId

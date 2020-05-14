@@ -42,22 +42,7 @@ namespace ApiGateway
                             .AllowAnyMethod();
                 });
             });
-            /*
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.Authority = "https://securetoken.google.com/homedepotcs420";
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidIssuer = "https://securetoken.google.com/homedepotcs420",
-                        ValidateAudience = true,
-                        ValidAudience = "homedepotcs420",
-                        ValidateLifetime = true
-                    };
-                }
-                );
-                */
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddOcelot(Configuration);
         }
