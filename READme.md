@@ -6,6 +6,7 @@
 * [Front End](#front-end)
 * [Back End](#back-end)
 * [Database](#database)
+* [Deploying](#deploying)
 
 ## General Info
 
@@ -388,7 +389,7 @@ This container serves as an https redirection from the front end to the ApiGatew
 https://medium.com/@samkreter/adding-ssl-tls-to-azure-container-instances-1e608a8f321c
 As shown in the guide, place the final values in the secret section of deploy-micro1.yaml.
 
-### Deploying
+## Deploying
 
 Before we can create the azure container instance, we need to use the container registry login credentials. Navigate to your qcshop container registry resource in Azure. Under Settings -> Access Keys, make sure the Admin User is enabled.
 Modify line 58 of “back-end/Api/ deploy-micro1.yaml” to use the password of your container registry which is found in the Access Keys section in Azure.
@@ -444,6 +445,6 @@ Revert the change made to the Dockerfile.
 Modify line 37 of ```back-end/Api/ deploy-database.yaml``` to use the password of your container registry which is found in the Access Keys section in Azure.
 The scriptfile “back-end/API/buildDB” can be run after both images have been successfully pushed to the registry.
 
-## Front End Deploy
+### Front End Deploy
 
 The front end uses a “.env” file, found in the “front-end/react-docker-app/”. This contains one variable which can be changed by commenting out the undesired setting. You can ignore this for now. We will return to this after configuring the back end. A Dockerfile in the same directory is responsible for building an image to be used with Azure app services.
