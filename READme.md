@@ -226,7 +226,7 @@ The UserInfo document contains all the information that the user can enter and i
 
 There is the main UserInfo JSON object that contains two strings Uid which is the user_id and their email. Name is another JSON object that contains first, middle and last name. There are two Address objects for a primary and secondary shipping address. Finally, there are two Phone_num objects for a primary and secondary phone number.
 
-## Database Quick Start
+## Database
 
 ### MySQL
 
