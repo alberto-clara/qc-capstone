@@ -16,11 +16,13 @@
   * NodeJS
   * NPM Modules
 
-
-
 ## Front End
 
 ### Quick Start
+Clone Repo from [https://github.com/alberto-clara/qc-capstone](https://github.com/alberto-clara/qc-capstone)
+
+![image1](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image001.png?raw=true)
+
 You will need to install the following:
 * NodeJS - Install through terminal or [https://nodejs.org/en/](https://nodejs.org/en/).
 * NPM - Install through terminal or [https://www.npmjs.com/get-npm](https://www.npmjs.com/get-npm)
@@ -64,6 +66,8 @@ If you want to modify any tailwind configuration, go to ```front-end/react-docke
 ### Firebase Auth
 Firebase manages the authentication in our front-end and back-end. It provides a temporary unique token that is used when calling some routes. The tokens are unique and change every hour or less.
 
+![image2](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image002.png?raw=true)
+
 #### Information:
 * Firebase Official Documentation: [https://firebase.google.com/docs](https://firebase.google.com/docs)
 * Link: [https://console.firebase.google.com](https://console.firebase.google.com)
@@ -94,6 +98,7 @@ There is no specific order that the microservices of the backend need to be star
 
 * Step 1: ```dotnet build```
 * Step 2: ```dotnet run```
+![image3](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image003.png?raw=true)
 
 ### Tools
 
@@ -120,7 +125,9 @@ This is an NuGet package that simplifies connecting to the Couchbase buckets. Th
 
 Ocelot is an API Gateway middleware that only works with ASP.NET Core applications and is designed to be used with microservices. Ocelot allowed us to have an API gateway ready to go with very little configuration and few lines of code instead of having to write our own custom API gateway from scratch. In our project it essentially acts as a middleman or router. The API Gateway will receive the HTTP request from the frontend and forwards them to the correct microservice based on the destination address in the request and routes from a JSON file. The JSON file with the routes can be found at /qc-capstone/back-end/Api/ApiGateway/Ocelot.json
 
-The way it works is when it receives an HTTP request from the frontend it will decide which microservice to forward the request based on the UpStreamPathTemplate to the correct DownStreamPathTemplate.  
+The way it works is when it receives an HTTP request from the frontend it will decide which microservice to forward the request based on the UpStreamPathTemplate to the correct DownStreamPathTemplate.
+
+![image4](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image004.png?raw=true)
 
 #### MailKit v2.6.0
 [http://www.mimekit.net/docs/html/Introduction.htm#!](http://www.mimekit.net/docs/html/Introduction.htm#!)
@@ -142,8 +149,11 @@ There are two different ways that all of the routes on the different microservic
 
 1. Log into the website
 2. Open the developer tools (CTRL + Shift + i in Chrome) and select the user icon from the far right of the nav bar 
+![image5](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image005.png?raw=true)
 3. From the Network tab in developer tools select the request named “find”
+![image6](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image006.png?raw=true)
 4. Now select the Authorization field in the Headers tab of this request and highlight everything except “Bearer “.
+![image7](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image007.png?raw=true)
 5. Copy the token and it can be pasted into Swagger or Postman to use for testing the BasketApi or CheckoutApi.
 * Note: The token for a user is not permanent. It will expire after a period of time that seems to be around two hours.
 
@@ -157,9 +167,15 @@ Swagger can be accessed directly through the browser. The URL for each of the mi
 
 From here you can select any of the routes you wish to test.
 
+![image8](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image008.png?raw=true)
+
 Click “Try It Out” and you can now enter in the required information. This works for both information that is needed in the request URL or information that will be included in the request body.
 
-Once the information you want to include is added select “Execute” and you will see the response code and content. 
+![image9](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image009.png?raw=true)
+
+Once the information you want to include is added select “Execute” and you will see the response code and content.
+
+![image10](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image010.png?raw=true)
 
 ### Postman
 Link: https://www.postman.com/ 
@@ -169,11 +185,11 @@ Postman is what I recommend using to test and document the various routes in the
 * Step 2: Add the token to the collection 
 * Step 3: Right click on the collection and select “edit” 
 
-[image1]
+![image11](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image011.png?raw=true)
 
 Now select the Authorization tab and paste the new token into the token field.
 
-[image2]
+![image12](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image012.png?raw=true)
 
 ### Database Information
 
@@ -190,7 +206,7 @@ Password: password
 
 ### Schema
 
-[image3]
+![image13](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image013.png?raw=true)
 
 ### Couchbase
 
@@ -210,19 +226,19 @@ Password: password
 
 The schema for the Basket JSON documents was designed so that each used would only have a single document. This greatly simplified the processes of searching for the correct document. This is done by the document consisting of an array of objects where each object is an offering that the user has added to their basket. The datatypes shown below are from the C# model.
 
-[image4]
+![image14](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image014.png?raw=true)
 
 ### Checkout
 
 The Checkout documents are designed in a similar way to the Basket documents except instead of there being an array of objects for the offerings there is an array of objects where each one is a completed order. Then within the orders object there is basic information about the order such as the data, total cost, etc. and another array of objects that holds each of the offerings that the user purchased in that order. The shipping information is also stored in this document. The reasoning behind this is that for an order you would want to save the shipping information the user provided for that order and include it with each one incase the information changed in the future although there is probably a much more efficient way to accomplish this.
 
-[image5]
+![image15](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image015.png?raw=true)
 
 ### UserInfo
 
 The UserInfo document contains all the information that the user can enter and is used for their shipping information when purchasing their order. The schema of the document was modeled off of the information that the frontend was collecting from the user.
 
-[image6]
+![image16](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image016.png?raw=true)
 
 There is the main UserInfo JSON object that contains two strings Uid which is the user_id and their email. Name is another JSON object that contains first, middle and last name. There are two Address objects for a primary and secondary shipping address. Finally, there are two Phone_num objects for a primary and secondary phone number.
 
@@ -240,29 +256,29 @@ The easiest and fastest way to run and use the Couchbase databases is through th
 Step 1: Build the Docker container.
 From the CB-Frontend directory enter the follow command: ```docker build –t cb .```
 
-[image7]
+![image17](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image017.png?raw=true)
 
 Step 2: Run the Couchbase Docker container.
 ```docker run -d --name cb-server -p 8091-8094:8091-8094 -p 11210:11210 cb```
 
-[image8]
+![image18](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image018.png?raw=true)
 
 Step 3: Verify everything worked correctly.
 To access the logs when the container was run use the following command: docker logs -f cb-server
 What we are trying to verify with the logs is that everything in the configure.sh script which is run when the container starts up completed correctly.
 
-[image9]
+![image19](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image019.png?raw=true)
 
-[image10]
+![image20](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image020.png?raw=true)
 
 If everything in the script completed correctly when going to the URL for the Couchbase databases the different views should look like this however the Basket, Checkout and UserInfo buckets will be empty.
 If everything worked correctly there will be four buckets and the Discounts bucket should have 163 documents.
 
-[image11]
+![image21](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image021.png?raw=true)
 
 There will also be seven indexes.
 
-[image12]
+![image22](https://github.com/alberto-clara/qc-capstone/blob/master/Documents/images/image022.png?raw=true)
 
 ### Configure.sh
 
