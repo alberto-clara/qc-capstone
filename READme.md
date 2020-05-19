@@ -26,7 +26,7 @@ You will need to install the following:
 * NPM - Install through terminal or [https://www.npmjs.com/get-npm](https://www.npmjs.com/get-npm)
   * Note: NodeJS usually includes NPM
 * ReactJS - [Documentation](https://reactjs.org/docs/getting-started.html). 
-  * Step-by-Step on how to create a ReactJS project from scratch: [create-react-app](https://www.taniarascia.com/getting-started-with-react/)
+  
 * NPM Modules - Run on terminal: ```npm i```
 
 Once everything is installed, you may go ahead and run the project locally in your computer.
@@ -34,9 +34,132 @@ Once everything is installed, you may go ahead and run the project locally in yo
 There are many ways to run the project:
 
 Go inside the following folder ```front-end/react-docker-app```
+* Option 1: ```npm start``` will run the react-app
+* Option 2: ```npm run reset``` will "compile" custom tailwindcsss changes and then run the react-app
+
+### Learning about React
+* Step-by-Step on how to create a ReactJS project from scratch: [create-react-app](https://www.taniarascia.com/getting-started-with-react/)
+
+### Learning about Tailwind CSS
+Tailwind CSS is a CSS utility. It is similar Bootstrap, Semantic UI, etc. but gives more flexibility. It gives the freedom to create your own CSS commands and variables.
+
+You can create inline tailwind csss as normal css.
+
+Ex: ```className="px-0"```
+
+You can create your own custom Tailwind CSS, this will require to run ```npm run reset``` everytime you add anything to the file ```front-end/react-docker/app/src/csss/MainStyle.css```.
+
+Ex:
+```
+{ 
+  Height: 20px; // CSS code 
+  @apply px-2 bg-orage-400 //Tailwind code 
+} 
+```
+
+The command ```npm run reset``` will compile anything inside MainStyle.css, the script of this command is found under ```front-end/react-docker/src/scriptnode```
+
+If you want to modify any tailwind configuration, go to ```front-end/react-docker/tailwind.config.js```
+
+### Firebase Auth
+Firebase manages the authentication in our front-end and back-end. It provides a temporary unique token that is used when calling some routes. The tokens are unique and change every hour or less.
+
+#### Information:
+* Firebase Official Documentation: [https://firebase.google.com/docs](https://firebase.google.com/docs)
+* Link: [https://console.firebase.google.com](https://console.firebase.google.com)
+* Username: ```test420.firebase@gmail.com
+* Password: Firebase420!
+
+#### Important Firebase Files in Front End:
+FireBaseSetup.js 
+* To change any configuration for firebase on the front-end, you can modify “/front-end/react-dock-app/src/FireBaseSetup.js” 
+
+AuthContext.js  
+* This work as Redux Reducer to keep the contain of auth information used in all the pages that require authentication.
+
+#### Firebase Console
+
+Open Project: HomeDepotCS420
+
+### Front End Quirks
+
+Location: “front-end/react-docker-app/src/ListOfLinks.js” 
+API Routes used in across the front-end. (Feel free to rename them)
 
 
-### Running the
+## Back End
+
+### Quick Start
+There is no specific order that the microservices of the backend need to be started in. To start each of them from a terminal such as PowerShell or bash simply go to the directory of that service and do the following: 
+
+* Step 1: ```dotnet build```
+* Step 2: ```dotnet run```
+
+### Tools
+
+#### ASP.NET CORE v2.2.109
+The framework that was used for the backend development was ASP.NET CORE version 2.2.109. This was selected because it was the more current version of the framework that was compatible with the version of Visual Studio that those of us on the original backend development team had access to.
+
+It can be downloaded from: [https://dotnet.microsoft.com/download/dotnet-core/2.2](https://dotnet.microsoft.com/download/dotnet-core/2.2)
+
+* Note: The SDK is what is required the runtime download is not needed. 
+
+#### CouchBase (Catalog API Tool)
+This is an NuGet package that simplifies connecting to the Couchbase buckets. This package is used in the CatalogAPI, BasketAPI and CheckoutAPI. The package allows for the use of dependency injection which is not available in the standard Couchbase packages.
+
+[https://blog.couchbase.com/dependency-injection-aspnet-couchbase/](https://blog.couchbase.com/dependency-injection-aspnet-couchbase/)
+
+[https://github.com/couchbaselabs/Couchbase.Extensions/blob/master/docs/dependency-injection.md](https://github.com/couchbaselabs/Couchbase.Extensions/blob/master/docs/dependency-injection.md)
+
+#### Ocelot v15.0.6 (API Gateway Tool)
+[https://github.com/ThreeMammals/Ocelot](https://github.com/ThreeMammals/Ocelot)
+
+[https://ocelot.readthedocs.io/en/latest/introduction/gettingstarted.html](https://ocelot.readthedocs.io/en/latest/introduction/gettingstarted.html)
+
+[https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/implement-api-gateways-with-ocelot](https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/implement-api-gateways-with-ocelot)
+
+Ocelot is an API Gateway middleware that only works with ASP.NET Core applications and is designed to be used with microservices. Ocelot allowed us to have an API gateway ready to go with very little configuration and few lines of code instead of having to write our own custom API gateway from scratch. In our project it essentially acts as a middleman or router. The API Gateway will receive the HTTP request from the frontend and forwards them to the correct microservice based on the destination address in the request and routes from a JSON file. The JSON file with the routes can be found at /qc-capstone/back-end/Api/ApiGateway/Ocelot.json
+
+The way it works is when it receives an HTTP request from the frontend it will decide which microservice to forward the request based on the UpStreamPathTemplate to the correct DownStreamPathTemplate.  
+
+#### MailKit v2.6.0
+[http://www.mimekit.net/docs/html/Introduction.htm#!](http://www.mimekit.net/docs/html/Introduction.htm#!)
+
+MailKit is used to send an email to a customer when they have completed their purchase. It allows for a simple way to build and send email and text messages from .NET Core applications. 
+
+### Quirks
+Because discount information was added later entirely new controllers were created that worked with the discount information. This was done to keep the application working because the frontend still relied upon the original controllers.  
+
+There is a new controller for the BasketApi that works with discount information but the frontend didn’t have time to incorporate it into the project. Beyond just working with discount information the BasketDiscController also addressed a poor data validation vulnerability. 
+
+The BasketApi and CheckoutApi were designed before it was realized Firebase could not store user information in the way we had originally planned for so the basket and checkout documents are looked up by the user_id from the decrypted Firebase token instead having their own unique primary keys which is a much better way of doing things. 
+
+There was not enough time to restructure the project to use a message broker such as RabbitMQ or Kafka so instead plain HTTP requests were used for interprocess communication when needed.
+
+
+### Back End Testing
+There are two different ways that all of the routes on the different microservices can be tested. The first is with Swagger which is a middleware that is added during startup for all the microservices except theApi Gateway. The second is Postman which is a free application that can be downloaded. There are collections for each of the microservices that contain the routes. Since both the BasketApi and CheckoutApi require authorization which is done through Firebase JWT tokens when testing these services a token will need to be retrieved from the frontend. The easiest way to accomplish this is as follows:
+
+1. Log into the website
+2. Open the developer tools (CTRL + Shift + i in Chrome) and select the user icon from the far right of the nav bar 
+3. From the Network tab in developer tools select the request named “find”
+4. Now select the Authorization field in the Headers tab of this request and highlight everything except “Bearer “.
+5. Copy the token and it can be pasted into Swagger or Postman to use for testing the BasketApi or CheckoutApi.
+* Note: The token for a user is not permanent. It will expire after a period of time that seems to be around two hours.
+
+
+#### Swagger
+API Documentation about Routes
+Swagger can be accessed directly through the browser. The URL for each of the microservices is as follows: 
+* CatalogApi: http://localhost:7001/swagger/ 
+* BasketApi: http://localhost:7003/swagger/ 
+* CheckoutApi: http://localhost:7004/swagger 
+
+From here you can select any of the routes you wish to test.
+
+Click “Try It Out” and you can now enter in the required information. This works for both information that is needed in the request URL or information that will be included in the request body.
+
+Once the information you want to include is added select “Execute” and you will see the response code and content. 
 
 ### Postman
 Link: https://www.postman.com/ 
